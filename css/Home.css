@@ -1,0 +1,92 @@
+.Corpo
+{
+    background-image: url("../Imagens/Medica.png");
+    background-repeat: no-repeat;
+    height: 900px;
+
+}
+.Cabecalho
+{
+    background-color: #eef4f6;
+
+}
+.row
+{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+}
+.Menu
+{
+    border-top: 5px solid #134467; 
+    display: flex;
+    justify-content: center;
+}
+.Botao-Menu
+{
+    margin: 5px 2px;
+    padding: 8px 25px;
+    font-size: 18px;
+    text-align: center;
+    color: #134467;
+    background-color: #5b96bf; 
+    border: #134467;
+    border-radius: 5px;
+}
+.Botao-Menu:hover
+{
+    background-color: #134467;
+    color: white; 
+}
+.Forms
+{
+    padding: 12px 20px;
+    margin: 5px 5px 5px 10px;
+}
+input[type=date], select 
+{
+    width: 30%;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=text], select 
+{
+    width: 30%;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 5px 5px 5px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover 
+{
+    background-color: #45a049;
+}
+
+.Paciente{}
+.Medico{}
+.Atendente{}
+.VisualizarConsulta{}
+.AgendarConsultaPaciente{}
+.CadastrarPaciente{}
+.CadastrarMedico{}
+.AgendarConsulta{}
+.Consultas{}
+.Agendamentos{}

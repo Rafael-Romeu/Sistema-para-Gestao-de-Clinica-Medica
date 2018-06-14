@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="css/Home.css">
+<title> Home </title> <!-- Titulo da pagina --> 
+<meta charset = "UTF-8">
+
+<head>
+
+<div class="row">
+    <!-- Header --> 
+    <div class = "Cabecalho"> 
+        <img src="Imagens/Capa.png" style="width:100%"> 
+    </div>
+</div>
+    
+</head>
+
+
+<body>
+    
+    <!-- Corpo do site --> 
+    <div class = "Corpo">
+    
+    <!-- Menu de navegação --> 
+    <div >
+        <nav class = "Menu">
+            <div class = "Paciente">
+                <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
+                <button id = "AgendarConsultaPaciente" class="Botao-Menu"> Agendar Consulta </button>
+            </div>
+            <div class = "Atendente">
+                <button id = "CadastrarPaciente" class="Botao-Menu"> Cadastrar Paciente </button>
+                <button id = "CadastrarMedico"   class="Botao-Menu"> Cadastrar Medico </button>
+                <button id = "AgendarConsulta"   class="Botao-Menu"> Agendar Consulta </button>
+            </div>
+            <div class = "Medico">
+                <button id = "Consultas"    class="Botao-Menu"> Consultas </button>
+                <button id = "Agendamentos" class="Botao-Menu"> Agendamentos </button>
+            </div>
+        </nav>
+    </div>
+
+    
+    <!-- Paciente --> 
+        <div class = "Paciente">
+
+            <div class = "AgendarConsultaPaciente">
+                <h3>Agendar Consulta</h3>
+                
+            </div>
+            <div class = "VisualizarConsulta">
+                <h3> Visualizar Consulta</h3>
+            </div>
+            
+        </div>
+    <!-- Atendente --> 
+        <div class = "Atendente">
+            <div class = "CadastrarPaciente">
+                <h3 class = "Forms">Cadastrar Paciente</h3>
+                <div >
+                    <form action="">
+                    <label class = "Forms" for="name">Nome: </label>
+                    <input type="text" id="name" name="name" placeholder="Your name..">
+
+                    <label class = "Forms" for="Username">Username: </label>
+                    <input type="text" id="Username" name="Username" placeholder="Username..">
+
+                    <label class = "Forms" for="senha">senha: </label>
+                    <input type="text" id="senha" name="senha" placeholder="Your password..">
+
+                    <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
+                    <input type="date" id="DataNascimento" name="DataNascimento" max="1979-12-31" placeholder="Data Nascimento..">
+
+                    <label class = "Forms" for="gender">Gênero: </label><br>
+                    <div class = "Forms">
+                        <input type="radio" name="gender" value="Homem" > Homem
+                        <input type="radio" name="gender" value="Mulher"> Mulher
+                        <input type="radio" name="gender" value="Outro" checked> Outro<br>       
+                    </div>
+                    
+                    <label class = "Forms" for="Endereco">Endereço: </label>
+                    <input type="text" id="Endereco" name="Endereco" placeholder="Endereço..">
+
+                    <label class = "Forms" for="Email">Email: </label>
+                    <input type="text" id="Email" name="Email" placeholder="Your Email..">
+
+                    <label class = "Forms" for="TipoSanguineo">Tipo Sanguineo: </label>
+                    <input type="text" id="TipoSanguineo" name="TipoSanguineo" placeholder= "Tipo Sanguineo..">
+
+                    <label class = "Forms" for="PlanoDeSaude">Plano De Saude: </label>
+                    <input type="text" id="PlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
+
+                </div>
+                <input type="submit" value="Submit">
+
+            <div class = "CadastrarMedico">
+                <h3>Cadastrar Medico</h3>
+            </div>
+
+            <div class = "AgendarConsulta">
+                <h3>Agendar Consulta</h3>
+            </div>
+        </div>
+
+    <!-- Medico --> 
+        <div class = "Medico">
+            <div class = "Consultas">
+                <h3>Consulta</h3>
+            </div>
+            <div class = "Agendamentos">
+                <h3>Agendamentos</h3>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+
+    <br>
+    <!-- rodape -->     
+    <div>        
+        <footer> 
+            <h5>Footer</h5> 
+            <h5>2018</h5>     
+        </footer>
+    
+    </div> 
+    
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script>
+
+$(document).ready(function(){
+    $.getJSON("testJSON.json", function(data) {
+         $("#demo").html(data.name);
+         if(data.name === "Paciente")
+         {
+            $(".VisualizarConsulta, .AgendarConsultaPaciente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .Consultas, .Agendamentos").hide();
+            $('.Paciente').show();
+            $('.Medico').hide();
+            $('.Atendente').hide();
+         }
+         if(data.name === "Atendente")
+         {
+            $(".VisualizarConsulta, .AgendarConsultaPaciente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .Consultas, .Agendamentos").hide();
+            $('.Paciente').hide();
+            $('.Medico').hide();
+            $('.Atendente').show();
+         }
+         if(data.name === "Medico")
+         {
+            $(".VisualizarConsulta, .AgendarConsultaPaciente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .Consultas, .Agendamentos").hide();
+            $('.Paciente').hide();
+            $('.Medico').show();
+            $('.Atendente').hide();             
+         }
+    }, "json");
+});
+//-----Paciente 
+    $(document).ready(function(){
+        $("#VisualizarConsulta").click(function(){
+            $(".AgendarConsultaPaciente").hide();
+            $(".VisualizarConsulta").show();
+        });
+        $("#AgendarConsultaPaciente").click(function(){
+            $(".AgendarConsultaPaciente").show();
+            $(".VisualizarConsulta").hide();
+        });
+    });
+
+//-----Atendente
+    $(document).ready(function(){
+        $("#CadastrarPaciente").click(function(){
+            $(".CadastrarPaciente").show();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").hide();
+        });
+        $("#CadastrarMedico").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").show();
+            $(".AgendarConsulta").hide();
+        });
+        $("#AgendarConsulta").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").show();
+        });
+    });
+
+//-----Medico 
+    $(document).ready(function(){
+        $("#Consultas").click(function(){
+            $(".Consultas").show();
+            $(".Agendamentos").hide();
+        });
+        $("#Agendamentos").click(function(){
+            $(".Consultas").hide();
+            $(".Agendamentos").show();
+        });
+    });
+
+</script>
+
+
+</html>
