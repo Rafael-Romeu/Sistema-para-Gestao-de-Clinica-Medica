@@ -32,11 +32,17 @@
     background-color: #5b96bf; 
     border: #134467;
     border-radius: 5px;
+    
+    box-shadow: 0px 2px;
 }
 .Botao-Menu:hover
 {
     background-color: #134467;
     color: white; 
+    
+    position: relative;
+    top: 2px;
+    box-shadow: 0 0 0 0;
 }
 .Forms
 {
