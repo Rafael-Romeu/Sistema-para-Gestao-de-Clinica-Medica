@@ -1,27 +1,51 @@
-.Corpo
-{
+ *{
+     padding: 0;
+     margin: 0;
+     box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    width: 100%;
     background-image: url("../Imagens/Medica.png");
     background-repeat: no-repeat;
     height: 900px;
-
+    
+    display: grid;
+    grid-template-columns: repeat(20, 5vw);
+    grid-template-rows: 20vh auto auto auto;
 }
-.Cabecalho
-{
-    background-color: #eef4f6;
 
-}
-.row
-{
+
+header 
+{   
+    padding: 5px;
+    grid-column: 1 / span 20;
+    grid-row: 1 / span 1;
+    
     display: flex;
-    flex-direction: row;
-    text-align: left;
+    flex-wrap: nowrap;
+    
+    background-color: #eef4f6; 
+    margin-right: 10px;
 }
-.Menu
+
+header > img
 {
+    max-height: 100%;
+    min-height: 50%;
+}
+
+nav
+{
+    grid-column: 1 / span 20;
+    grid-row: 2 / span 1;
+    
     border-top: 5px solid #134467; 
     display: flex;
     justify-content: center;
 }
+
 .Botao-Menu
 {
     margin: 5px 2px;
@@ -35,6 +59,7 @@
     
     box-shadow: 0px 2px;
 }
+
 .Botao-Menu:hover
 {
     background-color: #134467;
@@ -44,24 +69,38 @@
     top: 2px;
     box-shadow: 0 0 0 0;
 }
+
+.Corpo
+{
+    grid-column: 2 / span 9;
+    grid-row: 3 / span 1;
+}
+
+footer
+{
+    grid-column: 1 / span 20;
+    grid-row: 4 / span 1;
+    text-align: center;
+}
+
 .Forms
 {
     padding: 12px 20px;
     margin: 5px 5px 5px 10px;
 }
+
 input[type=date], select 
 {
-    width: 30%;
+    display: flex;
     padding: 12px 20px;
     margin: 5px 5px 5px 20px;
-    display: flex;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
+
 input[type=text], select 
 {
-    width: 30%;
     padding: 12px 20px;
     margin: 5px 5px 5px 20px;
     display: flex;
