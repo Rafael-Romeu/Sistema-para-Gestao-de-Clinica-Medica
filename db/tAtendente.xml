@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<root>
+  <atendente>
+    <codigo>A0000</codigo>
+    <nome>Marlon Franco</nome>
+    <email>marlonrcfranco@gmail.com</email>
+    <reg_date>2018-06-14 01:06:40</reg_date>
+  </atendente>
+  <atendente>
+    <codigo>A0001</codigo>
+    <nome>MariaX</nome>
+    <email>123@gmail.com</email>
+    <reg_date>2018-06-14 03:06:57</reg_date>
+  </atendente>
+  <atendente>
+    <codigo>A0002</codigo>
+    <nome>MariaX</nome>
+    <email>123@gmail.com</email>
+    <reg_date>2018-06-14 03:06:34</reg_date>
+  </atendente>
+  <atendente>
+    <codigo>A0003</codigo>
+    <nome>MariaX</nome>
+    <email>123@gmail.com</email>
+    <reg_date>2018-06-14 03:06:52</reg_date>
+  </atendente>
+</root>
