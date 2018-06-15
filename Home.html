@@ -1,98 +1,109 @@
 <!DOCTYPE html>
 <html>
 
-<link rel="stylesheet" href="css/Home.css">
-<title> Home </title> <!-- Titulo da pagina --> 
-<meta charset = "UTF-8">
-
 <head>
-
-<div class="row">
-    <!-- Header --> 
-    <div class = "Cabecalho"> 
-        <img src="Imagens/Capa.png" style="width:100%"> 
-    </div>
-</div>
-    
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="css/Home.css">
+    <title> Home </title> <!-- Titulo da pagina --> 
+    <meta charset = "UTF-8">
 </head>
 
 
 <body>
     
-    <!-- Corpo do site --> 
-    <div class = "Corpo">
+    <header>
+        <!-- Header --> 
+        <img src="Imagens/Capa/Logo.png" style="flex-shrink: 0">
+        <img src="Imagens/Capa/Linha.png" style="flex-grow: 1; min-width: 0px">
+        <img src="Imagens/Capa/Detalhe.png" style="flex-shrink: 0;">
+    </header>
     
     <!-- Menu de navegação --> 
-    <div >
-        <nav class = "Menu">
-            <div class = "Paciente">
-                <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
-                <button id = "AgendarConsultaPaciente" class="Botao-Menu"> Agendar Consulta </button>
-            </div>
-            <div class = "Atendente">
-                <button id = "CadastrarPaciente" class="Botao-Menu"> Cadastrar Paciente </button>
-                <button id = "CadastrarMedico"   class="Botao-Menu"> Cadastrar Medico </button>
-                <button id = "AgendarConsulta"   class="Botao-Menu"> Agendar Consulta </button>
-            </div>
-            <div class = "Medico">
-                <button id = "Consultas"    class="Botao-Menu"> Consultas </button>
-                <button id = "Agendamentos" class="Botao-Menu"> Agendamentos </button>
-            </div>
-        </nav>
-    </div>
-
+    <nav>
+        <div class = "Paciente">
+            <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
+            <button id = "AgendarConsultaPaciente" class="Botao-Menu"> Agendar Consulta </button>
+        </div>
+        <div class = "Atendente">
+            <button id = "CadastrarPaciente" class="Botao-Menu"> Cadastrar Paciente </button>
+            <button id = "CadastrarMedico"   class="Botao-Menu"> Cadastrar Medico </button>
+            <button id = "AgendarConsulta"   class="Botao-Menu"> Agendar Consulta </button>
+        </div>
+        <div class = "Medico">
+            <button id = "Consultas"    class="Botao-Menu"> Consultas </button>
+            <button id = "Agendamentos" class="Botao-Menu"> Agendamentos </button>
+        </div>
+    </nav>
     
-    <!-- Paciente --> 
+    <div class="Corpo">
+        <!-- Paciente --> 
         <div class = "Paciente">
 
             <div class = "AgendarConsultaPaciente">
                 <h3>Agendar Consulta</h3>
-                
+
             </div>
             <div class = "VisualizarConsulta">
                 <h3> Visualizar Consulta</h3>
             </div>
-            
+
         </div>
-    <!-- Atendente --> 
+
+        <!-- Atendente --> 
         <div class = "Atendente">
             <div class = "CadastrarPaciente">
                 <h3 class = "Forms">Cadastrar Paciente</h3>
-                <div >
+                <div>
                     <form action="">
                     <label class = "Forms" for="name">Nome: </label>
-                    <input type="text" id="name" name="name" placeholder="Your name..">
+                    <input type="text" id="name" name="name" placeholder="Your name.." required>
 
-                    <label class = "Forms" for="Username">Username: </label>
-                    <input type="text" id="Username" name="Username" placeholder="Username..">
+                    <label class = "Forms" for="Username">Cpf: </label>
+                    <input type="text" id="Username" name="Username" placeholder="Cpf" pattern="[0-9]{11}" required>
 
-                    <label class = "Forms" for="senha">Senha: </label>
-                    <input type="text" id="senha" name="senha" placeholder="Your password..">
+                    <label class = "Forms" for="password">Senha: </label>
+                    <input type="password" id="password" name="password" placeholder="Your password.." required>
 
                     <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
-                    <input type="date" id="DataNascimento" name="DataNascimento" max="1979-12-31" placeholder="Data Nascimento..">
+                    <input type="date" id="DataNascimento" name="DataNascimento" max="1930-12-31" placeholder="Data Nascimento.." required>
 
                     <label class = "Forms" for="gender">Gênero: </label><br>
-                    <div class = "Forms">
-                        <input type="radio" name="gender" value="Homem" > Homem
-                        <input type="radio" name="gender" value="Mulher"> Mulher
-                        <input type="radio" name="gender" value="Outro" checked> Outro<br>       
-                    </div>
-                    
+
+                    <ul class="Generos" style = "margin: 0px 0px 0px 20px">
+                        <li class="Genero Homem">
+                          <input name="Generos" type="radio" id="Homem">
+                          <label for="Homem">Homem</label>
+                        </li>
+                          
+                        <li class="Genero Mulher">
+                          <input name="Generos" type="radio" id="Mulher">
+                          <label for="Mulher">Mulher</label>
+                        </li>
+                          
+                        <li class="Genero Outro">
+                          <input name="Generos" type="radio" id="Outro" checked>
+                          <label for="Outro">Outro</label>
+                        </li>
+                    </ul>
+
+                    <br>
+                    <br>
+
                     <label class = "Forms" for="Endereco">Endereço: </label>
                     <input type="text" id="Endereco" name="Endereco" placeholder="Endereço..">
 
                     <label class = "Forms" for="Email">Email: </label>
-                    <input type="text" id="Email" name="Email" placeholder="Your Email..">
+                    <input type="email" id="Email" name="Email" placeholder="Your Email..">
 
                     <label class = "Forms" for="TipoSanguineo">Tipo Sanguineo: </label>
                     <input type="text" id="TipoSanguineo" name="TipoSanguineo" placeholder= "Tipo Sanguineo..">
 
-                    <label class = "Forms" for="PlanoDeSaude">Plano De Saude: </label>
+                    <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
                     <input type="text" id="PlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
-
+                    </form>
                 </div>
                 <input type="submit" value="Enviar">
+            </div>
 
             <div class = "CadastrarMedico">
                 <h3>Cadastrar Medico</h3>
@@ -103,7 +114,7 @@
             </div>
         </div>
 
-    <!-- Medico --> 
+        <!-- Medico --> 
         <div class = "Medico">
             <div class = "Consultas">
                 <h3>Consulta</h3>
@@ -112,22 +123,16 @@
                 <h3>Agendamentos</h3>
             </div>
         </div>
-
     </div>
+
+
+    <!-- rodape -->
+    <footer> 
+        <h5>Footer</h5> 
+        <h5>2018</h5>     
+    </footer>
     
 </body>
-
-    <br>
-    <!-- rodape -->     
-    <div>        
-        <footer> 
-            <h5>Footer</h5> 
-            <h5>2018</h5>     
-        </footer>
-    
-    </div> 
-    
-</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script>
 

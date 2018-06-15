@@ -1,27 +1,49 @@
-.Corpo
-{
+ *{
+     padding: 0;
+     margin: 0;
+     box-sizing: border-box;
+}
+
+body {
     background-image: url("../Imagens/Medica.png");
     background-repeat: no-repeat;
-    height: 900px;
-
+    height: 1100px;
+    width: 100%;
+    font-family: 'Oswald', sans-serif;
+    display: grid;
+    grid-template-columns: repeat(20, 5vw);
+    grid-template-rows: 20vh auto auto auto;
 }
-.Cabecalho
-{
-    background-color: #eef4f6;
 
-}
-.row
-{
+header 
+{   
+    padding: 5px;
+    grid-column: 1 / span 20;
+    grid-row: 1 / span 1;
+    
     display: flex;
-    flex-direction: row;
-    text-align: left;
+    flex-wrap: nowrap;
+    
+    background-color: #eef4f6; 
+    margin-right: 10px;
 }
-.Menu
+
+header > img
 {
+    max-height: 100%;
+    min-height: 50%;
+}
+
+nav
+{
+    grid-column: 1 / span 20;
+    grid-row: 2 / span 1;
+    
     border-top: 5px solid #134467; 
     display: flex;
     justify-content: center;
 }
+
 .Botao-Menu
 {
     margin: 5px 2px;
@@ -35,6 +57,7 @@
     
     box-shadow: 0px 2px;
 }
+
 .Botao-Menu:hover
 {
     background-color: #134467;
@@ -44,14 +67,40 @@
     top: 2px;
     box-shadow: 0 0 0 0;
 }
+
+.Corpo
+{
+    grid-column: 2 / span 9;
+    grid-row: 3 / span 1;
+}
+
+footer
+{
+    grid-column: 1 / span 20;
+    grid-row: 4 / span 1;
+    text-align: center;
+}
+
 .Forms
 {
     padding: 12px 20px;
     margin: 5px 5px 5px 10px;
 }
+
 input[type=date], select 
 {
-    width: 30%;
+    display: flex;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 290px;
+}
+
+input[type=text], select 
+{
+    width: 290px;
     padding: 12px 20px;
     margin: 5px 5px 5px 20px;
     display: flex;
@@ -59,9 +108,19 @@ input[type=date], select
     border-radius: 4px;
     box-sizing: border-box;
 }
-input[type=text], select 
+input[type=password], select 
 {
-    width: 30%;
+    width: 290px;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=email], select 
+{
+    width: 290px;
     padding: 12px 20px;
     margin: 5px 5px 5px 20px;
     display: flex;
@@ -85,7 +144,61 @@ input[type=submit]:hover
 {
     background-color: #45a049;
 }
-
+.Generos {
+    list-style: none;
+    margin: 0;
+    padding: 14px 0px;
+  }
+  
+.Generos:after {
+    content: "";
+    clear: both;
+}
+  
+.Genero {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    float: left;
+    height: 45px;
+    position: relative;
+    width: 90px;
+}
+  
+.Genero + .Genero {
+    margin-left: 10px;
+}
+.Genero label {
+    background: #fff no-repeat center center;
+    bottom: 1px;
+    cursor: pointer;
+    display: block;
+    font-size: 0;
+    left: 1px;
+    position: absolute;
+    right: 1px;
+    text-indent: 100%;
+    top: 1px;
+    white-space: nowrap;
+  }
+  
+.Homem label {
+    background-image: url("../Imagens/Homem.png");
+    background-repeat: no-repeat;
+    height: 100%;
+}
+  
+.Mulher label {
+    background-image: url("../Imagens/Mulher.png");
+}
+  
+.Outro label {
+    background-image: url("../Imagens/Outro.png");
+}
+.Generos input:checked + label {
+    outline: 4px solid #21b4d0;
+    -moz-outline-radius: 4px;
+}
 .Paciente{}
 .Medico{}
 .Atendente{}
