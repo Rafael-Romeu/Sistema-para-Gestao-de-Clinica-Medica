@@ -4,9 +4,14 @@
      box-sizing: border-box;
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
-    background-image: url("../Imagens/Medica.png");
-    background-repeat: no-repeat;
+    background-color: #eef4f6;
+    
     height: 1100px;
     width: 100%;
     font-family: 'Oswald', sans-serif;
@@ -15,9 +20,19 @@ body {
     grid-template-rows: 20vh auto auto auto;
 }
 
+.Background {
+    grid-column: 1 / span 20;
+    grid-row: 2 / span 3;
+}
+
+.Background > img {
+    width: 100%;
+    height: auto;
+}
+
 header 
 {   
-    padding: 5px;
+    padding: 5px 0px 0px 5px;
     grid-column: 1 / span 20;
     grid-row: 1 / span 1;
     
@@ -184,8 +199,6 @@ input[type=submit]:hover
   
 .Homem label {
     background-image: url("../Imagens/Homem.png");
-    background-repeat: no-repeat;
-    height: 100%;
 }
   
 .Mulher label {
@@ -196,7 +209,7 @@ input[type=submit]:hover
     background-image: url("../Imagens/Outro.png");
 }
 .Generos input:checked + label {
-    outline: 4px solid #21b4d0;
+    outline: 4px solid #5b96bf;
     -moz-outline-radius: 4px;
 }
 .Paciente{}
