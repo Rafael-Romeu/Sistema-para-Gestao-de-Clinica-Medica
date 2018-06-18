@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+<link rel="stylesheet" href="css/Login.css">
+<title> Login </title> <!-- Titulo da pagina --> 
+<meta charset = "UTF-8">
+</head>
+<body>
+
+    <div class = "central">
+        <div class = "Login">
+            <h2>Login</h2>
+    
+            <form action="/action_page.php">
+
+            <div class="imgcontainer">
+                <img src="Imagens/avatar.png" alt="Avatar" class="avatar">
+            </div>
+            
+            <div class="container">
+                <label for="CPF"><b></b></label>
+                <input type="text" placeholder="Enter CPF" name="cpf" pattern="[0-9]{11}" required>
+            
+                <label for="password"><b></b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                    
+                <button type="submit">Login</button>
+                <label>
+                  <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+</body>
+</html>
