@@ -20,7 +20,11 @@ class lAtendente {
 		<codigo>A0000</codigo>
 		<nome>Template</nome>
 		<cpf>777.777.777-77</cpf>
+		<dtNascimento>1900-01-01</dtNascimento>
+		<endereco>(sem endenreço)</endereco>
+		<telefone>(sem telefone)</telefone>
 		<email>template@marlon.com</email>
+		<senha>senha</senha>
 		<reg_date>1993-05-31 11:07:47</reg_date>
 	</atendente>
 </root>
@@ -39,7 +43,6 @@ XML;
 		}
 		
 	}
-
 
 	public function buscaEspacoVazio(DOMDocument $domXml) {
 		
@@ -64,7 +67,7 @@ XML;
 	}
 
 
-	public function insertAtendente($name, $cpf, $email=none) {
+	public function insertAtendente($nome, $senha, $cpf, $dtNascimento=null, $endereco=null, $telefone=null, $email=null) {
 		$tablePath  = $GLOBALS['tablePathAtendente'];
 		
 		$domXML = new DOMDocument('1.0');
@@ -102,17 +105,63 @@ XML;
 			$root->insertBefore($atendente, $domPosition);
 		}
 
-		// create other elements and add it to the <atendente> tag.
+		// ******* Inserção do Código *******
 		$codigoElement = $domXML->createElement("codigo", $codigo);
 		$atendente->appendChild($codigoElement);
-		$nomeElement = $domXML->createElement("nome", $name);
+
+		// ******* Inserção do Nome *******
+		if($nome == null) {
+			return "ERRO: Campo 'nome' é obrigatório.";
+		}
+		$nomeElement = $domXML->createElement("nome", $nome);
 		$atendente->appendChild($nomeElement);
+
+		// ******* Inserção da Senha *******
+		if($senha == null) {
+			return "ERRO: Campo 'senha' é obrigatório.";
+		}
+		$senhaElement = $domXML->createElement("senha", $senha);
+		$atendente->appendChild($senhaElement);
+
+		// ******* Inserção do CPF *******
+		if($cpf == null) {
+			return "ERRO: Campo 'cpf' é obrigatório.";
+		}
 		$cpfElement = $domXML->createElement("cpf", $cpf);
 		$atendente->appendChild($cpfElement);
+
+		// ******* Inserção da Data de Nascimento *******
+		if($dtNascimento == null) {
+			$dtNascimento = "1900-01-01"; // Data default
+		}
+		$dtNascimentoElement = $domXML->createElement("dtNascimento", $dtNascimento);
+		$atendente->appendChild($dtNascimentoElement);
+
+		// ******* Inserção do Endereço *******
+		if($endereco == null) {
+			$endereco =  "(sem endenreço)";
+		}
+		$enderecoElement = $domXML->createElement("endereco", $endereco);
+		$atendente->appendChild($enderecoElement);
+
+		// ******* Inserção do Telefone *******
+		if($telefone == null) {
+			$telefone = "(sem telefone)";
+		}
+		$telefoneElement = $domXML->createElement("telefone", $telefone);
+		$atendente->appendChild($telefoneElement);
+
+		// ******* Inserção do E-mail *******
+		if($email == null) {
+			$email = "(sem E-mail)";
+		}
 		$emailElement = $domXML->createElement("email", $email);
 		$atendente->appendChild($emailElement);
-		$dateElement = $domXML->createElement("reg_date", date("Y-m-d h:m:s",time()));
-		$atendente->appendChild($dateElement);
+
+		// ******* Inserção da Data de Registro no Sitema *******
+		$reg_dateElement = $domXML->createElement("reg_date", date("Y-m-d h:m:s",time()));
+		$atendente->appendChild($reg_dateElement);
+
 
 		// saves the changes into the file
 		if($domXML->save($tablePath)) {
@@ -123,11 +172,27 @@ XML;
 
 	}
 
-	public function selectAtendente( $codigo = null, $nome = null, $cpf = null, $email = null) {
+	public function selectAtendente($codigo = null,
+									$nome = null, 
+									$senha = null,
+									$cpf = null,
+									$dtNascimento = null,
+									$endereco = null,
+									$telefone = null,
+									$email=null) 
+	{
 		$tablePath = $GLOBALS['tablePathAtendente'];
 
 		$maisDeUmParametro = false;
-		if (($codigo == null) && ($nome == null) && ($cpf == null) && ($email == null)) {
+		if (($codigo == null) && 
+			($nome == null) &&
+			($senha == null) &&
+			($cpf == null) &&
+			($dtNascimento == null) && 
+			($endereco == null) && 
+			($telefone == null) &&
+			($email == null))
+		{
 			return "Informe ao menos um parametro para consulta.";
 		}
 
@@ -144,9 +209,29 @@ XML;
 			$xPathQuery = $xPathQuery."nome/text()='".$nome."'";
 			$maisDeUmParametro = true;
 		}
+		if ($senha != null) {
+			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
+			$xPathQuery = $xPathQuery."cpf/text()='".$nome."'";
+			$maisDeUmParametro = true;
+		}
 		if ($cpf != null) {
 			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
 			$xPathQuery = $xPathQuery."cpf/text()='".$cpf."'";
+			$maisDeUmParametro = true;
+		}
+		if ($dtNascimento != null) {
+			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
+			$xPathQuery = $xPathQuery."cpf/text()='".$dtNascimento."'";
+			$maisDeUmParametro = true;
+		}
+		if ($endereco != null) {
+			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
+			$xPathQuery = $xPathQuery."cpf/text()='".$endereco."'";
+			$maisDeUmParametro = true;
+		}
+		if ($telefone != null) {
+			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
+			$xPathQuery = $xPathQuery."cpf/text()='".$telefone."'";
 			$maisDeUmParametro = true;
 		}
 		if ($email != null) {
@@ -154,7 +239,7 @@ XML;
 			$xPathQuery = $xPathQuery."email/text()='".$email."'";
 			$maisDeUmParametro = true;
 		}
-
+		
 		$xPathQuery = $xPathQuery."]";
 		//echo $xPathQuery;
 
@@ -197,5 +282,14 @@ XML;
 //print_r(selectAtendente("A0000",null,"777.777.777-77"));
 
 // SELECT * FROM tAtendente WHERE 'nome = varNome';
+
+/*
+senha
+dtNascimento
+end
+telefone
+
+
+*/
 
 ?>
