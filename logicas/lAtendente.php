@@ -4,13 +4,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $GLOBALS['semEspaco'] = false;
-$GLOBALS['tablePath'] = "./db/tAtendente.xml";
+$GLOBALS['tablePathAtendente'] = "./db/tAtendente.xml";
 
 class lAtendente {
 
 	
 	public function createTableAtendente() {
-		$filePathAtendente = $GLOBALS['tablePath'];
+		$filePathAtendente = $GLOBALS['tablePathAtendente'];
 
 		$file = fopen($filePathAtendente, "w+");
 	$template = <<<XML
@@ -65,7 +65,7 @@ XML;
 
 
 	public function insertAtendente($name, $cpf, $email=none) {
-		$tablePath  = $GLOBALS['tablePath'];
+		$tablePath  = $GLOBALS['tablePathAtendente'];
 		
 		$domXML = new DOMDocument('1.0');
 		$domXML->preserveWhiteSpace = false;
@@ -124,7 +124,7 @@ XML;
 	}
 
 	public function selectAtendente( $codigo = null, $nome = null, $cpf = null, $email = null) {
-		$tablePath = $GLOBALS['tablePath'];
+		$tablePath = $GLOBALS['tablePathAtendente'];
 
 		$maisDeUmParametro = false;
 		if (($codigo == null) && ($nome == null) && ($cpf == null) && ($email == null)) {
@@ -164,13 +164,32 @@ XML;
 		
 	}
 
+	public function excluirAtendente($codigo) {
+
+		$tablePath = $GLOBALS['tablePathAtendente'];
+		$atendente = lAtendente::selectAtendente($codigo);
+
+		if($atendente == null) {
+			return "ERRO: Não há atendente com o código ".$codigo.".";
+		}
+		$domAtendente = dom_import_simplexml($atendente[0]);
+		$domXML = $domAtendente->parentNode->parentNode; //  documento XML
+		$domAtendente->parentNode->removeChild($domAtendente);
+
+		if($domXML->save($tablePath)) {
+			return "Exclusão efetuada com sucesso.";
+		}else {
+			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
+		}
+	}
+ 
 
 }
 
 
 
 
-//$tablePath = "./db/tAtendente.xml";
+//$tablePathAtendente = "./db/tAtendente.xml";
 //insertAtendente("MariaX","777.777.777-77" ,"123@gmail.com");
 
 //$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
