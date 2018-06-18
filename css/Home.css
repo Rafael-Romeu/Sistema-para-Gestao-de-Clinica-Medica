@@ -85,14 +85,15 @@ nav
 
 .Corpo
 {
-    grid-column: 2 / span 9;
+    grid-column: 2 / span 7;
     grid-row: 3 / span 1;
 }
 
 footer
 {
+    background-color: #333333;
     grid-column: 1 / span 20;
-    grid-row: 4 / span 1;
+    grid-row: 5 / span 1;
     text-align: center;
 }
 
@@ -211,6 +212,12 @@ input[type=submit]:hover
 .Generos input:checked + label {
     outline: 4px solid #5b96bf;
     -moz-outline-radius: 4px;
+}
+
+.Rodape
+{
+    padding: 5px 30px 5px 30px;
+    text-align: left;
 }
 .Paciente{}
 .Medico{}
