@@ -41,7 +41,7 @@ XML;
 	}
 
 
-	private function buscaEspacoVazio(DOMDocument $domXml) {
+	public function buscaEspacoVazio(DOMDocument $domXml) {
 		
 		$i = 0;
 		$domLastNode;
@@ -83,7 +83,7 @@ XML;
 		// find the root tag
 		$root = $domXML->getElementsByTagName('root')->item(0);
 		// busca o primeiro espaco vazio
-		$domPosition = buscaEspacoVazio($domXML);
+		$domPosition = lAtendente::buscaEspacoVazio($domXML);
 
 		//Extrai o codigo e transforma em int
 		$strCodigo = $domPosition->firstChild->nodeValue;

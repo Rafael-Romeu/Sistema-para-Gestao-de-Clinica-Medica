@@ -4,8 +4,11 @@ include 'logicas/lAtendente.php';
 
 $oAtendente =  new lAtendente();
 
-print_r($oAtendente->selectAtendente("A0000",null,"777.777.777-77"));
+$oAtendente->createTableAtendente();
+$oAtendente->insertAtendente("Marlon", "364.964.588-77","marlon@email.com");
+$xml=$oAtendente->selectAtendente(null,"Marlon");
 
-
+print_r($xml);
+//print_r($xml[0]->nome);
 
 ?>

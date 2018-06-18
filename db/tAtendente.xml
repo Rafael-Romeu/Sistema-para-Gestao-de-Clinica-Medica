@@ -9,16 +9,9 @@
   </atendente>
   <atendente>
     <codigo>A0001</codigo>
-    <nome>MariaZ</nome>
-    <cpf>123.456.798-7</cpf>
-    <email>123@gmail.com</email>
-    <reg_date>2018-06-14 10:06:07</reg_date>
-  </atendente>
-  <atendente>
-    <codigo>A0002</codigo>
-    <nome>MariaX</nome>
-    <cpf>777.777.777-77</cpf>
-    <email>123@gmail.com</email>
-    <reg_date>2018-06-14 10:06:30</reg_date>
+    <nome>Marlon</nome>
+    <cpf>364.964.588-77</cpf>
+    <email>marlon@email.com</email>
+    <reg_date>2018-06-18 08:06:18</reg_date>
   </atendente>
 </root>
