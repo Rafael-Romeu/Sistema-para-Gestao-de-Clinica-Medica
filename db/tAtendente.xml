@@ -13,14 +13,14 @@
   </atendente>
   <atendente>
     <codigo>A0001</codigo>
-    <nome>Marlon1</nome>
-    <senha>1234567</senha>
-    <cpf>364.964.588-77</cpf>
-    <dtNascimento>1900-01-01</dtNascimento>
-    <endereco>(sem endereço)</endereco>
-    <telefone>(sem telefone)</telefone>
-    <email>marlon@email.com</email>
-    <reg_date>2018-06-19 07:06:28</reg_date>
+    <nome>Marlon</nome>
+    <senha>Marlon</senha>
+    <cpf>Marlon</cpf>
+    <dtNascimento>Marlon</dtNascimento>
+    <endereco>Marlon</endereco>
+    <telefone>Marlon</telefone>
+    <email>null</email>
+    <reg_date>2018-06-19 10:06:48</reg_date>
   </atendente>
   <atendente>
     <codigo>A0002</codigo>
@@ -31,7 +31,7 @@
     <endereco>(sem endereço)</endereco>
     <telefone>(sem telefone)</telefone>
     <email>marlon@email.com</email>
-    <reg_date>2018-06-19 07:06:28</reg_date>
+    <reg_date>2018-06-19 10:06:48</reg_date>
   </atendente>
   <atendente>
     <codigo>A0003</codigo>
@@ -42,7 +42,7 @@
     <endereco>(sem endereço)</endereco>
     <telefone>(sem telefone)</telefone>
     <email>marlon@email.com</email>
-    <reg_date>2018-06-19 08:06:06</reg_date>
+    <reg_date>2018-06-19 10:06:48</reg_date>
   </atendente>
   <atendente>
     <codigo>A0004</codigo>
@@ -53,17 +53,6 @@
     <endereco>(sem endereço)</endereco>
     <telefone>(sem telefone)</telefone>
     <email>marlon@email.com</email>
-    <reg_date>2018-06-19 07:06:28</reg_date>
-  </atendente>
-  <atendente>
-    <codigo>A0005</codigo>
-    <nome>Marlon</nome>
-    <senha>1234567</senha>
-    <cpf>123.456.789-00</cpf>
-    <dtNascimento>1993-05-31</dtNascimento>
-    <endereco>Rua 7</endereco>
-    <telefone>53987452108</telefone>
-    <email>moc.liame@email.com</email>
-    <reg_date>2018-06-19 08:06:55</reg_date>
+    <reg_date>2018-06-19 10:06:48</reg_date>
   </atendente>
 </root>

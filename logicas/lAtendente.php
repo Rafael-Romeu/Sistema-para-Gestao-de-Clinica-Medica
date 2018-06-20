@@ -271,16 +271,89 @@ XML;
 		}
 	}
 
-	public function salvaAtendente() {
+	public function updateAtendente($codigo, $nome = null, $senha = null, $cpf = null, $dtNascimento = null, $endereco = null, $telefone = null, $email=null) 
+	{
+		$tablePath = $GLOBALS['tablePathAtendente'];
+		$houveAlteracao = false;
 
-		return $this->insertAtendente(  $this->nome, 
-										$this->senha, 
-										$this->cpf,
-										$this->dtNascimento,
-										$this->endereco,
-										$this->telefone,
-										$this->email
-									 );
+		$atendente = $this->selectAtendente($codigo);
+		if($atendente == null) {
+			return "ERRO: Não há atendente com o código ".$codigo.".";
+		}
+		
+		$atendente = $atendente[0];
+	
+		if(($atendente->codigo != $codigo) or ($codigo == null)) {
+			return "ERRO: codigo invalido.";
+		}
+		
+		if(($atendente->nome != $nome) and ($nome != null)) {
+			$atendente->nome = $nome;
+			$houveAlteracao = true;
+		}
+
+		if(($atendente->senha != $senha) and ($senha != null)) {
+			$atendente->senha = $senha;
+			$houveAlteracao = true;
+		}
+
+		if(($atendente->cpf != $cpf) and ($cpf != null)) {
+			$atendente->cpf = $cpf;
+			$houveAlteracao = true;
+		}
+
+		if(($atendente->dtNascimento != $dtNascimento) and ($dtNascimento != null)) {
+			$atendente->dtNascimento = $dtNascimento;
+			$houveAlteracao = true;
+		}
+
+		if(($atendente->endereco != $endereco) and ($endereco != null)) {
+			$atendente->endereco = $endereco;
+			$houveAlteracao = true;
+		}
+
+		if(($atendente->telefone != $telefone) and ($telefone != null)) {
+			$atendente->telefone = $telefone;
+			$houveAlteracao = true;
+		}
+
+		if(($atendente->email != $email) and ($email != null)) {
+			$atendente->email = $email;
+			$houveAlteracao = true;
+		}
+
+		if(!$houveAlteracao) {
+			return "Não houve alteração";
+		}
+
+		$domAtendente = dom_import_simplexml($atendente);
+		$domXML = $domAtendente->parentNode->parentNode; //  documento XML
+
+		// Salva as alterações na tabela
+		if($domXML->save($tablePath)) {
+			return "Alteração efetuada com sucesso.";
+		}else {
+			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
+		}
+
+	}
+
+	public function salvaAtendente() {
+		
+		if($this->codigo == null) // Eh um novo atendente
+		{
+			return $this->insertAtendente(  $this->nome, 
+											$this->senha, 
+											$this->cpf,
+											$this->dtNascimento,
+											$this->endereco,
+											$this->telefone,
+											$this->email
+										);
+		}
+		// Senão, é uma atualização
+
+		
 	
 	}
 
@@ -296,7 +369,7 @@ XML;
 	}
 
 	public function getAtendenteByCodigo($codigo) {
-		selectAtendente($codigo);
+		return selectAtendente($codigo);
 	}
 
 	public function getAtendenteByNome($nome) {
