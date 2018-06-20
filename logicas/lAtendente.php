@@ -3,11 +3,21 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
 $GLOBALS['semEspaco'] = false;
-$GLOBALS['tablePathAtendente'] = "./db/tAtendente.xml";
+$GLOBALS['tablePathAtendente'] = "./db/tAtendente.xml"; 
 
 class lAtendente {
 
+	public $codigo = null;
+	public $nome = null;
+	public $senha = null;
+	public $cpf = null;
+	public $dtNascimento = null;
+	public $endereco = null;
+	public $telefone = null;
+	public $email = null;
+	
 	
 	public function createTableAtendente() {
 		$filePathAtendente = $GLOBALS['tablePathAtendente'];
@@ -19,14 +29,14 @@ class lAtendente {
 	<atendente>
 		<codigo>A0000</codigo>
 		<nome>Template</nome>
-		<cpf>777.777.777-77</cpf>
+		<senha>admin</senha>
+		<cpf>admin</cpf>
 		<dtNascimento>1900-01-01</dtNascimento>
-		<endereco>(sem endenreço)</endereco>
+		<endereco>(sem endereço)</endereco>
 		<telefone>(sem telefone)</telefone>
-		<email>template@marlon.com</email>
-		<senha>senha</senha>
+		<email>(sem E-mail)</email>
 		<reg_date>1993-05-31 11:07:47</reg_date>
-	</atendente>
+  </atendente>
 </root>
 XML;
 
@@ -139,7 +149,7 @@ XML;
 
 		// ******* Inserção do Endereço *******
 		if($endereco == null) {
-			$endereco =  "(sem endenreço)";
+			$endereco =  "(sem endereço)";
 		}
 		$enderecoElement = $domXML->createElement("endereco", $endereco);
 		$atendente->appendChild($enderecoElement);
@@ -172,14 +182,7 @@ XML;
 
 	}
 
-	public function selectAtendente($codigo = null,
-									$nome = null, 
-									$senha = null,
-									$cpf = null,
-									$dtNascimento = null,
-									$endereco = null,
-									$telefone = null,
-									$email=null) 
+	public function selectAtendente($codigo = null,	$nome = null, $senha = null, $cpf = null, $dtNascimento = null,	$endereco = null, $telefone = null,	$email=null) 
 	{
 		$tablePath = $GLOBALS['tablePathAtendente'];
 
@@ -211,7 +214,7 @@ XML;
 		}
 		if ($senha != null) {
 			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
-			$xPathQuery = $xPathQuery."cpf/text()='".$nome."'";
+			$xPathQuery = $xPathQuery."senha/text()='".$senha."'";
 			$maisDeUmParametro = true;
 		}
 		if ($cpf != null) {
@@ -221,17 +224,17 @@ XML;
 		}
 		if ($dtNascimento != null) {
 			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
-			$xPathQuery = $xPathQuery."cpf/text()='".$dtNascimento."'";
+			$xPathQuery = $xPathQuery."dtNascimento/text()='".$dtNascimento."'";
 			$maisDeUmParametro = true;
 		}
 		if ($endereco != null) {
 			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
-			$xPathQuery = $xPathQuery."cpf/text()='".$endereco."'";
+			$xPathQuery = $xPathQuery."endereco/text()='".$endereco."'";
 			$maisDeUmParametro = true;
 		}
 		if ($telefone != null) {
 			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
-			$xPathQuery = $xPathQuery."cpf/text()='".$telefone."'";
+			$xPathQuery = $xPathQuery."telefone/text()='".$telefone."'";
 			$maisDeUmParametro = true;
 		}
 		if ($email != null) {
@@ -245,14 +248,14 @@ XML;
 
 		$xml = $xml->xpath($xPathQuery);
 
-		return $xml;
+		return $xml; // Retorna um Array de SimpleXML Object, contendo os resultados
 		
 	}
 
 	public function excluirAtendente($codigo) {
 
 		$tablePath = $GLOBALS['tablePathAtendente'];
-		$atendente = lAtendente::selectAtendente($codigo);
+		$atendente = $this->selectAtendente($codigo);
 
 		if($atendente == null) {
 			return "ERRO: Não há atendente com o código ".$codigo.".";
@@ -267,7 +270,64 @@ XML;
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
 	}
- 
+
+	public function salvaAtendente() {
+
+		return $this->insertAtendente(  $this->nome, 
+										$this->senha, 
+										$this->cpf,
+										$this->dtNascimento,
+										$this->endereco,
+										$this->telefone,
+										$this->email
+									 );
+	
+	}
+
+	public function clearAtendente() {
+		$this->codigo = null;
+		$this->nome = null;
+		$this->senha = null;
+		$this->cpf = null;
+		$this->dtNascimento = null;
+		$this->endereco = null;
+		$this->telefone = null;
+		$this->email = null;
+	}
+
+	public function getAtendenteByCodigo($codigo) {
+		selectAtendente($codigo);
+	}
+
+	public function getAtendenteByNome($nome) {
+		return selectAtendente($nome);
+	}
+
+	public function getAtendenteByCPF($cpf) {
+		return selectAtendente($cpf);
+	}
+
+	public function getAtendenteByDtNascimento($dtNascimento) {
+		return selectAtendente($dtNascimento);
+	}
+
+	public function getAtendenteByEndereco($endereco) {
+		return selectAtendente($endereco);
+	}
+
+	public function getAtendenteByTelefone($telefone) {
+		return selectAtendente($telefone);
+	}
+
+	public function getAtendenteByEmail($email) {
+		return selectAtendente($email);
+	}
+
+
+
+
+	
+
 
 }
 
@@ -283,13 +343,5 @@ XML;
 
 // SELECT * FROM tAtendente WHERE 'nome = varNome';
 
-/*
-senha
-dtNascimento
-end
-telefone
-
-
-*/
 
 ?>
