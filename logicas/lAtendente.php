@@ -1,26 +1,85 @@
 <?php
+
+/**
+ * ..:: Logica para manipulacao da tabela de Atendentes ::..
+ * 
+ * @author Marlon R C Franco
+ * @author Marlon R C Franco <marlonrcfranco@gmail.com>
+ * 
+ */
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-$GLOBALS['semEspaco'] = false;
-$GLOBALS['tablePathAtendente'] = "./db/tAtendente.xml"; 
-
 class lAtendente {
+/**
+ * Classe de lógica para manipulação da tabela tAtendente.xml
+ * 
+ * @var string $codigo				Codigo de identificacao no padrão "A0000"
+ * @var string $nome       			Nome do atendente
+ * @var string $senha        		Senha
+ * @var string $cpf        			CPF no padrão "777.777.777-77"
+ * @var string $dtNascimento		Data de nascimento, no padrão 1900-01-01
+ * @var string $endereco       		Endereco do atendente
+ * @var string $telefone       		Telefone do atendente
+ * @var string $email        		E-mail do atendente
+ * @var string $reg_date        	Data e Hora de registro do atendente do sistema
+ * @var boolean $semEspaco			Flag para verificacao se ha espaco vazio no meio da tabela tAtendente.xml
+ * @var string $tablePathAtendente	File path da tabela tAtendente.xml
+ * 
+ */
 
-	public $codigo = null;
-	public $nome = null;
-	public $senha = null;
-	public $cpf = null;
-	public $dtNascimento = null;
-	public $endereco = null;
-	public $telefone = null;
-	public $email = null;
+	public $codigo;
+	public $nome;
+	public $senha;
+	public $cpf;
+	public $dtNascimento;
+	public $endereco;
+	public $telefone;
+	public $email;
+	public $reg_date;
+
+	private $semEspaco;
+	private $tablePathAtendente;
 	
+/**
+ * lAtendente
+ * 
+ * Construtor da classe lAtendente, que inicializa os parametros como null.
+ * 
+ * @param void
+ * @return void
+ * 
+ */
+	function lAtendente() {
 	
+        $this->codigo = null;
+		$this->nome = null;
+		$this->senha = null;
+		$this->cpf = null;
+		$this->dtNascimento = null;
+		$this->endereco = null;
+		$this->telefone = null;
+		$this->email = null;
+		$this->reg_date = null;
+
+		$this->semEspaco = false;
+		$this->tablePathAtendente = "./db/tAtendente.xml";
+    }
+	
+	/**
+	 * createTableAtendente
+	 *
+	 * Metodo para a criacao da tabela Atendente.xml, contendo o primeiro registro como Template.
+	 * 
+	 * @param void
+	 * @return int 1|0	Retorna 1 se houve ERRO, ou 0 se a criacao da tabela foi realizada com sucesso.
+	 * 
+	 */
 	public function createTableAtendente() {
-		$filePathAtendente = $GLOBALS['tablePathAtendente'];
+
+		$filePathAtendente = $this->tablePathAtendente;
 
 		$file = fopen($filePathAtendente, "w+");
 	$template = <<<XML
@@ -35,7 +94,7 @@ class lAtendente {
 		<endereco>(sem endereço)</endereco>
 		<telefone>(sem telefone)</telefone>
 		<email>(sem E-mail)</email>
-		<reg_date>1993-05-31 11:07:47</reg_date>
+		<reg_date>1993-05-31 59:59:59</reg_date>
   </atendente>
 </root>
 XML;
@@ -51,11 +110,21 @@ XML;
 			fclose($file);
 			return 0; // Tabela criada com sucesso
 		}
-		
 	}
 
+
+	/**
+	 * buscaEspacoVazio
+	 * 
+	 * Metodo para buscar o espaco vazio na tabela, retornando o nodo anterior ao espaco vazio, ou
+	 * o ultimo nodo, caso nao haja espaco vazio.
+	 * 
+	 * @param DOMDocument $domXml					Objeto DOMDocument contendo o XML.
+	 * @return DOMDocument $domNode|$domLastNode	Retorna o Nodo anterior ao espaco vazio OU o ultimo Nodo, caso nao haja espaco vazio.
+	 *
+	 */
 	public function buscaEspacoVazio(DOMDocument $domXml) {
-		
+
 		$i = 0;
 		$domLastNode;
 
@@ -67,18 +136,65 @@ XML;
 
 			if( strcmp($codAnterior,$codigo) != 0) {
 				//print_r("retornou:".$domNode->parentNode->nodeName." codigo: ".$codigo."\n");
-				$GLOBALS['semEspaco'] = false;
+				$this->semEspaco = false;
 				return $domNode->parentNode;
 			}
 		}
-		$GLOBALS['semEspaco'] = true;
+		$this->semEspaco = true;
 		return $domLastNode->parentNode; // ultimo elemento da lista
-
 	}
 
 
-	public function insertAtendente($nome, $senha, $cpf, $dtNascimento=null, $endereco=null, $telefone=null, $email=null) {
-		$tablePath  = $GLOBALS['tablePathAtendente'];
+	/**
+	 * traduzSimpleXMLObjectToAtendente
+	 *
+	 * Traduz um array de SimpleXMLObject em um array de lAtendente
+	 * 
+	 * @param SimpleXMLElement[] $ListSimpleXMLObject		Array de SimpleXMLObject.
+	 * @return lAtendente[] $ListaAtendente					Array de lAtendente.
+	 * 
+	 */
+	private function traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject) {
+	
+		$ListaAtendente = array();
+		
+		foreach($ListSimpleXMLObject as $SimpleXMLObject) {
+			$oAtendente = new lAtendente();
+			$oAtendente->codigo 	  =	(string)$SimpleXMLObject->codigo;
+			$oAtendente->nome 		  = (string)$SimpleXMLObject->nome;
+			$oAtendente->senha		  = (string)$SimpleXMLObject->senha;
+			$oAtendente->cpf 		  = (string)$SimpleXMLObject->cpf;
+			$oAtendente->dtNascimento = (string)$SimpleXMLObject->dtNascimento;
+			$oAtendente->endereco     =	(string)$SimpleXMLObject->endereco;
+			$oAtendente->telefone     = (string)$SimpleXMLObject->telefone;
+			$oAtendente->email        = (string)$SimpleXMLObject->email;
+			$oAtendente->reg_date     = (string)$SimpleXMLObject->reg_date;
+
+			array_push($ListaAtendente, $oAtendente);
+		}
+		return $ListaAtendente;
+	}
+
+
+	/**
+	 * insertAtendenteCompleto
+	 *
+	 * Salva na tabela tAtendente.xml o novo atendente que possui os parametros informados.
+	 * 
+	 * @param string $nome			Nome do atendente.
+	 * @param string $senha			Senha do atendente.
+	 * @param string $cpf			CPF do atendente.
+	 * @param string $dtNascimento	[Opcional] Data de Nascimento do atendente.
+	 * @param string $endereco		[Opcional] Endereco do atendente.
+	 * @param string $telefone		[Opcional] Telefone do atendente.
+	 * @param string $email			[Opcional] E-mail do atendente.
+	 * 
+	 * @return string "Sucesso"|"ERRO"
+	 * 
+	 */
+	public function insertAtendenteCompleto(string $nome, string $senha, string $cpf, string $dtNascimento=null, string $endereco=null, string $telefone=null, string $email=null) {
+		
+		$tablePath  = $this->tablePathAtendente;
 		
 		$domXML = new DOMDocument('1.0');
 		$domXML->preserveWhiteSpace = false;
@@ -107,7 +223,7 @@ XML;
 		$atendente = $domXML->createElement('atendente');
 
 		// append the <atendente> tag
-		if ($GLOBALS['semEspaco']) {
+		if ($this->semEspaco) {
 			$codigo = "A".sprintf('%04d', $intCodigo + 1);
 			$root->appendChild($atendente);
 		}else {
@@ -179,12 +295,30 @@ XML;
 		}else {
 			return "Erro ao inserir registro de Atendente.";
 		}
-
 	}
 
-	public function selectAtendente($codigo = null,	$nome = null, $senha = null, $cpf = null, $dtNascimento = null,	$endereco = null, $telefone = null,	$email=null) 
-	{
-		$tablePath = $GLOBALS['tablePathAtendente'];
+
+	
+	/**
+	 * selectAtendente
+	 *
+	 * Seleciona na tabela tAtendente.xml todos os atendentes que possuem os campos informados, retornando um array do tipo SimpleXMLElement.
+	 *
+	 * @param string $codigo			[Opcional] Codigo do atendente.
+	 * @param string $nome				[Opcional] Nome do atendente.
+	 * @param string $senha				[Opcional] Senha do atendente.
+	 * @param string $cpf				[Opcional] CPF do atendente.
+	 * @param string $dtNascimento		[Opcional] Data de Nascimento do atendente.
+	 * @param string $endereco			[Opcional] Endereco do atendente.
+	 * @param string $telefone			[Opcional] Telefone do atendente.
+	 * @param string $email				[Opcional] E-mail do atendente.
+	 * 
+	 * @return SimpleXMLElement[] $xml	Retorna um array de SimpleXMLObject contendo o resultado da consulta.
+	 * 
+	 */
+	public function selectAtendente(string $codigo = null, string $nome = null, string $senha = null, string $cpf = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email = null) {
+		
+		$tablePath = $this->tablePathAtendente;
 
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
@@ -199,7 +333,6 @@ XML;
 			return "Informe ao menos um parametro para consulta.";
 		}
 
-		
 		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 		$xPathQuery = "atendente[";
 		
@@ -249,12 +382,21 @@ XML;
 		$xml = $xml->xpath($xPathQuery);
 
 		return $xml; // Retorna um Array de SimpleXML Object, contendo os resultados
-		
 	}
 
-	public function excluirAtendente($codigo) {
 
-		$tablePath = $GLOBALS['tablePathAtendente'];
+	/**
+	 * excluirAtendente
+	 *
+	 * Exclui da tabela tAtendente.xml o atendente que possui o codigo informado.
+	 * 
+	 * @param string $codigo			Codigo do atendente a ser excluido da tabela.
+	 * @return string "Sucesso"|"ERRO"
+	 * 
+	 */
+	public function excluirAtendente(string $codigo) {
+
+		$tablePath = $this->tablePathAtendente;
 		$atendente = $this->selectAtendente($codigo);
 
 		if($atendente == null) {
@@ -271,9 +413,27 @@ XML;
 		}
 	}
 
-	public function updateAtendente($codigo, $nome = null, $senha = null, $cpf = null, $dtNascimento = null, $endereco = null, $telefone = null, $email=null) 
-	{
-		$tablePath = $GLOBALS['tablePathAtendente'];
+
+	/**
+	 * updateAtendenteCompleto
+	 *
+	 * Salva na tabela tAtendente.xml as alteracoes no atendente que possui o codigo informado.
+	 * 
+	 * @param string $codigo		Codigo do atendente a ser atualizado.
+	 * @param string $nome			[Opcional] Nome do atendente.
+	 * @param string $senha			[Opcional] Senha do atendente.
+	 * @param string $cpf			[Opcional] CPF do atendente.
+	 * @param string $dtNascimento	[Opcional] Data de Nascimento do atendente.
+	 * @param string $endereco		[Opcional] Endereco do atendente.
+	 * @param string $telefone		[Opcional] Telefone do atendente.
+	 * @param string $email			[Opcional] E-mail do atendente.
+	 * 
+	 * @return string "Sucesso"|"ERRO"
+	 * 
+	 */
+	public function updateAtendenteCompleto(string $codigo, string $nome = null, string $senha = null, string $cpf = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email=null) {
+
+		$tablePath = $this->tablePathAtendente;
 		$houveAlteracao = false;
 
 		$atendente = $this->selectAtendente($codigo);
@@ -335,29 +495,71 @@ XML;
 		}else {
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
-
 	}
 
-	public function salvaAtendente() {
-		
-		if($this->codigo == null) // Eh um novo atendente
-		{
-			return $this->insertAtendente(  $this->nome, 
-											$this->senha, 
-											$this->cpf,
-											$this->dtNascimento,
-											$this->endereco,
-											$this->telefone,
-											$this->email
-										);
-		}
-		// Senão, é uma atualização
 
-		
+	/**
+	 * insertAtendente
+	 *
+	 * Salva na tabela tAtendente.xml os atributos do objeto desta classe
+	 * 
+	 * @param void
+	 * @return string "Sucesso"|"ERRO"
+	 * 
+	 */
+	public function insertAtendente() {
 	
+		$msgRetorno = $this->insertAtendenteCompleto($this->nome, 
+													$this->senha, 
+													$this->cpf,
+													$this->dtNascimento,
+													$this->endereco,
+													$this->telefone,
+													$this->email
+		);
+
+		$this->codigo = $this->getCodigoByAtendente($this);
+		return $msgRetorno;
 	}
 
+
+	/**
+	 * updateAtendente
+	 *
+	 * Salva na tabela tAtendente.xml as alteracoes presentes nos atributos do objeto desta classe.
+	 * 
+	 * @param void
+	 * @return string "Sucesso"|"ERRO"
+	 * 
+	 */
+	public function updateAtendente() {
+	
+		if($this->codigo == null) {
+			return "ERRO: Código do atendente invalido.";
+		}
+		return $this->updateAtendenteCompleto(	$this->codigo,
+												$this->nome, 
+												$this->senha, 
+												$this->cpf,
+												$this->dtNascimento,
+												$this->endereco,
+												$this->telefone,
+												$this->email
+		);
+	}
+
+
+	/**
+	 * clearAtendente
+	 *
+	 * Limpa os atributos do objeto da classe lAtendente.
+	 * 
+	 * @param void
+	 * @return void
+	 * 
+	 */
 	public function clearAtendente() {
+	
 		$this->codigo = null;
 		$this->nome = null;
 		$this->senha = null;
@@ -368,53 +570,158 @@ XML;
 		$this->email = null;
 	}
 
-	public function getAtendenteByCodigo($codigo) {
-		return selectAtendente($codigo);
-	}
 
-	public function getAtendenteByNome($nome) {
-		return selectAtendente($nome);
-	}
-
-	public function getAtendenteByCPF($cpf) {
-		return selectAtendente($cpf);
-	}
-
-	public function getAtendenteByDtNascimento($dtNascimento) {
-		return selectAtendente($dtNascimento);
-	}
-
-	public function getAtendenteByEndereco($endereco) {
-		return selectAtendente($endereco);
-	}
-
-	public function getAtendenteByTelefone($telefone) {
-		return selectAtendente($telefone);
-	}
-
-	public function getAtendenteByEmail($email) {
-		return selectAtendente($email);
-	}
-
-
-
-
+	/**
+	 * getAtendenteByCodigo
+	 * 
+	 * Busca os Atendentes que possuem o codigo informado e retorna um array com objetos da classe lAtendente.
+	 * 
+	 * @param string $codigo				Codigo do atendente a ser buscado.
+	 * @return lAtendente[] $ListaAtendente	Retorna um array de objetos da classe lAtendente.
+	 * 
+	 */
+	public function getAtendenteByCodigo(string $codigo) {
 	
+		$ListSimpleXMLObject = $this->selectAtendente($codigo);
+		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
+		
+		return $ListaAtendentes;
+	}
+
+
+	/**
+	 * getAtendenteByNome
+	 *
+	 * Busca os Atendentes que possuem o nome informado e retorna um array com objetos da classe lAtendente.
+	 * 
+	 * @param string $nome					Nome do atendente a ser buscado.
+	 * @return lAtendente[] $ListaAtendente	Retorna um array de objetos da classe lAtendente.
+	 * 
+	 */
+	public function getAtendenteByNome(string $nome) {
+	
+		$ListSimpleXMLObject = $this->selectAtendente(null, $nome);
+		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
+		
+		return $ListaAtendentes;
+	}
+
+
+	/**
+	 * getAtendenteByCPF
+	 * 
+	 * Busca os Atendentes que possuem o CPF informado e retorna um array com objetos da classe lAtendente.
+	 * 
+	 * @param string $cpf					CPF do atendente a ser buscado.
+	 * @return lAtendente[] $ListaAtendente	Retorna um array de objetos da classe lAtendente.
+	 * 
+	 */
+	public function getAtendenteByCPF(string $cpf) {
+	
+		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, $cpf);
+		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
+		
+		return $ListaAtendentes;
+	}
+
+
+	/**
+	 * getAtendenteByDtNascimento
+	 *
+	 * Busca os Atendentes que possuem a Data de Nascimento informada e retorna um array com objetos da classe lAtendente.
+	 * 
+	 * @param string $dtNascimento			Data de Nascimento do atendente a ser buscado.
+	 * @return lAtendente[] $ListaAtendente	Retorna um array de objetos da classe lAtendente.
+	 * 
+	 */
+	public function getAtendenteByDtNascimento($dtNascimento) {
+
+		$ListSimpleXMLObject = $this->selectAtendente(null, null, null,  null, $dtNascimento);
+		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
+		
+		return $ListaAtendentes;
+	}
+
+
+	/**
+	 * getAtendenteByEndereco
+	 *
+	 * Busca os Atendentes que possuem o Endereco informado e retorna um array com objetos da classe lAtendente.
+	 * 
+	 * @param string $endereco				Endereco do atendente a ser buscado.
+	 * @return lAtendente[] $ListaAtendente	Retorna um array de objetos da classe lAtendente.
+	 * 
+	 */
+	public function getAtendenteByEndereco($endereco) {
+
+		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, null, null, $endereco);
+		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
+		
+		return $ListaAtendentes;
+	}
+
+
+	/**
+	 * getAtendenteByTelefone
+	 *
+	 * Busca os Atendentes que possuem o Telefone informado e retorna um array com objetos da classe lAtendente.
+	 * 
+	 * @param string $telefone				Telefone do tendente a ser buscado.
+	 * @return lAtendente[] $ListaAtendente	Retorna um array de objetos da classe lAtendente.
+	 * 
+	 */
+	public function getAtendenteByTelefone($telefone) {
+	
+		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, null, null, null, $telefone);
+		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
+		
+		return $ListaAtendentes;
+	}
+
+
+	/**
+	 * getAtendenteByEmail
+	 *
+	 * Busca os Atendentes que possuem o E-mail informado e retorna um array com objetos da classe lAtendente.
+	 * 
+	 * @param string $email					E-mail d atendente a ser buscado.
+	 * @return lAtendente[] $ListaAtendente	Retorna um array de objetos da classe lAtendente.
+	 * 
+	 */
+	public function getAtendenteByEmail($email) {
+	
+		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, null, null, null, null, $email);
+		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
+		
+		return $ListaAtendentes;
+	}
+
+
+	/**
+	 * getCodigoByAtendente
+	 *
+	 * Busca o Atendente informado e retorna uma string com o seu codigo.
+	 * 
+	 * @param lAtendente $oAtendente	Objeto da classe lAtendente.
+	 * @return string $codigo			Retorna o Codigo do Atendente (em string).
+	 * 
+	 */
+	public function getCodigoByAtendente(lAtendente $oAtendente) {
+	
+		$temp = $this->selectAtendente (null,
+										$oAtendente->nome,
+										$oAtendente->senha,
+										$oAtendente->cpf,
+										$oAtendente->dtNascimento,
+										$oAtendente->endereco,
+										$oAtendente->telefone,
+										$oAtendente->email
+									   );
+		$codigo = (string) $temp[0]->codigo;
+		return $codigo;
+	}
 
 
 }
-
-
-
-
-//$tablePathAtendente = "./db/tAtendente.xml";
-//insertAtendente("MariaX","777.777.777-77" ,"123@gmail.com");
-
-//$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
-
-//print_r(selectAtendente("A0000",null,"777.777.777-77"));
-
-// SELECT * FROM tAtendente WHERE 'nome = varNome';
-
 
 ?>
