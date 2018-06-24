@@ -99,7 +99,7 @@ class lHorarioAtendimento {
 		<qui>0000000000000000000000</qui>
 		<sex>0000000000000000000000</sex>
 		<reg_date>1993-05-31 59:59:59</reg_date>
-  </horarioAtendimento>
+	</horarioAtendimento>
 </root>
 XML;
 
@@ -355,7 +355,7 @@ XML;
 	 *
 	 * Seleciona na tabela tHorarioAtendimento.xml todos os HorarioAtendimentos que possuem os campos informados, retornando um array do tipo SimpleXMLElement.
 	 *
-	 * @var string $codigo				Codigo do Horario no formato "H0000"
+	 * @param string $codigo			Codigo do Horario no formato "H0000"
 	 * @param string $codMedico        	[FK] Codigo do Medico no formato "M0000"
 	 * @param string $seg       		Sequencia de 22 caracteres (0 ou 1) que representam os horarios em intervalos de 30min entre 8:00-19:00.
 	 * @param string $ter				Sequencia de 22 caracteres (0 ou 1) que representam os horarios em intervalos de 30min entre 8:00-19:00.
@@ -470,19 +470,18 @@ XML;
 	 *
 	 * Salva na tabela tHorarioAtendimento.xml as alteracoes no HorarioAtendimento que possui o codigo informado.
 	 * 
-	 * @param string $codigo				[Opcional] Codigo da HorarioAtendimento no formato "C0000"
-	 * @param string $codAtendente       	[Opcional] [FK] Codigo do Atendente no formato "A0000"
-	 * @param string $codMedico        		[Opcional] [FK] Codigo do Medico no formato "M0000"
-	 * @param string $codPaciente       	[Opcional] [FK] Codigo do Paciente no formato "P0000"
-	 * @param string $data					[Opcional] Data da HorarioAtendimento 1900-01-01
-	 * @param string $hora       			[Opcional] Horario da HorarioAtendimento (HH:mm:ss)
-	 * @param string $observacao       		[Opcional] Observacao da HorarioAtendimento
-	 * @param string $receita        		[Opcional] Receita da HorarioAtendimento
+	 * @param string $codigo			Codigo do Horario no formato "H0000"
+	 * @param string $codMedico        	[FK] Codigo do Medico no formato "M0000"
+	 * @param string $seg       		Sequencia de 22 caracteres (0 ou 1) que representam os horarios em intervalos de 30min entre 8:00-19:00.
+	 * @param string $ter				Sequencia de 22 caracteres (0 ou 1) que representam os horarios em intervalos de 30min entre 8:00-19:00.
+	 * @param string $qua       		Sequencia de 22 caracteres (0 ou 1) que representam os horarios em intervalos de 30min entre 8:00-19:00.
+	 * @param string $qui       		Sequencia de 22 caracteres (0 ou 1) que representam os horarios em intervalos de 30min entre 8:00-19:00.
+	 * @param string $sex        		Sequencia de 22 caracteres (0 ou 1) que representam os horarios em intervalos de 30min entre 8:00-19:00.
 	 * 
 	 * @return string "Sucesso"|"ERRO"
 	 * 
 	 */
-	public function updateHorarioAtendimentoCompleto(string $codigo, string $codAtendente = null, string $codMedico = null, string $codPaciente = null, string $data = null, string $hora = null, string $observacao=null, string $receita=null) {
+	public function updateHorarioAtendimentoCompleto(string $codigo, string $codMedico = null, string $seg = null, string $ter = null, string $qua = null, string $qui=null, string $sex=null) {
 
 		$tablePath = $this->tablePathHorarioAtendimento;
 		$houveAlteracao = false;
@@ -497,39 +496,52 @@ XML;
 		if(($HorarioAtendimento->codigo != $codigo) or ($codigo == null)) {
 			return "ERRO: codigo invalido.";
 		}
-		
-		if(($HorarioAtendimento->codAtendente != $codAtendente) and ($codAtendente != null)) {
-			$HorarioAtendimento->codAtendente = $codAtendente;
-			$houveAlteracao = true;
-		}
 
 		if(($HorarioAtendimento->codMedico != $codMedico) and ($codMedico != null)) {
+			if($this->verificaCodMedico($codMedico)) {
+				return "ERRO: Medico nao encontrado ou Horario de atendimento ja cadastrado.";
+			}
 			$HorarioAtendimento->codMedico = $codMedico;
 			$houveAlteracao = true;
 		}
 
-		if(($HorarioAtendimento->codPaciente != $codPaciente) and ($codPaciente != null)) {
-			$HorarioAtendimento->codPaciente = $codPaciente;
+		if(($HorarioAtendimento->seg != $seg) and ($seg != null)) {
+			if($this->verificaFormatoHorario($seg)) {
+				return "ERRO: Formato de horario invalido (devem ser 22 caracteres '0' ou '1').";
+			}
+			$HorarioAtendimento->seg = $seg;
 			$houveAlteracao = true;
 		}
 
-		if(($HorarioAtendimento->data != $data) and ($data != null)) {
-			$HorarioAtendimento->data = $data;
+		if(($HorarioAtendimento->ter != $ter) and ($ter != null)) {
+			if($this->verificaFormatoHorario($ter)) {
+				return "ERRO: Formato de horario invalido (devem ser 22 caracteres '0' ou '1').";
+			}
+			$HorarioAtendimento->ter = $ter;
 			$houveAlteracao = true;
 		}
 
-		if(($HorarioAtendimento->hora != $hora) and ($hora != null)) {
-			$HorarioAtendimento->hora = $hora;
+		if(($HorarioAtendimento->qua != $qua) and ($qua != null)) {
+			if($this->verificaFormatoHorario($qua)) {
+				return "ERRO: Formato de horario invalido (devem ser 22 caracteres '0' ou '1').";
+			}
+			$HorarioAtendimento->qua = $qua;
 			$houveAlteracao = true;
 		}
 
-		if(($HorarioAtendimento->observacao != $observacao) and ($observacao != null)) {
-			$HorarioAtendimento->observacao = $observacao;
+		if(($HorarioAtendimento->qui != $qui) and ($qui != null)) {
+			if($this->verificaFormatoHorario($qui)) {
+				return "ERRO: Formato de horario invalido (devem ser 22 caracteres '0' ou '1').";
+			}
+			$HorarioAtendimento->qui = $qui;
 			$houveAlteracao = true;
 		}
 
-		if(($HorarioAtendimento->receita != $receita) and ($receita != null)) {
-			$HorarioAtendimento->receita = $receita;
+		if(($HorarioAtendimento->sex != $sex) and ($sex != null)) {
+			if($this->verificaFormatoHorario($sex)) {
+				return "ERRO: Formato de horario invalido (devem ser 22 caracteres '0' ou '1').";
+			}
+			$HorarioAtendimento->sex = $sex;
 			$houveAlteracao = true;
 		}
 
@@ -592,13 +604,12 @@ XML;
 			return "ERRO: Código do HorarioAtendimento invalido.";
 		}
 	return $this->updateHorarioAtendimentoCompleto(	$this->codigo,
-											$this->codAtendente, 
-											$this->codMedico,
-											$this->codPaciente,
-											$this->data,
-											$this->hora,
-											$this->observacao,
-											$this->receita
+													$this->codMedico,
+													$this->seg,
+													$this->ter,
+													$this->qua,
+													$this->qui,
+													$this->sex
 		);
 	}
 

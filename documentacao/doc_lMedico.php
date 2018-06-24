@@ -165,7 +165,7 @@ function testeUpdatePorAtributo(){
     
     /* ..:: Atualizacao por atributo ::.. */
     $oMedico->codigo = "M0000"; 
-    // como exemplo, eh utilizado o codigo do Template ("A0000"), porem este codigo 
+    // como exemplo, eh utilizado o codigo do Template ("M0000"), porem este codigo 
     // deve ser adquirido atraves do metodo "getCodigoByMedico", ou por qualquer um dos metodos de Select (ver: testeSelect())
     $oMedico->nome = "Teste Update por Atributo";
     $oMedico->email = "email.teste@update.com";

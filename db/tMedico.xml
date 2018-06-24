@@ -26,4 +26,17 @@
     <email>moc.liame@email.com</email>
     <reg_date>2018-06-23 21:22:42</reg_date>
   </medico>
+  <medico>
+    <codigo>M0002</codigo>
+    <nome>Teste Insercao por Atributo</nome>
+    <senha>7777777</senha>
+    <cpf>777.777.777-77</cpf>
+    <especialidade>Pediatria</especialidade>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <dtNascimento>2999-12-31</dtNascimento>
+    <endereco>Rua Teste Insercao por Atributo</endereco>
+    <telefone>777777777</telefone>
+    <email>moc.liame@email.com</email>
+    <reg_date>2018-06-23 21:22:42</reg_date>
+  </medico>
 </root>

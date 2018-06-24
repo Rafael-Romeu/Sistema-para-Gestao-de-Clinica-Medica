@@ -138,7 +138,7 @@ function testeUpdatePorParametro(){
     $oHorarioAtendimento->createTableHorarioAtendimento();
 
     /* ..:: Atualizacao por parametro utilizando o metodo "updateHorarioAtendimentoCompleto" ::.. */
-    print_r($oHorarioAtendimento->updateHorarioAtendimentoCompleto("C0000","A0000", "M0000","P0000", "2018-07-01", "11:30:00", "Teste Update por Parametro", "Teste Update por Parametro"));
+    print_r($oHorarioAtendimento->updateHorarioAtendimentoCompleto("H0000", "M0000", "0000000000000000000010"));
 }
 
 
@@ -160,11 +160,11 @@ function testeUpdatePorAtributo(){
     $oHorarioAtendimento->createTableHorarioAtendimento();
     
     /* ..:: Atualizacao por atributo ::.. */
-    $oHorarioAtendimento->codigo = "C0000"; 
-    // como exemplo, eh utilizado o codigo do Template ("A0000"), porem este codigo 
+    $oHorarioAtendimento->codigo = "H0000"; 
+    // como exemplo, eh utilizado o codigo do Template ("H0000"), porem este codigo 
     // deve ser adquirido atraves do metodo "getCodigoByHorarioAtendimento", ou por qualquer um dos metodos de Select (ver: testeSelect())
-    $oHorarioAtendimento->observacao = "Teste Update por Atributo";
-    $oHorarioAtendimento->receita = " 3 xicaras de café por dia.";
+    $oHorarioAtendimento->seg = "0000000000000000011111";
+    $oHorarioAtendimento->ter = "1111111111111111111111";
     print_r($oHorarioAtendimento->updateHorarioAtendimento());
 }
 
@@ -185,7 +185,7 @@ function testeExclusao(){
     $oHorarioAtendimento = new lHorarioAtendimento();
     $oHorarioAtendimento->createTableHorarioAtendimento();
 
-    print_r($oHorarioAtendimento->excluirHorarioAtendimento("C0000"));
+    print_r($oHorarioAtendimento->excluirHorarioAtendimento("H0000"));
 }
 
 
@@ -205,9 +205,9 @@ function testeExclusao(){
 function testeSelectPorUmParametro(){
     $oHorarioAtendimento = new lHorarioAtendimento();
     $oHorarioAtendimento->createTableHorarioAtendimento();
-    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("A0000", "M0000","P0000", "2018-07-01", "11:30:00", "Teste Select por UM Parametro", "Teste Select por UM Parametro"));
+    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("M0000", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0101010101010101010101"));
     print_r("\n");
-    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("A0000", "M0000","P0001", "2018-07-01", "12:30:00", "Teste Select por UM Parametro", null));
+    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("M0001", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0101010101010101010101", "0000000000000000000000"));
     print_r("\n\n");
     /* ..:: HorarioAtendimento utilizando os metodos 'get' ::.. */
     /* Retornam um array de lHorarioAtendimento */
@@ -252,9 +252,9 @@ function testeSelectPorUmParametro(){
 function testeSelectPorMaisDeUmParametro(){
     $oHorarioAtendimento = new lHorarioAtendimento();
     $oHorarioAtendimento->createTableHorarioAtendimento();
-    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("A0000", "M0000","P0000", "2018-07-01", "11:30:00", "Teste Select por + de um Parametro", "Teste Select por + de um Parametro"));
+    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("M0000", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0101010101010101010101"));
     print_r("\n");
-    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("A0000", "M0000","P0001", "2018-07-01", "12:30:00", "Teste Select por + de um Parametro", null));
+    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("M0001", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0101010101010101010101", "0000000000000000000000"));
     print_r("\n\n");
 
     /* ..:: Selecao utilizando multiplos campos ::.. */
@@ -278,13 +278,13 @@ function testeSelectPorMaisDeUmParametro(){
 function testeDescobrirCodigoDoHorarioAtendimento(){
     $oHorarioAtendimento = new lHorarioAtendimento();
     $oHorarioAtendimento->createTableHorarioAtendimento();
-    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("A0000", "M0000","P0000", "2018-07-01", "11:30:00", null, null));
+    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("M0001", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0101010101010101010101"));
     print_r("\n");
-    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("A0000", "M0000","P0001", "2018-07-01", "12:30:00", null, null));
+    print_r($oHorarioAtendimento->insertHorarioAtendimentoCompleto("M0002", "0000000000000000000000", "0000000000000000000000", "0000000000000000000000", "0101010101010101010101", "0000000000000000000000"));
     print_r("\n\n");
 
     
-    $oHorarioAtendimento = $oHorarioAtendimento->traduzSimpleXMLObjectToHorarioAtendimento($oHorarioAtendimento->selectHorarioAtendimento(null, "A0000", "M0000","P0001", "2018-07-01", "12:30:00"))[0];
+    $oHorarioAtendimento = $oHorarioAtendimento->getHorarioAtendimentoByCodMedico("M0002")[0];
 
     /* ..:: Para obter o codigo de um HorarioAtendimento ::.. */
     // OBS: o $oHorarioAtendimento deve possuir um ou mais atributos preenchidos
@@ -300,7 +300,7 @@ function main(){
     // testeAtributos();
     // testeCriacao();
     // testeInsercaoPorParametro();
-    testeInsercaoPorAtributo();
+    // testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();
     // testeExclusao();

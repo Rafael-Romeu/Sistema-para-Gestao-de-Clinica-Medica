@@ -162,7 +162,7 @@ function testeUpdatePorAtributo(){
     
     /* ..:: Atualizacao por atributo ::.. */
     $oConsulta->codigo = "C0000"; 
-    // como exemplo, eh utilizado o codigo do Template ("A0000"), porem este codigo 
+    // como exemplo, eh utilizado o codigo do Template ("C0000"), porem este codigo 
     // deve ser adquirido atraves do metodo "getCodigoByConsulta", ou por qualquer um dos metodos de Select (ver: testeSelect())
     $oConsulta->observacao = "Teste Update por Atributo";
     $oConsulta->receita = " 3 xicaras de café por dia.";
