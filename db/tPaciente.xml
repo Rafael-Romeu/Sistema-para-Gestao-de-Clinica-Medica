@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <atendente>
-    <codigo>A0000</codigo>
+  <paciente>
+    <codigo>P0000</codigo>
     <nome>Template</nome>
     <senha>admin</senha>
     <cpf>admin</cpf>
+    <planoDeSaude>(Plano de Saude)</planoDeSaude>
+    <genero>( M || F || O )</genero>
+    <tipoSanguineo>( A+ || A- || B+ || B- || AB+ || AB- || O+ || O- )</tipoSanguineo>
     <dtNascimento>1900-01-01</dtNascimento>
     <endereco>(sem endereço)</endereco>
     <telefone>(sem telefone)</telefone>
     <email>(sem E-mail)</email>
     <reg_date>1993-05-31 59:59:59</reg_date>
-  </atendente>
-  <atendente>
-    <codigo>A0001</codigo>
+  </paciente>
+  <paciente>
+    <codigo>P0001</codigo>
     <nome>Teste Insercao por Atributo</nome>
     <senha>7777777</senha>
     <cpf>777.777.777-77</cpf>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <genero>F</genero>
+    <tipoSanguineo>A-</tipoSanguineo>
     <dtNascimento>2999-12-31</dtNascimento>
     <endereco>Rua Teste Insercao por Atributo</endereco>
     <telefone>777777777</telefone>
     <email>moc.liame@email.com</email>
-    <reg_date>2018-06-23 21:21:46</reg_date>
-  </atendente>
+    <reg_date>2018-06-23 21:23:24</reg_date>
+  </paciente>
 </root>
