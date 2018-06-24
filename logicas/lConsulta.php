@@ -523,16 +523,25 @@ XML;
 		}
 		
 		if(($Consulta->codAtendente != $codAtendente) and ($codAtendente != null)) {
+			if($this->verificaCodAtendente($codAtendente)) {
+				return "ERRO: Atendente nao encontrado.";
+			}
 			$Consulta->codAtendente = $codAtendente;
 			$houveAlteracao = true;
 		}
 
 		if(($Consulta->codMedico != $codMedico) and ($codMedico != null)) {
+			if($this->verificaCodMedico($codMedico)) {
+				return "ERRO: Medico nao encontrado.";
+			}
 			$Consulta->codMedico = $codMedico;
 			$houveAlteracao = true;
 		}
 
 		if(($Consulta->codPaciente != $codPaciente) and ($codPaciente != null)) {
+			if($this->verificaCodPaciente($codPaciente)) {
+				return "ERRO: Paciente nao encontrado.";
+			}
 			$Consulta->codPaciente = $codPaciente;
 			$houveAlteracao = true;
 		}
