@@ -592,7 +592,9 @@ XML;
 													$this->observacao,
 													$this->receita
 		);
-
+		if (strcmp($msgRetorno, "Insercao realizada com sucesso!") != 0) {
+			return $msgRetorno; // Significa que deu erro.
+		}
 		$this->codigo = $this->getCodigoByConsulta($this);
 		$this->reg_date = $this->getConsultaByCodigo($this->codigo)[0]->reg_date;
 		return $msgRetorno;

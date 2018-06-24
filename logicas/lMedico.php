@@ -582,7 +582,9 @@ XML;
 													$this->telefone,
 													$this->email
 		);
-
+		if (strcmp($msgRetorno, "Insercao realizada com sucesso!") != 0) {
+			return $msgRetorno; // Significa que deu erro.
+		}
 		$this->codigo = $this->getCodigoByMedico($this);
 		$this->reg_date = $this->getMedicoByCodigo($this->codigo)[0]->reg_date;
 		return $msgRetorno;

@@ -38,11 +38,11 @@ class ctrlAtendente {
         $oAtendente->telefone = $telefone;
         $oAtendente->email=$email;
 
-        print_r($oAtendente->insertAtendente());
+        return $oAtendente->insertAtendente();
     }
 
 
-    function CadastrarMedicostring ($nome, string $senha, string $cpf, string $especialidade, string $planoDeSaude, string $dtNascimento=null, string $endereco=null, string $telefone=null, string $email=null){
+    function CadastrarMedico(string $nome, string $senha, string $cpf, string $especialidade, string $planoDeSaude, string $dtNascimento=null, string $endereco=null, string $telefone=null, string $email=null){
         $oMedico = new lMedico();
         
         $oMedico->nome = $nome;
@@ -55,7 +55,7 @@ class ctrlAtendente {
         $oMedico->telefone = $telefone;
         $oMedico->email=$email;
 
-        print_r($oMedico->insertMedico());
+        return $oMedico->insertMedico();
     }
 
 
@@ -73,17 +73,38 @@ class ctrlAtendente {
         $oPaciente->telefone = $telefone;
         $oPaciente->email=$email;
 
-        print_r($oPaciente->insertPaciente());
+        return $oPaciente->insertPaciente();
     }
 
 
-    function AgendarConsulta(){
+    function AgendarConsulta(string $codAtendente, string $codMedico, string $codPaciente, string $data, string $hora ){
+        $oConsulta = new lConsulta();
         
+        $oConsulta->codAtendente = $codAtendente;
+        $oConsulta->codMedico = $codMedico;
+        $oConsulta->codPaciente = $codPaciente;
+        $oConsulta->data = $data;
+        $oConsulta->hora = $hora;
+
+        return $oConsulta->insertConsulta();
     }
     
 
     function VerAgenda(lMedico $oMedico){
+        $oConsulta = new lConsulta();
+        $ConsultasFuturas = array();
 
+        $codMedico = $oMedico->codigo;
+
+        $listaConsultas = $oConsulta->getConsultaByCodMedico($codMedico);
+
+        foreach($listaConsultas as $consulta){
+            if($consulta->data > date("Y-m-d H:i:s",time())){
+                array_push($ConsultasFuturas, $consulta);
+            }
+        }
+
+        return $ConsultasFuturas;
     }
 
 
