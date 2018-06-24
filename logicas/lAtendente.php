@@ -11,6 +11,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+date_default_timezone_set('America/Sao_Paulo');
 
 class lAtendente {
 /**
@@ -52,7 +53,7 @@ class lAtendente {
  * @return void
  * 
  */
-	function lAtendente() {
+	function __construct() {
 	
         $this->codigo = null;
 		$this->nome = null;
@@ -154,7 +155,7 @@ XML;
 	 * @return lAtendente[] $ListaAtendente					Array de lAtendente.
 	 * 
 	 */
-	private function traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject) {
+	public function traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject) {
 	
 		$ListaAtendente = array();
 		
@@ -285,7 +286,7 @@ XML;
 		$atendente->appendChild($emailElement);
 
 		// ******* Inserção da Data de Registro no Sitema *******
-		$reg_dateElement = $domXML->createElement("reg_date", date("Y-m-d h:m:s",time()));
+		$reg_dateElement = $domXML->createElement("reg_date", date("Y-m-d H:i:s",time()));
 		$atendente->appendChild($reg_dateElement);
 
 
@@ -312,11 +313,12 @@ XML;
 	 * @param string $endereco			[Opcional] Endereco do atendente.
 	 * @param string $telefone			[Opcional] Telefone do atendente.
 	 * @param string $email				[Opcional] E-mail do atendente.
+	 * @param string $reg_date			[Opcional] Data de registro no sistema
 	 * 
 	 * @return SimpleXMLElement[] $xml	Retorna um array de SimpleXMLObject contendo o resultado da consulta.
 	 * 
 	 */
-	public function selectAtendente(string $codigo = null, string $nome = null, string $senha = null, string $cpf = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email = null) {
+	public function selectAtendente(string $codigo = null, string $nome = null, string $senha = null, string $cpf = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email = null, string $reg_date = null) {
 		
 		$tablePath = $this->tablePathAtendente;
 
@@ -328,7 +330,8 @@ XML;
 			($dtNascimento == null) && 
 			($endereco == null) && 
 			($telefone == null) &&
-			($email == null))
+			($email == null) &&
+			($reg_date == null))
 		{
 			return "Informe ao menos um parametro para consulta.";
 		}
@@ -373,6 +376,11 @@ XML;
 		if ($email != null) {
 			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
 			$xPathQuery = $xPathQuery."email/text()='".$email."'";
+			$maisDeUmParametro = true;
+		}
+		if ($reg_date != null) {
+			if ($maisDeUmParametro) $xPathQuery = $xPathQuery." and ";
+			$xPathQuery = $xPathQuery."reg_date/text()='".$reg_date."'";
 			$maisDeUmParametro = true;
 		}
 		
@@ -519,6 +527,7 @@ XML;
 		);
 
 		$this->codigo = $this->getCodigoByAtendente($this);
+		$this->reg_date = $this->getAtendenteByCodigo($this->codigo)[0]->reg_date;
 		return $msgRetorno;
 	}
 
@@ -568,6 +577,7 @@ XML;
 		$this->endereco = null;
 		$this->telefone = null;
 		$this->email = null;
+		$this->reg_date = null;
 	}
 
 
