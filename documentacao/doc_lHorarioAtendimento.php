@@ -33,13 +33,13 @@ function testeAtributos(){
     print_r("Antes:\n");
     print_r($oHorarioAtendimento);
 
-    $oHorarioAtendimento->codAtendente = "A0000";
-    $oHorarioAtendimento->codPaciente = "P0000";
     $oHorarioAtendimento->codMedico = "M0000";
-    $oHorarioAtendimento->data = "2018-07-07";
-    $oHorarioAtendimento->hora = "11:30:00";
-    $oHorarioAtendimento->observacao = "O paciente apresentou o sintoma de dor de cabeça.";
-    $oHorarioAtendimento->receita = "Uma xícara de café ao menos uma vez ao dia.";
+    $oHorarioAtendimento->seg = "0101010101010101010101";
+    $oHorarioAtendimento->ter = "0101010101010101010101";
+    $oHorarioAtendimento->qua = "0101010101010101010101";
+    $oHorarioAtendimento->qui = "0101010101010101010101";
+    $oHorarioAtendimento->sex = "0101010101010101010101";
+
 
     
     print_r("\nDepois:\n");
@@ -297,7 +297,7 @@ function testeDescobrirCodigoDoHorarioAtendimento(){
 
 function main(){
 
-    // testeAtributos();
+    testeAtributos();
     // testeCriacao();
     // testeInsercaoPorParametro();
     // testeInsercaoPorAtributo();
