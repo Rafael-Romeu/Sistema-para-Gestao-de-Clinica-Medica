@@ -293,8 +293,8 @@ function main(){
 
     // testeAtributos();
     // testeCriacao();
-    testeInsercaoPorParametro();
-    // testeInsercaoPorAtributo();
+    // testeInsercaoPorParametro();
+    testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();
     // testeExclusao();
