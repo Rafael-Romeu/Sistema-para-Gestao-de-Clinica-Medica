@@ -298,9 +298,9 @@ function testeDescobrirCodigoDoConsulta(){
 
 function main(){
 
-    testeAtributos();
+    // testeAtributos();
     // testeCriacao();
-    // testeInsercaoPorParametro();
+    testeInsercaoPorParametro();
     // testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();

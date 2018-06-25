@@ -291,16 +291,16 @@ function testeDescobrirCodigoDoAtendente(){
 
 function main(){
 
-    testeAtributos();
-    //testeCriacao();
-    //testeInsercaoPorParametro();
-    //testeInsercaoPorAtributo();
-    //testeUpdatePorParametro();
-    //testeUpdatePorAtributo();
-    //testeExclusao();
-    //testeSelectPorUmParametro();
-    //testeSelectPorMaisDeUmParametro();
-    //testeDescobrirCodigoDoAtendente();
+    // testeAtributos();
+    // testeCriacao();
+    testeInsercaoPorParametro();
+    // testeInsercaoPorAtributo();
+    // testeUpdatePorParametro();
+    // testeUpdatePorAtributo();
+    // testeExclusao();
+    // testeSelectPorUmParametro();
+    // testeSelectPorMaisDeUmParametro();
+    // testeDescobrirCodigoDoAtendente();
     
     
 

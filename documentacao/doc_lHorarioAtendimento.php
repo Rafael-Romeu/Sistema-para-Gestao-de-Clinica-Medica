@@ -297,9 +297,9 @@ function testeDescobrirCodigoDoHorarioAtendimento(){
 
 function main(){
 
-    testeAtributos();
+    // testeAtributos();
     // testeCriacao();
-    // testeInsercaoPorParametro();
+    testeInsercaoPorParametro();
     // testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();

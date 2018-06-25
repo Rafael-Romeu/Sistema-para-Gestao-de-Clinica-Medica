@@ -18,9 +18,9 @@
     <codPaciente>P0000</codPaciente>
     <data>2018-07-01</data>
     <hora>11:30:00</hora>
-    <observacao>( sem observações )</observacao>
-    <receita>( sem receituário )</receita>
-    <reg_date>2018-06-23 22:13:20</reg_date>
+    <observacao>Teste Insercao por Parametro</observacao>
+    <receita>Teste Insercao por Parametro</receita>
+    <reg_date>2018-06-24 23:15:57</reg_date>
   </consulta>
   <consulta>
     <codigo>C0002</codigo>
@@ -29,8 +29,41 @@
     <codPaciente>P0001</codPaciente>
     <data>2018-07-01</data>
     <hora>12:30:00</hora>
-    <observacao>( sem observações )</observacao>
+    <observacao>Teste Insercao por Parametro</observacao>
     <receita>( sem receituário )</receita>
-    <reg_date>2018-06-23 22:13:20</reg_date>
+    <reg_date>2018-06-24 23:15:57</reg_date>
+  </consulta>
+  <consulta>
+    <codigo>C0003</codigo>
+    <codAtendente>A0000</codAtendente>
+    <codMedico>M0001</codMedico>
+    <codPaciente>P0000</codPaciente>
+    <data>2018-07-01</data>
+    <hora>13:30:00</hora>
+    <observacao>Teste Insercao por Parametro</observacao>
+    <receita>( sem receituário )</receita>
+    <reg_date>2018-06-24 23:15:57</reg_date>
+  </consulta>
+  <consulta>
+    <codigo>C0004</codigo>
+    <codAtendente>A0001</codAtendente>
+    <codMedico>M0000</codMedico>
+    <codPaciente>P0000</codPaciente>
+    <data>2018-07-01</data>
+    <hora>14:30:00</hora>
+    <observacao>Teste Insercao por Parametro</observacao>
+    <receita>( sem receituário )</receita>
+    <reg_date>2018-06-24 23:15:57</reg_date>
+  </consulta>
+  <consulta>
+    <codigo>C0005</codigo>
+    <codAtendente>A0001</codAtendente>
+    <codMedico>M0000</codMedico>
+    <codPaciente>P0001</codPaciente>
+    <data>2018-07-01</data>
+    <hora>11:30:00</hora>
+    <observacao>Teste Insercao por Parametro</observacao>
+    <receita>( sem receituário )</receita>
+    <reg_date>2018-06-24 23:15:57</reg_date>
   </consulta>
 </root>
