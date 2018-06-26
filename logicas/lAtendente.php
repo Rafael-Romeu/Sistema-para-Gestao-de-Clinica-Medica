@@ -321,6 +321,7 @@ XML;
 	public function selectAtendente(string $codigo = null, string $nome = null, string $senha = null, string $cpf = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email = null, string $reg_date = null) {
 		
 		$tablePath = $this->tablePathAtendente;
+		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
@@ -333,10 +334,10 @@ XML;
 			($email == null) &&
 			($reg_date == null))
 		{
-			return "Informe ao menos um parametro para consulta.";
+			$xPathQuery = "atendente";
+			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
 
-		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 		$xPathQuery = "atendente[";
 		
 		if ($codigo != null) {
@@ -731,6 +732,10 @@ XML;
 									   );
 		$codigo = (string) $temp[0]->codigo;
 		return $codigo;
+	}
+
+	public function getTabela(){
+		return $this->traduzSimpleXMLObjectToAtendente($this->selectAtendente());
 	}
 
 

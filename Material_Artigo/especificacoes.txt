@@ -1,6 +1,6 @@
 primeiro carrega a pagina com: (enviar um XML com o nome de todos os medicos, codigo, e especialidade de cada um)
  - todos os medicos disponiveis
- - especielidades
+ - especialidades
 
 o cara seleciona um dia do mes, um medico e uma especialidade e paciente, e clica em confirmar, enviando as informacoes pro servidor.
 (

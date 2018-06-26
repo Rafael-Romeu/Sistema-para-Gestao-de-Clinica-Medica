@@ -306,7 +306,7 @@ function main(){
 
     // testeAtributos();
     // testeCriacao();
-    testeInsercaoPorParametro();
+    // testeInsercaoPorParametro();
     // testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();
@@ -315,6 +315,8 @@ function main(){
     // testeSelectPorMaisDeUmParametro();
     // testeDescobrirCodigoDoMedico();
     
+    $oMedico = new lMedico();
+    print_r($oMedico->getTabela());
     
 
 }

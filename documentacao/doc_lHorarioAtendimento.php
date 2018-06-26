@@ -299,7 +299,7 @@ function main(){
 
     // testeAtributos();
     // testeCriacao();
-    testeInsercaoPorParametro();
+    // testeInsercaoPorParametro();
     // testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();
@@ -308,9 +308,9 @@ function main(){
     // testeSelectPorMaisDeUmParametro();
     // testeDescobrirCodigoDoHorarioAtendimento();
 
-    // $oHorarioAtendimento = new lHorarioAtendimento();
+    $oHorarioAtendimento = new lHorarioAtendimento();
     // $string = 'M0000';
-    // echo($oHorarioAtendimento->verificaCodMedico($string));
+    print_r($oHorarioAtendimento->selectHorarioAtendimento());
     
     
 

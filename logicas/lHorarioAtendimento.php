@@ -369,6 +369,7 @@ XML;
 	public function selectHorarioAtendimento(string $codigo = null, string $codMedico = null, string $seg = null, string $ter = null, string $qua = null, string $qui=null, string $sex=null, string $reg_date = null) {
 		
 		$tablePath = $this->tablePathHorarioAtendimento;
+		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
@@ -381,10 +382,10 @@ XML;
 			($reg_date == null)
 		)
 		{
-			return "Informe ao menos um parametro para HorarioAtendimento.";
+			$xPathQuery = "horarioAtendimento";
+			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
 
-		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 		$xPathQuery = "horarioAtendimento[";
 		
 		if ($codigo != null) {
@@ -785,6 +786,10 @@ XML;
 		return $codigo;
 	}
 
+
+	public function getTabela(){
+		return $this->traduzSimpleXMLObjectToHorarioAtendimento($this->selectHorarioAtendimento());
+	}
 
 }
 

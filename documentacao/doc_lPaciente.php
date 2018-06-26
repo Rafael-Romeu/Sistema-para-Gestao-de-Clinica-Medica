@@ -311,7 +311,7 @@ function main(){
 
     // testeAtributos();
     // testeCriacao();
-    testeInsercaoPorParametro();
+    // testeInsercaoPorParametro();
     // testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();
@@ -320,6 +320,8 @@ function main(){
     // testeSelectPorMaisDeUmParametro();
     // testeDescobrirCodigoDoPaciente();
     
+    $oPaciente = new lPaciente();
+    print_r($oPaciente->selectPaciente());
     
 
 }

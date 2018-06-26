@@ -90,11 +90,10 @@ class ctrlAtendente {
     }
     
 
-    function VerAgenda(lMedico $oMedico){
+    function VerAgenda(string $codMedico){
         $oConsulta = new lConsulta();
         $ConsultasFuturas = array();
 
-        $codMedico = $oMedico->codigo;
 
         $listaConsultas = $oConsulta->getConsultaByCodMedico($codMedico);
 
@@ -116,7 +115,41 @@ class ctrlAtendente {
     function VerHistoricoByPaciente(lPaciente $oPaciente){
 
     }
+    
+    function GerarXMLMedicosEspecialidades () {
+       
+        $domXML = new DOMDocument('1.0');
+        $domXML->preserveWhiteSpace = false;
+        $domXML->formatOutput = true;
+        
+        $oMedico = new lMedico();
+        $arrayMedico = $oMedico->getTabela();
 
+        $root = $domXML->createElement('root');
+        $domXML->appendChild($root);
+
+        foreach($arrayMedico as $medico){
+            $nodeMedico = $domXML->createElement('medico');
+
+            // ******* Inserção do Código *******
+		    $codigoElement = $domXML->createElement("codigo", $medico->codigo);
+            $nodeMedico->appendChild($codigoElement);
+
+            // ******* Inserção do Nome *******
+            $nomeElement = $domXML->createElement("nome", $medico->nome);
+            $nodeMedico->appendChild($nomeElement);
+
+            // ******* Inserção da Especialidade *******
+            $especialidadeElement = $domXML->createElement("especialidade", $medico->especialidade);
+            $nodeMedico->appendChild($especialidadeElement);
+
+            $root->appendChild($nodeMedico);
+
+        }
+
+        return $domXML->saveXML();
+
+    }
 
 
 

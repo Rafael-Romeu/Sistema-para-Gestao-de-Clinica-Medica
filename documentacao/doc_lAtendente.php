@@ -294,7 +294,7 @@ function main(){
     // testeAtributos();
     // testeCriacao();
     // testeInsercaoPorParametro();
-    testeInsercaoPorAtributo();
+    // testeInsercaoPorAtributo();
     // testeUpdatePorParametro();
     // testeUpdatePorAtributo();
     // testeExclusao();
@@ -302,6 +302,8 @@ function main(){
     // testeSelectPorMaisDeUmParametro();
     // testeDescobrirCodigoDoAtendente();
     
+    $oAtendente = new lAtendente();
+    print_r($oAtendente->selectAtendente());
     
 
 }
