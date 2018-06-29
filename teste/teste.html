@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-<body>
-
+<body onload="MostraLista()">  
     <link rel="stylesheet" href="teste.css">
 
-<p id="demo"></p>
-
-
-<h1>Medico --- Especialidade</h1>
+<div class="row" id="Form1">
+    
+</div>
 
 <div class="month">      
   <ul>
@@ -117,166 +115,123 @@
         <label for="17">17</label>
     </li>
     
-        <li>
-            <input name="days" type="radio" id="18" value="18">
-            <label for="18">18</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="18" value="18">
+        <label for="18">18</label>
+    </li>
     
-        <li>
-            <input name="days" type="radio" id="19" value="19">
-            <label for="19">19</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="19" value="19">
+        <label for="19">19</label>
+    </li>
         
-        <li>
-            <input name="days" type="radio" id="20" value="20">
-            <label for="20">20</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="20" value="20">
+        <label for="20">20</label>
+    </li>
     
-        <li>
-            <input name="days" type="radio" id="21" value="21">
-            <label for="21">21</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="21" value="21">
+        <label for="21">21</label>
+    </li>
         
-        <li>
-            <input name="days" type="radio" id="22" value="22">
-            <label for="22">22</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="22" value="22">
+        <label for="22">22</label>
+    </li>
         
-        <li>
-            <input name="days" type="radio" id="23" value="23">
-            <label for="23">23</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="23" value="23">
+        <label for="23">23</label>
+    </li>
             
-        <li>
-            <input name="days" type="radio" id="24" value="24">
-            <label for="24">24</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="24" value="24">
+        <label for="24">24</label>
+    </li>
     
-        <li>
-            <input name="days" type="radio" id="25" value="25">
-            <label for="25">25</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="25" value="25">
+        <label for="25">25</label>
+    </li>
         
-        <li>
-            <input name="days" type="radio" id="26" value="26">
-            <label for="26">26</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="26" value="26">
+        <label for="26">26</label>
+    </li>
         
-        <li>
-            <input name="days" type="radio" id="27" value="27">
-            <label for="27">27</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="27" value="27">
+        <label for="27">27</label>
+    </li>
             
-        <li>
-            <input name="days" type="radio" id="28" value="28">
-            <label for="28">28</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="28" value="28">
+        <label for="28">28</label>
+    </li>
         
-        <li>
-            <input name="days" type="radio" id="29" value="29">
-            <label for="29">29</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="29" value="29">
+        <label for="29">29</label>
+    </li>
             
-        <li>
-            <input name="days" type="radio" id="30" value="30">
-            <label for="30">30</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="30" value="30">   
+        <label for="30">30</label>
+    </li>
             
-        <li>
-            <input name="days" type="radio" id="31" value="31">
-            <label for="31">31</label>
-        </li>
+    <li>
+        <input name="days" type="radio" id="31" value="31">
+        <label for="31">31</label>
+    </li>
 </ul>
-<input type="button" onclick="MostraHorariosDisponiveis()" value="Send order">
+<input type="button" onclick="CarregaHorariosDisponiveis()" value="Enviar Requisicao">
 </form>
 
-<div>
-    <p>Horarios Disponiveis</p>
-    <input type="text" id="order" size="50">
-    <form action="/action_page.php">
-        <select id="Horarios" name="Horarios">  
-
-        </select>
-    </form>
+<div class="row" id="Form2" >
     
 </div>
 
 
 <script>
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        LerXmlHorarios(this);
-    }
-};
-xhttp.open("GET", "HorariosdeAtendimento.xml", true);
-xhttp.send();
-
-function LerXmlHorarios(xml) {
-    var xmlDoc = xml.responseXML;
-    var Agenda = xmlDoc.getElementsByTagName('Agenda')[0];
-   // document.getElementById("demo").innerHTML = Agenda.nodeName;
-    var diaRequerido = "Segunda";
-    var diasDaSemana = Agenda.firstElementChild;
-
-    while(diasDaSemana.nodeName != diaRequerido)
-    {
-        diasDaSemana = diasDaSemana.nextElementSibling;
-    }
-
-    var Horarios = diasDaSemana.firstElementChild;
-    
-    for (var i = 0; i < diasDaSemana.childElementCount; i++) {
-        if(Horarios.textContent == 1)
-        {
-            var valor = Horarios.nodeName;
-            var option = document.createElement("option");
-            option.setAttribute("value", valor);
-            var t = document.createTextNode(valor);
-            option.appendChild(t);
-            document.getElementById("Horarios").appendChild(option);
-        }
-        Horarios = Horarios.nextElementSibling;
-    }
-    document.getElementById("demo").innerHTML = Horarios.textContent;
+function MostraLista() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "EntradaInicial.php?", true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Form1").innerHTML = this.responseText;
+            }
+        };
+        
 }
-function MostraHorariosDisponiveis() {
-    var days = document.forms["days"];
-    var i;
-    var dia;
-    var txt = "Horarios Disponiveis para o Dia ";
-    for (i = 0; i < days.length; i++) {
-        if (days[i].checked) {
-            txt = txt + days[i].value;
-            dia = days[i].value;
-            dia = dia % 7;
-            switch(dia){
-                case 0://Domingo
+</script>
+<script>
+function CarregaHorariosDisponiveis() {
+    var day = document.forms["days"];
+    var Medico = document.forms["Medicos"].firstChild.value;
+    var Especialidade = document.forms["Especialidade"].firstChild.value;
+    var CPF = document.forms["CPF"].firstChild.value;
+    console.log(CPF);
+    var aux;
 
-                break;
-                case 1://Segunda
-                    
-
-                break;//Terça
-                case 2:
-
-                break;
-                case 3://Quarta
-
-                break;
-                case 4://Quinta
-
-                break;
-                case 5://Sexta
-
-                break;
-                case 6://Sabado
-
-            }   
+    for (i=0; i < day.length; i++) {
+        if (day[i].checked == true) {
+            aux = day[i].value;     
         }
     }
-    txt = txt + ".";
-    document.getElementById("order").value = txt;
+
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("Form2").innerHTML = this.responseText;
+        }
+    };   
+    xhttp.open("POST", "horariosDisponiveis.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("Dia="+aux+"&Medico="+Medico+"&Especialidade="+Especialidade+"&CPF="+CPF);
+
 }
 </script>
 </body>

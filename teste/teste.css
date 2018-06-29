@@ -88,3 +88,23 @@ input[type=radio]:checked + label {
     background: #5b96bf;
     color: white;
 }
+input[type=text]
+{
+    width: 200px;
+    height: 40px;
+    margin: 5px;
+}
+.custom-select {
+    position: relative;
+    width: 200px;
+    height: 40px;
+
+    margin: 5px;
+    text-align: center;
+}
+.row
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
