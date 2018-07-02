@@ -17,7 +17,6 @@
     $telefone = $_REQUEST["telefone"];
 
     $oPaciente = new lPaciente();
-    echo "!!!";
 
     $result = $oPaciente->insertPacienteCompleto($name, $pass, $cpf, $plano, $genero, $sangue, $nascimento, $endereco, $telefone, $email);
 

@@ -305,7 +305,7 @@
 
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("CadPacResultado").innerHTML = envio + "<br>" + this.responseText;
+                    document.getElementById("CadPacResultado").innerHTML = this.responseText;
                 }
             };
 
