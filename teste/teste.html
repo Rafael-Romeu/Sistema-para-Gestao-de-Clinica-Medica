@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<body onload="MostraLista()">  
+    <link rel="stylesheet" href="teste.css">
+
+<div class="row" id="Form1">
+    
+</div>
+
+<div class="month">      
+  <ul>
+    <li class="prev">&#10094;</li>
+    <li class="next">&#10095;</li>
+    <li>
+      July<br>
+      <span style="font-size:18px">2018</span>
+    </li>
+  </ul>
+</div>
+
+<ul class="weekdays">
+    <li>Su</li>
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li> 
+</ul>
+
+<form id="days" action="">
+<ul class="days">  
+    <li class = "day">
+        <input name="days" type="radio" id="1" value="1" checked>
+        <label for="1">1</label>
+    </li>
+
+    <li class = "day">
+        <input name="days" type="radio" id="2" value="2">
+        <label for="2">2</label>
+    </li>
+
+    <li>
+        <input name="days" type="radio" id="3" value="3">
+        <label for="3">3</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="4" value="4">
+        <label for="4">4</label>
+    </li>
+
+    <li>
+        <input name="days" type="radio" id="5" value="5">
+        <label for="5">5</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="6" value="6">
+        <label for="6">6</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="7" value="7">
+        <label for="7">7</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="8" value="9">
+        <label for="8">8</label>
+    </li>
+
+    <li>
+        <input name="days" type="radio" id="9" value="9">
+        <label for="9">9</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="10" value="10">
+        <label for="10">10</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="11" value="11">
+        <label for="11">11</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="12" value="12">
+        <label for="12">12</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="13" value="13">
+        <label for="13">13</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="14" value="14">
+        <label for="14">14</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="15" value="15">
+        <label for="15">15</label>
+    </li>
+            
+    <li>
+        <input name="days" type="radio" id="16" value="16">
+        <label for="16">16</label>
+    </li>
+
+    <li>
+        <input name="days" type="radio" id="17" value="17">
+        <label for="17">17</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="18" value="18">
+        <label for="18">18</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="19" value="19">
+        <label for="19">19</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="20" value="20">
+        <label for="20">20</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="21" value="21">
+        <label for="21">21</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="22" value="22">
+        <label for="22">22</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="23" value="23">
+        <label for="23">23</label>
+    </li>
+            
+    <li>
+        <input name="days" type="radio" id="24" value="24">
+        <label for="24">24</label>
+    </li>
+    
+    <li>
+        <input name="days" type="radio" id="25" value="25">
+        <label for="25">25</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="26" value="26">
+        <label for="26">26</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="27" value="27">
+        <label for="27">27</label>
+    </li>
+            
+    <li>
+        <input name="days" type="radio" id="28" value="28">
+        <label for="28">28</label>
+    </li>
+        
+    <li>
+        <input name="days" type="radio" id="29" value="29">
+        <label for="29">29</label>
+    </li>
+            
+    <li>
+        <input name="days" type="radio" id="30" value="30">   
+        <label for="30">30</label>
+    </li>
+            
+    <li>
+        <input name="days" type="radio" id="31" value="31">
+        <label for="31">31</label>
+    </li>
+</ul>
+<input type="button" onclick="CarregaHorariosDisponiveis()" value="Enviar Requisicao">
+</form>
+
+<div class="row" id="Form2" >
+    
+</div>
+
+
+<script>
+function MostraLista() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "EntradaInicial.php?", true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Form1").innerHTML = this.responseText;
+            }
+        };
+        
+}
+</script>
+<script>
+function CarregaHorariosDisponiveis() {
+    var day = document.forms["days"];
+    var Medico = document.forms["Medicos"].firstChild.value;
+    var Especialidade = document.forms["Especialidade"].firstChild.value;
+    var CPF = document.forms["CPF"].firstChild.value;
+    console.log(CPF);
+    var aux;
+
+    for (i=0; i < day.length; i++) {
+        if (day[i].checked == true) {
+            aux = day[i].value;     
+        }
+    }
+
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("Form2").innerHTML = this.responseText;
+        }
+    };   
+    xhttp.open("POST", "horariosDisponiveis.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("Dia="+aux+"&Medico="+Medico+"&Especialidade="+Especialidade+"&CPF="+CPF);
+
+}
+</script>
+</body>
+</html>
