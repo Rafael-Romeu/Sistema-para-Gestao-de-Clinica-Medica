@@ -157,28 +157,29 @@
                 <div>
                     <form action="">
                     <label class = "Forms" for="name">Nome: </label>
-                    <input type="text" id="name" name="name" placeholder="* Your name.." required>
+                    <input type="text" id="CadAteName" name="name" placeholder="* Your name.." required>
 
                     <label class = "Forms" for="Cpf">Cpf: </label>
-                    <input type="text" id="Cpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+                    <input type="text" id="CadAteCpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
 
                     <label class = "Forms" for="password">Senha: </label>
-                    <input type="password" id="password" name="password" placeholder="* Your password.." required>
+                    <input type="password" id="CadAtePassword" name="password" placeholder="* Your password.." required>
 
                     <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
-                    <input type="date" id="DataNascimento" name="DataNascimento" max="1930-12-31" placeholder="* Data Nascimento.." required>
+                    <input type="date" id="CadAteDataNascimento" name="DataNascimento" placeholder="* Data Nascimento.." required>
 
                     <label class = "Forms" for="Endereco">Endereço: </label>
-                    <input type="text" id="Endereco" name="Endereco" placeholder="Endereço..">
+                    <input type="text" id="CadAteEndereco" name="Endereco" placeholder="Endereço..">
 
                     <label class = "Forms" for="Email">Email: </label>
-                    <input type="email" id="Email" name="Email" placeholder="Your Email..">
+                    <input type="email" id="CadAteEmail" name="Email" placeholder="Your Email..">
 
                     <label class = "Forms" for="Telefone">Telefone: </label>
-                    <input type="text" id="Telefone" name="Telefone" placeholder="Telefone.." pattern="[0-9]">
+                    <input type="text" id="CadAteTel" name="Telefone" placeholder="Telefone..">
                     </form>
                 </div>
-                <input type="submit" value="Enviar">
+                <input type="submit" value="Enviar" onclick="CadastrarAtendente()">
+                <div id="CadAteResultado"></div>
             </div>
 
             <div class = "AgendarConsulta">
@@ -343,6 +344,33 @@
 
             xmlhttp.open("GET", "serverScripts/CadastraMedico.php?" + envio, true);
             xmlhttp.send(); 
+        }
+        
+        function CadastrarAtendente(){
+            var variaveis = {"name" : document.getElementById("CadAteName").value,
+                             "cpf"  : document.getElementById("CadAteCpf").value,
+                             "pass" : document.getElementById("CadAtePassword").value,
+                             "endereco" : document.getElementById("CadAteEndereco").value,
+                             "email" : document.getElementById("CadAteEmail").value,
+                             "nascimento" : document.getElementById("CadAteDataNascimento").value,
+                             "telefone" : document.getElementById("CadAteTel").value};
+            
+            var envio = "";
+
+            for (var variavel in variaveis){
+                envio += variavel + "=" + variaveis[variavel] + "&";
+            }
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("CadAteResultado").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "serverScripts/CadastraAtendente.php?" + envio, true);
+            xmlhttp.send();
         }
 
     //-----Medico 

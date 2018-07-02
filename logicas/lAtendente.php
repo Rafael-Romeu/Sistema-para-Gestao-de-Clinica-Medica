@@ -66,7 +66,7 @@ class lAtendente {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathAtendente = "./db/tAtendente.xml";
+		$this->tablePathAtendente = "../db/tAtendente.xml";
     }
 	
 	/**
