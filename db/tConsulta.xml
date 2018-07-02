@@ -58,9 +58,9 @@
   <consulta>
     <codigo>C0005</codigo>
     <codAtendente>A0001</codAtendente>
-    <codMedico>M0000</codMedico>
+    <codMedico>M0004</codMedico>
     <codPaciente>P0001</codPaciente>
-    <data>2018-07-01</data>
+    <data>2018-07-02</data>
     <hora>11:30:00</hora>
     <observacao>Teste Insercao por Parametro</observacao>
     <receita>( sem receituário )</receita>

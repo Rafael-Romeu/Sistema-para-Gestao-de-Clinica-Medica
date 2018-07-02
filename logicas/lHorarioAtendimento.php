@@ -13,7 +13,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 
-include_once 'logicas/lMedico.php';
+include_once 'lMedico.php';
 
 class lHorarioAtendimento {
 /**
@@ -65,7 +65,7 @@ class lHorarioAtendimento {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathHorarioAtendimento = "./db/tHorarioAtendimento.xml";
+		$this->tablePathHorarioAtendimento = "../db/tHorarioAtendimento.xml";
     }
 	
 	/**

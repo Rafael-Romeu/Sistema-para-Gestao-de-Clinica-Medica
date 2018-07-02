@@ -13,9 +13,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 
-include_once 'logicas/lAtendente.php';
-include_once 'logicas/lMedico.php';
-include_once 'logicas/lPaciente.php';
+include_once 'lAtendente.php';
+include_once 'lMedico.php';
+include_once 'lPaciente.php';
 
 class lConsulta {
 /**
@@ -70,7 +70,7 @@ class lConsulta {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathConsulta = "./db/tConsulta.xml";
+		$this->tablePathConsulta = "../db/tConsulta.xml";
     }
 	
 	/**
