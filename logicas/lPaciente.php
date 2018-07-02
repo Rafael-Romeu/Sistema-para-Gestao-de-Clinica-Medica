@@ -75,7 +75,7 @@ class lPaciente {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathPaciente = "./db/tPaciente.xml";
+		$this->tablePathPaciente = "../db/tPaciente.xml";
     }
 	
 	/**
@@ -212,7 +212,7 @@ XML;
 	 * 
 	 */
 	public function insertPacienteCompleto(string $nome, string $senha, string $cpf, string $planoDeSaude, string $genero , string $tipoSanguineo, string $dtNascimento=null, string $endereco=null, string $telefone=null, string $email=null) {
-		
+
 		$tablePath  = $this->tablePathPaciente;
 		
 		$domXML = new DOMDocument('1.0');
