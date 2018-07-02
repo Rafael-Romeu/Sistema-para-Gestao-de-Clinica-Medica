@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="css/Home.css">
+    <title> Home </title> <!-- Titulo da pagina --> 
+    <meta charset = "UTF-8">
+</head>
+
+
+<body>
+    
+    <div class="Background">
+       <img src = "Imagens/Medica-Transparencia.png">
+    </div>
+    
+    <header>
+        <!-- Header --> 
+        <img src="Imagens/Capa/Logo.png" style="flex-shrink: 0">
+        <img src="Imagens/Capa/Linha.png" style="flex-grow: 1; min-width: 0px">
+        <img src="Imagens/Capa/Detalhe.png" style="flex-shrink: 0;">
+    </header>
+    
+    
+    <!-- Menu de navegação --> 
+    <nav>
+        <div class = "Paciente">
+            <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
+            <button id = "AgendarConsultaPaciente" class="Botao-Menu"> Agendar Consulta </button>
+        </div>
+        <div class = "Atendente">
+            <button id = "CadastrarPaciente"    class="Botao-Menu"> Cadastrar Paciente </button>
+            <button id = "CadastrarMedico"      class="Botao-Menu"> Cadastrar Medico </button>
+            <button id = "CadastrarAtendente"   class="Botao-Menu"> Cadastrar Atendente </button>
+            <button id = "AgendarConsulta"      class="Botao-Menu"> Agendar Consulta </button>
+        </div>
+        <div class = "Medico">
+            <button id = "Consultas"    class="Botao-Menu"> Consultas </button>
+            <button id = "Agendamentos" class="Botao-Menu"> Agendamentos </button>
+        </div>
+    </nav>
+    
+    <div class="Corpo">
+        <!-- Paciente --> 
+        <div class = "Paciente">
+
+            <div class = "AgendarConsultaPaciente">
+                <h3>Agendar Consulta</h3>
+
+            </div>
+            <div class = "VisualizarConsulta">
+                <h3> Visualizar Consulta</h3>
+            </div>
+
+        </div>
+
+        <!-- Atendente --> 
+        <div class = "Atendente">
+            <div class = "CadastrarPaciente">
+                <h3 class = "Forms">Cadastrar Paciente</h3>
+                <div>
+                    <form action="">
+                    <label class = "Forms" for="name">Nome: </label>
+                    <input type="text" id="name" name="name" placeholder="* Your name.." required>
+
+                    <label class = "Forms" for="Cpf">Cpf: </label>
+                    <input type="text" id="Cpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+
+                    <label class = "Forms" for="password">Senha: </label>
+                    <input type="password" id="password" name="password" placeholder="* Your password.." required>
+
+                    <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
+                    <input type="date" id="DataNascimento" name="DataNascimento" max="1930-12-31" placeholder="* Data Nascimento.." required>
+
+                    <label class = "Forms" for="gender">Gênero: </label><br>
+
+                    <ul class="Generos" style = "margin: 0px 0px 0px 20px">
+                        <li class="Genero Homem">
+                          <input name="Generos" type="radio" id="Homem">
+                          <label for="Homem">Homem</label> 
+                        </li>
+                          
+                        <li class="Genero Mulher">
+                          <input name="Generos" type="radio" id="Mulher">
+                          <label for="Mulher">Mulher</label>
+                        </li>
+                          
+                        <li class="Genero Outro">
+                          <input name="Generos" type="radio" id="Outro" checked>
+                          <label for="Outro">Outro</label>
+                        </li>
+                    </ul>
+
+                    <br>
+                    <br>
+
+                    <label class = "Forms" for="Endereco">Endereço: </label>
+                    <input type="text" id="Endereco" name="Endereco" placeholder="Endereço..">
+
+                    <label class = "Forms" for="Email">Email: </label>
+                    <input type="email" id="Email" name="Email" placeholder="Your Email..">
+
+                    <label class = "Forms" for="TipoSanguineo">Tipo Sanguineo: </label>
+                    <input type="text" id="TipoSanguineo" name="TipoSanguineo" placeholder= "Tipo Sanguineo..">
+
+                    <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
+                    <input type="text" id="PlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
+                    </form>
+                </div>
+                <input type="submit" value="Enviar">
+            </div>
+
+            <div class = "CadastrarMedico">
+                <h3 class = "Forms">Cadastrar Medico</h3>
+                <div>
+                    <form action="">
+                    <label class = "Forms" for="name">Nome: </label>
+                    <input type="text" id="name" name="name" placeholder="* Your name.." required>
+
+                    <label class = "Forms" for="Cpf">Cpf: </label>
+                    <input type="text" id="Cpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+
+                    <label class = "Forms" for="password">Senha: </label>
+                    <input type="password" id="password" name="password" placeholder="* Your password.." required>
+
+                    <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
+                    <input type="date" id="DataNascimento" name="DataNascimento" max="1930-12-31" placeholder="* Data Nascimento.." required>
+
+                    <label class = "Forms" for="Endereco">Endereço: </label>
+                    <input type="text" id="Endereco" name="Endereco" placeholder="Endereço..">
+
+                    <label class = "Forms" for="Email">Email: </label>
+                    <input type="email" id="Email" name="Email" placeholder="Your Email..">
+
+                    <label class = "Forms" for="Especialidade">Especialidade: </label>
+                    <input type="text" id="Especialidade" name="Especialidade" placeholder= "* Especialidade .." required>
+
+                    <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
+                    <input type="text" id="PlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
+                    </form>
+                </div>
+                <input type="submit" value="Enviar">
+            </div>
+
+            <div class = "CadastrarAtendente">
+                <h3 class = "Forms">Cadastrar Atendente</h3>
+                <div>
+                    <form action="">
+                    <label class = "Forms" for="name">Nome: </label>
+                    <input type="text" id="name" name="name" placeholder="* Your name.." required>
+
+                    <label class = "Forms" for="Cpf">Cpf: </label>
+                    <input type="text" id="Cpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+
+                    <label class = "Forms" for="password">Senha: </label>
+                    <input type="password" id="password" name="password" placeholder="* Your password.." required>
+
+                    <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
+                    <input type="date" id="DataNascimento" name="DataNascimento" max="1930-12-31" placeholder="* Data Nascimento.." required>
+
+                    <label class = "Forms" for="Endereco">Endereço: </label>
+                    <input type="text" id="Endereco" name="Endereco" placeholder="Endereço..">
+
+                    <label class = "Forms" for="Email">Email: </label>
+                    <input type="email" id="Email" name="Email" placeholder="Your Email..">
+
+                    <label class = "Forms" for="Telefone">Telefone: </label>
+                    <input type="text" id="Telefone" name="Telefone" placeholder="Telefone.." pattern="[0-9]">
+                    </form>
+                </div>
+                <input type="submit" value="Enviar">
+            </div>
+
+            <div class = "AgendarConsulta">
+                <h3>Agendar Consulta</h3>
+                <p>* cpf paciente, Medico ou Especialidade, data de agendamento(importar calendario)</p>
+            </div>
+        </div>
+
+        <!-- Medico --> 
+        <div class = "Medico">
+            <div class = "Consultas">
+                <h3>Consultas</h3>
+            </div>
+            <div class = "Agendamentos">
+                <h3>Agendamentos</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- rodape -->
+    <footer> 
+        <h4>Unidades</h4> 
+        <h5> -> Rio Grande do Sul - Rio Grande FURG</h5>
+        <br>
+        <h4>Siga-nos</h4> 
+        <img src="Imagens/redesSociais.png" alt="">
+        <br>
+        <h4>Certificações</h4>
+        <img src = "Imagens/certificados.png" alt="">
+        <hr>
+        <h6 style="text-align: right">&copy; 2018 Clínica Vida Saudável. Todos os Direitos Reservados</h6>     
+    </footer>
+    
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script>
+
+$(document).ready(function(){
+    $.getJSON("testJSON.json", function(data) {
+         $("#demo").html(data.name);
+         $(".CadastrarAtendente, .VisualizarConsulta, .AgendarConsultaPaciente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .Consultas, .Agendamentos").hide();
+         if(data.name === "Paciente")
+         {
+            $('.Paciente').show();
+            $('.Medico').hide();
+            $('.Atendente').hide();
+         }
+         if(data.name === "Atendente")
+         {
+            $('.Paciente').hide();
+            $('.Medico').hide();
+            $('.Atendente').show();
+         }
+         if(data.name === "Medico")
+         {
+            $('.Paciente').hide();
+            $('.Medico').show();
+            $('.Atendente').hide();             
+         }
+    }, "json");
+});
+//-----Paciente 
+    $(document).ready(function(){
+        $("#VisualizarConsulta").click(function(){
+            $(".AgendarConsultaPaciente").hide();
+            $(".VisualizarConsulta").show();
+        });
+        $("#AgendarConsultaPaciente").click(function(){
+            $(".AgendarConsultaPaciente").show();
+            $(".VisualizarConsulta").hide();
+        });
+    });
+
+//-----Atendente
+    $(document).ready(function(){
+        $("#CadastrarPaciente").click(function(){
+            $(".CadastrarPaciente").show();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").hide();
+            $(".CadastrarAtendente").hide();
+        });
+        $("#CadastrarMedico").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").show();
+            $(".AgendarConsulta").hide();
+            $(".CadastrarAtendente").hide();
+        });
+        $("#AgendarConsulta").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").show();
+            $(".CadastrarAtendente").hide();
+        });
+        $("#CadastrarAtendente").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").hide();
+            $(".CadastrarAtendente").show();
+        });
+    });
+
+//-----Medico 
+    $(document).ready(function(){
+        $("#Consultas").click(function(){
+            $(".Consultas").show();
+            $(".Agendamentos").hide();
+        });
+        $("#Agendamentos").click(function(){
+            $(".Consultas").hide();
+            $(".Agendamentos").show();
+        });
+    });
+
+</script>
+
+
+</html>
