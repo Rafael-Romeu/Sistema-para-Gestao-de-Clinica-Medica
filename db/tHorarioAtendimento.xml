@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<horarioAtendimento>
+		<codigo>H0000</codigo>
+		<codMedico>M0000</codMedico>
+		<seg>0000000000000000011111</seg>
+		<ter>1111111111111111111111</ter>
+		<qua>0000000000000000000000</qua>
+		<qui>0000000000000000000000</qui>
+		<sex>0000000000000000000000</sex>
+		<reg_date>1993-05-31 59:59:59</reg_date>
+	</horarioAtendimento>
+</root>

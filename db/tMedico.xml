@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <medico>
+    <codigo>M0000</codigo>
+    <nome>Template</nome>
+    <senha>admin</senha>
+    <cpf>admin</cpf>
+    <especialidade>(Especialidade)</especialidade>
+    <planoDeSaude>(Plano de Saude)</planoDeSaude>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>(sem E-mail)</email>
+    <reg_date>1993-05-31 59:59:59</reg_date>
+  </medico>
+  <medico>
+    <codigo>M0001</codigo>
+    <nome>Teste Insercao por Atributo</nome>
+    <senha>7777777</senha>
+    <cpf>777.777.777-77</cpf>
+    <especialidade>Pediatria</especialidade>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <dtNascimento>2999-12-31</dtNascimento>
+    <endereco>Rua Teste Insercao por Atributo</endereco>
+    <telefone>777777777</telefone>
+    <email>moc.liame@email.com</email>
+    <reg_date>2018-06-23 21:22:42</reg_date>
+  </medico>
+  <medico>
+    <codigo>M0002</codigo>
+    <nome>Teste Insercao por Atributo</nome>
+    <senha>7777777</senha>
+    <cpf>777.777.777-77</cpf>
+    <especialidade>Pediatria</especialidade>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <dtNascimento>2999-12-31</dtNascimento>
+    <endereco>Rua Teste Insercao por Atributo</endereco>
+    <telefone>777777777</telefone>
+    <email>moc.liame@email.com</email>
+    <reg_date>2018-06-23 21:22:42</reg_date>
+  </medico>
+</root>

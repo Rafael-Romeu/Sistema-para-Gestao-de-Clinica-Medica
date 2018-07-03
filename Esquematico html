@@ -1,0 +1,31 @@
+Paciente Guias:
+	1 - Home
+	2 - Cadastro
+	3 - Nossos Planos 
+	4 - Fale Conosco
+	5 - historico de consultas
+	6 - Nossos Médicos (Guia Médico)
+	7 - Agende Sua Consulta
+	8 - Viva Bem (guia contendo informações sobre saude e etc) (cartilha de saude)
+
+Medico Guias:
+	1 - home
+	9 - consulta atual
+	5 - historio de consulta do paciente (passadas e novas)
+	12 - historio de consulta do medico (passadas e novas)
+	10 - agenda
+	11 - alterar dados do cadastro
+	
+Atendente Guias:
+	1 - home
+	2 - cadastrar paciente
+	11- cadastrar medico e alterar cadastro
+	12- verHistorico medico
+	5 - verHistorico paciente
+	10 -ver agenda medicos
+	6 - Nossos Médicos (Guia Médico)
+	
+Conteúdos para criar o Site:
+	Logo
+	imagens de pessoas saudaveis e felizes
+	desenhos agenda, medico, bonecos conversando(fale conosco), bonequinho saudavel.
