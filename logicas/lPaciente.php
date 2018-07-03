@@ -75,7 +75,7 @@ class lPaciente {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathPaciente = "./db/tPaciente.xml";
+		$this->tablePathPaciente = "../db/tPaciente.xml";
     }
 	
 	/**
@@ -212,7 +212,7 @@ XML;
 	 * 
 	 */
 	public function insertPacienteCompleto(string $nome, string $senha, string $cpf, string $planoDeSaude, string $genero , string $tipoSanguineo, string $dtNascimento=null, string $endereco=null, string $telefone=null, string $email=null) {
-		
+
 		$tablePath  = $this->tablePathPaciente;
 		
 		$domXML = new DOMDocument('1.0');
@@ -363,6 +363,7 @@ XML;
 	public function selectPaciente(string $codigo = null, string $nome = null, string $senha = null, string $cpf = null, string $planoDeSaude = null, string $genero = null, string $tipoSanguineo = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email = null, string $reg_date = null) {
 		
 		$tablePath = $this->tablePathPaciente;
+		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
@@ -378,10 +379,10 @@ XML;
 			($email == null) &&
 			($reg_date == null))
 		{
-			return "Informe ao menos um parametro para consulta.";
+			$xPathQuery = "paciente";
+			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
 
-		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 		$xPathQuery = "paciente[";
 		
 		if ($codigo != null) {
@@ -875,6 +876,10 @@ XML;
 									   );
 		$codigo = (string) $temp[0]->codigo;
 		return $codigo;
+	}
+
+	public function getTabela(){
+		return $this->traduzSimpleXMLObjectToPaciente($this->selectPaciente());
 	}
 
 

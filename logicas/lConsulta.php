@@ -13,9 +13,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 
-include_once 'logicas/lAtendente.php';
-include_once 'logicas/lMedico.php';
-include_once 'logicas/lPaciente.php';
+include_once 'lAtendente.php';
+include_once 'lMedico.php';
+include_once 'lPaciente.php';
 
 class lConsulta {
 /**
@@ -70,7 +70,7 @@ class lConsulta {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathConsulta = "./db/tConsulta.xml";
+		$this->tablePathConsulta = "../db/tConsulta.xml";
     }
 	
 	/**
@@ -387,6 +387,7 @@ XML;
 	public function selectConsulta(string $codigo = null, string $codAtendente = null, string $codMedico = null, string $codPaciente = null, string $data = null, string $hora = null, string $observacao=null, string $receita=null, string $reg_date = null) {
 		
 		$tablePath = $this->tablePathConsulta;
+		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
@@ -400,10 +401,10 @@ XML;
 			($reg_date == null)
 		)
 		{
-			return "Informe ao menos um parametro para consulta.";
+			$xPathQuery = "consulta";
+			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
 
-		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 		$xPathQuery = "consulta[";
 		
 		if ($codigo != null) {
@@ -827,6 +828,9 @@ XML;
 		return $codigo;
 	}
 
+	public function getTabela(){
+		return $this->traduzSimpleXMLObjectToConsulta($this->selectConsulta());
+	}
 
 }
 

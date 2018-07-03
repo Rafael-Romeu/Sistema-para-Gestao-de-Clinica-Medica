@@ -15,28 +15,67 @@
   </medico>
   <medico>
     <codigo>M0001</codigo>
-    <nome>Teste Insercao por Atributo</nome>
-    <senha>7777777</senha>
-    <cpf>777.777.777-77</cpf>
+    <nome>Teste1</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-00</cpf>
     <especialidade>Pediatria</especialidade>
     <planoDeSaude>Unimed</planoDeSaude>
-    <dtNascimento>2999-12-31</dtNascimento>
-    <endereco>Rua Teste Insercao por Atributo</endereco>
-    <telefone>777777777</telefone>
-    <email>moc.liame@email.com</email>
-    <reg_date>2018-06-23 21:22:42</reg_date>
+    <dtNascimento>1993-05-31</dtNascimento>
+    <endereco>Rua 7</endereco>
+    <telefone>539879878888</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:56</reg_date>
   </medico>
   <medico>
     <codigo>M0002</codigo>
-    <nome>Teste Insercao por Atributo</nome>
-    <senha>7777777</senha>
-    <cpf>777.777.777-77</cpf>
-    <especialidade>Pediatria</especialidade>
+    <nome>Teste2</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-77</cpf>
+    <especialidade>Geriatria</especialidade>
+    <planoDeSaude>Plano B</planoDeSaude>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:56</reg_date>
+  </medico>
+  <medico>
+    <codigo>M0003</codigo>
+    <nome>Teste3</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-77</cpf>
+    <especialidade>Clinico Geral</especialidade>
     <planoDeSaude>Unimed</planoDeSaude>
-    <dtNascimento>2999-12-31</dtNascimento>
-    <endereco>Rua Teste Insercao por Atributo</endereco>
-    <telefone>777777777</telefone>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:56</reg_date>
+  </medico>
+  <medico>
+    <codigo>M0004</codigo>
+    <nome>Teste4</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-77</cpf>
+    <especialidade>Clinico Geral</especialidade>
+    <planoDeSaude>Plano B</planoDeSaude>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:56</reg_date>
+  </medico>
+  <medico>
+    <codigo>M0005</codigo>
+    <nome>Teste5</nome>
+    <senha>1234567</senha>
+    <cpf>123.456.789-00</cpf>
+    <especialidade>Ginecologista</especialidade>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <dtNascimento>1993-05-31</dtNascimento>
+    <endereco>Rua 7</endereco>
+    <telefone>53987452108</telefone>
     <email>moc.liame@email.com</email>
-    <reg_date>2018-06-23 21:22:42</reg_date>
+    <reg_date>2018-06-24 23:14:56</reg_date>
   </medico>
 </root>

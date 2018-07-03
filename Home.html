@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="css/Home.css">
+    <title> Home </title> <!-- Titulo da pagina --> 
+    <meta charset = "UTF-8">
+</head>
+
+
+<body>
+    
+    <div class="Background">
+       <img src = "Imagens/Medica-Transparencia.png">
+    </div>
+    
+    <header>
+        <!-- Header --> 
+        <img src="Imagens/Capa/Logo.png" style="flex-shrink: 0">
+        <img src="Imagens/Capa/Linha.png" style="flex-grow: 1; min-width: 0px">
+        <img src="Imagens/Capa/Detalhe.png" style="flex-shrink: 0;">
+    </header>
+    
+    
+    <!-- Menu de navegação --> 
+    <nav>
+        <div class = "Paciente">
+            <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
+            <button id = "AgendarConsultaPaciente" class="Botao-Menu"> Agendar Consulta </button>
+        </div>
+        <div class = "Atendente">
+            <button id = "CadastrarPaciente"    class="Botao-Menu"> Cadastrar Paciente </button>
+            <button id = "CadastrarMedico"      class="Botao-Menu"> Cadastrar Medico </button>
+            <button id = "CadastrarAtendente"   class="Botao-Menu"> Cadastrar Atendente </button>
+            <button id = "AgendarConsulta"      class="Botao-Menu"> Agendar Consulta </button>
+        </div>
+        <div class = "Medico">
+            <button id = "Consultas"    class="Botao-Menu"> Consultas </button>
+            <button id = "Agendamentos" class="Botao-Menu"> Agendamentos </button>
+        </div>
+    </nav>
+    
+    <div class="Corpo">
+        <!-- Paciente --> 
+        <div class = "Paciente">
+
+            <div class = "AgendarConsultaPaciente">
+                <h3>Agendar Consulta</h3>
+
+            </div>
+            <div class = "VisualizarConsulta">
+                <h3> Visualizar Consulta</h3>
+            </div>
+
+        </div>
+
+        <!-- Atendente --> 
+        <div class = "Atendente">
+            <div class = "CadastrarPaciente">
+                <h3 class = "Forms">Cadastrar Paciente</h3>
+               
+                <form>
+                    <label class = "Forms" for="name">Nome: </label>
+                    <input type="text" id="CadPacName" name="name" placeholder="* Your name.." required>
+
+                    <label class = "Forms" for="Cpf">Cpf: </label>
+                    <input type="text" id="CadPacCpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+
+                    <label class = "Forms" for="password">Senha: </label>
+                    <input type="password" id="CadPacPassword" name="password" placeholder="* Your password.." required>
+
+                    <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
+                    <input type="date" id="CadPacDataNascimento" name="DataNascimento" placeholder="* Data Nascimento.." required>
+
+                    <label class = "Forms" for="gender">Gênero: </label><br>
+
+                    <ul class="Generos" style = "margin: 0px 0px 0px 20px">
+                        <li class="Genero Homem">
+                          <input name="CadPacGenero" type="radio" id="CadPacHomem">
+                          <label for="Homem">Homem</label> 
+                        </li>
+                          
+                        <li class="Genero Mulher">
+                          <input name="CadPacGenero" type="radio" id="CadPacMulher">
+                          <label for="Mulher">Mulher</label>
+                        </li>
+                          
+                        <li class="Genero Outro">
+                          <input name="CadPacGenero" type="radio" id="CadPacOutro" checked>
+                          <label for="Outro">Outro</label>
+                        </li>
+                    </ul>
+
+                    <br>
+                    <br>
+
+                    <label class = "Forms" for="Endereco">Endereço: </label>
+                    <input type="text" id="CadPacEndereco" name="Endereco" placeholder="Endereço..">
+
+                    <label class = "Forms" for="Email">Email: </label>
+                    <input type="email" id="CadPacEmail" name="Email" placeholder="Your Email..">
+
+                    <label class = "Forms" for="Telefone">Telefone: </label>
+                    <input type="text" id="CadPacTel" name="Telefone" placeholder="Telefone..">
+
+                    <label class = "Forms" for="TipoSanguineo">Tipo Sanguineo: </label>
+                    <input type="text" id="CadPacTipoSanguineo" name="TipoSanguineo" placeholder= "Tipo Sanguineo..">
+
+                    <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
+                    <input type="text" id="CadPacPlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
+                </form>
+
+                <input type="submit" value="Enviar" onclick="CadastrarPaciente()">
+
+                <div id="CadPacResultado"></div>
+            </div>
+
+            <div class = "CadastrarMedico">
+                <h3 class = "Forms">Cadastrar Medico</h3>
+                <div>
+                    <form action="">
+                    <label class = "Forms" for="name">Nome: </label>
+                    <input type="text" id="CadMedName" name="name" placeholder="* Your name.." required>
+
+                    <label class = "Forms" for="Cpf">Cpf: </label>
+                    <input type="text" id="CadMedCpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+
+                    <label class = "Forms" for="password">Senha: </label>
+                    <input type="password" id="CadMedPassword" name="password" placeholder="* Your password.." required>
+
+                    <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
+                    <input type="date" id="CadMedDataNascimento" name="DataNascimento" placeholder="* Data Nascimento.." required>
+
+                    <label class = "Forms" for="Endereco">Endereço: </label>
+                    <input type="text" id="CadMedEndereco" name="Endereco" placeholder="Endereço..">
+
+                    <label class = "Forms" for="Email">Email: </label>
+                    <input type="email" id="CadMedEmail" name="Email" placeholder="Your Email..">
+                    
+                    <label class = "Forms" for="Telefone">Telefone: </label>
+                    <input type="text" id="CadMedTel" name="Telefone" placeholder="Telefone..">
+
+                    <label class = "Forms" for="Especialidade">Especialidade: </label>
+                    <input type="text" id="CadMedEspecialidade" name="Especialidade" placeholder= "* Especialidade .." required>
+
+                    <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
+                    <input type="text" id="CadMedPlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
+                    </form>
+                </div>
+                <input type="submit" value="Enviar" onclick="CadastrarMedico()">
+                <div id="CadMedResultado"></div>
+            </div>
+
+            <div class = "CadastrarAtendente">
+                <h3 class = "Forms">Cadastrar Atendente</h3>
+                <div>
+                    <form action="">
+                        <label class = "Forms" for="name">Nome: </label>
+                        <input type="text" id="CadAteName" name="name" placeholder="* Your name.." required>
+
+                        <label class = "Forms" for="Cpf">Cpf: </label>
+                        <input type="text" id="CadAteCpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+
+                        <label class = "Forms" for="password">Senha: </label>
+                        <input type="password" id="CadAtePassword" name="password" placeholder="* Your password.." required>
+
+                        <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
+                        <input type="date" id="CadAteDataNascimento" name="DataNascimento" placeholder="* Data Nascimento.." required>
+
+                        <label class = "Forms" for="Endereco">Endereço: </label>
+                        <input type="text" id="CadAteEndereco" name="Endereco" placeholder="Endereço..">
+
+                        <label class = "Forms" for="Email">Email: </label>
+                        <input type="email" id="CadAteEmail" name="Email" placeholder="Your Email..">
+
+                        <label class = "Forms" for="Telefone">Telefone: </label>
+                        <input type="text" id="CadAteTel" name="Telefone" placeholder="Telefone..">
+                    </form>
+                </div>
+                <input type="submit" value="Enviar" onclick="CadastrarAtendente()">
+                <div id="CadAteResultado"></div>
+            </div>
+
+            <div class = "AgendarConsulta">
+                <h3>Agendar Consulta</h3>
+                <form>
+                    <label class = "Forms" for="Cpf">Cpf: </label>
+                    <input type="text" id="AgendaConsCpf" name="Cpf" placeholder="* Cpf" required onkeyup="VerificaCpf()">
+                    <div id="AgendaConsPac"></div>
+
+                    <label class = "Forms" for="Especialidade">Especialidade: </label>
+                    <select class='custom-select' id='AgendaConsEsp' name='Especialidade' onchange="CarregaMedicos()">
+                        <option value='Any' selected='selected'>Qualquer Especialidade</option>
+                    </select>
+
+                    <label class = "Forms" for="Medicos">Médico: </label>
+                    <select class='custom-select' id='AgendaConsMed' name='Medicos' onchange="CarregaHorarios()">
+                        <option value='Any' selected='selected'>Nenhum médico selecionado</option>
+                    </select>
+
+                    <label class = "Forms" for="date">Dia: </label>
+                    <input type="date" name="date" id="AgendaConsDia" onchange="CarregaHorarios()">
+
+                    <label class = "Forms" for="Horarios">Horários Disponíveis: </label>
+                    <select class='custom-select' id='AgendaConsHor' name='Horarios'>
+                        <option value='Any' selected='selected'>Nenhum horário selecionado</option>
+                    </select>
+
+                </form>
+
+                <input type="submit" value="Enviar" onclick="AgendarConsulta()">
+                <div id="AgendaConsResultado"></div>
+            </div>
+        </div>
+
+        <!-- Medico --> 
+        <div class = "Medico">
+            <div class = "Consultas">
+                <h3>Consultas</h3>
+            </div>
+            <div class = "Agendamentos">
+                <h3>Agendamentos</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- rodape -->
+    <footer> 
+        <h4>Unidades</h4> 
+        <h5> -> Rio Grande do Sul - Rio Grande FURG</h5>
+        <br>
+        <h4>Siga-nos</h4> 
+        <img src="Imagens/redesSociais.png" alt="">
+        <br>
+        <h4>Certificações</h4>
+        <img src = "Imagens/certificados.png" alt="">
+        <hr>
+        <h6 style="text-align: right">&copy; 2018 Clínica Vida Saudável. Todos os Direitos Reservados</h6>     
+    </footer>
+    
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script>
+
+    $(document).ready(function(){
+        $.getJSON("testJSON.json", function(data) {
+            $("#demo").html(data.name);
+            $(".CadastrarAtendente, .VisualizarConsulta, .AgendarConsultaPaciente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .Consultas, .Agendamentos").hide();
+            if(data.name === "Paciente")
+            {
+                $('.Paciente').show();
+                $('.Medico').hide();
+                $('.Atendente').hide();
+            }
+            if(data.name === "Atendente")
+            {
+                $('.Paciente').hide();
+                $('.Medico').hide();
+                $('.Atendente').show();
+            }
+            if(data.name === "Medico")
+            {
+                $('.Paciente').hide();
+                $('.Medico').show();
+                $('.Atendente').hide();             
+            }
+        }, "json");
+
+        CarregaEspecialidades();
+        CarregaMedicos();
+    });
+    //-----Paciente 
+        $(document).ready(function(){
+            $("#VisualizarConsulta").click(function(){
+                $(".AgendarConsultaPaciente").hide();
+                $(".VisualizarConsulta").show();
+            });
+            $("#AgendarConsultaPaciente").click(function(){
+                $(".AgendarConsultaPaciente").show();
+                $(".VisualizarConsulta").hide();
+            });
+        });
+
+    //-----Atendente
+        $(document).ready(function(){
+            $("#CadastrarPaciente").click(function(){
+                $(".CadastrarPaciente").show();
+                $(".CadastrarMedico").hide();
+                $(".AgendarConsulta").hide();
+                $(".CadastrarAtendente").hide();
+            });
+            $("#CadastrarMedico").click(function(){
+                $(".CadastrarPaciente").hide();
+                $(".CadastrarMedico").show();
+                $(".AgendarConsulta").hide();
+                $(".CadastrarAtendente").hide();
+            });
+            $("#AgendarConsulta").click(function(){
+                $(".CadastrarPaciente").hide();
+                $(".CadastrarMedico").hide();
+                $(".AgendarConsulta").show();
+                $(".CadastrarAtendente").hide();
+            });
+            $("#CadastrarAtendente").click(function(){
+                $(".CadastrarPaciente").hide();
+                $(".CadastrarMedico").hide();
+                $(".AgendarConsulta").hide();
+                $(".CadastrarAtendente").show();
+            });
+        });
+        
+        function CadastrarPaciente(){
+            var variaveis = {"name" : document.getElementById("CadPacName").value,
+                             "cpf"  : document.getElementById("CadPacCpf").value,
+                             "pass" : document.getElementById("CadPacPassword").value,
+                             "endereco" : document.getElementById("CadPacEndereco").value,
+                             "email" : document.getElementById("CadPacEmail").value,
+                             "nascimento" : document.getElementById("CadPacDataNascimento").value,
+                             "plano" : document.getElementById("CadPacPlanoDeSaude").value,
+                             "sangue" : document.getElementById("CadPacTipoSanguineo").value,
+                             "telefone" : document.getElementById("CadPacTel").value};
+            
+            var generos = document.getElementsByName("CadPacGenero");
+            for(var index in generos){
+                if (generos[index].value == "on"){
+                    variaveis["genero"] = generos[index].id;
+                }
+            }
+            
+            var envio = "";
+
+            for (var variavel in variaveis){
+                envio += variavel + "=" + variaveis[variavel] + "&";
+            }
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("CadPacResultado").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "serverScripts/CadastraPaciente.php?" + envio, true);
+            xmlhttp.send();  
+        }
+
+        function CadastrarMedico(){
+            var variaveis = {"name" : document.getElementById("CadMedName").value,
+                             "cpf"  : document.getElementById("CadMedCpf").value,
+                             "pass" : document.getElementById("CadMedPassword").value,
+                             "endereco" : document.getElementById("CadMedEndereco").value,
+                             "email" : document.getElementById("CadMedEmail").value,
+                             "nascimento" : document.getElementById("CadMedDataNascimento").value,
+                             "plano" : document.getElementById("CadMedPlanoDeSaude").value,
+                             "especialidade" : document.getElementById("CadMedEspecialidade").value,
+                             "telefone" : document.getElementById("CadMedTel").value};
+            
+            var envio = "";
+
+            for (var variavel in variaveis){
+                envio += variavel + "=" + variaveis[variavel] + "&";
+            }
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("CadMedResultado").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "serverScripts/CadastraMedico.php?" + envio, true);
+            xmlhttp.send(); 
+        }
+        
+        function CadastrarAtendente(){
+            var variaveis = {"name" : document.getElementById("CadAteName").value,
+                             "cpf"  : document.getElementById("CadAteCpf").value,
+                             "pass" : document.getElementById("CadAtePassword").value,
+                             "endereco" : document.getElementById("CadAteEndereco").value,
+                             "email" : document.getElementById("CadAteEmail").value,
+                             "nascimento" : document.getElementById("CadAteDataNascimento").value,
+                             "telefone" : document.getElementById("CadAteTel").value};
+            
+            var envio = "";
+
+            for (var variavel in variaveis){
+                envio += variavel + "=" + variaveis[variavel] + "&";
+            }
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("CadAteResultado").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "serverScripts/CadastraAtendente.php?" + envio, true);
+            xmlhttp.send();
+        }
+        
+        function CarregaEspecialidades() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "serverScripts/CarregaEspecialidades.php?", true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("AgendaConsEsp").innerHTML = this.responseText;
+                }
+            };
+        }
+
+        function CarregaMedicos() {
+            var formEsp = document.getElementById("AgendaConsEsp");
+            
+            var especialidades = formEsp.options[formEsp.selectedIndex].value;
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("AgendaConsMed").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "serverScripts/CarregaMedicos.php?Especialidade=" + especialidades, true);
+            xmlhttp.send();              
+        }
+    
+        function CarregaHorarios() {
+            var formMed = document.getElementById("AgendaConsMed");   
+            var medico = formMed.options[formMed.selectedIndex].value;
+            
+            var dia = document.getElementById("AgendaConsDia").value;
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("AgendaConsHor").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "serverScripts/CarregaHorarios.php?Medico=" + medico + "&Dia=" + dia, true);
+            xmlhttp.send(); 
+        }
+    
+        function VerificaCpf() {
+            var cpf = document.getElementById("AgendaConsCpf").value;
+            
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "serverScripts/VerificaCpfPaciente.php?cpf="+cpf, true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("AgendaConsPac").innerHTML = this.responseText;
+                }
+            };
+        }
+    
+        function AgendarConsulta() {
+            var cpf = document.getElementById("AgendaConsCpf").value;
+
+            var formMed = document.getElementById("AgendaConsMed");   
+            var medico = formMed.options[formMed.selectedIndex].value;
+            
+            var dia = document.getElementById("AgendaConsDia").value;
+
+            var horario = document.getElementById("AgendaConsHor").value;
+
+            //TODO: Pegar codigo do atendente do json
+            var atendente = "A0000"
+            
+            var envio = "cpf=" + cpf + "&medico=" + medico + "&dia=" + dia + "&horario=" + horario + "&atendente=" + atendente;
+            
+            console.log(envio);
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("AgendaConsResultado").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "serverScripts/AgendaConsulta.php?"+envio, true);
+            xmlhttp.send();
+        }
+    //-----Medico 
+        $(document).ready(function(){
+            $("#Consultas").click(function(){
+                $(".Consultas").show();
+                $(".Agendamentos").hide();
+            });
+            $("#Agendamentos").click(function(){
+                $(".Consultas").hide();
+                $(".Agendamentos").show();
+            });
+        });
+
+</script>
+
+
+</html>
