@@ -27,7 +27,6 @@
     <nav>
         <div class = "Paciente">
             <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
-            <button id = "AgendarConsultaPaciente" class="Botao-Menu"> Agendar Consulta </button>
         </div>
         <div class = "Atendente">
             <button id = "CadastrarPaciente"    class="Botao-Menu"> Cadastrar Paciente </button>
@@ -45,10 +44,6 @@
         <!-- Paciente --> 
         <div class = "Paciente">
 
-            <div class = "AgendarConsultaPaciente">
-                <h3>Agendar Consulta</h3>
-
-            </div>
             <div class = "VisualizarConsulta">
                 <h3> Visualizar Consulta</h3>
             </div>
@@ -78,17 +73,17 @@
                     <ul class="Generos" style = "margin: 0px 0px 0px 20px">
                         <li class="Genero Homem">
                           <input name="CadPacGenero" type="radio" id="CadPacHomem">
-                          <label for="Homem">Homem</label> 
+                          <label for="CadPacHomem">Homem</label> 
                         </li>
                           
                         <li class="Genero Mulher">
                           <input name="CadPacGenero" type="radio" id="CadPacMulher">
-                          <label for="Mulher">Mulher</label>
+                          <label for="CadPacMulher">Mulher</label>
                         </li>
                           
                         <li class="Genero Outro">
                           <input name="CadPacGenero" type="radio" id="CadPacOutro" checked>
-                          <label for="Outro">Outro</label>
+                          <label for="CadPacOutro">Outro</label>
                         </li>
                     </ul>
 
@@ -183,10 +178,10 @@
             </div>
 
             <div class = "AgendarConsulta">
-                <h3>Agendar Consulta</h3>
+                <h3 class="Forms">Agendar Consulta</h3>
                 <form>
                     <label class = "Forms" for="Cpf">Cpf: </label>
-                    <input type="text" id="AgendaConsCpf" name="Cpf" placeholder="* Cpf" required onkeyup="VerificaCpf()">
+                    <input type="text" id="AgendaConsCpf" name="Cpf" placeholder="* Cpf ..." required onkeyup="VerificaCpf()">
                     <div id="AgendaConsPac"></div>
 
                     <label class = "Forms" for="Especialidade">Especialidade: </label>

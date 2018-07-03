@@ -218,6 +218,17 @@ input[type=submit]:hover
     -moz-outline-radius: 4px;
 }
 
+.custom-select {
+    position: relative;
+    width: 290px;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+}
 .Paciente{}
 .Medico{}
 .Atendente{}
