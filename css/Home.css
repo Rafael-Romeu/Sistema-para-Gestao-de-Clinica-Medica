@@ -229,6 +229,38 @@ input[type=submit]:hover
     box-sizing: border-box;
     background-color: white;
 }
+table, th, td {
+    border: 2px solid lightgray;
+    border-collapse: collapse;
+    padding: 12px 20px;
+    width: 290px;
+}
+th, td {
+    padding: 12px 20px;
+    text-align: left;
+}
+
+input[type=checkbox] {
+    visibility:hidden;
+}
+label {
+    cursor: pointer;
+}
+input[type=checkbox]:checked + label {
+    background: #5b96bf;
+    color: white;
+}
+ul {
+    list-style: none;
+}
+li {
+    padding: 0px 10px;
+    list-style-type: none;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    margin-bottom: 5px;
+}
 .Paciente{}
 .Medico{}
 .Atendente{}
