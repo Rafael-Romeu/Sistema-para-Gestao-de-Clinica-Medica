@@ -50,6 +50,8 @@
                     $_SESSION['tipo'] = $tipo;
 
                     $_SESSION['nome'] = $usuario->nome;
+
+                    $_SESSION['codigo'] = $usuario->codigo;
                     
                     redireciona($tipo);
                 }

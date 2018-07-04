@@ -831,316 +831,316 @@
     });
 
     //-----Atendente
-        $(document).ready(function(){
-            $("#CadastrarPaciente").click(function(){
-                $(".CadastrarPaciente").show();
-                $(".CadastrarMedico").hide();
-                $(".AgendarConsulta").hide();
-                $(".CadastrarAtendente").hide();
-                $(".VerConsultas").hide();
+    $(document).ready(function(){
+        $("#CadastrarPaciente").click(function(){
+            $(".CadastrarPaciente").show();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").hide();
+            $(".CadastrarAtendente").hide();
+            $(".VerConsultas").hide();
 
-            });
-            $("#CadastrarMedico").click(function(){
-                $(".CadastrarPaciente").hide();
-                $(".CadastrarMedico").show();
-                $(".AgendarConsulta").hide();
-                $(".CadastrarAtendente").hide();
-                $(".VerConsultas").hide();
-            });
-            $("#AgendarConsulta").click(function(){
-                $(".CadastrarPaciente").hide();
-                $(".CadastrarMedico").hide();
-                $(".AgendarConsulta").show();
-                $(".CadastrarAtendente").hide();
-                $(".VerConsultas").hide();
-            });
-            $("#CadastrarAtendente").click(function(){
-                $(".CadastrarPaciente").hide();
-                $(".CadastrarMedico").hide();
-                $(".AgendarConsulta").hide();
-                $(".CadastrarAtendente").show();
-                $(".VerConsultas").hide();
-            });
-            $("#VerConsultas").click(function(){
-                $(".CadastrarPaciente").hide();
-                $(".CadastrarMedico").hide();
-                $(".AgendarConsulta").hide();
-                $(".CadastrarAtendente").hide();
-                $(".VerConsultas").show();
-            });
         });
+        $("#CadastrarMedico").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").show();
+            $(".AgendarConsulta").hide();
+            $(".CadastrarAtendente").hide();
+            $(".VerConsultas").hide();
+        });
+        $("#AgendarConsulta").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").show();
+            $(".CadastrarAtendente").hide();
+            $(".VerConsultas").hide();
+        });
+        $("#CadastrarAtendente").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").hide();
+            $(".CadastrarAtendente").show();
+            $(".VerConsultas").hide();
+        });
+        $("#VerConsultas").click(function(){
+            $(".CadastrarPaciente").hide();
+            $(".CadastrarMedico").hide();
+            $(".AgendarConsulta").hide();
+            $(".CadastrarAtendente").hide();
+            $(".VerConsultas").show();
+        });
+    });
+    
+    function CadastrarPaciente(){
+        var variaveis = {"name" : document.getElementById("CadPacName").value,
+                            "cpf"  : document.getElementById("CadPacCpf").value,
+                            "pass" : document.getElementById("CadPacPassword").value,
+                            "endereco" : document.getElementById("CadPacEndereco").value,
+                            "email" : document.getElementById("CadPacEmail").value,
+                            "nascimento" : document.getElementById("CadPacDataNascimento").value,
+                            "plano" : document.getElementById("CadPacPlanoDeSaude").value,
+                            "sangue" : document.getElementById("CadPacTipoSanguineo").value,
+                            "telefone" : document.getElementById("CadPacTel").value};
         
-        function CadastrarPaciente(){
-            var variaveis = {"name" : document.getElementById("CadPacName").value,
-                             "cpf"  : document.getElementById("CadPacCpf").value,
-                             "pass" : document.getElementById("CadPacPassword").value,
-                             "endereco" : document.getElementById("CadPacEndereco").value,
-                             "email" : document.getElementById("CadPacEmail").value,
-                             "nascimento" : document.getElementById("CadPacDataNascimento").value,
-                             "plano" : document.getElementById("CadPacPlanoDeSaude").value,
-                             "sangue" : document.getElementById("CadPacTipoSanguineo").value,
-                             "telefone" : document.getElementById("CadPacTel").value};
-            
-            var generos = document.getElementsByName("CadPacGenero");
-            for(var index in generos){
-                if (generos[index].value == "on"){
-                    variaveis["genero"] = generos[index].id;
-                }
+        var generos = document.getElementsByName("CadPacGenero");
+        for(var index in generos){
+            if (generos[index].value == "on"){
+                variaveis["genero"] = generos[index].id;
             }
-            
-            var envio = "";
-
-            for (var variavel in variaveis){
-                envio += variavel + "=" + variaveis[variavel] + "&";
-            }
-
-            var xmlhttp = new XMLHttpRequest();
-
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("CadPacResultado").innerHTML = this.responseText;
-                }
-            };
-
-            xmlhttp.open("GET", "serverScripts/CadastraPaciente.php?" + envio, true);
-            xmlhttp.send();  
-        }
-
-        function CadastrarMedico(){
-            var segunda = "";
-            var terca = "";
-            var quarta = "";
-            var quinta = "";
-            var sexta = "";
-            
-            // Pegando horarios de Segunda-Feira
-            var inputElements = document.getElementsByName("segunda");
-            for(var i = 0; i < inputElements.length; i++){
-                if(inputElements[i].type == "checkbox") 
-                {
-                    if(inputElements[i].checked)
-                    {
-                        segunda = segunda + "1";
-                    }
-                    else
-                    {
-                        segunda = segunda + "0";
-                    }
-                }
-            }
-
-            // Pegando horarios de Terça-Feira
-            var inputElements = document.getElementsByName("terca");
-            for(var i = 0; i < inputElements.length; i++){
-                if(inputElements[i].type == "checkbox") 
-                {
-                    if(inputElements[i].checked)
-                    {
-                        terca = terca + "1";
-                    }
-                    else
-                    {
-                        terca = terca + "0";
-                    }
-                }
-            }
-
-            // Pegando horarios de Quarta-Feira
-            var inputElements = document.getElementsByName("quarta");
-            for(var i = 0; i < inputElements.length; i++){
-                if(inputElements[i].type == "checkbox") 
-                {
-                    if(inputElements[i].checked)
-                    {
-                        quarta = quarta + "1";
-                    }
-                    else
-                    {
-                        quarta = quarta + "0";
-                    }
-                }
-            }
-
-            // Pegando horarios de Quinta-Feira
-            var inputElements = document.getElementsByName("quinta");
-            for(var i = 0; i < inputElements.length; i++){
-                if(inputElements[i].type == "checkbox") 
-                {
-                    if(inputElements[i].checked)
-                    {
-                        quinta = quinta + "1";
-                    }
-                    else
-                    {
-                        quinta = quinta + "0";
-                    }
-                }
-            }
-
-            // Pegando horarios de Sexta-Feira
-            var inputElements = document.getElementsByName("sexta");
-            for(var i = 0; i < inputElements.length; i++){
-                if(inputElements[i].type == "checkbox") 
-                {
-                    if(inputElements[i].checked)
-                    {
-                        sexta = sexta + "1";
-                    }
-                    else
-                    {
-                        sexta = sexta + "0";
-                    }
-                }
-            }
-
-
-            var variaveis = {"name"          : document.getElementById("CadMedName").value,
-                             "cpf"           : document.getElementById("CadMedCpf").value,
-                             "pass"          : document.getElementById("CadMedPassword").value,
-                             "endereco"      : document.getElementById("CadMedEndereco").value,
-                             "email"         : document.getElementById("CadMedEmail").value,
-                             "nascimento"    : document.getElementById("CadMedDataNascimento").value,
-                             "plano"         : document.getElementById("CadMedPlanoDeSaude").value,
-                             "especialidade" : document.getElementById("CadMedEspecialidade").value,
-                             "telefone"      : document.getElementById("CadMedTel").value,
-                             "horSeg"        : segunda,
-                             "horTer"        : terca,
-                             "horQua"        : quarta,
-                             "horQui"        : quinta,
-                             "horSex"        : sexta};
-            
-            var envio = "";
-
-            for (var variavel in variaveis){
-                envio += variavel + "=" + variaveis[variavel] + "&";
-            }
-
-            console.log(envio);
-            var xmlhttp = new XMLHttpRequest();
-
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("CadMedResultado").innerHTML = this.responseText;
-                }
-            };
-
-            xmlhttp.open("GET", "serverScripts/CadastraMedico.php?" + envio, true);
-            xmlhttp.send(); 
         }
         
-        function CadastrarAtendente(){
-            var variaveis = {"name" : document.getElementById("CadAteName").value,
-                             "cpf"  : document.getElementById("CadAteCpf").value,
-                             "pass" : document.getElementById("CadAtePassword").value,
-                             "endereco" : document.getElementById("CadAteEndereco").value,
-                             "email" : document.getElementById("CadAteEmail").value,
-                             "nascimento" : document.getElementById("CadAteDataNascimento").value,
-                             "telefone" : document.getElementById("CadAteTel").value};
-            
-            var envio = "";
+        var envio = "";
 
-            for (var variavel in variaveis){
-                envio += variavel + "=" + variaveis[variavel] + "&";
+        for (var variavel in variaveis){
+            envio += variavel + "=" + variaveis[variavel] + "&";
+        }
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("CadPacResultado").innerHTML = this.responseText;
             }
+        };
 
-            var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "serverScripts/CadastraPaciente.php?" + envio, true);
+        xmlhttp.send();  
+    }
 
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("CadAteResultado").innerHTML = this.responseText;
-                }
-            };
-
-            xmlhttp.open("GET", "serverScripts/CadastraAtendente.php?" + envio, true);
-            xmlhttp.send();
-        }
+    function CadastrarMedico(){
+        var segunda = "";
+        var terca = "";
+        var quarta = "";
+        var quinta = "";
+        var sexta = "";
         
-        function CarregaEspecialidades() {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", "serverScripts/CarregaEspecialidades.php?", true);
-            xmlhttp.send();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("AgendaConsEsp").innerHTML = this.responseText;
+        // Pegando horarios de Segunda-Feira
+        var inputElements = document.getElementsByName("segunda");
+        for(var i = 0; i < inputElements.length; i++){
+            if(inputElements[i].type == "checkbox") 
+            {
+                if(inputElements[i].checked)
+                {
+                    segunda = segunda + "1";
                 }
-            };
+                else
+                {
+                    segunda = segunda + "0";
+                }
+            }
         }
 
-        function CarregaMedicos() {
-            var formEsp = document.getElementById("AgendaConsEsp");
-            
-            var especialidades = formEsp.options[formEsp.selectedIndex].value;
-
-            var xmlhttp = new XMLHttpRequest();
-
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("AgendaConsMed").innerHTML = this.responseText;
+        // Pegando horarios de Terça-Feira
+        var inputElements = document.getElementsByName("terca");
+        for(var i = 0; i < inputElements.length; i++){
+            if(inputElements[i].type == "checkbox") 
+            {
+                if(inputElements[i].checked)
+                {
+                    terca = terca + "1";
                 }
-            };
-
-            xmlhttp.open("GET", "serverScripts/CarregaMedicos.php?Especialidade=" + especialidades, true);
-            xmlhttp.send();              
+                else
+                {
+                    terca = terca + "0";
+                }
+            }
         }
+
+        // Pegando horarios de Quarta-Feira
+        var inputElements = document.getElementsByName("quarta");
+        for(var i = 0; i < inputElements.length; i++){
+            if(inputElements[i].type == "checkbox") 
+            {
+                if(inputElements[i].checked)
+                {
+                    quarta = quarta + "1";
+                }
+                else
+                {
+                    quarta = quarta + "0";
+                }
+            }
+        }
+
+        // Pegando horarios de Quinta-Feira
+        var inputElements = document.getElementsByName("quinta");
+        for(var i = 0; i < inputElements.length; i++){
+            if(inputElements[i].type == "checkbox") 
+            {
+                if(inputElements[i].checked)
+                {
+                    quinta = quinta + "1";
+                }
+                else
+                {
+                    quinta = quinta + "0";
+                }
+            }
+        }
+
+        // Pegando horarios de Sexta-Feira
+        var inputElements = document.getElementsByName("sexta");
+        for(var i = 0; i < inputElements.length; i++){
+            if(inputElements[i].type == "checkbox") 
+            {
+                if(inputElements[i].checked)
+                {
+                    sexta = sexta + "1";
+                }
+                else
+                {
+                    sexta = sexta + "0";
+                }
+            }
+        }
+
+
+        var variaveis = {"name"          : document.getElementById("CadMedName").value,
+                            "cpf"           : document.getElementById("CadMedCpf").value,
+                            "pass"          : document.getElementById("CadMedPassword").value,
+                            "endereco"      : document.getElementById("CadMedEndereco").value,
+                            "email"         : document.getElementById("CadMedEmail").value,
+                            "nascimento"    : document.getElementById("CadMedDataNascimento").value,
+                            "plano"         : document.getElementById("CadMedPlanoDeSaude").value,
+                            "especialidade" : document.getElementById("CadMedEspecialidade").value,
+                            "telefone"      : document.getElementById("CadMedTel").value,
+                            "horSeg"        : segunda,
+                            "horTer"        : terca,
+                            "horQua"        : quarta,
+                            "horQui"        : quinta,
+                            "horSex"        : sexta};
+        
+        var envio = "";
+
+        for (var variavel in variaveis){
+            envio += variavel + "=" + variaveis[variavel] + "&";
+        }
+
+        console.log(envio);
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("CadMedResultado").innerHTML = this.responseText;
+            }
+        };
+
+        xmlhttp.open("GET", "serverScripts/CadastraMedico.php?" + envio, true);
+        xmlhttp.send(); 
+    }
     
-        function CarregaHorarios() {
-            var formMed = document.getElementById("AgendaConsMed");   
-            var medico = formMed.options[formMed.selectedIndex].value;
-            
-            var dia = document.getElementById("AgendaConsDia").value;
+    function CadastrarAtendente(){
+        var variaveis = {"name" : document.getElementById("CadAteName").value,
+                            "cpf"  : document.getElementById("CadAteCpf").value,
+                            "pass" : document.getElementById("CadAtePassword").value,
+                            "endereco" : document.getElementById("CadAteEndereco").value,
+                            "email" : document.getElementById("CadAteEmail").value,
+                            "nascimento" : document.getElementById("CadAteDataNascimento").value,
+                            "telefone" : document.getElementById("CadAteTel").value};
+        
+        var envio = "";
 
-            var xmlhttp = new XMLHttpRequest();
-
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("AgendaConsHor").innerHTML = this.responseText;
-                }
-            };
-
-            xmlhttp.open("GET", "serverScripts/CarregaHorarios.php?Medico=" + medico + "&Dia=" + dia, true);
-            xmlhttp.send(); 
+        for (var variavel in variaveis){
+            envio += variavel + "=" + variaveis[variavel] + "&";
         }
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("CadAteResultado").innerHTML = this.responseText;
+            }
+        };
+
+        xmlhttp.open("GET", "serverScripts/CadastraAtendente.php?" + envio, true);
+        xmlhttp.send();
+    }
     
-        function VerificaCpf() {
-            var cpf = document.getElementById("AgendaConsCpf").value;
-            
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", "serverScripts/VerificaCpfPaciente.php?cpf="+cpf, true);
-            xmlhttp.send();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("AgendaConsPac").innerHTML = this.responseText;
-                }
-            };
-        }
-    
-        function AgendarConsulta() {
-            var cpf = document.getElementById("AgendaConsCpf").value;
+    function CarregaEspecialidades() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "serverScripts/CarregaEspecialidades.php?", true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("AgendaConsEsp").innerHTML = this.responseText;
+            }
+        };
+    }
 
-            var formMed = document.getElementById("AgendaConsMed");   
-            var medico = formMed.options[formMed.selectedIndex].value;
-            
-            var dia = document.getElementById("AgendaConsDia").value;
+    function CarregaMedicos() {
+        var formEsp = document.getElementById("AgendaConsEsp");
+        
+        var especialidades = formEsp.options[formEsp.selectedIndex].value;
 
-            var horario = document.getElementById("AgendaConsHor").value;
+        var xmlhttp = new XMLHttpRequest();
 
-            //TODO: Pegar codigo do atendente do json
-            var atendente = "A0000"
-            
-            var envio = "cpf=" + cpf + "&medico=" + medico + "&dia=" + dia + "&horario=" + horario + "&atendente=" + atendente;
-            
-            console.log(envio);
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("AgendaConsMed").innerHTML = this.responseText;
+            }
+        };
 
-            var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "serverScripts/CarregaMedicos.php?Especialidade=" + especialidades, true);
+        xmlhttp.send();              
+    }
 
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("AgendaConsResultado").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "serverScripts/AgendaConsulta.php?"+envio, true);
-            xmlhttp.send();
-        }
+    function CarregaHorarios() {
+        var formMed = document.getElementById("AgendaConsMed");   
+        var medico = formMed.options[formMed.selectedIndex].value;
+        
+        var dia = document.getElementById("AgendaConsDia").value;
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("AgendaConsHor").innerHTML = this.responseText;
+            }
+        };
+
+        xmlhttp.open("GET", "serverScripts/CarregaHorarios.php?Medico=" + medico + "&Dia=" + dia, true);
+        xmlhttp.send(); 
+    }
+
+    function VerificaCpf() {
+        var cpf = document.getElementById("AgendaConsCpf").value;
+        
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "serverScripts/VerificaCpfPaciente.php?cpf="+cpf, true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("AgendaConsPac").innerHTML = this.responseText;
+            }
+        };
+    }
+
+    function AgendarConsulta() {
+        var cpf = document.getElementById("AgendaConsCpf").value;
+
+        var formMed = document.getElementById("AgendaConsMed");   
+        var medico = formMed.options[formMed.selectedIndex].value;
+        
+        var dia = document.getElementById("AgendaConsDia").value;
+
+        var horario = document.getElementById("AgendaConsHor").value;
+
+        //TODO: Pegar codigo do atendente do json
+        var atendente = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        
+        var envio = "cpf=" + cpf + "&medico=" + medico + "&dia=" + dia + "&horario=" + horario + "&atendente=" + atendente;
+        
+        console.log(envio);
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("AgendaConsResultado").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "serverScripts/AgendaConsulta.php?"+envio, true);
+        xmlhttp.send();
+    }
 
 </script>
 
