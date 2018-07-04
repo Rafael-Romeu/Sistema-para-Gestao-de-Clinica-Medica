@@ -70,7 +70,7 @@ class lConsulta {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathConsulta = "../db/tConsulta.xml";
+		$this->tablePathConsulta = $_SERVER['DOCUMENT_ROOT']."/db/tConsulta.xml";
     }
 	
 	/**

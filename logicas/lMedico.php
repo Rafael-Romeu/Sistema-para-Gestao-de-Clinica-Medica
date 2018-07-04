@@ -75,7 +75,7 @@ class lMedico {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathMedico = "../db/tMedico.xml";
+		$this->tablePathMedico = $_SERVER['DOCUMENT_ROOT']."/db/tMedico.xml";
     }
 	
 	/**

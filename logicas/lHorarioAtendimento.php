@@ -65,7 +65,7 @@ class lHorarioAtendimento {
 		$this->reg_date = null;
 
 		$this->semEspaco = false;
-		$this->tablePathHorarioAtendimento = "../db/tHorarioAtendimento.xml";
+		$this->tablePathHorarioAtendimento = $_SERVER['DOCUMENT_ROOT']."/db/tHorarioAtendimento.xml";
     }
 	
 	/**
