@@ -4,7 +4,7 @@
     <codigo>M0000</codigo>
     <nome>Template</nome>
     <senha>admin</senha>
-    <cpf>admin</cpf>
+    <cpf>adminMed</cpf>
     <especialidade>(Especialidade)</especialidade>
     <planoDeSaude>(Plano de Saude)</planoDeSaude>
     <dtNascimento>1900-01-01</dtNascimento>
@@ -63,19 +63,6 @@
     <endereco>(sem endereço)</endereco>
     <telefone>(sem telefone)</telefone>
     <email>teste@email.com</email>
-    <reg_date>2018-06-24 23:14:56</reg_date>
-  </medico>
-  <medico>
-    <codigo>M0005</codigo>
-    <nome>Teste5</nome>
-    <senha>1234567</senha>
-    <cpf>123.456.789-00</cpf>
-    <especialidade>Ginecologista</especialidade>
-    <planoDeSaude>Unimed</planoDeSaude>
-    <dtNascimento>1993-05-31</dtNascimento>
-    <endereco>Rua 7</endereco>
-    <telefone>53987452108</telefone>
-    <email>moc.liame@email.com</email>
     <reg_date>2018-06-24 23:14:56</reg_date>
   </medico>
 </root>

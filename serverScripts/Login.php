@@ -9,7 +9,7 @@
     include_once "../logicas/lMedico.php";
 
     $cpf  = $_REQUEST["cpf"];
-    $pass = $_REQUEST["pass"];
+    $pass = $_REQUEST["password"];
 
     $oAtendente = new lAtendente();
     $atendente = $oAtendente->getAtendenteByCPF($cpf);
@@ -72,5 +72,5 @@
         }
         return false;
     }
-
+    
 ?>
