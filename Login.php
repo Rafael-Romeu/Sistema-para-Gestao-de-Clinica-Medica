@@ -48,6 +48,10 @@
 
                     $tipo = get_class($usuario);
                     $_SESSION['tipo'] = $tipo;
+
+                    $_SESSION['nome'] = $usuario->nome;
+
+                    $_SESSION['codigo'] = $usuario->codigo;
                     
                     redireciona($tipo);
                 }
@@ -108,7 +112,7 @@
     function redireciona($tipo)
     {
         if ($tipo == "lAtendente")
-            header("location: Atendente.html");
+            header("location: Atendente.php");
         if ($tipo == "lMedico")
             header("location: Medico.html");
         if ($tipo == "lPaciente")

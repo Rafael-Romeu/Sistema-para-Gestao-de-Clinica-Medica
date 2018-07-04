@@ -50,4 +50,24 @@
     <sex>0000000000000000000000</sex>
     <reg_date>2018-06-24 23:15:02</reg_date>
   </horarioAtendimento>
+  <horarioAtendimento>
+    <codigo>H0005</codigo>
+    <codMedico>M0005</codMedico>
+    <seg>1000000000000000000000</seg>
+    <ter>1000000000000000000000</ter>
+    <qua>1000000000000000000000</qua>
+    <qui>1000000000000000000000</qui>
+    <sex>1000000000000000000000</sex>
+    <reg_date>2018-07-04 15:17:47</reg_date>
+  </horarioAtendimento>
+  <horarioAtendimento>
+    <codigo>H0006</codigo>
+    <codMedico>M0012</codMedico>
+    <seg>1000000000000010000000</seg>
+    <ter>1000000000000000000000</ter>
+    <qua>1000000000000000000000</qua>
+    <qui>1000000000000000000000</qui>
+    <sex>1000000000000000000000</sex>
+    <reg_date>2018-07-04 15:19:12</reg_date>
+  </horarioAtendimento>
 </root>
