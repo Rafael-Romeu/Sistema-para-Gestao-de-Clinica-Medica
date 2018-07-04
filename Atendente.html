@@ -9,7 +9,7 @@
 </head>
 
 
-<body>
+<body >
     
     <div class="Background">
        <img src = "Imagens/Medica-Transparencia.png">
@@ -30,7 +30,7 @@
             <button id = "CadastrarMedico"      class="Botao-Menu"> Cadastrar Medico </button>
             <button id = "CadastrarAtendente"   class="Botao-Menu"> Cadastrar Atendente </button>
             <button id = "AgendarConsulta"      class="Botao-Menu"> Agendar Consulta </button>
-            <button id = "VerConsultas"         class="Botao-Menu"> Visualizar Consultas </button>
+            <button id = "VerConsultas"         class="Botao-Menu" onclick="CarregaMedicosConsultas()"> Visualizar Consultas </button>
         </div>
     </nav>
     
@@ -769,22 +769,17 @@
             </div>
             <div class="VerConsultas">
                 <h3 class = "Forms">Consultas</h3>
+
+                <label class = "Forms" for="ConsultasMedicos">Médico: </label>
                 
+                <select class='custom-select' id='AgendaConsultasMedico' name='ConsultasMedicos' onchange="CarregaConsultas()" >
+                    <option value='Any' selected='selected'>Nenhum médico selecionado</option>
+                </select>
+
                 <div class="Forms">
                 <div class="table">
-                    <table>
-                        <tr>
-                            <th>Medico</th>
-                            <th>Paciente</th>
-                            <th>Dia</th>
-                            <th>Hora</th>
-                        </tr>
-                        <tr>
-                            <td>medico1</td>
-                            <td>paciente1</td>
-                            <td>dia</td>
-                            <td>hora</td>
-                        </tr>
+                    <table id="Tabela">
+                        
                     </table>
                 </div> 
                 </div>
@@ -1052,6 +1047,21 @@
             };
         }
 
+        function CarregaMedicosConsultas() {            
+            var especialidades = "Any";
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("AgendaConsultasMedico").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "serverScripts/CarregaMedicos.php?Especialidade=" + especialidades, true);
+            xmlhttp.send();              
+        }
+
         function CarregaMedicos() {
             var formEsp = document.getElementById("AgendaConsEsp");
             
@@ -1125,6 +1135,27 @@
                 }
             };
             xmlhttp.open("GET", "serverScripts/AgendaConsulta.php?"+envio, true);
+            xmlhttp.send();
+        }
+
+        function CarregaConsultas() {
+            var formMed = document.getElementById("AgendaConsultasMedico");
+            
+            var Medico = formMed.options[formMed.selectedIndex].value;
+            var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("Tabela").innerHTML = this.responseText;
+                }
+            };
+            var envio = "";
+            envio = "codigo=" + codigo + "&Medico=" + Medico;
+            
+            console.log(envio);
+            xmlhttp.open("GET", "serverScripts/CarregaConsulta.php?envio=" + envio, true);
             xmlhttp.send();
         }
 
