@@ -4,7 +4,7 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link rel="stylesheet" href="css/Home.css">
-    <title> Home </title> <!-- Titulo da pagina --> 
+    <title> Atendente </title> <!-- Titulo da pagina --> 
     <meta charset = "UTF-8">
 </head>
 
@@ -25,31 +25,15 @@
     
     <!-- Menu de navegação --> 
     <nav>
-        <div class = "Paciente">
-            <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
-        </div>
         <div class = "Atendente">
             <button id = "CadastrarPaciente"    class="Botao-Menu"> Cadastrar Paciente </button>
             <button id = "CadastrarMedico"      class="Botao-Menu"> Cadastrar Medico </button>
             <button id = "CadastrarAtendente"   class="Botao-Menu"> Cadastrar Atendente </button>
             <button id = "AgendarConsulta"      class="Botao-Menu"> Agendar Consulta </button>
         </div>
-        <div class = "Medico">
-            <button id = "Consultas"    class="Botao-Menu"> Consultas </button>
-            <button id = "Agendamentos" class="Botao-Menu"> Agendamentos </button>
-        </div>
     </nav>
     
     <div class="Corpo">
-        <!-- Paciente --> 
-        <div class = "Paciente">
-
-            <div class = "VisualizarConsulta">
-                <h3> Visualizar Consulta</h3>
-            </div>
-
-        </div>
-
         <!-- Atendente --> 
         <div class = "Atendente">
             <div class = "CadastrarPaciente">
@@ -208,18 +192,7 @@
                 <div id="AgendaConsResultado"></div>
             </div>
         </div>
-
-        <!-- Medico --> 
-        <div class = "Medico">
-            <div class = "Consultas">
-                <h3>Consultas</h3>
-            </div>
-            <div class = "Agendamentos">
-                <h3>Agendamentos</h3>
-            </div>
-        </div>
     </div>
-
 
     <!-- rodape -->
     <footer> 
@@ -240,43 +213,11 @@
 <script>
 
     $(document).ready(function(){
-        $.getJSON("testJSON.json", function(data) {
-            $("#demo").html(data.name);
-            $(".CadastrarAtendente, .VisualizarConsulta, .AgendarConsultaPaciente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .Consultas, .Agendamentos").hide();
-            if(data.name === "Paciente")
-            {
-                $('.Paciente').show();
-                $('.Medico').hide();
-                $('.Atendente').hide();
-            }
-            if(data.name === "Atendente")
-            {
-                $('.Paciente').hide();
-                $('.Medico').hide();
-                $('.Atendente').show();
-            }
-            if(data.name === "Medico")
-            {
-                $('.Paciente').hide();
-                $('.Medico').show();
-                $('.Atendente').hide();             
-            }
-        }, "json");
+        $(".CadastrarAtendente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta").hide();
 
         CarregaEspecialidades();
         CarregaMedicos();
     });
-    //-----Paciente 
-        $(document).ready(function(){
-            $("#VisualizarConsulta").click(function(){
-                $(".AgendarConsultaPaciente").hide();
-                $(".VisualizarConsulta").show();
-            });
-            $("#AgendarConsultaPaciente").click(function(){
-                $(".AgendarConsultaPaciente").show();
-                $(".VisualizarConsulta").hide();
-            });
-        });
 
     //-----Atendente
         $(document).ready(function(){
@@ -483,17 +424,6 @@
             xmlhttp.open("GET", "serverScripts/AgendaConsulta.php?"+envio, true);
             xmlhttp.send();
         }
-    //-----Medico 
-        $(document).ready(function(){
-            $("#Consultas").click(function(){
-                $(".Consultas").show();
-                $(".Agendamentos").hide();
-            });
-            $("#Agendamentos").click(function(){
-                $(".Consultas").hide();
-                $(".Agendamentos").show();
-            });
-        });
 
 </script>
 
