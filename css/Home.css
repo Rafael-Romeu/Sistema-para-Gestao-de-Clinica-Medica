@@ -53,34 +53,98 @@ nav
     grid-column: 1 / span 20;
     grid-row: 2 / span 1;
     
-    border-top: 5px solid #134467; 
+    background-color: #134467; 
     display: flex;
     justify-content: center;
 }
 
-.Botao-Menu
+nav button
 {
-    margin: 5px 2px;
-    padding: 8px 25px;
-    font-size: 18px;
-    text-align: center;
-    color: #134467;
-    background-color: #5b96bf; 
-    border: #134467;
-    border-radius: 5px;
-    
-    box-shadow: 0px 2px;
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: pointer;
 }
 
-.Botao-Menu:hover
+nav button:hover
 {
-    background-color: #134467;
-    color: white; 
+    background-color: #5b96bf;
     
     position: relative;
-    top: 2px;
-    box-shadow: 0 0 0 0;
 }
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: default;
+    outline: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #5b96bf;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
+    display: none;
+    flex-direction: column;
+}
+
+.dropdown-content button {
+    float: none;
+    color: #134467; 
+    padding: 12px 16px;
+    text-decoration: none;
+    text-align: left;
+
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #5b96bf;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+nav button::-moz-focus-inner, .dropdown-content button::-moz-focus-inner, .dropdown .dropbtn::-moz-focus-inner,
+nav button:focus, .dropdown-content button:focus, .dropdown .dropbtn:focus{
+    border: none;
+    outline: none;
+}
+
+
+
+
 
 .Corpo
 {

@@ -42,13 +42,21 @@
     
     <!-- Menu de navegação --> 
     <nav>
-        <div class = "Atendente">
-            <button id = "CadastrarPaciente"    class="Botao-Menu"> Cadastrar Paciente </button>
-            <button id = "CadastrarMedico"      class="Botao-Menu"> Cadastrar Medico </button>
-            <button id = "CadastrarAtendente"   class="Botao-Menu"> Cadastrar Atendente </button>
-            <button id = "AgendarConsulta"      class="Botao-Menu"> Agendar Consulta </button>
-            <button id = "VerConsultas"         class="Botao-Menu" onclick="CarregaMedicosConsultas()"> Visualizar Consultas </button>
-        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Cadastros ▾
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <button id = "CadastrarPaciente"> Cadastrar Paciente </button>
+                <button id = "CadastrarMedico"> Cadastrar Medico </button>
+                <button id = "CadastrarAtendente"> Cadastrar Atendente </button>
+            </div>
+        </div> 
+
+        <button id = "AgendarConsulta"> Agendar Consulta </button>
+        <button id = "VerConsultas" onclick="CarregaMedicosConsultas()"> Visualizar Consultas </button>
+    
+        <button id = "Logout" onclick="Logout()"> Logout </button>
     </nav>
     
     <div class="Corpo">
@@ -1140,40 +1148,48 @@
         xmlhttp.open("GET", "serverScripts/AgendaConsulta.php?"+envio, true);
         xmlhttp.send();
     }
+
     function CarregaConsultas() {
-            var formMed = document.getElementById("AgendaConsultasMedico");
-            
-            var Medico = formMed.options[formMed.selectedIndex].value;
-            var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        var formMed = document.getElementById("AgendaConsultasMedico");
+        
+        var Medico = formMed.options[formMed.selectedIndex].value;
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
 
-            var xmlhttp = new XMLHttpRequest();
+        var xmlhttp = new XMLHttpRequest();
 
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("Tabela").innerHTML = this.responseText;
-                }
-            };
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Tabela").innerHTML = this.responseText;
+            }
+        };
 
-            envio = "medico=" + Medico + "&Codigo=" + codigo;
-            
-            console.log(envio);
-            xmlhttp.open("GET", "serverScripts/CarregaConsulta.php?" + envio, true);
-            xmlhttp.send();
-        }
-        function CarregaMedicosConsultas() {            
-            var especialidades = "Any";
+        envio = "medico=" + Medico + "&Codigo=" + codigo;
+        
+        console.log(envio);
+        xmlhttp.open("GET", "serverScripts/CarregaConsulta.php?" + envio, true);
+        xmlhttp.send();
+    }
 
-            var xmlhttp = new XMLHttpRequest();
+    function CarregaMedicosConsultas() {            
+        var especialidades = "Any";
 
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("AgendaConsultasMedico").innerHTML = this.responseText;
-                }
-            };
+        var xmlhttp = new XMLHttpRequest();
 
-            xmlhttp.open("GET", "serverScripts/CarregaMedicos.php?Especialidade=" + especialidades, true);
-            xmlhttp.send();              
-        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("AgendaConsultasMedico").innerHTML = this.responseText;
+            }
+        };
+
+        xmlhttp.open("GET", "serverScripts/CarregaMedicos.php?Especialidade=" + especialidades, true);
+        xmlhttp.send();              
+    }
+
+    function Logout() {
+        window.location.replace("<?php $_SERVER['DOCUMENT_ROOT']?>/serverScripts/Logout.php");
+    }
+
+
 
 </script>
 

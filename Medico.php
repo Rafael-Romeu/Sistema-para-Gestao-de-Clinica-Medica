@@ -41,10 +41,10 @@
     
     <!-- Menu de navegação --> 
     <nav>
-        <div class = "Medico">
-            <button id = "Consultas"    class="Botao-Menu"> Consultas </button>
-            <button id = "Agendamentos" class="Botao-Menu"> Agendamentos </button>
-        </div>
+        <button id = "Consultas"> Consultas </button>
+        <button id = "Agendamentos"> Agendamentos </button>
+    
+        <button id = "Logout" onclick="Logout()"> Logout </button>
     </nav>
     
     <div class="Corpo">
@@ -92,6 +92,10 @@
             $(".Agendamentos").show();
         });
     });
+
+    function Logout() {
+        window.location.replace("<?php $_SERVER['DOCUMENT_ROOT']?>/serverScripts/Logout.php");
+    }
 
 </script>
 

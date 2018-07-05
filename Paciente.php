@@ -1,5 +1,4 @@
 <?php
-
     session_start();
 
     if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
@@ -11,7 +10,6 @@
         header("location: Login.php");
         exit;
     }
-
 ?>
 
 
@@ -42,9 +40,9 @@
     
     <!-- Menu de navegação --> 
     <nav>
-        <div class = "Paciente">
-            <button id = "VisualizarConsulta"      class="Botao-Menu"> Visualizar Consulta </button>
-        </div>
+        <button id = "VisualizarConsulta"> Visualizar Consulta </button>
+    
+        <button id = "Logout" onclick="Logout()"> Logout </button>
     </nav>
     
     <div class="Corpo">
@@ -78,18 +76,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script>
     //-----Paciente 
-        $(document).ready(function(){
-            $(".VisualizarConsulta, .AgendarConsultaPaciente").hide();
+    $(document).ready(function(){
+        $(".VisualizarConsulta, .AgendarConsultaPaciente").hide();
 
-            $("#VisualizarConsulta").click(function(){
-                $(".AgendarConsultaPaciente").hide();
-                $(".VisualizarConsulta").show();
-            });
-            $("#AgendarConsultaPaciente").click(function(){
-                $(".AgendarConsultaPaciente").show();
-                $(".VisualizarConsulta").hide();
-            });
+        $("#VisualizarConsulta").click(function(){
+            $(".AgendarConsultaPaciente").hide();
+            $(".VisualizarConsulta").show();
         });
+        $("#AgendarConsultaPaciente").click(function(){
+            $(".AgendarConsultaPaciente").show();
+            $(".VisualizarConsulta").hide();
+        });
+    });
+
+    function Logout() {
+        window.location.replace("<?php $_SERVER['DOCUMENT_ROOT']?>/serverScripts/Logout.php");
+    }
 
 </script>
 
