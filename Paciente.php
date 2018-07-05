@@ -232,6 +232,8 @@
 
         var generos = document.getElementsByName("CadPacGenero");
         
+       
+
         for(var index in generos){
 
             if (generos[index].checked){
@@ -258,7 +260,7 @@
         for (var variavel in variaveis){
             envio += variavel + "=" + variaveis[variavel] + "&";
         }
-
+        console.log(envio);
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function() {

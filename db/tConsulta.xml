@@ -73,8 +73,8 @@
     <codPaciente>P0005</codPaciente>
     <data>2018-07-04</data>
     <hora>08:00:00</hora>
-    <observacao>( sem observações )</observacao>
-    <receita>( sem receituário )</receita>
+    <observacao>Teste</observacao>
+    <receita>Ibuprofeno</receita>
     <reg_date>2018-07-04 16:42:41</reg_date>
   </consulta>
   <consulta>

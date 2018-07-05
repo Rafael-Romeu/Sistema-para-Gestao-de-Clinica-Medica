@@ -12,7 +12,7 @@
     $email = $_REQUEST["email"];
     $nascimento = $_REQUEST["nascimento"];
     $plano = $_REQUEST["plano"];
-    $sangue = $_REQUEST["sangue"];
+    $sangue = sanitize($_REQUEST["sangue"]);
     $genero = $_REQUEST["genero"];
     $telefone = $_REQUEST["telefone"];
 
@@ -21,4 +21,9 @@
     $result = $oPaciente->insertPacienteCompleto($name, $pass, $cpf, $plano, $genero, $sangue, $nascimento, $endereco, $telefone, $email);
 
     echo $result;
+
+    function sanitize($data) {
+        $data = urlencode($data);
+        return $data;
+    }
 ?>

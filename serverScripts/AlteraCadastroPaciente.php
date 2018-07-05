@@ -13,7 +13,7 @@
     $email = $_REQUEST["email"];
     $nascimento = $_REQUEST["nascimento"];
     $plano = $_REQUEST["plano"];
-    $sangue = $_REQUEST["sangue"];
+    $sangue = sanitize($_REQUEST["sangue"]);
     $genero = $_REQUEST["genero"];
     $telefone = $_REQUEST["telefone"];
 
@@ -46,11 +46,16 @@
 
         $result = $oPaciente->updatePacienteCompleto($codigo, $name, $senha, $cpf, $plano, $genero, $sangue, $nascimento, $endereco, $telefone, $email);
 
-        echo "Cadastro alterado com sucesso";
+        echo "Cadastro alterado com sucesso.";
     }
     else
     {
         echo "Senha incorreta.";
+    }
+
+    function sanitize($data) {
+        $data = urlencode($data);
+        return $data;
     }
 
 

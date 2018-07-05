@@ -90,8 +90,8 @@
     <senha>123123</senha>
     <cpf>555.555.555-55</cpf>
     <planoDeSaude>Unimed</planoDeSaude>
-    <genero>F</genero>
-    <tipoSanguineo>O</tipoSanguineo>
+    <genero>M</genero>
+    <tipoSanguineo>A+</tipoSanguineo>
     <dtNascimento>1996-06-23</dtNascimento>
     <endereco>Rua 8</endereco>
     <telefone>53987452108</telefone>
