@@ -4,7 +4,12 @@
 
     if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: Login.php");
-    exit;
+        exit;
+    }
+    if($_SESSION['tipo'] != "lAtendente"){
+        shell_exec('php serverScripts/Logout.php');
+        header("location: Login.php");
+        exit;
     }
 
 ?>
@@ -1119,7 +1124,6 @@
 
         var horario = document.getElementById("AgendaConsHor").value;
 
-        //TODO: Pegar codigo do atendente do json
         var atendente = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
         
         var envio = "cpf=" + cpf + "&medico=" + medico + "&dia=" + dia + "&horario=" + horario + "&atendente=" + atendente;
