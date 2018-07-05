@@ -145,10 +145,10 @@
             
                 <div class="container">
                     <label for="CPF"><b></b></label>
-                    <input type="text" placeholder="Enter CPF" name="cpf" required>
+                    <input type="text" placeholder="Insira o CPF" name="cpf" required>
 
                     <label for="password"><b></b></label>
-                    <input type="password" placeholder="Enter Password" name="password" required>
+                    <input type="password" placeholder="Insira a senha" name="password" required>
 
                     <button type="submit">Login</button>
                     <label>

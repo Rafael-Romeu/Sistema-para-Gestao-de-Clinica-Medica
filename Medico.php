@@ -4,7 +4,12 @@
 
     if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: Login.php");
-    exit;
+        exit;
+    }
+    if($_SESSION['tipo'] != "lMedico"){
+        shell_exec('php serverScripts/Logout.php');
+        header("location: Login.php");
+        exit;
     }
 
 ?>
