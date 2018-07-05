@@ -53,7 +53,7 @@
                 </button>
                 <div class="dropdown-content">
                     <button id = "CadastrarPaciente"> Cadastrar Paciente </button>
-                    <button id = "CadastrarMedico"> Cadastrar Medico </button>
+                    <button id = "CadastrarMedico"> Cadastrar Médico </button>
                     <button id = "CadastrarAtendente"> Cadastrar Atendente </button>
                 </div>
             </div> 
@@ -75,16 +75,16 @@
                
                 <form>
                     <label class = "Forms" for="name">Nome: </label>
-                    <input type="text" id="CadPacName" name="name" placeholder="* Your name.." required>
+                    <input type="text" id="CadPacName" name="name" placeholder="Nome" required>
 
                     <label class = "Forms" for="Cpf">Cpf: </label>
-                    <input type="text" id="CadPacCpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+                    <input type="text" id="CadPacCpf" name="Cpf" placeholder="Cpf" required>
 
                     <label class = "Forms" for="password">Senha: </label>
-                    <input type="password" id="CadPacPassword" name="password" placeholder="* Your password.." required>
+                    <input type="password" id="CadPacPassword" name="password" placeholder="Senha" required>
 
                     <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
-                    <input type="date" id="CadPacDataNascimento" name="DataNascimento" placeholder="* Data Nascimento.." required>
+                    <input type="date" id="CadPacDataNascimento" name="DataNascimento" placeholder="Data de Nascimento" required>
 
                     <label class = "Forms" for="gender">Gênero: </label><br>
 
@@ -109,19 +109,19 @@
                     <br>
 
                     <label class = "Forms" for="Endereco">Endereço: </label>
-                    <input type="text" id="CadPacEndereco" name="Endereco" placeholder="Endereço..">
+                    <input type="text" id="CadPacEndereco" name="Endereco" placeholder="Endereço">
 
                     <label class = "Forms" for="Email">Email: </label>
-                    <input type="email" id="CadPacEmail" name="Email" placeholder="Your Email..">
+                    <input type="email" id="CadPacEmail" name="Email" placeholder="Email">
 
                     <label class = "Forms" for="Telefone">Telefone: </label>
-                    <input type="text" id="CadPacTel" name="Telefone" placeholder="Telefone..">
+                    <input type="text" id="CadPacTel" name="Telefone" placeholder="Telefone">
 
-                    <label class = "Forms" for="TipoSanguineo">Tipo Sanguineo: </label>
-                    <input type="text" id="CadPacTipoSanguineo" name="TipoSanguineo" placeholder= "Tipo Sanguineo..">
+                    <label class = "Forms" for="TipoSanguineo">Tipo Sanguíneo: </label>
+                    <input type="text" id="CadPacTipoSanguineo" name="TipoSanguineo" placeholder= "Tipo Sanguíneo">
 
-                    <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
-                    <input type="text" id="CadPacPlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
+                    <label class = "Forms" for="PlanoDeSaude">Plano de Saúde: </label>
+                    <input type="text" id="CadPacPlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saúde">
                 </form>
 
                 <input type="submit" value="Enviar" onclick="CadastrarPaciente()">
@@ -130,41 +130,41 @@
             </div>
 
             <div class = "CadastrarMedico">
-                <h3 class = "Forms">Cadastrar Medico</h3>
+                <h3 class = "Forms">Cadastrar Médico</h3>
                 <div>
                     <form action="">
                     <label class = "Forms" for="name">Nome: </label>
-                    <input type="text" id="CadMedName" name="name" placeholder="* Your name.." required>
+                    <input type="text" id="CadMedName" name="name" placeholder="Nome" required>
 
                     <label class = "Forms" for="Cpf">Cpf: </label>
-                    <input type="text" id="CadMedCpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+                    <input type="text" id="CadMedCpf" name="Cpf" placeholder="Cpf" required>
 
                     <label class = "Forms" for="password">Senha: </label>
-                    <input type="password" id="CadMedPassword" name="password" placeholder="* Your password.." required>
+                    <input type="password" id="CadMedPassword" name="password" placeholder="Senha" required>
 
                     <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
-                    <input type="date" id="CadMedDataNascimento" name="DataNascimento" placeholder="* Data Nascimento.." required>
+                    <input type="date" id="CadMedDataNascimento" name="DataNascimento" placeholder="Data de Nascimento" required>
 
                     <label class = "Forms" for="Endereco">Endereço: </label>
-                    <input type="text" id="CadMedEndereco" name="Endereco" placeholder="Endereço..">
+                    <input type="text" id="CadMedEndereco" name="Endereco" placeholder="Endereço">
 
                     <label class = "Forms" for="Email">Email: </label>
-                    <input type="email" id="CadMedEmail" name="Email" placeholder="Your Email..">
+                    <input type="email" id="CadMedEmail" name="Email" placeholder="Email">
                     
                     <label class = "Forms" for="Telefone">Telefone: </label>
-                    <input type="text" id="CadMedTel" name="Telefone" placeholder="Telefone..">
+                    <input type="text" id="CadMedTel" name="Telefone" placeholder="Telefone">
 
                     <label class = "Forms" for="Especialidade">Especialidade: </label>
-                    <input type="text" id="CadMedEspecialidade" name="Especialidade" placeholder= "* Especialidade .." required>
+                    <input type="text" id="CadMedEspecialidade" name="Especialidade" placeholder= "Especialidade" required>
 
-                    <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
-                    <input type="text" id="CadMedPlanoDeSaude" name="PlanoDeSaude" placeholder="Plano De Saude..">
+                    <label class = "Forms" for="PlanoDeSaude">Plano de Saúde: </label>
+                    <input type="text" id="CadMedPlanoDeSaude" name="PlanoDeSaude" placeholder="Plano de Saúde..">
                     
-                    <label class = "Forms" for="Horarios">Horarios: </label>
+                    <label class = "Forms" for="Horarios">Horários: </label>
                     
                     <form id="FormsSegunda" action="">
                             <ul class="Forms">
-                                <p>Segunda</p>
+                                <p>Segunda-Feira</p>
                                 <li>
                                     <input name="segunda" type="checkbox" id="s1" value="1" checked>
                                     <label for="s1">8:00</label>
@@ -278,7 +278,7 @@
                     </form>
                     <form id="FormsTerca" action="">
                             <ul class="Forms">
-                                <p>Terca</p>
+                                <p>Terca-Feira</p>
                                 <li>
                                     <input name="terca" type="checkbox" id="t1" value="1" checked>
                                     <label for="t1">8:00</label>
@@ -392,7 +392,7 @@
                     </form>
                     <form id="FormsQuarta" action="">
                             <ul class="Forms">
-                                <p>Quarta</p>
+                                <p>Quarta-Feira</p>
                                 <li>
                                     <input name="quarta" type="checkbox" id="qa1" value="1" checked>
                                     <label for="qa1">8:00</label>
@@ -507,7 +507,7 @@
                     </form>
                     <form id="FormsQuinta" action="">
                             <ul class="Forms">
-                                <p>Quinta</p>
+                                <p>Quinta-Feira</p>
                                 <li>
                                     <input name="quinta" type="checkbox" id="qi1" value="1" checked>
                                     <label for="qi1">8:00</label>
@@ -621,7 +621,7 @@
                     </form>    
                     <form id="FormsSexta" action="">
                             <ul class="Forms">
-                                <p>Sexta</p>
+                                <p>Sexta-Feira</p>
                                 <li>
                                     <input name="sexta" type="checkbox" id="sx1" value="1" checked>
                                     <label for="sx1">8:00</label>
@@ -745,25 +745,25 @@
                 <div>
                     <form action="">
                         <label class = "Forms" for="name">Nome: </label>
-                        <input type="text" id="CadAteName" name="name" placeholder="* Your name.." required>
+                        <input type="text" id="CadAteName" name="name" placeholder="Nome" required>
 
                         <label class = "Forms" for="Cpf">Cpf: </label>
-                        <input type="text" id="CadAteCpf" name="Cpf" placeholder="* Cpf" pattern="[0-9]{11}" required>
+                        <input type="text" id="CadAteCpf" name="Cpf" placeholder="Cpf" required>
 
                         <label class = "Forms" for="password">Senha: </label>
-                        <input type="password" id="CadAtePassword" name="password" placeholder="* Your password.." required>
+                        <input type="password" id="CadAtePassword" name="password" placeholder="Senha" required>
 
                         <label class = "Forms" for="DataNascimento">Data de Nascimento: </label>
-                        <input type="date" id="CadAteDataNascimento" name="DataNascimento" placeholder="* Data Nascimento.." required>
+                        <input type="date" id="CadAteDataNascimento" name="DataNascimento" placeholder="Data de Nascimento" required>
 
                         <label class = "Forms" for="Endereco">Endereço: </label>
-                        <input type="text" id="CadAteEndereco" name="Endereco" placeholder="Endereço..">
+                        <input type="text" id="CadAteEndereco" name="Endereco" placeholder="Endereço">
 
                         <label class = "Forms" for="Email">Email: </label>
-                        <input type="email" id="CadAteEmail" name="Email" placeholder="Your Email..">
+                        <input type="email" id="CadAteEmail" name="Email" placeholder="Email">
 
                         <label class = "Forms" for="Telefone">Telefone: </label>
-                        <input type="text" id="CadAteTel" name="Telefone" placeholder="Telefone..">
+                        <input type="text" id="CadAteTel" name="Telefone" placeholder="Telefone">
                     </form>
                 </div>
                 <input type="submit" value="Enviar" onclick="CadastrarAtendente()">
@@ -774,10 +774,10 @@
                 <h3 class="Forms">Agendar Consulta</h3>
                 <form>
                     <label class = "Forms" for="Cpf">Cpf: </label>
-                    <input type="text" id="AgendaConsCpf" name="Cpf" placeholder="* Cpf ..." required onkeyup="VerificaCpf()">
+                    <input type="text" id="AgendaConsCpf" name="Cpf" placeholder="Cpf" required onkeyup="VerificaCpf()">
                     <div id="AgendaConsPac"></div>
 
-                    <label class = "Forms" for="Especialidade">Especialidade: </label>
+                    <label class = "Forms" for="Especialidade">Filtrar por especialidade: </label>
                     <select class='custom-select' id='AgendaConsEsp' name='Especialidade' onchange="CarregaMedicos()">
                         <option value='Any' selected='selected'>Qualquer Especialidade</option>
                     </select>
