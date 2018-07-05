@@ -84,4 +84,18 @@
     <email>moc.liame@email.com</email>
     <reg_date>2018-06-24 23:14:34</reg_date>
   </paciente>
+  <paciente>
+    <codigo>P0006</codigo>
+    <nome>Rafael Bulsing</nome>
+    <senha>123123</senha>
+    <cpf>555.555.555-55</cpf>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <genero>F</genero>
+    <tipoSanguineo>O</tipoSanguineo>
+    <dtNascimento>1996-06-23</dtNascimento>
+    <endereco>Rua 8</endereco>
+    <telefone>53987452108</telefone>
+    <email>moc.liame@email.com</email>
+    <reg_date>2018-06-24 23:14:34</reg_date>
+  </paciente>
 </root>

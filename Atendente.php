@@ -897,9 +897,25 @@
                             "telefone" : document.getElementById("CadPacTel").value};
         
         var generos = document.getElementsByName("CadPacGenero");
+        
+        
         for(var index in generos){
-            if (generos[index].value == "on"){
-                variaveis["genero"] = generos[index].id;
+
+            if (generos[index].checked){
+                
+                if (generos[index].id == "CadPacOutro"){
+                    variaveis["genero"] = "O";
+
+                }
+                else if (generos[index].id == "CadPacHomem"){
+                    variaveis["genero"] = "M";
+
+                }
+                else if (generos[index].id == "CadPacMulher"){
+                    variaveis["genero"] = "F";
+
+                }
+                
             }
         }
         

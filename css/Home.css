@@ -168,6 +168,7 @@ nav button:focus, .dropdown-content button:focus, .dropdown .dropbtn:focus{
     
     min-height: 100vh;
     padding-bottom: 50px;
+    padding-top: 25px;
 }
 
 footer

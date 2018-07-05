@@ -52,6 +52,14 @@
                     $_SESSION['nome'] = $usuario->nome;
 
                     $_SESSION['codigo'] = $usuario->codigo;
+                    $_SESSION['planoDeSaude'] = $usuario->planoDeSaude;
+                    $_SESSION['genero'] = $usuario->genero;
+                    $_SESSION['tipoSanguineo'] = $usuario->tipoSanguineo;
+                    $_SESSION['dtNascimento'] = $usuario->dtNascimento;
+                    $_SESSION['endereco'] = $usuario->endereco;
+                    $_SESSION['telefone'] = $usuario->telefone;
+                    $_SESSION['email'] = $usuario->email;
+
                     
                     redireciona($tipo);
                 }
@@ -114,9 +122,9 @@
         if ($tipo == "lAtendente")
             header("location: Atendente.php");
         if ($tipo == "lMedico")
-            header("location: Medico.html");
+            header("location: Medico.php");
         if ($tipo == "lPaciente")
-            header("location: Paciente.html");
+            header("location: Paciente.php");
         
     }
     
