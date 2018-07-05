@@ -45,7 +45,7 @@
         </div>
 
         <nav>
-            <button id = "VisualizarConsulta"> Visualizar Consulta </button>
+            <button id = "VisualizarConsulta" onclick="CarregaConsultas()"> Visualizar Consulta </button>
             
             <button id = "AlterarCadastro"> Alterar Cadastro </button>
 
@@ -58,7 +58,11 @@
         <div class = "Paciente">
 
             <div class = "VisualizarConsulta">
-                <h3> Visualizar Consulta</h3>
+                <h3 class="Forms"> Visualizar Consulta</h3>
+                <div class="Forms">
+                    <table id="Tabela" >
+                    </table>
+                </div>
             </div>
 
             <div class = "AlterarCadastro">
@@ -265,6 +269,23 @@
 
         xmlhttp.open("GET", "serverScripts/AlteraCadastroPaciente.php?" + envio, true);
         xmlhttp.send();  
+    }
+    function CarregaConsultas() {
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Tabela").innerHTML = this.responseText;
+            }
+        };
+
+        envio = "Codigo=" + codigo + "&medico=" + "Any";
+        
+        console.log(envio);
+        xmlhttp.open("GET", "serverScripts/CarregaConsulta.php?" + envio, true);
+        xmlhttp.send();
     }
 
 </script>
