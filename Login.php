@@ -59,7 +59,7 @@
                     $_SESSION['endereco'] = $usuario->endereco;
                     $_SESSION['telefone'] = $usuario->telefone;
                     $_SESSION['email'] = $usuario->email;
-
+                    $_SESSION['especialidade'] = $usuario->especialidade;
                     
                     redireciona($tipo);
                 }

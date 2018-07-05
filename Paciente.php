@@ -103,7 +103,7 @@
                     <label class = "Forms" for="PlanoDeSaude">Plano de Saude: </label>
                     <input type="text" id="CadPacPlanoDeSaude" name="PlanoDeSaude" value="<?php echo htmlspecialchars($_SESSION['planoDeSaude']);?>">
                 
-                    <label class = "Forms" for="passwordAntiga">Senha Antiga: </label>
+                    <label class = "Forms" for="passwordAntiga">Senha Atual: </label>
                     <input type="password" id="CadPacPasswordAntiga" name="passwordAntiga" required>
 
                     <label class = "Forms" for="passwordNova">Senha Nova: </label>
@@ -260,7 +260,7 @@
         for (var variavel in variaveis){
             envio += variavel + "=" + variaveis[variavel] + "&";
         }
-        console.log(envio);
+        
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function() {
@@ -268,6 +268,7 @@
                 document.getElementById("CadPacResultado").innerHTML = this.responseText;
             }
         };
+
 
         xmlhttp.open("GET", "serverScripts/AlteraCadastroPaciente.php?" + envio, true);
         xmlhttp.send();  
