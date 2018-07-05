@@ -40,12 +40,17 @@
     
     
     <!-- Menu de navegação --> 
-    <nav>
-        <button id = "Consultas"> Consultas </button>
-        <button id = "Agendamentos"> Agendamentos </button>
-    
-        <button id = "Logout" onclick="Logout()"> Logout </button>
-    </nav>
+    <div class = "barra">
+        <div class="Identificacao">
+            Olá, <?php echo htmlspecialchars($_SESSION['nome']);?>.
+        </div>
+        <nav>
+            <button id = "Consultas"> Consultas </button>
+            <button id = "Agendamentos"> Agendamentos </button>
+        
+            <button id = "Logout" onclick="Logout()"> Logout </button>
+        </nav>
+    </div>
     
     <div class="Corpo">
         <!-- Medico --> 

@@ -39,11 +39,16 @@
     
     
     <!-- Menu de navegação --> 
-    <nav>
-        <button id = "VisualizarConsulta"> Visualizar Consulta </button>
-    
-        <button id = "Logout" onclick="Logout()"> Logout </button>
-    </nav>
+    <div class = "barra">
+        <div class="Identificacao">
+            Olá, <?php echo htmlspecialchars($_SESSION['nome']);?>.
+        </div>
+        <nav>
+            <button id = "VisualizarConsulta"> Visualizar Consulta </button>
+        
+            <button id = "Logout" onclick="Logout()"> Logout </button>
+        </nav>
+    </div>
     
     <div class="Corpo">
         <!-- Paciente --> 

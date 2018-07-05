@@ -41,24 +41,31 @@
     
     
     <!-- Menu de navegação --> 
-    <nav>
-        <div class="dropdown">
-            <button class="dropbtn">Cadastros ▾
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-                <button id = "CadastrarPaciente"> Cadastrar Paciente </button>
-                <button id = "CadastrarMedico"> Cadastrar Medico </button>
-                <button id = "CadastrarAtendente"> Cadastrar Atendente </button>
-            </div>
-        </div> 
+    <div class = "barra">
+        <div class="Identificacao">
+            Olá, <?php echo htmlspecialchars($_SESSION['nome']);?>.
+        </div>
 
-        <button id = "AgendarConsulta"> Agendar Consulta </button>
-        <button id = "VerConsultas" onclick="CarregaMedicosConsultas()"> Visualizar Consultas </button>
-    
-        <button id = "Logout" onclick="Logout()"> Logout </button>
-    </nav>
-    
+        <nav>
+            <div class="dropdown">
+                <button class="dropbtn">Cadastros ▾
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <button id = "CadastrarPaciente"> Cadastrar Paciente </button>
+                    <button id = "CadastrarMedico"> Cadastrar Medico </button>
+                    <button id = "CadastrarAtendente"> Cadastrar Atendente </button>
+                </div>
+            </div> 
+
+            <button id = "AgendarConsulta"> Agendar Consulta </button>
+            <button id = "VerConsultas" onclick="CarregaMedicosConsultas()"> Visualizar Consultas </button>
+        
+            <button id = "Logout" onclick="Logout()"> Logout </button>
+        </nav>
+    </div class="barra">
+
+
     <div class="Corpo">
 
         <!-- Atendente --> 
