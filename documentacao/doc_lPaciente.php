@@ -309,17 +309,19 @@ function testeDescobrirCodigoDoPaciente(){
 
 function main(){
 
-    testeAtributos();
-    //testeCriacao();
-    //testeInsercaoPorParametro();
-    //testeInsercaoPorAtributo();
-    //testeUpdatePorParametro();
-    //testeUpdatePorAtributo();
-    //testeExclusao();
-    //testeSelectPorUmParametro();
-    //testeSelectPorMaisDeUmParametro();
-    //testeDescobrirCodigoDoPaciente();
+    // testeAtributos();
+    // testeCriacao();
+    // testeInsercaoPorParametro();
+    // testeInsercaoPorAtributo();
+    // testeUpdatePorParametro();
+    // testeUpdatePorAtributo();
+    // testeExclusao();
+    // testeSelectPorUmParametro();
+    // testeSelectPorMaisDeUmParametro();
+    // testeDescobrirCodigoDoPaciente();
     
+    $oPaciente = new lPaciente();
+    print_r($oPaciente->selectPaciente());
     
 
 }

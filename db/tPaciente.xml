@@ -16,16 +16,72 @@
   </paciente>
   <paciente>
     <codigo>P0001</codigo>
-    <nome>Teste Insercao por Atributo</nome>
-    <senha>7777777</senha>
-    <cpf>777.777.777-77</cpf>
+    <nome>Teste1</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-00</cpf>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <genero>M</genero>
+    <tipoSanguineo>A-</tipoSanguineo>
+    <dtNascimento>1993-05-31</dtNascimento>
+    <endereco>Rua 7</endereco>
+    <telefone>539879878888</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:34</reg_date>
+  </paciente>
+  <paciente>
+    <codigo>P0002</codigo>
+    <nome>Teste2</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-77</cpf>
+    <planoDeSaude>Plano B</planoDeSaude>
+    <genero>F</genero>
+    <tipoSanguineo>A+</tipoSanguineo>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:34</reg_date>
+  </paciente>
+  <paciente>
+    <codigo>P0003</codigo>
+    <nome>Teste3</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-77</cpf>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <genero>O</genero>
+    <tipoSanguineo>AB-</tipoSanguineo>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:34</reg_date>
+  </paciente>
+  <paciente>
+    <codigo>P0004</codigo>
+    <nome>Teste4</nome>
+    <senha>1234567</senha>
+    <cpf>364.964.588-77</cpf>
+    <planoDeSaude>Plano B</planoDeSaude>
+    <genero>M</genero>
+    <tipoSanguineo>O-</tipoSanguineo>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>teste@email.com</email>
+    <reg_date>2018-06-24 23:14:34</reg_date>
+  </paciente>
+  <paciente>
+    <codigo>P0005</codigo>
+    <nome>Teste5</nome>
+    <senha>1234567</senha>
+    <cpf>123.456.789-00</cpf>
     <planoDeSaude>Unimed</planoDeSaude>
     <genero>F</genero>
     <tipoSanguineo>A-</tipoSanguineo>
-    <dtNascimento>2999-12-31</dtNascimento>
-    <endereco>Rua Teste Insercao por Atributo</endereco>
-    <telefone>777777777</telefone>
+    <dtNascimento>1993-05-31</dtNascimento>
+    <endereco>Rua 7</endereco>
+    <telefone>53987452108</telefone>
     <email>moc.liame@email.com</email>
-    <reg_date>2018-06-23 21:23:24</reg_date>
+    <reg_date>2018-06-24 23:14:34</reg_date>
   </paciente>
 </root>

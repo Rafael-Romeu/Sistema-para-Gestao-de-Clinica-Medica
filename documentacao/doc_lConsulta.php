@@ -298,7 +298,7 @@ function testeDescobrirCodigoDoConsulta(){
 
 function main(){
 
-    testeAtributos();
+    // testeAtributos();
     // testeCriacao();
     // testeInsercaoPorParametro();
     // testeInsercaoPorAtributo();
@@ -309,8 +309,8 @@ function main(){
     // testeSelectPorMaisDeUmParametro();
     // testeDescobrirCodigoDoConsulta();
 
-    // $oConsulta = new lConsulta();
-    // print_r($oConsulta->verificaCodPaciente("P0003"));
+    $oConsulta = new lConsulta();
+    print_r($oConsulta->selectConsulta());
     
     
 

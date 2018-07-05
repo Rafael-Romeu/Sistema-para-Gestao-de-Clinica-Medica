@@ -304,17 +304,19 @@ function testeDescobrirCodigoDoMedico(){
 
 function main(){
 
-    testeAtributos();
-    //testeCriacao();
-    //testeInsercaoPorParametro();
-    //testeInsercaoPorAtributo();
-    //testeUpdatePorParametro();
-    //testeUpdatePorAtributo();
-    //testeExclusao();
-    //testeSelectPorUmParametro();
-    //testeSelectPorMaisDeUmParametro();
-    //testeDescobrirCodigoDoMedico();
+    // testeAtributos();
+    // testeCriacao();
+    // testeInsercaoPorParametro();
+    // testeInsercaoPorAtributo();
+    // testeUpdatePorParametro();
+    // testeUpdatePorAtributo();
+    // testeExclusao();
+    // testeSelectPorUmParametro();
+    // testeSelectPorMaisDeUmParametro();
+    // testeDescobrirCodigoDoMedico();
     
+    $oMedico = new lMedico();
+    print_r($oMedico->getTabela());
     
 
 }

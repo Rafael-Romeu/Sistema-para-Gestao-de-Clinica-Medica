@@ -387,6 +387,7 @@ XML;
 	public function selectConsulta(string $codigo = null, string $codAtendente = null, string $codMedico = null, string $codPaciente = null, string $data = null, string $hora = null, string $observacao=null, string $receita=null, string $reg_date = null) {
 		
 		$tablePath = $this->tablePathConsulta;
+		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
@@ -400,10 +401,10 @@ XML;
 			($reg_date == null)
 		)
 		{
-			return "Informe ao menos um parametro para consulta.";
+			$xPathQuery = "consulta";
+			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
 
-		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
 		$xPathQuery = "consulta[";
 		
 		if ($codigo != null) {
@@ -827,6 +828,9 @@ XML;
 		return $codigo;
 	}
 
+	public function getTabela(){
+		return $this->traduzSimpleXMLObjectToConsulta($this->selectConsulta());
+	}
 
 }
 
