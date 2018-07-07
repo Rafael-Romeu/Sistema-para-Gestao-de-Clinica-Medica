@@ -46,7 +46,7 @@
         </div>
         <nav>
             <button id = "Consultas" onclick="CarregaConsultas()"> Consultas </button>
-            <button id = "Agendamentos"> Agendamentos </button>
+            <button id = "Agendamentos"> Agenda </button>
 
             <button id = "VerHistoricos"> Histórico </button>
 
@@ -170,13 +170,14 @@
             HistCarregaNomes();
             HistCarregaHistorico();
     });
-    //-----Medico 
+
     $("#Consultas").click(function(){
         $(".Consultas").show();
         $(".Agendamentos").hide();
         $(".AlterarCadastro").hide();
         $(".VerHistoricos").hide();
     });
+
     $("#Agendamentos").click(function(){
         $(".Consultas").hide();
         $(".Agendamentos").show();
