@@ -47,6 +47,8 @@
         <nav>
             <button id = "VisualizarConsulta" onclick="CarregaConsultas()"> Visualizar Consulta </button>
             
+            <button id = "VerHistoricos"> Histórico </button>
+
             <button id = "AlterarCadastro"> Alterar Cadastro </button>
 
             <button id = "Logout" onclick="Logout()"> Logout </button>
@@ -64,6 +66,25 @@
                     </table>
                 </div>
             </div>
+
+            <div class = "VerHistoricos">
+                <h3 class = "Forms">Histórico</h3>
+                
+                <label class = "Forms" id="HistNomesLabel" for="HistNomes">Médico</label>
+
+                <select class='custom-select' id='HistNomes' name='HistNomes' onchange="HistCarregaHistorico()" >
+                    <option value='Any' selected='selected'>Nenhum médico selecionado</option>
+                </select>
+
+                <div class="Forms">
+                    <div class="table">
+                        <table id="HistTabela">
+                            
+                        </table>
+                    </div> 
+                </div>
+            </div>
+
 
             <div class = "AlterarCadastro">
 
@@ -140,18 +161,63 @@
 <script>
     //-----Paciente 
     $(document).ready(function(){
-        $(".VisualizarConsulta, .AlterarCadastro").hide();
+        $(".VisualizarConsulta, .AlterarCadastro, .VerHistoricos").hide();
+        HistCarregaNomes();
+        HistCarregaHistorico();
 
         $("#VisualizarConsulta").click(function(){
             $(".AlterarCadastro").hide();
             $(".VisualizarConsulta").show();
+            $(".VerHistoricos").hide();
         });
 
         $("#AlterarCadastro").click(function(){
             $(".AlterarCadastro").show();
             $(".VisualizarConsulta").hide();
+            $(".VerHistoricos").hide();
+        });
+
+        $("#VerHistoricos").click(function(){
+            $(".AlterarCadastro").hide();
+            $(".VisualizarConsulta").hide();
+            $(".VerHistoricos").show();
         });
     });
+
+    function HistCarregaNomes() {        
+        var envio = "Especialidades=Any";
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("HistNomes").innerHTML = this.responseText;
+            }
+        };
+
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaMedicos.php?" + envio, true);
+        xmlhttp.send();        
+    }
+
+    function HistCarregaHistorico() {
+        var form = document.getElementById("HistNomes");
+        var selecionado = form.options[form.selectedIndex].value;
+
+
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        
+        var envio = "selecionado=" + selecionado + "&tipo=Medico" + "&codigo=" + codigo + "&ordem=reversa";
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("HistTabela").innerHTML = this.responseText;
+            }
+        };
+       
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaHistorico.php?" + envio, true);
+        xmlhttp.send();
+    }
 
     function Logout() {
         window.location.replace("<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/Logout.php");
