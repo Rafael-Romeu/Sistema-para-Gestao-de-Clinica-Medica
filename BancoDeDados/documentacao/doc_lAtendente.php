@@ -14,7 +14,7 @@
  */
 
 
-include_once 'logicas/lAtendente.php';
+include_once './BancoDeDados/logicas/lAtendente.php';
 
 
 /**
@@ -116,6 +116,7 @@ function testeInsercaoPorAtributo() {
 
     print_r($oAtendente);
     print_r($oAtendente->insertAtendente());
+    print_r($oAtendente);
 }
 
 
@@ -211,25 +212,25 @@ function testeSelectPorUmParametro(){
     /* Retornam um array de lAtendente */
 
     print_r($oAtendente->getAtendenteByCodigo("A0001"));
-    /* print_r($oAtendente->getAtendenteByNome("Teste1")); */
-    /* print_r($oAtendente->getAtendenteByCPF("364.964.588-00")); */
-    /* print_r($oAtendente->getAtendenteByDtNascimento("1993-05-31")); */
-    /* print_r($oAtendente->getAtendenteByEndereco("Rua 7")); */
-    /* print_r($oAtendente->getAtendenteByTelefone("539879878888")); */
-    /* print_r($oAtendente->getAtendenteByEmail("teste@email.com")); */
+    // print_r($oAtendente->getAtendenteByNome("Teste1"));
+    // print_r($oAtendente->getAtendenteByCPF("364.964.588-00"));
+    // print_r($oAtendente->getAtendenteByDtNascimento("1993-05-31"));
+    // print_r($oAtendente->getAtendenteByEndereco("Rua 7"));
+    // print_r($oAtendente->getAtendenteByTelefone("539879878888"));
+    // print_r($oAtendente->getAtendenteByEmail("teste@email.com"));
 
 
     /* ..:: Consultas equivalentes às acima mas utilizando o metodo 'selectAtendente' ::.. */ 
     /* Retonam um array de SimpleXMLElement */
 
-    print_r($oAtendente->selectAtendente("A0001"));                                                    // Busca pelo Codigo
-    /* print_r($oAtendente->selectAtendente(null,"Teste1")); */                                        // Busca pelo Nome
-    /* print_r($oAtendente->selectAtendente(null,null,"1234567"));     */                              // Busca somente pela senha
-    /* print_r($oAtendente->selectAtendente(null,null,null,"364.964.588-00")); */                      // Busca somente pelo CPF  
-    /* print_r($oAtendente->selectAtendente(null,null,null,null,"1993-05-31"));   */                   // Busca somente pela Data de Nascimento
-    /* print_r($oAtendente->selectAtendente(null,null,null,null,null,"Rua 7"));     */                 // Busca somente pelo Endereco
-    /* print_r($oAtendente->selectAtendente(null,null,null,null,null,null,"539879878888")); */         // Busca somente pelo Telefone
-    /* print_r($oAtendente->selectAtendente(null,null,null,null,null,null,null,"teste@email.com")); */ // Busca somente pelo E-mail
+    print_r($oAtendente->selectAtendente("A0001"));                                                // Busca pelo Codigo
+    // print_r($oAtendente->selectAtendente(null,"Teste1"));                                          // Busca pelo Nome
+    // print_r($oAtendente->selectAtendente(null,null,"1234567"));                                    // Busca somente pela senha
+    // print_r($oAtendente->selectAtendente(null,null,null, "364.964.588-00"));                       // Busca somente pelo CPF  
+    // print_r($oAtendente->selectAtendente(null,null,null,null, "1993-05-31"));                      // Busca somente pela Data de Nascimento
+    // print_r($oAtendente->selectAtendente(null,null,null,null,null, "Rua 7"));                      // Busca somente pelo Endereco
+    // print_r($oAtendente->selectAtendente(null,null,null,null,null,null, "539879878888"));          // Busca somente pelo Telefone
+    // print_r($oAtendente->selectAtendente(null,null,null,null,null,null,null, "teste@email.com"));  // Busca somente pelo E-mail
 }
 
 
@@ -291,16 +292,18 @@ function testeDescobrirCodigoDoAtendente(){
 function main(){
 
     testeAtributos();
-    //testeCriacao();
-    //testeInsercaoPorParametro();
-    //testeInsercaoPorAtributo();
-    //testeUpdatePorParametro();
-    //testeUpdatePorAtributo();
-    //testeExclusao();
-    //testeSelectPorUmParametro();
-    //testeSelectPorMaisDeUmParametro();
-    //testeDescobrirCodigoDoAtendente();
+    testeCriacao();
+    testeInsercaoPorParametro();
+    testeInsercaoPorAtributo();
+    testeUpdatePorParametro();
+    testeUpdatePorAtributo();
+    testeExclusao();
+    testeSelectPorUmParametro();
+    testeSelectPorMaisDeUmParametro();
+    testeDescobrirCodigoDoAtendente();
     
+    // $oAtendente = new lAtendente();
+    // print_r($oAtendente->selectAtendente());
     
 
 }

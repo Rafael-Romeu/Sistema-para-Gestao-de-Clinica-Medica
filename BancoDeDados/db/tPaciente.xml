@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <paciente>
+    <codigo>P0000</codigo>
+    <nome>Nome</nome>
+    <senha>senha</senha>
+    <cpf>000.000.000-00</cpf>
+    <planoDeSaude>PlanoDeSaude</planoDeSaude>
+    <genero>O</genero>
+    <tipoSanguineo>Tipo Sanguíneo</tipoSanguineo>
+    <dtNascimento>1990-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>(sem email)</email>
+    <reg_date>2018-07-05 17:33:26</reg_date>
+  </paciente>
+  <paciente>
+    <codigo>P0001</codigo>
+    <nome>Paciente Jose</nome>
+    <senha>senha</senha>
+    <cpf>000.000.000-01</cpf>
+    <planoDeSaude>Nenhum</planoDeSaude>
+    <genero>M</genero>
+    <tipoSanguineo>O-</tipoSanguineo>
+    <dtNascimento>1990-01-01</dtNascimento>
+    <endereco>Rio Grande</endereco>
+    <telefone>(00)0000-0000</telefone>
+    <email>jose@email.com</email>
+    <reg_date>2018-07-05 17:37:20</reg_date>
+  </paciente>
+  <paciente>
+    <codigo>P0002</codigo>
+    <nome>Paciente Maria</nome>
+    <senha>senha</senha>
+    <cpf>000.000.000-02</cpf>
+    <planoDeSaude>Unimed</planoDeSaude>
+    <genero>F</genero>
+    <tipoSanguineo>AB+</tipoSanguineo>
+    <dtNascimento>1990-01-01</dtNascimento>
+    <endereco>Rio Grande</endereco>
+    <telefone>(00)0000-0000</telefone>
+    <email>maria@email.com</email>
+    <reg_date>2018-07-05 17:37:48</reg_date>
+  </paciente>
+</root>

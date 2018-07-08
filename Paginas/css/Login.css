@@ -1,0 +1,70 @@
+body 
+{
+    font-family: 'Oswald', sans-serif;
+}
+form 
+{
+    border: 3px solid #f1f1f1;
+    border-radius: 10px;
+}
+
+input[type=text]
+{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+input[type=password] 
+{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+button 
+{
+    background-color: #4277CC;
+    color: white;
+    padding: 14px 100px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover 
+{
+    opacity: 0.8;
+}
+
+.container 
+{
+    padding: 16px;
+}
+
+.central
+{
+    display: flex;
+    justify-content: center;
+    margin: 10% 30%;
+}
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+
+}
