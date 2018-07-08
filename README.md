@@ -1,36 +1,50 @@
-#SISTEMA PARA GESTÃO DE CLÍNICA MÉDICA
+# SISTEMA PARA GESTÃO DE CLÍNICA MÉDICA
 
-59782 - Marlon R C Franco
-85477 - Rafael Monteiro Bulsing
-88921 - Rafael Neves Romeu
+Implementação de um Sistema para Gestão de Clínicas Médicas (simplificado), que por sua vez integra o trabalho avaliado homônimo da disciplina de Sistemas para Internet II (Turma U) da Universidade Federal do Rio Grande - FURG, sob orientação do Prof. Dr. Ewerson Carvalho.
+
+## Autores
+
+* **Marlon R C Franco** - *59782* - [Marlonrcfranco](https://github.com/marlonrcfranco)
+* **Rafael Monteiro Bulsing** - *85477* - [rafabulsing](https://github.com/rafabulsing)
+* **Rafael Neves Romeu** - *88921* - [Rafael-Romeu](https://github.com/Rafael-Romeu)
 
 
-******* REQUISITOS *******
-- Linux, Apache, PHP 7.2, Mozilla Firefox;
+### Pré-requisitos
 
+- Linux
+- Apache
+- PHP 7.2
+- Mozilla Firefox
 
-******* INSTALAÇÃO *******
-- Extraia os arquivos do .zip;
+### Instalação
 
-- Copie os arquivos de dentro da pasta "Sistema-para-Gestao-de-Clinica-Medica"
-	e cole-os dentro do diretório do seu servidor (geralmente em /var/www/html);
+- Extraia os arquivos do .zip
+
+- Copie o conteúdo da pasta extraída e cole-os dentro do diretório do seu servidor (geralmente em _/var/www/html_);
 	
 - Entre no diretório do servidor e abra o terminal (Ctrl+Alt+T);
 
-- Digite no terminal o comando: "sudo chmod 777 -R /var/www/html" para liberar
-	as permissões de leitura e escrita nos arquivos recém copiados (substitua o 
-	'/var/www/html' pelo caminho completo do diretorio do seu servidor, caso não 
-	seja este;
+- Digite no terminal o comando: 
+```
+sudo chmod 777 -R /var/www/html
+```
+para libera as permissões de leitura e escrita nos arquivos recém copiados (substitua o '_/var/www/html_' pelo caminho completo do diretorio do seu servidor, caso não seja este;
 	
 - Abra o navegador Mozilla Firefox (necessariamente deve ser este navegador);
 
-- Digite a URL ' localhost/Paginas/Login.php ' substitua "localhost" pelo IP
-	da sua máquina e porta, caso seja necessário;
+- Na barra de endereços, digite a URL:
+```
+localhost/Paginas/Login.php
+```
+substitua "localhost" pelo IP:PORTA da sua máquina, caso seja necessário;
 
 
-******* IMPORTANTE ********
-* Erro de 'permission denied': 
-	Entre no diretório do seu servidor, abra o terminal (Ctrl+Alt+T) e digite o 
-	comando: "sudo chmod 777 -R /var/www/html" para liberar	as permissões de 
-	leitura e escrita nos arquivos recém copiados (substitua o '/var/www/html'
-	pelo caminho completo do diretorio do servidor, caso não seja	este.
+## IMPORTANTE
+
+* Erro de '_permission denied_': 
+Entre no diretório do seu servidor, abra o terminal (Ctrl+Alt+T) e digite o comando para liberar as permissões de leitura e escrita nos arquivos recém copiados:
+```
+sudo chmod 777 -R /var/www/html
+```
+(substitua o '_/var/www/html_' pelo caminho completo do diretorio do servidor, caso não seja este.
+

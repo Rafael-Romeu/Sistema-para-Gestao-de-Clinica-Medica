@@ -21,7 +21,7 @@ body {
 
 .Background {
     grid-column: 1 / span 20;
-    grid-row: 2 / span 3;
+    grid-row: 3 / span 2;
 }
 
 .Background > img {
@@ -374,6 +374,8 @@ li {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    z-index: 1;
 }
 
 /* The actual popup */
