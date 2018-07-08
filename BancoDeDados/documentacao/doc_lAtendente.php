@@ -14,7 +14,7 @@
  */
 
 
-include_once 'logicas/lAtendente.php';
+include_once './BancoDeDados/logicas/lAtendente.php';
 
 
 /**
@@ -291,19 +291,19 @@ function testeDescobrirCodigoDoAtendente(){
 
 function main(){
 
-    // testeAtributos();
-    // testeCriacao();
-    // testeInsercaoPorParametro();
-    // testeInsercaoPorAtributo();
-    // testeUpdatePorParametro();
-    // testeUpdatePorAtributo();
-    // testeExclusao();
-    // testeSelectPorUmParametro();
-    // testeSelectPorMaisDeUmParametro();
-    // testeDescobrirCodigoDoAtendente();
+    testeAtributos();
+    testeCriacao();
+    testeInsercaoPorParametro();
+    testeInsercaoPorAtributo();
+    testeUpdatePorParametro();
+    testeUpdatePorAtributo();
+    testeExclusao();
+    testeSelectPorUmParametro();
+    testeSelectPorMaisDeUmParametro();
+    testeDescobrirCodigoDoAtendente();
     
-    $oAtendente = new lAtendente();
-    print_r($oAtendente->selectAtendente());
+    // $oAtendente = new lAtendente();
+    // print_r($oAtendente->selectAtendente());
     
 
 }

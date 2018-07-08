@@ -46,7 +46,6 @@ class lPaciente {
 	public $telefone;
 	public $email;
 	public $reg_date;
-
 	private $semEspaco;
 	private $tablePathPaciente;
 	
@@ -60,7 +59,6 @@ class lPaciente {
  * 
  */
 	function __construct() {
-	
         $this->codigo = null;
 		$this->nome = null;
 		$this->senha = null;
@@ -73,9 +71,8 @@ class lPaciente {
 		$this->telefone = null;
 		$this->email = null;
 		$this->reg_date = null;
-
 		$this->semEspaco = false;
-		$this->tablePathPaciente = "./db/tPaciente.xml";
+		$this->tablePathPaciente = $_SERVER['DOCUMENT_ROOT']."/BancoDeDados/db/tPaciente.xml";
     }
 	
 	/**
@@ -88,9 +85,7 @@ class lPaciente {
 	 * 
 	 */
 	public function createTablePaciente() {
-
 		$filePathPaciente = $this->tablePathPaciente;
-
 		$file = fopen($filePathPaciente, "w+");
 	$template = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -111,11 +106,9 @@ class lPaciente {
   </paciente>
 </root>
 XML;
-
 		fwrite($file,$template);
 		fclose($file);
 		$file = fopen($filePathPaciente, "r");
-
 		if ((strcmp(fread($file, 7), "") == 0) or (fread($file, 7) == null)) {
 			fclose($file);
 			return 1; // ERRO ao criar a tabela
@@ -137,16 +130,13 @@ XML;
 	 *
 	 */
 	public function buscaEspacoVazio(DOMDocument $domXml) {
-
 		$i = 0;
 		$domLastNode;
-
 		$domLista = $domXml->getElementsByTagName('codigo');
 		foreach($domLista as $domNode) {
 			$codigo = $domNode->nodeValue;
 			$domLastNode = $domNode;
 			$codAnterior = ("P".sprintf('%04d', $i)); $i++;
-
 			if( strcmp($codAnterior,$codigo) != 0) {
 				//print_r("retornou:".$domNode->parentNode->nodeName." codigo: ".$codigo."\n");
 				$this->semEspaco = false;
@@ -168,9 +158,7 @@ XML;
 	 * 
 	 */
 	public function traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject) {
-	
 		$ListaPaciente = array();
-		
 		foreach($ListSimpleXMLObject as $SimpleXMLObject) {
 			$oPaciente = new lPaciente();
 			$oPaciente->codigo 	  		= (string)$SimpleXMLObject->codigo;
@@ -185,7 +173,6 @@ XML;
 			$oPaciente->telefone    	= (string)$SimpleXMLObject->telefone;
 			$oPaciente->email       	= (string)$SimpleXMLObject->email;
 			$oPaciente->reg_date    	= (string)$SimpleXMLObject->reg_date;
-
 			array_push($ListaPaciente, $oPaciente);
 		}
 		return $ListaPaciente;
@@ -212,36 +199,26 @@ XML;
 	 * 
 	 */
 	public function insertPacienteCompleto(string $nome, string $senha, string $cpf, string $planoDeSaude, string $genero , string $tipoSanguineo, string $dtNascimento=null, string $endereco=null, string $telefone=null, string $email=null) {
-		
 		$tablePath  = $this->tablePathPaciente;
-		
 		$domXML = new DOMDocument('1.0');
 		$domXML->preserveWhiteSpace = false;
 		$domXML->formatOutput = true;
-
 		if ($domXML->load($tablePath)) {
 			//echo "segue o baile\n";
 		}else {
-			echo "\n\nTabela '". $tablePath."' não encontrada.\nCriando tabela.\n\n";
+			echo "\n\nTabela '". $tablePath."' não encontrada.\nCriando tabela...\n\n";
 			if( createTablePaciente($tablePath) ) exit("ERRO ao criar a tabela");
-			else echo "\nTabela '".$tablePath. "' criada com sucesso.\n";
+			else echo "\nTabela '".$tablePath. "' criada com sucesso!\n";
 			$domXML->load($tablePath);
 		}
-
-		// find the root tag
 		$root = $domXML->getElementsByTagName('root')->item(0);
 		// busca o primeiro espaco vazio
 		$domPosition = lPaciente::buscaEspacoVazio($domXML);
-
 		//Extrai o codigo e transforma em int
 		$strCodigo = $domPosition->firstChild->nodeValue;
 		$strCodigo = substr($strCodigo, 1);
 		$intCodigo = intval($strCodigo);
-
-		// create the <Paciente> tag
 		$Paciente = $domXML->createElement('paciente');
-
-		// append the <Paciente> tag
 		if ($this->semEspaco) {
 			$codigo = "P".sprintf('%04d', $intCodigo + 1);
 			$root->appendChild($Paciente);
@@ -249,96 +226,80 @@ XML;
 			$codigo = "P".sprintf('%04d', $intCodigo - 1);
 			$root->insertBefore($Paciente, $domPosition);
 		}
-
 		// ******* Inserção do Código *******
 		$codigoElement = $domXML->createElement("codigo", $codigo);
 		$Paciente->appendChild($codigoElement);
-
 		// ******* Inserção do Nome *******
 		if($nome == null) {
-			return "ERRO: Campo 'nome' é obrigatório.";
+			return "ERRO: Campo 'Nome' é obrigatório.";
 		}
 		$nomeElement = $domXML->createElement("nome", $nome);
 		$Paciente->appendChild($nomeElement);
-
 		// ******* Inserção da Senha *******
 		if($senha == null) {
-			return "ERRO: Campo 'senha' é obrigatório.";
+			return "ERRO: Campo 'Senha' é obrigatório.";
 		}
 		$senhaElement = $domXML->createElement("senha", $senha);
 		$Paciente->appendChild($senhaElement);
-
 		// ******* Inserção do CPF *******
 		if($cpf == null) {
-			return "ERRO: Campo 'cpf' é obrigatório.";
+			return "ERRO: Campo 'CPF' é obrigatório.";
 		}
 		$cpfElement = $domXML->createElement("cpf", $cpf);
 		$Paciente->appendChild($cpfElement);
-
 		// ******* Inserção do Plano de Saude *******
 		if($planoDeSaude == null) {
-			return "ERRO: Campo 'planoDeSaude' é obrigatório.";
+			return "ERRO: Campo 'Plano de Saúde' é obrigatório.";
 		}
 		$planoDeSaudeElement = $domXML->createElement("planoDeSaude", $planoDeSaude);
 		$Paciente->appendChild($planoDeSaudeElement);
-
 		// ******* Inserção do Genero *******
 		if($genero == null) {
-			return "ERRO: Campo 'genero' é obrigatório.";
+			return "ERRO: Campo 'Gênero' é obrigatório.";
 		}
 		$generoElement = $domXML->createElement("genero", $genero);
 		$Paciente->appendChild($generoElement);
-
 		// ******* Inserção do Tipo Sanguineo *******
 		if($tipoSanguineo == null) {
-			return "ERRO: Campo 'tipoSanguineo' é obrigatório.";
+			return "ERRO: Campo 'Tipo Sanguíneo' é obrigatório.";
 		}
 		$tipoSanguineoElement = $domXML->createElement("tipoSanguineo", $tipoSanguineo);
 		$Paciente->appendChild($tipoSanguineoElement);
-
 		// ******* Inserção da Data de Nascimento *******
 		if($dtNascimento == null) {
 			$dtNascimento = "1900-01-01"; // Data default
 		}
 		$dtNascimentoElement = $domXML->createElement("dtNascimento", $dtNascimento);
 		$Paciente->appendChild($dtNascimentoElement);
-
 		// ******* Inserção do Endereço *******
 		if($endereco == null) {
 			$endereco =  "(sem endereço)";
 		}
 		$enderecoElement = $domXML->createElement("endereco", $endereco);
 		$Paciente->appendChild($enderecoElement);
-
 		// ******* Inserção do Telefone *******
 		if($telefone == null) {
 			$telefone = "(sem telefone)";
 		}
 		$telefoneElement = $domXML->createElement("telefone", $telefone);
 		$Paciente->appendChild($telefoneElement);
-
 		// ******* Inserção do E-mail *******
 		if($email == null) {
 			$email = "(sem E-mail)";
 		}
 		$emailElement = $domXML->createElement("email", $email);
 		$Paciente->appendChild($emailElement);
-
 		// ******* Inserção da Data de Registro no Sitema *******
 		$reg_dateElement = $domXML->createElement("reg_date", date("Y-m-d H:i:s",time()));
 		$Paciente->appendChild($reg_dateElement);
-
-
-		// saves the changes into the file
 		if($domXML->save($tablePath)) {
-			return "Insercao realizada com sucesso!";
+			return "Inserção realizada com sucesso!";
 		}else {
 			return "Erro ao inserir registro de Paciente.";
 		}
 	}
 
 
-	
 	/**
 	 * selectPaciente
 	 *
@@ -361,10 +322,8 @@ XML;
 	 * 
 	 */
 	public function selectPaciente(string $codigo = null, string $nome = null, string $senha = null, string $cpf = null, string $planoDeSaude = null, string $genero = null, string $tipoSanguineo = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email = null, string $reg_date = null) {
-		
 		$tablePath = $this->tablePathPaciente;
 		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
-
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
 			($nome == null) &&
@@ -382,9 +341,7 @@ XML;
 			$xPathQuery = "paciente";
 			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
-
 		$xPathQuery = "paciente[";
-		
 		if ($codigo != null) {
 			$xPathQuery = $xPathQuery."codigo/text()='".$codigo."'";
 			$maisDeUmParametro = true;
@@ -444,12 +401,8 @@ XML;
 			$xPathQuery = $xPathQuery."reg_date/text()='".$reg_date."'";
 			$maisDeUmParametro = true;
 		}
-		
 		$xPathQuery = $xPathQuery."]";
-		//echo $xPathQuery;
-
 		$xml = $xml->xpath($xPathQuery);
-
 		return $xml; // Retorna um Array de SimpleXML Object, contendo os resultados
 	}
 
@@ -464,19 +417,16 @@ XML;
 	 * 
 	 */
 	public function excluirPaciente(string $codigo) {
-
 		$tablePath = $this->tablePathPaciente;
 		$Paciente = $this->selectPaciente($codigo);
-
 		if($Paciente == null) {
 			return "ERRO: Não há Paciente com o código ".$codigo.".";
 		}
 		$domPaciente = dom_import_simplexml($Paciente[0]);
 		$domXML = $domPaciente->parentNode->parentNode; //  documento XML
 		$domPaciente->parentNode->removeChild($domPaciente);
-
 		if($domXML->save($tablePath)) {
-			return "Exclusão efetuada com sucesso.";
+			return "Exclusão efetuada com sucesso!";
 		}else {
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
@@ -504,81 +454,64 @@ XML;
 	 * 
 	 */
 	public function updatePacienteCompleto(string $codigo, string $nome = null, string $senha = null, string $cpf = null, string $planoDeSaude = null, string $genero = null, string $tipoSanguineo = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email=null) {
-
 		$tablePath = $this->tablePathPaciente;
 		$houveAlteracao = false;
-
 		$Paciente = $this->selectPaciente($codigo);
 		if($Paciente == null) {
 			return "ERRO: Não há Paciente com o código ".$codigo.".";
 		}
-		
 		$Paciente = $Paciente[0];
-	
 		if(($Paciente->codigo != $codigo) or ($codigo == null)) {
-			return "ERRO: codigo invalido.";
+			return "ERRO: código inválido.";
 		}
-		
 		if(($Paciente->nome != $nome) and ($nome != null)) {
 			$Paciente->nome = $nome;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->senha != $senha) and ($senha != null)) {
 			$Paciente->senha = $senha;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->cpf != $cpf) and ($cpf != null)) {
 			$Paciente->cpf = $cpf;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->planoDeSaude != $planoDeSaude) and ($planoDeSaude != null)) {
 			$Paciente->planoDeSaude = $planoDeSaude;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->genero != $genero) and ($genero != null)) {
 			$Paciente->genero = $genero;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->tipoSanguineo != $tipoSanguineo) and ($tipoSanguineo != null)) {
 			$Paciente->tipoSanguineo = $tipoSanguineo;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->dtNascimento != $dtNascimento) and ($dtNascimento != null)) {
 			$Paciente->dtNascimento = $dtNascimento;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->endereco != $endereco) and ($endereco != null)) {
 			$Paciente->endereco = $endereco;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->telefone != $telefone) and ($telefone != null)) {
 			$Paciente->telefone = $telefone;
 			$houveAlteracao = true;
 		}
-
 		if(($Paciente->email != $email) and ($email != null)) {
 			$Paciente->email = $email;
 			$houveAlteracao = true;
 		}
-
 		if(!$houveAlteracao) {
-			return "Não houve alteração";
+			return "Não houve alteração.";
 		}
-
 		$domPaciente = dom_import_simplexml($Paciente);
 		$domXML = $domPaciente->parentNode->parentNode; //  documento XML
-
 		// Salva as alterações na tabela
 		if($domXML->save($tablePath)) {
-			return "Alteração efetuada com sucesso.";
+			return "Alteração efetuada com sucesso!";
 		}else {
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
@@ -595,7 +528,6 @@ XML;
 	 * 
 	 */
 	public function insertPaciente() {
-	
 		$msgRetorno = $this->insertPacienteCompleto($this->nome, 
 													$this->senha, 
 													$this->cpf,
@@ -626,7 +558,6 @@ XML;
 	 * 
 	 */
 	public function updatePaciente() {
-	
 		if($this->codigo == null) {
 			return "ERRO: Código do Paciente invalido.";
 		}
@@ -655,7 +586,6 @@ XML;
 	 * 
 	 */
 	public function clearPaciente() {
-	
 		$this->codigo = null;
 		$this->nome = null;
 		$this->senha = null;
@@ -681,10 +611,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByCodigo(string $codigo) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente($codigo);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -699,10 +627,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByNome(string $nome) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente(null, $nome);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -717,10 +643,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByCPF(string $cpf) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null, $cpf);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -735,10 +659,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByPlanoDeSaude(string $planoDeSaude) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null, null, $planoDeSaude);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -753,10 +675,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByGenero(string $genero) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null, null, null, $genero);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -771,10 +691,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByTipoSanguineo(string $tipoSanguineo) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null, null, null, null, $tipoSanguineo);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -789,10 +707,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByDtNascimento($dtNascimento) {
-
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null,  null, null, null, null, $dtNascimento);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -807,10 +723,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByEndereco($endereco) {
-
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null, null, null, null, null, null, $endereco);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -825,10 +739,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByTelefone($telefone) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null, null, null, null, null, null, null, $telefone);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -843,10 +755,8 @@ XML;
 	 * 
 	 */
 	public function getPacienteByEmail($email) {
-	
 		$ListSimpleXMLObject = $this->selectPaciente(null, null, null, null, null, null, null, null, null, null, $email);
 		$ListaPacientes = $this->traduzSimpleXMLObjectToPaciente($ListSimpleXMLObject);
-		
 		return $ListaPacientes;
 	}
 
@@ -861,7 +771,6 @@ XML;
 	 * 
 	 */
 	public function getCodigoByPaciente(lPaciente $oPaciente) {
-	
 		$temp = $this->selectPaciente (null,
 										$oPaciente->nome,
 										$oPaciente->senha,
@@ -878,11 +787,18 @@ XML;
 		return $codigo;
 	}
 
+	/**
+	 * getTabela
+	 *
+	 * Retorna toda a tabela tPaciente em um array de objetos da classe lPaciente.
+	 * 
+	 * @param void
+	 * @return array lPaciente 	Array de objetos da classe lPaciente
+	 * 
+	 */
 	public function getTabela(){
 		return $this->traduzSimpleXMLObjectToPaciente($this->selectPaciente());
 	}
-
-
 }
 
 ?>

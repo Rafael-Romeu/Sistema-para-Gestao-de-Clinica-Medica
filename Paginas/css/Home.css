@@ -1,0 +1,431 @@
+ *{
+     padding: 0;
+     margin: 0;
+     box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #eef4f6;
+    
+    width: 100%;
+    font-family: 'Oswald', sans-serif;
+    display: grid;
+    grid-template-columns: repeat(20, 5vw);
+    grid-template-rows: 20vh auto auto auto;
+}
+
+.Background {
+    grid-column: 1 / span 20;
+    grid-row: 2 / span 3;
+}
+
+.Background > img {
+    width: 100%;
+    height: auto;
+}
+
+header 
+{   
+    padding: 5px 0px 0px 5px;
+    grid-column: 1 / span 20;
+    grid-row: 1 / span 1;
+    
+    display: flex;
+    flex-wrap: nowrap;
+    
+    background-color: #eef4f6; 
+    margin-right: 10px;
+}
+
+header > img
+{
+    max-height: 100%;
+    min-height: 50%;
+}
+
+.barra {
+    grid-column: 1 / span 20 ;
+    grid-row: 2 / span 1;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    background-color: #134467; 
+
+    color: white;
+}
+
+.Identificacao{
+    padding: 14px 50px;
+}
+
+nav
+{
+    grid-column: 2 / span 1 ;
+    /*grid-row: 2 / span 1;*/
+    
+    display: flex;
+    justify-content: center;
+}
+
+nav button
+{
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: pointer;
+    color: white;
+}
+
+nav button:hover
+{
+    background-color: #5b96bf;
+    
+    position: relative;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: default;
+    outline: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #5b96bf;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
+    display: none;
+    flex-direction: column;
+}
+
+.dropdown-content button {
+    float: none;
+    color: #134467; 
+    padding: 12px 16px;
+    text-decoration: none;
+    text-align: left;
+
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #5b96bf;
+    color: #102a3b;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+nav button::-moz-focus-inner, .dropdown-content button::-moz-focus-inner, .dropdown .dropbtn::-moz-focus-inner,
+nav button:focus, .dropdown-content button:focus, .dropdown .dropbtn:focus{
+    border: none;
+    outline: none;
+}
+
+
+
+
+
+.Corpo
+{
+    grid-column: 2 / span 7;
+    grid-row: 3 / span 1;
+    
+    min-height: 100vh;
+    padding-bottom: 50px;
+    padding-top: 25px;
+}
+
+footer
+{
+    background-color: #333333;
+    grid-column: 1 / span 20;
+    grid-row: 4 / span 1;
+    
+    padding: 5px 30px 5px 30px;
+    text-align: left;
+}
+
+.Forms
+{
+    padding: 12px 20px;
+}
+
+input[type=date], select 
+{
+    display: flex;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 290px;
+}
+
+input[type=text], select 
+{
+    width: 290px;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select 
+{
+    width: 290px;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=email], select 
+{
+    width: 290px;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 5px 5px 5px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover 
+{
+    background-color: #45a049;
+}
+.Generos {
+    list-style: none;
+    margin: 0;
+    padding: 14px 0px;
+  }
+  
+.Generos:after {
+    content: "";
+    clear: both;
+}
+  
+.Genero {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    float: left;
+    height: 45px;
+    position: relative;
+    width: 90px;
+}
+  
+.Genero + .Genero {
+    margin-left: 10px;
+}
+.Genero label {
+    background: #fff no-repeat center center;
+    bottom: 1px;
+    cursor: pointer;
+    display: block;
+    font-size: 0;
+    left: 1px;
+    position: absolute;
+    right: 1px;
+    text-indent: 100%;
+    top: 1px;
+    white-space: nowrap;
+  }
+  
+.Homem label {
+    background-image: url("../Imagens/Homem.png");
+}
+  
+.Mulher label {
+    background-image: url("../Imagens/Mulher.png");
+}
+  
+.Outro label {
+    background-image: url("../Imagens/Outro.png");
+}
+.Generos input:checked + label {
+    outline: 4px solid #5b96bf;
+    -moz-outline-radius: 4px;
+}
+
+.custom-select {
+    position: relative;
+    width: 290px;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+}
+table, th, td {
+    border: 2px solid lightgray;
+    border-collapse: collapse;
+    padding: 12px 20px;
+    width: 290px;
+}
+th, td {
+    padding: 12px 20px;
+    text-align: left;
+}
+.editar{
+    padding: 0px;
+}
+tr:hover {background-color: #ccc}
+
+.BotaoEditar
+{
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-style: italic;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+input[type=checkbox] {
+    visibility:hidden;
+}
+label {
+    cursor: pointer;
+}
+input[type=checkbox]:checked + label {
+    background: #5b96bf;
+    color: white;
+}
+ul {
+    list-style: none;
+}
+li {
+    padding: 0px 10px;
+    list-style-type: none;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.obs{
+    width: 290px;
+    padding: 12px 20px;
+    margin: 5px 5px 5px 20px;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.popup {
+    position: absolute;
+    padding: 12px 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 420px;
+    background-color: #555;
+    color: #fff;
+    border-radius: 6px;
+    padding: 12px 20px;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    margin-left: -20px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+.Paciente{}
+.Medico{}
+.Atendente{}
+.VisualizarConsulta{}
+.AgendarConsultaPaciente{}
+.CadastrarPaciente{}
+.CadastrarMedico{}
+.AgendarConsulta{}
+.Consultas{}
+.Agendamentos{}
