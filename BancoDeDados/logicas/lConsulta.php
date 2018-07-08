@@ -13,9 +13,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 
-include_once 'logicas/lAtendente.php';
-include_once 'logicas/lMedico.php';
-include_once 'logicas/lPaciente.php';
+include_once 'lAtendente.php';
+include_once 'lMedico.php';
+include_once 'lPaciente.php';
 
 class lConsulta {
 /**
@@ -34,7 +34,6 @@ class lConsulta {
  * @var string $tablePathConsulta	File path da tabela tConsulta.xml
  * 
  */
-
 	public $codigo;
 	public $codAtendente;
 	public $codMedico;
@@ -44,10 +43,10 @@ class lConsulta {
 	public $observacao;
 	public $receita;
 	public $reg_date;
-
 	private $semEspaco;
 	private $tablePathConsulta;
 	
+
 /**
  * lConsulta
  * 
@@ -58,7 +57,6 @@ class lConsulta {
  * 
  */
 	function __construct() {
-	
         $this->codigo = null;
 		$this->codAtendente = null;
 		$this->codMedico = null;
@@ -68,11 +66,11 @@ class lConsulta {
 		$this->observacao = null;
 		$this->receita = null;
 		$this->reg_date = null;
-
 		$this->semEspaco = false;
-		$this->tablePathConsulta = "./db/tConsulta.xml";
+		$this->tablePathConsulta = $_SERVER['DOCUMENT_ROOT']."/BancoDeDados/db/tConsulta.xml";
     }
 	
+
 	/**
 	 * createTableConsulta
 	 *
@@ -83,9 +81,7 @@ class lConsulta {
 	 * 
 	 */
 	public function createTableConsulta() {
-
 		$filePathConsulta = $this->tablePathConsulta;
-
 		$file = fopen($filePathConsulta, "w+");
 	$template = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -103,11 +99,9 @@ class lConsulta {
   </consulta>
 </root>
 XML;
-
 		fwrite($file,$template);
 		fclose($file);
 		$file = fopen($filePathConsulta, "r");
-
 		if ((strcmp(fread($file, 7), "") == 0) or (fread($file, 7) == null)) {
 			fclose($file);
 			return 1; // ERRO ao criar a tabela
@@ -129,16 +123,13 @@ XML;
 	 *
 	 */
 	public function buscaEspacoVazio(DOMDocument $domXml) {
-
 		$i = 0;
 		$domLastNode;
-
 		$domLista = $domXml->getElementsByTagName('codigo');
 		foreach($domLista as $domNode) {
 			$codigo = $domNode->nodeValue;
 			$domLastNode = $domNode;
 			$codAnterior = ("C".sprintf('%04d', $i)); $i++;
-
 			if( strcmp($codAnterior,$codigo) != 0) {
 				//print_r("retornou:".$domNode->parentNode->nodeName." codigo: ".$codigo."\n");
 				$this->semEspaco = false;
@@ -160,9 +151,7 @@ XML;
 	 * 
 	 */
 	public function traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject) {
-	
 		$ListaConsulta = array();
-		
 		foreach($ListSimpleXMLObject as $SimpleXMLObject) {
 			$oConsulta = new lConsulta();
 			$oConsulta->codigo 	  		= (string)$SimpleXMLObject->codigo;
@@ -174,7 +163,6 @@ XML;
 			$oConsulta->observacao		= (string)$SimpleXMLObject->observacao;
 			$oConsulta->receita			= (string)$SimpleXMLObject->receita;
 			$oConsulta->reg_date    	= (string)$SimpleXMLObject->reg_date;
-
 			array_push($ListaConsulta, $oConsulta);
 		}
 		return $ListaConsulta;
@@ -252,36 +240,26 @@ XML;
 	 * 
 	 */
 	public function insertConsultaCompleto(string $codAtendente, string $codMedico, string $codPaciente, string $data, string $hora , string $observacao=null, string $receita=null) {
-		
 		$tablePath  = $this->tablePathConsulta;
-		
 		$domXML = new DOMDocument('1.0');
 		$domXML->preserveWhiteSpace = false;
 		$domXML->formatOutput = true;
-
 		if ($domXML->load($tablePath)) {
 			//echo "segue o baile\n";
 		}else {
-			echo "\n\nTabela '". $tablePath."' não encontrada.\nCriando tabela.\n\n";
+			echo "\n\nTabela '". $tablePath."' não encontrada.\nCriando tabela...\n\n";
 			if( createTableConsulta($tablePath) ) exit("ERRO ao criar a tabela");
-			else echo "\nTabela '".$tablePath. "' criada com sucesso.\n";
+			else echo "\nTabela '".$tablePath. "' criada com sucesso!\n";
 			$domXML->load($tablePath);
 		}
-
-		// find the root tag
 		$root = $domXML->getElementsByTagName('root')->item(0);
 		// busca o primeiro espaco vazio
 		$domPosition = lConsulta::buscaEspacoVazio($domXML);
-
 		//Extrai o codigo e transforma em int
 		$strCodigo = $domPosition->firstChild->nodeValue;
 		$strCodigo = substr($strCodigo, 1);
 		$intCodigo = intval($strCodigo);
-
-		// create the <Consulta> tag
 		$Consulta = $domXML->createElement('consulta');
-
-		// append the <Consulta> tag
 		if ($this->semEspaco) {
 			$codigo = "C".sprintf('%04d', $intCodigo + 1);
 			$root->appendChild($Consulta);
@@ -289,77 +267,65 @@ XML;
 			$codigo = "C".sprintf('%04d', $intCodigo - 1);
 			$root->insertBefore($Consulta, $domPosition);
 		}
-
 		// ******* Inserção do Código *******
 		$codigoElement = $domXML->createElement("codigo", $codigo);
 		$Consulta->appendChild($codigoElement);
-
 		// ******* Inserção do Codigo do Atendente *******
 		if($codAtendente == null) {
-			return "ERRO: Campo 'codAtendente' é obrigatório.";
+			return "ERRO: Campo 'Código do Atendente' é obrigatório.";
 		}
 		if($this->verificaCodAtendente($codAtendente)) {
 			return "ERRO: Atendente nao encontrado.";
 		}
 		$codAtendenteElement = $domXML->createElement("codAtendente", $codAtendente);
 		$Consulta->appendChild($codAtendenteElement);
-
 		// ******* Inserção da Codigo do Medico *******
 		if($codMedico == null) {
-			return "ERRO: Campo 'codMedico' é obrigatório.";
+			return "ERRO: Campo 'Código do Medico' é obrigatório.";
 		}
 		if($this->verificaCodMedico($codMedico)) {
 			return "ERRO: Medico nao encontrado.";
 		}
 		$codMedicoElement = $domXML->createElement("codMedico", $codMedico);
 		$Consulta->appendChild($codMedicoElement);
-
 		// ******* Inserção do Codigo do Paciente *******
 		if($codPaciente == null) {
-			return "ERRO: Campo 'codPaciente' é obrigatório.";
+			return "ERRO: Campo 'Código do Paciente' é obrigatório.";
 		}
 		if($this->verificaCodPaciente($codPaciente)) {
 			return "ERRO: Paciente nao encontrado.";
 		}
 		$codPacienteElement = $domXML->createElement("codPaciente", $codPaciente);
 		$Consulta->appendChild($codPacienteElement);
-
 		// ******* Inserção da Data *******
 		if($data == null) {
-			return "ERRO: Campo 'data' é obrigatório.";
+			return "ERRO: Campo 'Data' é obrigatório.";
 		}
 		$dataElement = $domXML->createElement("data", $data);
 		$Consulta->appendChild($dataElement);
-
 		// ******* Inserção da Hora *******
 		if($hora == null) {
-			return "ERRO: Campo 'hora' é obrigatório.";
+			return "ERRO: Campo 'Hora' é obrigatório.";
 		}
 		$horaElement = $domXML->createElement("hora", $hora);
 		$Consulta->appendChild($horaElement);
-
 		// ******* Inserção da Observação *******
 		if($observacao == null) {
 			$observacao = "( sem observações )"; // Observacao default
 		}
 		$observacaoElement = $domXML->createElement("observacao", $observacao);
 		$Consulta->appendChild($observacaoElement);
-
 		// ******* Inserção da Receita *******
 		if($receita == null) {
 			$receita =  "( sem receituário )";
 		}
 		$receitaElement = $domXML->createElement("receita", $receita);
 		$Consulta->appendChild($receitaElement);
-
 		// ******* Inserção da Data de Registro no Sitema *******
 		$reg_dateElement = $domXML->createElement("reg_date", date("Y-m-d H:i:s",time()));
 		$Consulta->appendChild($reg_dateElement);
-
-
-		// saves the changes into the file
 		if($domXML->save($tablePath)) {
-			return "Insercao realizada com sucesso!";
+			return "Inserção realizada com sucesso!";
 		}else {
 			return "Erro ao inserir registro de Consulta.";
 		}
@@ -385,10 +351,8 @@ XML;
 	 * 
 	 */
 	public function selectConsulta(string $codigo = null, string $codAtendente = null, string $codMedico = null, string $codPaciente = null, string $data = null, string $hora = null, string $observacao=null, string $receita=null, string $reg_date = null) {
-		
 		$tablePath = $this->tablePathConsulta;
 		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
-
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
 			($codAtendente == null) &&
@@ -404,9 +368,7 @@ XML;
 			$xPathQuery = "consulta";
 			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
-
 		$xPathQuery = "consulta[";
-		
 		if ($codigo != null) {
 			$xPathQuery = $xPathQuery."codigo/text()='".$codigo."'";
 			$maisDeUmParametro = true;
@@ -451,12 +413,8 @@ XML;
 			$xPathQuery = $xPathQuery."reg_date/text()='".$reg_date."'";
 			$maisDeUmParametro = true;
 		}
-
 		$xPathQuery = $xPathQuery."]";
-		//echo $xPathQuery;
-
 		$xml = $xml->xpath($xPathQuery);
-
 		return $xml; // Retorna um Array de SimpleXML Object, contendo os resultados
 	}
 
@@ -471,19 +429,16 @@ XML;
 	 * 
 	 */
 	public function excluirConsulta(string $codigo) {
-
 		$tablePath = $this->tablePathConsulta;
 		$Consulta = $this->selectConsulta($codigo);
-
 		if($Consulta == null) {
 			return "ERRO: Não há Consulta com o código ".$codigo.".";
 		}
 		$domConsulta = dom_import_simplexml($Consulta[0]);
 		$domXML = $domConsulta->parentNode->parentNode; //  documento XML
 		$domConsulta->parentNode->removeChild($domConsulta);
-
 		if($domXML->save($tablePath)) {
-			return "Exclusão efetuada com sucesso.";
+			return "Exclusão efetuada com sucesso!";
 		}else {
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
@@ -508,21 +463,16 @@ XML;
 	 * 
 	 */
 	public function updateConsultaCompleto(string $codigo, string $codAtendente = null, string $codMedico = null, string $codPaciente = null, string $data = null, string $hora = null, string $observacao=null, string $receita=null) {
-
 		$tablePath = $this->tablePathConsulta;
 		$houveAlteracao = false;
-
 		$Consulta = $this->selectConsulta($codigo);
 		if($Consulta == null) {
 			return "ERRO: Não há Consulta com o código ".$codigo.".";
 		}
-		
 		$Consulta = $Consulta[0];
-	
 		if(($Consulta->codigo != $codigo) or ($codigo == null)) {
-			return "ERRO: codigo invalido.";
+			return "ERRO: Código da Consulta invalido.";
 		}
-		
 		if(($Consulta->codAtendente != $codAtendente) and ($codAtendente != null)) {
 			if($this->verificaCodAtendente($codAtendente)) {
 				return "ERRO: Atendente nao encontrado.";
@@ -530,15 +480,13 @@ XML;
 			$Consulta->codAtendente = $codAtendente;
 			$houveAlteracao = true;
 		}
-
 		if(($Consulta->codMedico != $codMedico) and ($codMedico != null)) {
 			if($this->verificaCodMedico($codMedico)) {
-				return "ERRO: Medico nao encontrado.";
+				return "ERRO: Médico nao encontrado.";
 			}
 			$Consulta->codMedico = $codMedico;
 			$houveAlteracao = true;
 		}
-
 		if(($Consulta->codPaciente != $codPaciente) and ($codPaciente != null)) {
 			if($this->verificaCodPaciente($codPaciente)) {
 				return "ERRO: Paciente nao encontrado.";
@@ -546,37 +494,30 @@ XML;
 			$Consulta->codPaciente = $codPaciente;
 			$houveAlteracao = true;
 		}
-
 		if(($Consulta->data != $data) and ($data != null)) {
 			$Consulta->data = $data;
 			$houveAlteracao = true;
 		}
-
 		if(($Consulta->hora != $hora) and ($hora != null)) {
 			$Consulta->hora = $hora;
 			$houveAlteracao = true;
 		}
-
 		if(($Consulta->observacao != $observacao) and ($observacao != null)) {
 			$Consulta->observacao = $observacao;
 			$houveAlteracao = true;
 		}
-
 		if(($Consulta->receita != $receita) and ($receita != null)) {
 			$Consulta->receita = $receita;
 			$houveAlteracao = true;
 		}
-
 		if(!$houveAlteracao) {
 			return "Não houve alteração";
 		}
-
 		$domConsulta = dom_import_simplexml($Consulta);
 		$domXML = $domConsulta->parentNode->parentNode; //  documento XML
-
 		// Salva as alterações na tabela
 		if($domXML->save($tablePath)) {
-			return "Alteração efetuada com sucesso.";
+			return "Alteração efetuada com sucesso!";
 		}else {
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
@@ -593,7 +534,6 @@ XML;
 	 * 
 	 */
 	public function insertConsulta() {
-	
 		$msgRetorno = $this->insertConsultaCompleto($this->codAtendente, 
 													$this->codMedico, 
 													$this->codPaciente,
@@ -602,7 +542,7 @@ XML;
 													$this->observacao,
 													$this->receita
 		);
-		if (strcmp($msgRetorno, "Insercao realizada com sucesso!") != 0) {
+		if (strcmp($msgRetorno, "Insercão realizada com sucesso!") != 0) {
 			return $msgRetorno; // Significa que deu erro.
 		}
 		$this->codigo = $this->getCodigoByConsulta($this);
@@ -621,19 +561,18 @@ XML;
 	 * 
 	 */
 	public function updateConsulta() {
-	
 		if($this->codigo == null) {
 			return "ERRO: Código do Consulta invalido.";
 		}
-	return $this->updateConsultaCompleto(	$this->codigo,
-											$this->codAtendente, 
-											$this->codMedico,
-											$this->codPaciente,
-											$this->data,
-											$this->hora,
-											$this->observacao,
-											$this->receita
-		);
+		return $this->updateConsultaCompleto(	$this->codigo,
+												$this->codAtendente, 
+												$this->codMedico,
+												$this->codPaciente,
+												$this->data,
+												$this->hora,
+												$this->observacao,
+												$this->receita
+			);
 	}
 
 
@@ -647,7 +586,6 @@ XML;
 	 * 
 	 */
 	public function clearConsulta() {
-	
 		$this->codigo = null;
 		$this->codAtendente = null;
 		$this->codMedico = null;
@@ -670,10 +608,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByCodigo(string $codigo) {
-	
 		$ListSimpleXMLObject = $this->selectConsulta($codigo);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -688,10 +624,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByCodAtendente(string $codAtendente) {
-	
 		$ListSimpleXMLObject = $this->selectConsulta(null, $codAtendente);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -706,10 +640,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByCodMedico(string $codMedico) {
-	
 		$ListSimpleXMLObject = $this->selectConsulta(null, null, $codMedico);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -724,10 +656,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByCodPaciente(string $codPaciente) {
-	
 		$ListSimpleXMLObject = $this->selectConsulta(null, null, null, $codPaciente);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -742,10 +672,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByData(string $data) {
-	
 		$ListSimpleXMLObject = $this->selectConsulta(null, null, null, null, $data);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -760,10 +688,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByHora(string $hora) {
-	
 		$ListSimpleXMLObject = $this->selectConsulta(null, null, null, null, null, $hora);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -778,10 +704,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByObservacao($observacao) {
-
 		$ListSimpleXMLObject = $this->selectConsulta(null, null, null,  null, null, null, $observacao);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -796,10 +720,8 @@ XML;
 	 * 
 	 */
 	public function getConsultaByReceita($receita) {
-
 		$ListSimpleXMLObject = $this->selectConsulta(null, null, null, null, null, null, null, $receita);
 		$ListaConsultas = $this->traduzSimpleXMLObjectToConsulta($ListSimpleXMLObject);
-		
 		return $ListaConsultas;
 	}
 
@@ -814,7 +736,6 @@ XML;
 	 * 
 	 */
 	public function getCodigoByConsulta(lConsulta $oConsulta) {
-	
 		$temp = $this->selectConsulta (null,
 										$oConsulta->codAtendente,
 										$oConsulta->codMedico,
@@ -828,10 +749,19 @@ XML;
 		return $codigo;
 	}
 
+
+	/**
+	 * getTabela
+	 *
+	 * Retorna toda a tabela tConsulta em um array de objetos da classe lConsulta.
+	 * 
+	 * @param void
+	 * @return array lConsulta 	Array de objetos da classe lConsulta
+	 * 
+	 */
 	public function getTabela(){
 		return $this->traduzSimpleXMLObjectToConsulta($this->selectConsulta());
 	}
-
 }
 
 ?>

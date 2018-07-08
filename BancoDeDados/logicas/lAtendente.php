@@ -40,7 +40,6 @@ class lAtendente {
 	public $telefone;
 	public $email;
 	public $reg_date;
-
 	private $semEspaco;
 	private $tablePathAtendente;
 	
@@ -54,7 +53,6 @@ class lAtendente {
  * 
  */
 	function __construct() {
-	
         $this->codigo = null;
 		$this->nome = null;
 		$this->senha = null;
@@ -64,11 +62,11 @@ class lAtendente {
 		$this->telefone = null;
 		$this->email = null;
 		$this->reg_date = null;
-
 		$this->semEspaco = false;
-		$this->tablePathAtendente = "./db/tAtendente.xml";
+		$this->tablePathAtendente = $_SERVER['DOCUMENT_ROOT']."/BancoDeDados/db/tAtendente.xml";
     }
 	
+
 	/**
 	 * createTableAtendente
 	 *
@@ -79,9 +77,7 @@ class lAtendente {
 	 * 
 	 */
 	public function createTableAtendente() {
-
 		$filePathAtendente = $this->tablePathAtendente;
-
 		$file = fopen($filePathAtendente, "w+");
 	$template = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -99,11 +95,9 @@ class lAtendente {
   </atendente>
 </root>
 XML;
-
 		fwrite($file,$template);
 		fclose($file);
 		$file = fopen($filePathAtendente, "r");
-
 		if ((strcmp(fread($file, 7), "") == 0) or (fread($file, 7) == null)) {
 			fclose($file);
 			return 1; // ERRO ao criar a tabela
@@ -125,16 +119,13 @@ XML;
 	 *
 	 */
 	public function buscaEspacoVazio(DOMDocument $domXml) {
-
 		$i = 0;
 		$domLastNode;
-
 		$domLista = $domXml->getElementsByTagName('codigo');
 		foreach($domLista as $domNode) {
 			$codigo = $domNode->nodeValue;
 			$domLastNode = $domNode;
 			$codAnterior = ("A".sprintf('%04d', $i)); $i++;
-
 			if( strcmp($codAnterior,$codigo) != 0) {
 				//print_r("retornou:".$domNode->parentNode->nodeName." codigo: ".$codigo."\n");
 				$this->semEspaco = false;
@@ -156,9 +147,7 @@ XML;
 	 * 
 	 */
 	public function traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject) {
-	
 		$ListaAtendente = array();
-		
 		foreach($ListSimpleXMLObject as $SimpleXMLObject) {
 			$oAtendente = new lAtendente();
 			$oAtendente->codigo 	  =	(string)$SimpleXMLObject->codigo;
@@ -170,7 +159,6 @@ XML;
 			$oAtendente->telefone     = (string)$SimpleXMLObject->telefone;
 			$oAtendente->email        = (string)$SimpleXMLObject->email;
 			$oAtendente->reg_date     = (string)$SimpleXMLObject->reg_date;
-
 			array_push($ListaAtendente, $oAtendente);
 		}
 		return $ListaAtendente;
@@ -194,36 +182,26 @@ XML;
 	 * 
 	 */
 	public function insertAtendenteCompleto(string $nome, string $senha, string $cpf, string $dtNascimento=null, string $endereco=null, string $telefone=null, string $email=null) {
-		
 		$tablePath  = $this->tablePathAtendente;
-		
 		$domXML = new DOMDocument('1.0');
 		$domXML->preserveWhiteSpace = false;
 		$domXML->formatOutput = true;
-
 		if ($domXML->load($tablePath)) {
 			//echo "segue o baile\n";
 		}else {
-			echo "\n\nTabela '". $tablePath."' não encontrada.\nCriando tabela.\n\n";
+			echo "\n\nTabela '". $tablePath."' não encontrada.\nCriando tabela...\n\n";
 			if( createTableAtendente($tablePath) ) exit("ERRO ao criar a tabela");
-			else echo "\nTabela '".$tablePath. "' criada com sucesso.\n";
+			else echo "\nTabela '".$tablePath. "' criada com sucesso!\n";
 			$domXML->load($tablePath);
 		}
-
-		// find the root tag
 		$root = $domXML->getElementsByTagName('root')->item(0);
 		// busca o primeiro espaco vazio
 		$domPosition = lAtendente::buscaEspacoVazio($domXML);
-
 		//Extrai o codigo e transforma em int
 		$strCodigo = $domPosition->firstChild->nodeValue;
 		$strCodigo = substr($strCodigo, 1);
 		$intCodigo = intval($strCodigo);
-
-		// create the <atendente> tag
 		$atendente = $domXML->createElement('atendente');
-
-		// append the <atendente> tag
 		if ($this->semEspaco) {
 			$codigo = "A".sprintf('%04d', $intCodigo + 1);
 			$root->appendChild($atendente);
@@ -231,68 +209,56 @@ XML;
 			$codigo = "A".sprintf('%04d', $intCodigo - 1);
 			$root->insertBefore($atendente, $domPosition);
 		}
-
 		// ******* Inserção do Código *******
 		$codigoElement = $domXML->createElement("codigo", $codigo);
 		$atendente->appendChild($codigoElement);
-
 		// ******* Inserção do Nome *******
 		if($nome == null) {
-			return "ERRO: Campo 'nome' é obrigatório.";
+			return "ERRO: Campo 'Nome' é obrigatório.";
 		}
 		$nomeElement = $domXML->createElement("nome", $nome);
 		$atendente->appendChild($nomeElement);
-
 		// ******* Inserção da Senha *******
 		if($senha == null) {
-			return "ERRO: Campo 'senha' é obrigatório.";
+			return "ERRO: Campo 'Senha' é obrigatório.";
 		}
 		$senhaElement = $domXML->createElement("senha", $senha);
 		$atendente->appendChild($senhaElement);
-
 		// ******* Inserção do CPF *******
 		if($cpf == null) {
-			return "ERRO: Campo 'cpf' é obrigatório.";
+			return "ERRO: Campo 'CPF' é obrigatório.";
 		}
 		$cpfElement = $domXML->createElement("cpf", $cpf);
 		$atendente->appendChild($cpfElement);
-
 		// ******* Inserção da Data de Nascimento *******
 		if($dtNascimento == null) {
 			$dtNascimento = "1900-01-01"; // Data default
 		}
 		$dtNascimentoElement = $domXML->createElement("dtNascimento", $dtNascimento);
 		$atendente->appendChild($dtNascimentoElement);
-
 		// ******* Inserção do Endereço *******
 		if($endereco == null) {
 			$endereco =  "(sem endereço)";
 		}
 		$enderecoElement = $domXML->createElement("endereco", $endereco);
 		$atendente->appendChild($enderecoElement);
-
 		// ******* Inserção do Telefone *******
 		if($telefone == null) {
 			$telefone = "(sem telefone)";
 		}
 		$telefoneElement = $domXML->createElement("telefone", $telefone);
 		$atendente->appendChild($telefoneElement);
-
 		// ******* Inserção do E-mail *******
 		if($email == null) {
 			$email = "(sem E-mail)";
 		}
 		$emailElement = $domXML->createElement("email", $email);
 		$atendente->appendChild($emailElement);
-
 		// ******* Inserção da Data de Registro no Sitema *******
 		$reg_dateElement = $domXML->createElement("reg_date", date("Y-m-d H:i:s",time()));
 		$atendente->appendChild($reg_dateElement);
-
-
-		// saves the changes into the file
 		if($domXML->save($tablePath)) {
-			return "Insercao realizada com sucesso!";
+			return "Inserção realizada com sucesso!";
 		}else {
 			return "Erro ao inserir registro de Atendente.";
 		}
@@ -319,10 +285,8 @@ XML;
 	 * 
 	 */
 	public function selectAtendente(string $codigo = null, string $nome = null, string $senha = null, string $cpf = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email = null, string $reg_date = null) {
-		
 		$tablePath = $this->tablePathAtendente;
 		$xml=simplexml_load_file($tablePath) or die("Error: Cannot create object");
-
 		$maisDeUmParametro = false;
 		if (($codigo == null) && 
 			($nome == null) &&
@@ -337,9 +301,7 @@ XML;
 			$xPathQuery = "atendente";
 			return $xml->xpath($xPathQuery); // Retorna um Array de SimpleXML Object, contendo os resultados 
 		}
-
 		$xPathQuery = "atendente[";
-		
 		if ($codigo != null) {
 			$xPathQuery = $xPathQuery."codigo/text()='".$codigo."'";
 			$maisDeUmParametro = true;
@@ -384,12 +346,8 @@ XML;
 			$xPathQuery = $xPathQuery."reg_date/text()='".$reg_date."'";
 			$maisDeUmParametro = true;
 		}
-		
 		$xPathQuery = $xPathQuery."]";
-		//echo $xPathQuery;
-
 		$xml = $xml->xpath($xPathQuery);
-
 		return $xml; // Retorna um Array de SimpleXML Object, contendo os resultados
 	}
 
@@ -404,19 +362,16 @@ XML;
 	 * 
 	 */
 	public function excluirAtendente(string $codigo) {
-
 		$tablePath = $this->tablePathAtendente;
 		$atendente = $this->selectAtendente($codigo);
-
 		if($atendente == null) {
 			return "ERRO: Não há atendente com o código ".$codigo.".";
 		}
 		$domAtendente = dom_import_simplexml($atendente[0]);
 		$domXML = $domAtendente->parentNode->parentNode; //  documento XML
 		$domAtendente->parentNode->removeChild($domAtendente);
-
 		if($domXML->save($tablePath)) {
-			return "Exclusão efetuada com sucesso.";
+			return "Exclusão efetuada com sucesso!";
 		}else {
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
@@ -441,66 +396,52 @@ XML;
 	 * 
 	 */
 	public function updateAtendenteCompleto(string $codigo, string $nome = null, string $senha = null, string $cpf = null, string $dtNascimento = null, string $endereco = null, string $telefone = null, string $email=null) {
-
 		$tablePath = $this->tablePathAtendente;
 		$houveAlteracao = false;
-
 		$atendente = $this->selectAtendente($codigo);
 		if($atendente == null) {
 			return "ERRO: Não há atendente com o código ".$codigo.".";
 		}
-		
 		$atendente = $atendente[0];
-	
 		if(($atendente->codigo != $codigo) or ($codigo == null)) {
-			return "ERRO: codigo invalido.";
+			return "ERRO: código invalido.";
 		}
-		
 		if(($atendente->nome != $nome) and ($nome != null)) {
 			$atendente->nome = $nome;
 			$houveAlteracao = true;
 		}
-
 		if(($atendente->senha != $senha) and ($senha != null)) {
 			$atendente->senha = $senha;
 			$houveAlteracao = true;
 		}
-
 		if(($atendente->cpf != $cpf) and ($cpf != null)) {
 			$atendente->cpf = $cpf;
 			$houveAlteracao = true;
 		}
-
 		if(($atendente->dtNascimento != $dtNascimento) and ($dtNascimento != null)) {
 			$atendente->dtNascimento = $dtNascimento;
 			$houveAlteracao = true;
 		}
-
 		if(($atendente->endereco != $endereco) and ($endereco != null)) {
 			$atendente->endereco = $endereco;
 			$houveAlteracao = true;
 		}
-
 		if(($atendente->telefone != $telefone) and ($telefone != null)) {
 			$atendente->telefone = $telefone;
 			$houveAlteracao = true;
 		}
-
 		if(($atendente->email != $email) and ($email != null)) {
 			$atendente->email = $email;
 			$houveAlteracao = true;
 		}
-
 		if(!$houveAlteracao) {
-			return "Não houve alteração";
+			return "Não houve alteração.";
 		}
-
 		$domAtendente = dom_import_simplexml($atendente);
 		$domXML = $domAtendente->parentNode->parentNode; //  documento XML
-
 		// Salva as alterações na tabela
 		if($domXML->save($tablePath)) {
-			return "Alteração efetuada com sucesso.";
+			return "Alteração efetuada com sucesso!";
 		}else {
 			return "ERRO: Ao salvar modificações na tabela ".$tablePath.".";
 		}
@@ -517,7 +458,6 @@ XML;
 	 * 
 	 */
 	public function insertAtendente() {
-	
 		$msgRetorno = $this->insertAtendenteCompleto($this->nome, 
 													$this->senha, 
 													$this->cpf,
@@ -526,7 +466,7 @@ XML;
 													$this->telefone,
 													$this->email
 		);
-		if (strcmp($msgRetorno, "Insercao realizada com sucesso!") != 0) {
+		if (strcmp($msgRetorno, "Inserção realizada com sucesso!") != 0) {
 			return $msgRetorno; // Significa que deu erro.
 		}
 		$this->codigo = $this->getCodigoByAtendente($this);
@@ -545,7 +485,6 @@ XML;
 	 * 
 	 */
 	public function updateAtendente() {
-	
 		if($this->codigo == null) {
 			return "ERRO: Código do atendente invalido.";
 		}
@@ -571,7 +510,6 @@ XML;
 	 * 
 	 */
 	public function clearAtendente() {
-	
 		$this->codigo = null;
 		$this->nome = null;
 		$this->senha = null;
@@ -594,10 +532,8 @@ XML;
 	 * 
 	 */
 	public function getAtendenteByCodigo(string $codigo) {
-	
 		$ListSimpleXMLObject = $this->selectAtendente($codigo);
 		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
-		
 		return $ListaAtendentes;
 	}
 
@@ -612,10 +548,8 @@ XML;
 	 * 
 	 */
 	public function getAtendenteByNome(string $nome) {
-	
 		$ListSimpleXMLObject = $this->selectAtendente(null, $nome);
 		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
-		
 		return $ListaAtendentes;
 	}
 
@@ -630,10 +564,8 @@ XML;
 	 * 
 	 */
 	public function getAtendenteByCPF(string $cpf) {
-	
 		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, $cpf);
 		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
-		
 		return $ListaAtendentes;
 	}
 
@@ -648,10 +580,8 @@ XML;
 	 * 
 	 */
 	public function getAtendenteByDtNascimento($dtNascimento) {
-
 		$ListSimpleXMLObject = $this->selectAtendente(null, null, null,  null, $dtNascimento);
 		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
-		
 		return $ListaAtendentes;
 	}
 
@@ -666,10 +596,8 @@ XML;
 	 * 
 	 */
 	public function getAtendenteByEndereco($endereco) {
-
 		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, null, null, $endereco);
 		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
-		
 		return $ListaAtendentes;
 	}
 
@@ -684,10 +612,8 @@ XML;
 	 * 
 	 */
 	public function getAtendenteByTelefone($telefone) {
-	
 		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, null, null, null, $telefone);
 		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
-		
 		return $ListaAtendentes;
 	}
 
@@ -702,10 +628,8 @@ XML;
 	 * 
 	 */
 	public function getAtendenteByEmail($email) {
-	
 		$ListSimpleXMLObject = $this->selectAtendente(null, null, null, null, null, null, null, $email);
 		$ListaAtendentes = $this->traduzSimpleXMLObjectToAtendente($ListSimpleXMLObject);
-		
 		return $ListaAtendentes;
 	}
 
@@ -720,7 +644,6 @@ XML;
 	 * 
 	 */
 	public function getCodigoByAtendente(lAtendente $oAtendente) {
-	
 		$temp = $this->selectAtendente (null,
 										$oAtendente->nome,
 										$oAtendente->senha,
@@ -734,11 +657,18 @@ XML;
 		return $codigo;
 	}
 
+	/**
+	 * getTabela
+	 *
+	 * Retorna toda a tabela tAtendente em um array de objetos da classe lAtendente.
+	 * 
+	 * @param void
+	 * @return array lAtendente 	Array de objetos da classe lAtendente
+	 * 
+	 */
 	public function getTabela(){
 		return $this->traduzSimpleXMLObjectToAtendente($this->selectAtendente());
 	}
-
-
 }
 
 ?>

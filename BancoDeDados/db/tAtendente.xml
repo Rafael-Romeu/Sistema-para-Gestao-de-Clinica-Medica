@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <atendente>
+    <codigo>A0000</codigo>
+    <nome>AdminAtendente</nome>
+    <senha>admin</senha>
+    <cpf>AdminAtendente</cpf>
+    <dtNascimento>1900-01-01</dtNascimento>
+    <endereco>(sem endereço)</endereco>
+    <telefone>(sem telefone)</telefone>
+    <email>(sem email)</email>
+    <reg_date>1993-05-31 59:59:59</reg_date>
+  </atendente>
+</root>

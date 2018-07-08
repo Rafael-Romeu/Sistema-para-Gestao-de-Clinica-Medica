@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <consulta>
+    <codigo>C0000</codigo>
+    <codAtendente>A0000</codAtendente>
+    <codMedico>M0000</codMedico>
+    <codPaciente>P0000</codPaciente>
+    <data>1900-01-01</data>
+    <hora>59:59:59</hora>
+    <observacao>( sem observações )</observacao>
+    <receita>( sem receituário )</receita>
+    <reg_date>1993-05-31 59:59:59</reg_date>
+  </consulta>
+  <consulta>
+    <codigo>C0001</codigo>
+    <codAtendente>A0000</codAtendente>
+    <codMedico>M0001</codMedico>
+    <codPaciente>P0001</codPaciente>
+    <data>2018-07-09</data>
+    <hora>08:00:00</hora>
+    <observacao>( sem observações )</observacao>
+    <receita>( sem receituário )</receita>
+    <reg_date>2018-07-05 17:54:27</reg_date>
+  </consulta>
+</root>
