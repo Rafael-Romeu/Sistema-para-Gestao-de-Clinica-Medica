@@ -72,7 +72,7 @@ class lMedico {
 		$this->email = null;
 		$this->reg_date = null;
 		$this->semEspaco = false;
-		$this->tablePathMedico = $_SERVER['DOCUMENT_ROOT']."/BancoDeDados/db/tMedico.xml";
+		$this->tablePathMedico = $_SERVER['DOCUMENT_ROOT']."../db/tMedico.xml";
     }
 	
 	/**
@@ -178,6 +178,23 @@ XML;
 
 
 	/**
+	 * verificaCPFMedico
+	 *
+	 * Verifica se o CPF informado já está presente na tabela tMedico.xml
+	 * 
+	 * @param string $cpf		CPF do Medico a ser verificado.
+	 * @return false|true		'false' se Sucesso | 'true' se ERRO: Medico já cadastrado.
+	 * 
+	 */
+	public function verificaCPFMedico(string $cpf) {
+		if ($this->getMedicoByCPF($cpf) == null) {
+			return false; // Sucesso
+		}
+		return true; // ERRO: Medico já cadastrado.
+	}
+
+
+	/**
 	 * insertMedicoCompleto
 	 *
 	 * Salva na tabela tMedico.xml o novo Medico que possui os parametros informados.
@@ -241,6 +258,9 @@ XML;
 		// ******* Inserção do CPF *******
 		if($cpf == null) {
 			return "ERRO: Campo 'CPF' é obrigatório.";
+		}
+		if($this->verificaCPFMedico($cpf)){
+			return "ERRO: Este CPF já está cadastrado.";
 		}
 		$cpfElement = $domXML->createElement("cpf", $cpf);
 		$Medico->appendChild($cpfElement);
@@ -456,6 +476,9 @@ XML;
 			$houveAlteracao = true;
 		}
 		if(($Medico->cpf != $cpf) and ($cpf != null)) {
+			if($this->verificaCPFMedico($cpf)){
+				return "ERRO: Este CPF já está cadastrado para outro usuário.";
+			}
 			$Medico->cpf = $cpf;
 			$houveAlteracao = true;
 		}

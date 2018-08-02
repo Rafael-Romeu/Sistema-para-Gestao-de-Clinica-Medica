@@ -178,6 +178,21 @@ XML;
 		return $ListaPaciente;
 	}
 
+	/**
+	 * verificaCPFPaciente
+	 *
+	 * Verifica se o CPF informado já está presente na tabela tPaciente.xml
+	 * 
+	 * @param string $cpf		CPF do Paciente a ser verificado.
+	 * @return false|true		'false' se Sucesso | 'true' se ERRO: Paciente já cadastrado.
+	 * 
+	 */
+	public function verificaCPFPaciente(string $cpf) {
+		if ($this->getPacienteByCPF($cpf) == null) {
+			return false; // Sucesso
+		}
+		return true; // ERRO: Paciente já cadastrado. 
+	}
 
 	/**
 	 * insertPacienteCompleto
@@ -244,6 +259,9 @@ XML;
 		// ******* Inserção do CPF *******
 		if($cpf == null) {
 			return "ERRO: Campo 'CPF' é obrigatório.";
+		}
+		if($this->verificaCPFPaciente($cpf)){
+			return "ERRO: Este CPF já está cadastrado.";
 		}
 		$cpfElement = $domXML->createElement("cpf", $cpf);
 		$Paciente->appendChild($cpfElement);
@@ -473,6 +491,9 @@ XML;
 			$houveAlteracao = true;
 		}
 		if(($Paciente->cpf != $cpf) and ($cpf != null)) {
+			if($this->verificaCPFPaciente($cpf)){
+				return "ERRO: Este CPF já está cadastrado para outro usuário.";
+			}
 			$Paciente->cpf = $cpf;
 			$houveAlteracao = true;
 		}
