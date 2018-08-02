@@ -91,7 +91,7 @@ class lAtendente {
 		<endereco>(sem endereço)</endereco>
 		<telefone>(sem telefone)</telefone>
 		<email>(sem E-mail)</email>
-		<reg_date>1993-05-31 59:59:59</reg_date>
+		<reg_date>1993-05-31 23:59:59</reg_date>
   </atendente>
 </root>
 XML;
