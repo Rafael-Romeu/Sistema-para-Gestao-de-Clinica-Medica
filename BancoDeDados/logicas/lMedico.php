@@ -72,7 +72,7 @@ class lMedico {
 		$this->email = null;
 		$this->reg_date = null;
 		$this->semEspaco = false;
-		$this->tablePathMedico = $_SERVER['DOCUMENT_ROOT']."../db/tMedico.xml";
+		$this->tablePathMedico = $_SERVER['DOCUMENT_ROOT']."/BancoDeDados/db/tMedico.xml";
     }
 	
 	/**
