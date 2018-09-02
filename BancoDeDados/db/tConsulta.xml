@@ -6,7 +6,7 @@
     <codMedico>M0000</codMedico>
     <codPaciente>P0000</codPaciente>
     <data>1900-01-01</data>
-    <hora>59:59:59</hora>
+    <hora>00:00:00</hora>
     <observacao>( sem observações )</observacao>
     <receita>( sem receituário )</receita>
     <reg_date>1993-05-31 59:59:59</reg_date>

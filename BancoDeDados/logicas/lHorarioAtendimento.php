@@ -93,7 +93,7 @@ class lHorarioAtendimento {
 		<qua>0000000000000000000000</qua>
 		<qui>0000000000000000000000</qui>
 		<sex>0000000000000000000000</sex>
-		<reg_date>1993-05-31 59:59:59</reg_date>
+		<reg_date>1993-05-31 23:59:59</reg_date>
 	</horarioAtendimento>
 </root>
 XML;

@@ -91,7 +91,7 @@ class lAtendente {
 		<endereco>(sem endereço)</endereco>
 		<telefone>(sem telefone)</telefone>
 		<email>(sem E-mail)</email>
-		<reg_date>1993-05-31 59:59:59</reg_date>
+		<reg_date>1993-05-31 23:59:59</reg_date>
   </atendente>
 </root>
 XML;
@@ -166,6 +166,23 @@ XML;
 
 
 	/**
+	 * verificaCPFAtendente
+	 *
+	 * Verifica se o CPF informado já está presente na tabela tAtendente.xml
+	 * 
+	 * @param string $cpf		CPF do Atendente a ser verificado.
+	 * @return false|true		'false' se Sucesso | 'true' se ERRO: Atendente já cadastrado.
+	 * 
+	 */
+	public function verificaCPFAtendente(string $cpf) {
+		if ($this->getAtendenteByCPF($cpf) == null) {
+			return false; // Sucesso
+		}
+		return true; // ERRO: Atendente já cadastrado.
+	}
+
+
+	/**
 	 * insertAtendenteCompleto
 	 *
 	 * Salva na tabela tAtendente.xml o novo atendente que possui os parametros informados.
@@ -228,6 +245,9 @@ XML;
 		if($cpf == null) {
 			return "ERRO: Campo 'CPF' é obrigatório.";
 		}
+		if($this->verificaCPFAtendente($cpf)){
+			return "ERRO: Este CPF já está cadastrado.";
+		}
 		$cpfElement = $domXML->createElement("cpf", $cpf);
 		$atendente->appendChild($cpfElement);
 		// ******* Inserção da Data de Nascimento *******
@@ -265,7 +285,6 @@ XML;
 	}
 
 
-	
 	/**
 	 * selectAtendente
 	 *
@@ -415,6 +434,9 @@ XML;
 			$houveAlteracao = true;
 		}
 		if(($atendente->cpf != $cpf) and ($cpf != null)) {
+			if($this->verificaCPFAtendente($cpf)){
+				return "ERRO: Este CPF já está cadastrado para outro usuário.";
+			}
 			$atendente->cpf = $cpf;
 			$houveAlteracao = true;
 		}

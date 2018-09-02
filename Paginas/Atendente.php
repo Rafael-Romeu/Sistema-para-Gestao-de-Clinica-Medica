@@ -48,15 +48,16 @@
 
         <nav>
             <div class="dropdown">
-                <button class="dropbtn">Cadastros ▾
-                    <i class="fa fa-caret-down"></i>
-                </button>
+                <button class="dropbtn">Cadastros ▾</button>
                 <div class="dropdown-content">
                     <button id = "CadastrarPaciente"> Cadastrar Paciente </button>
                     <button id = "CadastrarMedico"> Cadastrar Médico </button>
                     <button id = "CadastrarAtendente"> Cadastrar Atendente </button>
                 </div>
             </div> 
+
+            <button id = "VerHistoricos"> Históricos </button>
+
 
             <button id = "AgendarConsulta"> Agendar Consulta </button>
             <button id = "VerConsultas" onclick="CarregaMedicosConsultas()"> Visualizar Consultas </button>
@@ -770,6 +771,32 @@
                 <div id="CadAteResultado"></div>
             </div>
 
+            <div class = "VerHistoricos">
+                <h3 class = "Forms">Históricos</h3>
+
+                <label class = "Forms" for="HistTipoFiltro">Filtar por: </label>
+
+                <select class='custom-select' id='HistTipoFiltro' name='HistTipoFiltro' onchange="HistCarregaNomes();HistCarregaHistorico()" >
+                    <option value='Paciente' selected='selected'>Paciente</option>
+                    <option value='Medico'>Médico</option>
+                </select>
+                
+                <label class = "Forms" id="HistNomesLabel" for="HistNomes"></label>
+
+                <select class='custom-select' id='HistNomes' name='HistNomes' onchange="HistCarregaHistorico()" >
+                    <option value='Any' selected='selected'>Nenhum usuário selecionado</option>
+                </select>
+
+
+                <div class="Forms">
+                    <div class="table">
+                        <table id="HistTabela">
+                            
+                        </table>
+                    </div> 
+                </div>
+            </div>
+
             <div class = "AgendarConsulta">
                 <h3 class="Forms">Agendar Consulta</h3>
                 <form>
@@ -800,6 +827,7 @@
                 <input type="submit" value="Enviar" onclick="AgendarConsulta()">
                 <div id="AgendaConsResultado"></div>
             </div>
+
             <div class="VerConsultas">
                 <h3 class = "Forms">Consultas</h3>
 
@@ -810,11 +838,11 @@
                 </select>
 
                 <div class="Forms">
-                <div class="table">
-                    <table id="Tabela">
-                        
-                    </table>
-                </div> 
+                    <div class="table">
+                        <table id="Tabela">
+                            
+                        </table>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -839,51 +867,69 @@
 <script>
 
     $(document).ready(function(){
-        $(".CadastrarAtendente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .VerConsultas").hide();
-
+        $(".CadastrarAtendente, .CadastrarPaciente, .CadastrarMedico, .AgendarConsulta, .VerConsultas, .VerHistoricos").hide();
+        
         CarregaEspecialidades();
         CarregaMedicos();
+        HistCarregaNomes();
+        HistCarregaHistorico();
     });
 
     //-----Atendente
-    $(document).ready(function(){
-        $("#CadastrarPaciente").click(function(){
-            $(".CadastrarPaciente").show();
-            $(".CadastrarMedico").hide();
-            $(".AgendarConsulta").hide();
-            $(".CadastrarAtendente").hide();
-            $(".VerConsultas").hide();
-
-        });
-        $("#CadastrarMedico").click(function(){
-            $(".CadastrarPaciente").hide();
-            $(".CadastrarMedico").show();
-            $(".AgendarConsulta").hide();
-            $(".CadastrarAtendente").hide();
-            $(".VerConsultas").hide();
-        });
-        $("#AgendarConsulta").click(function(){
-            $(".CadastrarPaciente").hide();
-            $(".CadastrarMedico").hide();
-            $(".AgendarConsulta").show();
-            $(".CadastrarAtendente").hide();
-            $(".VerConsultas").hide();
-        });
-        $("#CadastrarAtendente").click(function(){
-            $(".CadastrarPaciente").hide();
-            $(".CadastrarMedico").hide();
-            $(".AgendarConsulta").hide();
-            $(".CadastrarAtendente").show();
-            $(".VerConsultas").hide();
-        });
-        $("#VerConsultas").click(function(){
-            $(".CadastrarPaciente").hide();
-            $(".CadastrarMedico").hide();
-            $(".AgendarConsulta").hide();
-            $(".CadastrarAtendente").hide();
-            $(".VerConsultas").show();
-        });
+    $("#CadastrarPaciente").click(function(){
+        $(".CadastrarPaciente").show();
+        $(".CadastrarMedico").hide();
+        $(".AgendarConsulta").hide();
+        $(".CadastrarAtendente").hide();
+        $(".VerConsultas").hide();
+        $(".VerHistoricos").hide();
     });
+        
+    $("#CadastrarMedico").click(function(){
+        $(".CadastrarPaciente").hide();
+        $(".CadastrarMedico").show();
+        $(".AgendarConsulta").hide();
+        $(".CadastrarAtendente").hide();
+        $(".VerConsultas").hide();
+        $(".VerHistoricos").hide();
+    });
+
+    $("#AgendarConsulta").click(function(){
+        $(".CadastrarPaciente").hide();
+        $(".CadastrarMedico").hide();
+        $(".AgendarConsulta").show();
+        $(".CadastrarAtendente").hide();
+        $(".VerConsultas").hide();
+        $(".VerHistoricos").hide();
+    });
+
+    $("#CadastrarAtendente").click(function(){
+        $(".CadastrarPaciente").hide();
+        $(".CadastrarMedico").hide();
+        $(".AgendarConsulta").hide();
+        $(".CadastrarAtendente").show();
+        $(".VerConsultas").hide();
+        $(".VerHistoricos").hide();
+    });
+
+    $("#VerConsultas").click(function(){
+        $(".CadastrarPaciente").hide();
+        $(".CadastrarMedico").hide();
+        $(".AgendarConsulta").hide();
+        $(".CadastrarAtendente").hide();
+        $(".VerConsultas").show();
+        $(".VerHistoricos").hide();
+    });
+
+    $("#VerHistoricos").click(function(){
+        $(".CadastrarPaciente").hide();
+        $(".CadastrarMedico").hide();
+        $(".AgendarConsulta").hide();
+        $(".CadastrarAtendente").hide();
+        $(".VerConsultas").hide();
+        $(".VerHistoricos").show();
+    });
+    
     
     function CadastrarPaciente(){
         var variaveis = {"name" : document.getElementById("CadPacName").value,
@@ -1188,7 +1234,6 @@
 
         envio = "medico=" + Medico + "&Codigo=" + codigo;
         
-        console.log(envio);
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaConsulta.php?" + envio, true);
         xmlhttp.send();
     }
@@ -1206,6 +1251,68 @@
 
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaMedicos.php?Especialidade=" + especialidades, true);
         xmlhttp.send();              
+    }
+
+    function HistCarregaNomes() {
+        var form = document.getElementById("HistTipoFiltro");
+        
+        var tipo = form.options[form.selectedIndex].value;
+
+        if (tipo == "Medico"){
+            document.getElementById("HistNomesLabel").innerHTML = "Selecione um médico:";
+            
+            var envio = "Especialidades=Any";
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("HistNomes").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaMedicos.php?" + envio, true);
+            xmlhttp.send();
+        }
+        else if (tipo == "Paciente"){
+            document.getElementById("HistNomesLabel").innerHTML = "Selecione um paciente:";
+
+            var envio = "";
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("HistNomes").innerHTML = this.responseText;
+                }
+            };
+
+            xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaPacientes.php?" + envio, true);
+            xmlhttp.send();
+        }
+
+        
+    }
+
+    function HistCarregaHistorico() {
+        var form = document.getElementById("HistNomes");
+        var selecionado = form.options[form.selectedIndex].value;
+
+        form = document.getElementById("HistTipoFiltro");
+        var tipo = form.options[form.selectedIndex].value;
+
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        
+        var envio = "selecionado=" + selecionado + "&tipo=" + tipo + "&codigo=" + codigo + "&ordem=reversa";
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("HistTabela").innerHTML = this.responseText;
+            }
+        };
+       
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaHistorico.php?" + envio, true);
+        xmlhttp.send();
     }
 
     function Logout() {

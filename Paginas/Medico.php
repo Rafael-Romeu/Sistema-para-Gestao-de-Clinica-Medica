@@ -46,7 +46,9 @@
         </div>
         <nav>
             <button id = "Consultas" onclick="CarregaConsultas()"> Consultas </button>
-            <button id = "Agendamentos"> Agendamentos </button>
+            <button id = "Agendamentos"> Agenda </button>
+
+            <button id = "VerHistoricos"> Histórico </button>
 
             <button id = "AlterarCadastro"> Alterar Cadastro </button>
         
@@ -74,6 +76,30 @@
                 <div class="Forms">
                 <table id="TabelaAgendamentos" >
                 </table>
+                </div>
+            </div>
+
+            <div class = "VerHistoricos">
+                <div class="popup">
+                    <span class="popuptext" id="HistMyPopup">
+                    </span>
+                </div>
+
+
+                <h3 class = "Forms">Histórico</h3>
+                
+                <label class = "Forms" id="HistNomesLabel" for="HistNomes">Paciente</label>
+
+                <select class='custom-select' id='HistNomes' name='HistNomes' onchange="HistCarregaHistorico()" >
+                    <option value='Any' selected='selected'>Nenhum paciente selecionado</option>
+                </select>
+
+                <div class="Forms">
+                    <div class="table">
+                        <table id="HistTabela">
+                            
+                        </table>
+                    </div> 
                 </div>
             </div>
 
@@ -140,25 +166,35 @@
 <script>
 
     $(document).ready(function(){
-            $(".Consultas, .Agendamentos, .AlterarCadastro").hide();
+            $(".Consultas, .Agendamentos, .AlterarCadastro, .VerHistoricos").hide();
+            HistCarregaNomes();
+            HistCarregaHistorico();
     });
-    //-----Medico 
-    $(document).ready(function(){
-        $("#Consultas").click(function(){
-            $(".Consultas").show();
-            $(".Agendamentos").hide();
-            $(".AlterarCadastro").hide();
-        });
-        $("#Agendamentos").click(function(){
-            $(".Consultas").hide();
-            $(".Agendamentos").show();
-            $(".AlterarCadastro").hide();
-        });
-        $("#AlterarCadastro").click(function(){
-            $(".Consultas").hide();
-            $(".Agendamentos").hide();
-            $(".AlterarCadastro").show();
-        });
+
+    $("#Consultas").click(function(){
+        $(".Consultas").show();
+        $(".Agendamentos").hide();
+        $(".AlterarCadastro").hide();
+        $(".VerHistoricos").hide();
+    });
+
+    $("#Agendamentos").click(function(){
+        $(".Consultas").hide();
+        $(".Agendamentos").show();
+        $(".AlterarCadastro").hide();
+        $(".VerHistoricos").hide();
+    });
+    $("#AlterarCadastro").click(function(){
+        $(".Consultas").hide();
+        $(".Agendamentos").hide();
+        $(".AlterarCadastro").show();
+        $(".VerHistoricos").hide();
+    });
+    $("#VerHistoricos").click(function(){
+        $(".Consultas").hide();
+        $(".Agendamentos").hide();
+        $(".AlterarCadastro").hide();
+        $(".VerHistoricos").show();
     });
 
     function Logout() {
@@ -215,19 +251,32 @@
         xmlhttp.send();
     }
     function ShowPopup(consultaCodigo) {
-        
-        var popup = document.getElementById("myPopup");
-        popup.classList.toggle("show");
-
-        var consultaCodigo = consultaCodigo.id;
-
         var xmlhttp = new XMLHttpRequest();
 
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("myPopup").innerHTML = this.responseText;
-            }
-        };
+        
+        if ($(".VerHistoricos").is(":visible")){
+            var popup = document.getElementById("HistMyPopup");
+            popup.classList.toggle("show");
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("HistMyPopup").innerHTML = this.responseText;
+                }
+            };
+        }
+        else {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("myPopup").innerHTML = this.responseText;
+                }
+            };
+        }
+        
+
+        var consultaCodigo = consultaCodigo.id;
 
         envio = "Codigo=" + consultaCodigo;
         
@@ -271,6 +320,42 @@
         
         console.log(envio);
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaAgendamentos.php?" + envio, true);
+        xmlhttp.send();
+    }
+
+    function HistCarregaNomes() {
+
+        var envio = "";
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("HistNomes").innerHTML = this.responseText;
+            }
+        };
+
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaPacientes.php?" + envio, true);
+        xmlhttp.send();        
+    }
+
+    function HistCarregaHistorico() {
+        var form = document.getElementById("HistNomes");
+        var selecionado = form.options[form.selectedIndex].value;
+
+
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        
+        var envio = "selecionado=" + selecionado + "&tipo=Paciente" + "&codigo=" + codigo + "&ordem=reversa";
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("HistTabela").innerHTML = this.responseText;
+            }
+        };
+       
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/CarregaHistorico.php?" + envio, true);
         xmlhttp.send();
     }
     

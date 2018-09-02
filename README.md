@@ -20,7 +20,7 @@ Implementação de um Sistema para Gestão de Clínicas Médicas (simplificado),
 
 - Extraia os arquivos do .zip
 
-- Copie os arquivos de dentro da pasta "Sistema-para-Gestao-de-Clinica-Medica" e cole-os dentro do diretório do seu servidor (geralmente em /var/www/html);
+- Copie o conteúdo da pasta extraída e cole-os dentro do diretório do seu servidor (geralmente em _/var/www/html_);
 	
 - Entre no diretório do servidor e abra o terminal (Ctrl+Alt+T);
 
@@ -28,7 +28,7 @@ Implementação de um Sistema para Gestão de Clínicas Médicas (simplificado),
 ```
 sudo chmod 777 -R /var/www/html
 ```
-para libera as permissões de leitura e escrita nos arquivos recém copiados (substitua o '/var/www/html' pelo caminho completo do diretorio do seu servidor, caso não seja este;
+para libera as permissões de leitura e escrita nos arquivos recém copiados (substitua o '_/var/www/html_' pelo caminho completo do diretorio do seu servidor, caso não seja este;
 	
 - Abra o navegador Mozilla Firefox (necessariamente deve ser este navegador);
 
@@ -41,11 +41,10 @@ substitua "localhost" pelo IP:PORTA da sua máquina, caso seja necessário;
 
 ## IMPORTANTE
 
-* Erro de 'permission denied': 
-Entre no diretório do seu servidor, abra o terminal (Ctrl+Alt+T) e digite o comando:
+* Erro de '_permission denied_': 
+Entre no diretório do seu servidor, abra o terminal (Ctrl+Alt+T) e digite o comando para liberar as permissões de leitura e escrita nos arquivos recém copiados:
 ```
 sudo chmod 777 -R /var/www/html
 ```
-para liberar	as permissões de leitura e escrita nos arquivos recém copiados 
-(substitua o '/var/www/html' pelo caminho completo do diretorio do servidor, caso não seja este.
+(substitua o '_/var/www/html_' pelo caminho completo do diretorio do servidor, caso não seja este.
 
