@@ -1,0 +1,217 @@
+/* INTRO */
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'info prox';
+  
+  grid-column-gap: 2em;
+}
+
+.info {
+  grid-area: info;
+}
+
+.info > h1 > .labelicon {
+  height: 1em;
+  width: auto;
+}
+
+.prox {
+  grid-area: prox;
+} 
+
+/* CONSULTA E HISTORICO */
+.consultas-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'cons';
+}
+
+.consultas-widget {
+  grid-area:cons;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'conh ftog'
+    'filt filt'
+    'tabl tabl';
+}
+
+.consultas-header {
+  grid-area:conh;
+}
+
+.filter-card {
+  grid-area: filt;
+  display: none;
+}
+
+.filter-form {
+  display: flex;
+}
+
+.filter-form > label {
+  margin: 0 2em;
+}
+
+
+.filter-card label {
+  font-weight: bold;
+}
+
+.filter-toggle {
+  grid-area: ftog;
+  text-align: right;
+
+  transition: 0.4s;
+}
+
+.filter-toggle > img {
+  height: 1em;
+  width: auto;
+}
+
+.filter-toggle:hover {
+  cursor: pointer;
+}
+
+.filter-toggle:hover > .svg path, 
+.filter-active > .svg path {
+  fill: var(--accent-color) !important;
+}
+
+
+
+.consultas-widget > card {
+  grid-area: tabl;
+}
+
+.tabelaConsultas {
+  text-align: center;
+}
+
+.accordion-panel {
+  background-color: var(--text-color);
+  color: var(--bg-color-2);
+
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion-content {
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "rcts obs"
+}
+
+.receita {
+  grid-area: rcts;
+}
+
+.observacoes {
+  grid-area: obs;
+}
+
+.accordion-header {
+  width: 100%;
+  border: none;
+  outline: none;
+
+  display: grid;
+  grid-template-columns: 0.8fr 0.8fr 1fr 1fr;
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+  padding: 1em;
+  background-color: var(--bg-color-2);
+
+  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.accordion {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+
+  display: grid;
+  grid-template-columns: 0.8fr 0.8fr 1fr 1fr;
+  font-size: large;
+  padding: 1em;
+  background-color: var(--bg-color-2);
+
+  border-bottom: 1px solid var(--border-color);
+}
+
+.accordion-active, .accordion:hover {
+  background-color: var(--accent-color); 
+  color: var(--bg-color-2);
+  border-bottom: 0px solid var(--border-color);
+}
+
+
+/* PERFIL */
+.perfil-body {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-areas:
+    'phea edit'
+    'pinf pinf'
+}
+
+.perfil-header {
+  grid-area: phea;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.perfil-edit {
+  grid-area: edit;
+
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+}
+
+.perfil-edit > img {
+  height: 1em;
+  width: auto;
+}
+
+.perfil-edit:hover {
+  cursor: pointer;
+}
+
+.perfil-edit:hover > .svg path {
+  fill: var(--accent-color) !important;
+}
+
+.perfil-info {
+  grid-area: pinf;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.perfil-column-left {
+  flex: 50%;
+  padding: 0 1em 0 0;
+}
+
+
+.perfil-column-right {
+  flex: 50%;
+  padding: 0 0 0 1em;
+}
+
+.perfil-widget {
+  vertical-align: middle;
+  padding: 1em 0em 0em 0em;;
+}

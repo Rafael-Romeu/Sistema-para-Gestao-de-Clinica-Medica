@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/Paginas/css/Layout.css">
+    <link rel="stylesheet" href="/Paginas/css/Paciente.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Paciente</title>
+    <meta charset = "UTF-8">
+</head>
+
+
+<body>
+    <div class="topbar">
+        <header>
+            <div class="logo">
+                <a href="Intro.html">
+                    <h1>Vida Saudável</h1>
+                </a>
+            </div>
+            <div class="user">
+                <span id="headerUserNome">Jacinto Leite</span>
+                <span class="headerDivider"> | </span>
+                <a href="#">Logout</a>
+            </div>
+        </header>
+        <nav>
+            <span class="navbtn currentPage">
+                <img class="svg" src="/Paginas/img/common/icons/home.svg">
+                Home
+            </span>
+            <a class="navbtn" href="Consultas.html">
+                <img class="svg" src="/Paginas/img/common/icons/heart.svg">
+                Consultas
+            </a>
+            <a class="navbtn" href="Historico.html">
+                <img class="svg" src="/Paginas/img/common/icons/history.svg">
+                Histórico
+            </a>
+            <a class="navbtn" href="Perfil.html">
+                <img class="svg" src="/Paginas/img/common/icons/profile.svg">
+                Perfil
+            </a>
+        </nav>
+    </div>
+    
+    
+    <div class="main intro">
+        <div class="info">
+            
+            <h1>
+                Seu Perfil
+            </h1>
+            <div class="card">
+                <b>Nome:</b>
+                <br>
+                <span id="infoUserNome">Jacinto Leite</span>
+                <br><br>
+                <b>Plano de Saúde:</b>
+                <br>
+                <span id="infoUserPlano">Unimed</span>
+                <br><br>
+                <b>Email:</b>
+                <br>
+                <span id="infoUserEmail">jacinto@leite.com</span>
+                <br><br>
+                <b>Endereço:</b>
+                <br>
+                <span id="infoUserEnd">Rua Jussara, 159</span>
+                <br>
+            </div>
+        </div>
+        <div class="prox">
+            <h1>Próxima Consulta</h1>
+            <div class="card">
+                <b>Médico(a):</b>
+                <br>
+                <span id="proxConsMedNome">Paula Dentro</span>
+                <br><br>
+                <b>Especialidade:</b>
+                <br>
+                <span id="proxConsMedEsp">Ginecologista</span>
+                <br><br>
+                <b>Dia e Hora:</b>
+                <br>
+                <span id="proxConsDia">01/01/2019</span>, às <span id="proxConsHora">18:00h</span>.
+            </div>
+        </div>
+    </div>
+        
+    <footer>
+    </footer>
+</body>
+
+<script>
+        /*
+    * Replace all SVG images with inline SVG
+    */
+    document.querySelectorAll('img.svg').forEach(function(img){
+        var imgID = img.id;
+        var imgClass = img.className;
+        var imgURL = img.src;
+
+        fetch(imgURL).then(function(response) {
+            return response.text();
+        }).then(function(text){
+
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(text, "text/xml");
+
+            // Get the SVG tag, ignore the rest
+            var svg = xmlDoc.getElementsByTagName('svg')[0];
+
+            // Add replaced image's ID to the new SVG
+            if(typeof imgID !== 'undefined') {
+                svg.setAttribute('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if(typeof imgClass !== 'undefined') {
+                svg.setAttribute('class', imgClass+' replaced-svg');
+            }
+
+            // Remove any invalid XML tags as per http://validator.w3.org
+            svg.removeAttribute('xmlns:a');
+
+            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+            if(!svg.getAttribute('viewBox') && svg.getAttribute('height') && svg.getAttribute('width')) {
+                svg.setAttribute('viewBox', '0 0 ' + svg.getAttribute('height') + ' ' + svg.getAttribute('width'))
+            }
+
+            // Replace image with new SVG
+            img.parentNode.replaceChild(svg, img);
+
+        });
+
+    });
+    </script>
+
+</html>

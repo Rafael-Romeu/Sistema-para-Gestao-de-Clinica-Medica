@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/Paginas/css/Layout.css">
+    <link rel="stylesheet" href="/Paginas/css/Paciente.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Paciente</title>
+    <meta charset = "UTF-8">
+</head>
+
+
+<body>
+    <div class="topbar">
+        <header>
+            <div class="logo">
+                <a href="Intro.html">
+                    <h1>Vida Saudável</h1>
+                </a>
+            </div>
+            <div class="user">
+                <span id="headerUserNome">Jacinto Leite</span>
+                <span class="headerDivider"> | </span>
+                <a href="#">Logout</a>
+            </div>
+        </header>
+        <nav>
+            <a class="navbtn" href="Intro.html">
+                <img class="svg" src="/Paginas/img/common/icons/home.svg">
+                Home
+            </a>
+            <span class="navbtn currentPage">
+                <img class="svg" src="/Paginas/img/common/icons/heart.svg">
+                Consultas
+            </span>
+            <a class="navbtn" href="Historico.html">
+                <img class="svg" src="/Paginas/img/common/icons/history.svg">
+                Histórico
+            </a>
+            <a class="navbtn" href="Perfil.html">
+                <img class="svg" src="/Paginas/img/common/icons/profile.svg">
+                Perfil
+            </a>
+        </nav>
+    </div>
+    
+    
+    <div class="main consultas-body">
+        <div class="consultas-widget">
+        
+            <h1 class="consultas-header">
+                Consultas
+            </h1>
+
+            <span class="filter-toggle" id="filter-toggle">
+                <img class="svg" src="/Paginas/img/common/icons/search.svg">
+            </span>
+
+            <div class="card filter-card" id="filter-card">
+                <form class="filter-form">
+                    <label>
+                        Médico(a) <br>
+                        <input type="text" name="filter-nome">
+                    </label>
+                    <label>
+                        Especialidade <br>
+                        <input type="text" name="filter-esp">
+                    </label>
+                </form>
+            </div>
+
+            </div>
+            <div class="card">
+                <table>
+                    <tr>
+                        <th>Dia</th>
+                        <th>Hora</th>
+                        <th>Médico(a)</th>
+                        <th>Especialidade</th>
+                    </tr>
+                    <div id="tabelaConsultas">
+                        <tr>
+                            <td>01/01/2019</td>
+                            <td>18:00h</td>
+                            <td>Paula Dentro</td>
+                            <td>Ginecologista</td>
+                        </tr>
+                        <tr>
+                            <td>02/02/2020</td>
+                            <td>13:00h</td>
+                            <td>Tomás Turbano</td>
+                            <td>Urologista</td>
+                        </tr>
+                        <tr>
+                            <td>03/03/2021</td>
+                            <td>15:00h</td>
+                            <td>Cuca Beludo</td>
+                            <td>Esteticista</td>
+                        </tr>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+        
+    <footer>
+    </footer>
+</body>
+
+<script>
+        /*
+    * Replace all SVG images with inline SVG
+    */
+    document.querySelectorAll('img.svg').forEach(function(img){
+        var imgID = img.id;
+        var imgClass = img.className;
+        var imgURL = img.src;
+
+        fetch(imgURL).then(function(response) {
+            return response.text();
+        }).then(function(text){
+
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(text, "text/xml");
+
+            // Get the SVG tag, ignore the rest
+            var svg = xmlDoc.getElementsByTagName('svg')[0];
+
+            // Add replaced image's ID to the new SVG
+            if(typeof imgID !== 'undefined') {
+                svg.setAttribute('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if(typeof imgClass !== 'undefined') {
+                svg.setAttribute('class', imgClass+' replaced-svg');
+            }
+
+            // Remove any invalid XML tags as per http://validator.w3.org
+            svg.removeAttribute('xmlns:a');
+
+            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+            if(!svg.getAttribute('viewBox') && svg.getAttribute('height') && svg.getAttribute('width')) {
+                svg.setAttribute('viewBox', '0 0 ' + svg.getAttribute('height') + ' ' + svg.getAttribute('width'))
+            }
+
+            // Replace image with new SVG
+            img.parentNode.replaceChild(svg, img);
+
+        });
+
+    });
+
+    $(document).ready(function(){
+        // Set effect from select menu value
+        $( "#filter-toggle" ).click(function() {
+            $( "#filter-card" ).toggle( 500 , "swing" );
+        });
+    } );
+
+
+
+</script>
+
+</html>

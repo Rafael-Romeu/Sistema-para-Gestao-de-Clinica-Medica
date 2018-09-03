@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/Paginas/css/Layout.css">
+    <link rel="stylesheet" href="/Paginas/css/Paciente.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Paciente</title>
+    <meta charset = "UTF-8">
+</head>
+
+
+<body>
+    <div class="topbar">
+        <header>
+            <div class="logo">
+                <a href="Intro.html">
+                    <h1>Vida Saudável</h1>
+                </a>
+            </div>
+            <div class="user">
+                <span id="headerUserNome">Jacinto Leite</span>
+                <span class="headerDivider"> | </span>
+                <a href="#">Logout</a>
+            </div>
+        </header>
+        <nav>
+            <a class="navbtn" href="Intro.html">
+                <img class="svg" src="/Paginas/img/common/icons/home.svg">
+                Home
+            </a>
+            <a class="navbtn" href="Consultas.html">
+                <img class="svg" src="/Paginas/img/common/icons/heart.svg">
+                Consultas
+            </a>
+            <span class="navbtn currentPage" href="#">
+                <img class="svg" src="/Paginas/img/common/icons/history.svg">
+                Histórico
+            </span>
+            <a class="navbtn" href="Perfil.html">
+                <img class="svg" src="/Paginas/img/common/icons/profile.svg">
+                Perfil
+            </a>
+        </nav>
+    </div>
+    
+    
+    <div class="main consultas-body">
+        <div class="consultas-widget">
+        
+            <h1 class="consultas-header">
+                Histórico
+            </h1>
+
+            <span class="filter-toggle" id="filter-toggle">
+                <img class="svg" src="/Paginas/img/common/icons/search.svg">
+            </span>
+
+            <div class="card filter-card" id="filter-card">
+                <form class="filter-form">
+                    <label>
+                        Médico(a) <br>
+                        <input type="text" name="filter-nome">
+                    </label>
+                    <label>
+                        Especialidade <br>
+                        <input type="text" name="filter-esp">
+                    </label>
+                </form>
+            </div>
+
+        </div>
+            <div class="card">
+                
+                <span class="accordion-header">
+                    <span>Dia</span>
+                    <span>Hora</span>
+                    <span>Médico(a)</span>
+                    <span>Especialidade</span>
+                </span>
+                
+                <div class="tabelaConsultas" id="tabelaConsultas">
+
+                    <span class="accordion">
+                        <span>01/01/2019</span>
+                        <span>18:00h</span>
+                        <span>Paula Dentro</span>
+                        <span>Ginecologista</span>
+                    </span>
+                    <div class="accordion-panel">
+                        <div class="accordion-content">
+                            <div class="receita">
+                                <h3>Receita</h3>
+                                Um<br>
+                                Dois<br>
+                                Feijão com arroz.
+                            </div>
+                            <div class="observacoes">
+                                <h3>Observações</h3>
+                                Três<br>
+                                Quatro<br>
+                                Feijão no prato.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <span class="accordion">
+                        <span>02/02/2020</span>
+                        <span>13:00h</span>
+                        <span>Tomás Turbano</span>
+                        <span>Urologista</span>
+                    </span>
+                    <div class="accordion-panel">
+                        <div class="accordion-content">
+                            <div class="receita">
+                                <h3>Receita</h3>
+                                Um<br>
+                                Dois<br>
+                                Feijão com arroz.
+                            </div>
+                            <div class="observacoes">
+                                <h3>Observações</h3>
+                                Três<br>
+                                Quatro<br>
+                                Feijão no prato.
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="accordion">
+                        <span>03/03/2021</span>
+                        <span>15:00h</span>
+                        <span>Cuca Beludo</span>
+                        <span>Esteticista</span>
+                    </span>
+                    <div class="accordion-panel">
+                        <div class="accordion-content">
+                            <div class="receita">
+                                <h3>Receita</h3>
+                                Um<br>
+                                Dois<br>
+                                Feijão com arroz.
+                            </div>
+                            <div class="observacoes">
+                                <h3>Observações</h3>
+                                Três<br>
+                                Quatro<br>
+                                Feijão no prato.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <footer>
+    </footer>
+</body>
+
+<script>
+        /*
+    * Replace all SVG images with inline SVG
+    */
+    document.querySelectorAll('img.svg').forEach(function(img){
+        var imgID = img.id;
+        var imgClass = img.className;
+        var imgURL = img.src;
+
+        fetch(imgURL).then(function(response) {
+            return response.text();
+        }).then(function(text){
+
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(text, "text/xml");
+
+            // Get the SVG tag, ignore the rest
+            var svg = xmlDoc.getElementsByTagName('svg')[0];
+
+            // Add replaced image's ID to the new SVG
+            if(typeof imgID !== 'undefined') {
+                svg.setAttribute('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if(typeof imgClass !== 'undefined') {
+                svg.setAttribute('class', imgClass+' replaced-svg');
+            }
+
+            // Remove any invalid XML tags as per http://validator.w3.org
+            svg.removeAttribute('xmlns:a');
+
+            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+            if(!svg.getAttribute('viewBox') && svg.getAttribute('height') && svg.getAttribute('width')) {
+                svg.setAttribute('viewBox', '0 0 ' + svg.getAttribute('height') + ' ' + svg.getAttribute('width'))
+            }
+
+            // Replace image with new SVG
+            img.parentNode.replaceChild(svg, img);
+
+        });
+
+    });
+
+    $(document).ready(function(){
+        // Set effect from select menu value
+        $( "#filter-toggle" ).click(function() {
+            $( "#filter-card" ).toggle( 500 , "swing" );
+            this.classList.toggle("filter-active");
+        });
+    } );
+
+
+</script>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            var j;
+            for (j = 0; j < acc.length; j++) {
+                if (acc[j] != this) {
+                    acc[j].classList.remove("accordion-active");
+                    acc[j].nextElementSibling.style.maxHeight = null;
+
+                }
+            }
+            this.classList.toggle("accordion-active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight){
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+        });
+    }
+</script>
+
+</html>
