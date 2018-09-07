@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/Paginas/css/Layout.css">
     <link rel="stylesheet" href="/Paginas/css/Paciente.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>Paciente</title>
     <meta charset = "UTF-8">
 </head>
@@ -14,11 +15,7 @@
 <body>
     <div class="topbar">
         <header>
-            <div class="logo">
-                <a href="Intro.html">
-                    <h1>Vida Saudável</h1>
-                </a>
-            </div>
+            <h1 class="main-header__logo">Vida Saudável</h1>
             <div class="user">
                 <span id="headerUserNome">Jacinto Leite</span>
                 <span class="headerDivider"> | </span>
@@ -26,10 +23,10 @@
             </div>
         </header>
         <nav>
-            <span class="navbtn currentPage">
+            <a class="navbtn" href="Intro.html">
                 <img class="svg" src="/Paginas/img/common/icons/home.svg">
                 Home
-            </span>
+            </a>
             <a class="navbtn" href="Consultas.html">
                 <img class="svg" src="/Paginas/img/common/icons/heart.svg">
                 Consultas
@@ -38,55 +35,22 @@
                 <img class="svg" src="/Paginas/img/common/icons/history.svg">
                 Histórico
             </a>
-            <a class="navbtn" href="Perfil.html">
+            <span class="navbtn currentPage" href="#">
                 <img class="svg" src="/Paginas/img/common/icons/profile.svg">
                 Perfil
-            </a>
+            </span>
         </nav>
     </div>
     
     
-    <div class="main intro">
-        <div class="info">
-            
-            <h1>
-                Seu Perfil
-            </h1>
-            <div class="card">
-                <b>Nome:</b>
-                <br>
-                <span id="infoUserNome">Jacinto Leite</span>
-                <br><br>
-                <b>Plano de Saúde:</b>
-                <br>
-                <span id="infoUserPlano">Unimed</span>
-                <br><br>
-                <b>Email:</b>
-                <br>
-                <span id="infoUserEmail">jacinto@leite.com</span>
-                <br><br>
-                <b>Endereço:</b>
-                <br>
-                <span id="infoUserEnd">Rua Jussara, 159</span>
-                <br>
-            </div>
+    <div class="main">
+        
+        <h1>Marcar Consulta</h1>
+
+        <div class="card marcar-card">
+            <div id="datepicker"></div>
         </div>
-        <div class="prox">
-            <h1>Próxima Consulta</h1>
-            <div class="card">
-                <b>Médico(a):</b>
-                <br>
-                <span id="proxConsMedNome">Paula Dentro</span>
-                <br><br>
-                <b>Especialidade:</b>
-                <br>
-                <span id="proxConsMedEsp">Ginecologista</span>
-                <br><br>
-                <b>Dia e Hora:</b>
-                <br>
-                <span id="proxConsDia">01/01/2019</span>, às <span id="proxConsHora">18:00h</span>.
-            </div>
-        </div>
+
     </div>
         
     <footer>
@@ -135,6 +99,29 @@
         });
 
     });
-    </script>
+
+    $(document).ready(function(){
+        // Set effect from select menu value
+        $( "#filter-toggle" ).click(function() {
+            $( "#filter-card" ).toggle( 500 , "swing" );
+        });
+    } );
+
+
+	
+    $(function(){
+        $('#datepicker').datepicker({
+        inline: true,
+        dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        });
+
+        
+    });
+
+    $(document).ready(function(){
+        $('.ui-state-active').parent().addClass('.ui-datepicker-selected');
+    });
+</script>
 
 </html>

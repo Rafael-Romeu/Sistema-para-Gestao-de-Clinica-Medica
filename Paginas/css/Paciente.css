@@ -1,161 +1,149 @@
-/* INTRO */
-.intro {
+/* HOME */
+.home-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    'info prox';
+    'seu-perfil prox-consulta';
   
-  grid-column-gap: 2em;
+  grid-column-gap: 32px;
 }
 
-.info {
-  grid-area: info;
+.seu-perfil-widget {
+  grid-area: seu-perfil;
 }
 
-.info > h1 > .labelicon {
-  height: 1em;
-  width: auto;
-}
-
-.prox {
-  grid-area: prox;
+.prox-consulta-widget {
+  grid-area: prox-consulta;
 } 
 
+
 /* CONSULTA E HISTORICO */
-.consultas-body {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    'cons';
-}
-
 .consultas-widget {
-  grid-area:cons;
+  grid-area:consultas;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    'conh ftog'
-    'filt filt'
-    'tabl tabl';
+    'header filter-toggle'
+    'filter filter'
+    'body body';
 }
 
-.consultas-header {
-  grid-area:conh;
-}
+  .consultas-widget__header {
+    grid-area: header;
+  }
 
-.filter-card {
-  grid-area: filt;
-  display: none;
-}
+  .consultas-widget__filter-toggle {
+    grid-area: filter-toggle;
+    text-align: right;
+  }
 
-.filter-form {
-  display: flex;
-}
+  .consultas-widget__filter-icon {
+    font-size: var(--large-size);
+    height: 1em;
+    width: auto;
+  }
 
-.filter-form > label {
-  margin: 0 2em;
-}
+    .consultas-widget__filter-icon:hover {
+      cursor: pointer;
+    }
+
+    .consultas-widget__filter-icon:hover path, 
+    .consultas-widget__filter-icon--active path {
+      fill: var(--primary) !important;
+    }
+
+  .consultas-widget__filter-box {
+    grid-area: filter;
+    display: none;
+  }
+
+  .consultas-widget__filter-form {
+    display: flex;
+    font-weight: var(--thick-weight);
+  }
+
+  .consultas-widget__filter-form > label {
+    margin: 0 2em;
+  }
+
+  .consultas-widget__body {
+    grid-area: body;
+  }
 
 
-.filter-card label {
-  font-weight: bold;
-}
-
-.filter-toggle {
-  grid-area: ftog;
-  text-align: right;
-
-  transition: 0.4s;
-}
-
-.filter-toggle > img {
-  height: 1em;
-  width: auto;
-}
-
-.filter-toggle:hover {
+.consultas-widget__list-row {
   cursor: pointer;
-}
+  transition: 0.2s;
 
-.filter-toggle:hover > .svg path, 
-.filter-active > .svg path {
-  fill: var(--accent-color) !important;
-}
-
-
-
-.consultas-widget > card {
-  grid-area: tabl;
-}
-
-.tabelaConsultas {
-  text-align: center;
-}
-
-.accordion-panel {
-  background-color: var(--text-color);
-  color: var(--bg-color-2);
-
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-
-.accordion-content {
-  padding: 1em;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-template-areas: 
-    "rcts obs"
+    ". . . ."
+    "panel panel panel panel";
 }
 
-.receita {
-  grid-area: rcts;
-}
+  .consultas-widget__list-row, .consultas-widget__list-header {
+    width: 100%;
+    
+    border: none;
+    outline: none;
+    
+    display: grid;
+    grid-template-columns: 0.8fr 0.7fr 1fr 1fr;
+    
+    text-align: center;
+    padding: 1em;
+    border-bottom: 1px solid var(--neutral-lgray);
+    
+    order: 1;
+  }
 
-.observacoes {
-  grid-area: obs;
-}
+  .consultas-widget__list-header {
+    font-weight: var(--thick-weight);
+    border-top: 1px solid var(--neutral-lgray);
+  }
 
-.accordion-header {
-  width: 100%;
-  border: none;
-  outline: none;
 
-  display: grid;
-  grid-template-columns: 0.8fr 0.8fr 1fr 1fr;
-  font-size: large;
-  font-weight: bold;
-  text-align: center;
-  padding: 1em;
-  background-color: var(--bg-color-2);
+  .consultas-widget__list-row--active, .consultas-widget__list-row:hover {
+    background-color: var(--primary); 
+    color: var(--neutral-white);
+  }
 
-  border-bottom: 1px solid var(--border-color);
-  border-top: 1px solid var(--border-color);
-}
+  .consultas-widget__list-row--active {
+    border-bottom: 0px;
+    box-shadow: 0 2px 4px var(--neutral-lgray);
+    position:relative;
+    width: 110%;
+    margin: 0 -5%;
+  }
 
-.accordion {
-  cursor: pointer;
-  width: 100%;
-  border: none;
-  outline: none;
-  transition: 0.4s;
+  
+  .consultas-widget__accordion-panel {
+    grid-area: panel;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.2s, max-height 0.2s ease-out;
+    
+  }
 
-  display: grid;
-  grid-template-columns: 0.8fr 0.8fr 1fr 1fr;
-  font-size: large;
-  padding: 1em;
-  background-color: var(--bg-color-2);
+    .consultas-widget__accordion-content {
+      border-top: 1px solid var(--neutral-white);
 
-  border-bottom: 1px solid var(--border-color);
-}
+      margin-top: 1em;
+      padding: 1.2em 0 0.8em 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 
+        "rcts obs"
+    }
 
-.accordion-active, .accordion:hover {
-  background-color: var(--accent-color); 
-  color: var(--bg-color-2);
-  border-bottom: 0px solid var(--border-color);
-}
+      .consultas-widget__receita {
+        grid-area: rcts;
+      }
+
+      .consultas-widget__observacoes {
+        grid-area: obs;
+      }
+
 
 
 /* PERFIL */
@@ -186,11 +174,11 @@
   width: auto;
 }
 
-.perfil-edit:hover {
+.perfil-edit > .svg:hover {
   cursor: pointer;
 }
 
-.perfil-edit:hover > .svg path {
+.perfil-edit > svg:hover path {
   fill: var(--accent-color) !important;
 }
 
@@ -214,4 +202,73 @@
 .perfil-widget {
   vertical-align: middle;
   padding: 1em 0em 0em 0em;;
+}
+
+
+/* Marcar Consulta */
+
+.ui-datepicker {
+  width: 200px;
+  height: auto;
+  padding: 30px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  background: var(--accent-color);
+  color: var(--text-color-2);
+  text-align: center;
+}
+
+.ui-datepicker a {
+  text-decoration: none;
+  color: var(--text-color-2);
+  font-weight: bold;
+}
+
+.ui-datepicker td {
+  padding: 0;
+}
+
+.ui-datepicker td span, .ui-datepicker td a {
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  color: #666666;
+  text-shadow: 1px 1px 0px #fff;
+  filter: dropshadow(color=#fff, offx=1, offy=1);
+}
+.ui-datepicker-calendar .ui-state-default {
+  background: #ededed;
+  background: -moz-linear-gradient(top,  #ededed 0%, #dedede 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#dedede));
+  background: -webkit-linear-gradient(top,  #ededed 0%,#dedede 100%);
+  background: -o-linear-gradient(top,  #ededed 0%,#dedede 100%);
+  background: -ms-linear-gradient(top,  #ededed 0%,#dedede 100%);
+  background: linear-gradient(top,  #ededed 0%,#dedede 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#dedede',GradientType=0 );
+  -webkit-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
+  -moz-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
+  box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
+}
+.ui-datepicker-unselectable .ui-state-default {
+  background: #f4f4f4;
+  color: #b4b3b3;
+}
+
+.ui-datepicker-calendar .ui-state-hover {
+  background: #f7f7f7;
+}
+
+ui-datepicker-calendar .ui-state-active {
+  background: #6eafbf;
+  -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
+  -moz-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
+  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
+  color: #e0e0e0;
+  text-shadow: 0px 1px 0px #4d7a85;
+  filter: dropshadow(color=#4d7a85, offx=0, offy=1);
+  border: 1px solid #55838f;
+  position: relative;
+  margin: -1px;
 }
