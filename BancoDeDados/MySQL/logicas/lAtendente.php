@@ -61,7 +61,6 @@ class lAtendente extends Persistencia
 
     }
 
-
     /**
      * Get the value of codigo
      */
