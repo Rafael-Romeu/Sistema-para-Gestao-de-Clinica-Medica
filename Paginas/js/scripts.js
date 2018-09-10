@@ -46,8 +46,8 @@ function ConsultasFilter() {
     });
 }
 
-function ConsultasAccordion() {
-    var acc = document.getElementsByClassName("consultas-widget__list-row");
+function Accordion() {
+    var acc = document.getElementsByClassName("accordion");
     var i;
 
     for (i = 0; i < acc.length; i++) {
@@ -56,11 +56,11 @@ function ConsultasAccordion() {
             for (j = 0; j < acc.length; j++) {
                 if (acc[j] != this)
                 {
-                acc[j].classList.remove("consultas-widget__list-row--active");
+                acc[j].classList.remove("accordion--active");
                 acc[j].lastElementChild.style.maxHeight = null;
                 }
             }
-            this.classList.toggle("consultas-widget__list-row--active");
+            this.classList.toggle("accordion--active");
             var panel = this.lastElementChild;
             if (panel.style.maxHeight){
                 panel.style.maxHeight = null;

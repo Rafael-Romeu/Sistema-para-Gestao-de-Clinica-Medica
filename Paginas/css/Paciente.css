@@ -103,7 +103,7 @@
   }
 
 
-  .consultas-widget__list-row--active, .consultas-widget__list-row:hover {
+  .accordion--active > .consultas-widget__list-row, .consultas-widget__list-row:hover {
     background-color: var(--primary); 
     color: var(--neutral-white);
   }
