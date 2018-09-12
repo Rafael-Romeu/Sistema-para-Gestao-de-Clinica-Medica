@@ -103,17 +103,18 @@
   }
 
 
-  .accordion--active > .consultas-widget__list-row, .consultas-widget__list-row:hover {
+  .accordion--active.consultas-widget__list-row, .consultas-widget__list-row:hover {
     background-color: var(--primary); 
     color: var(--neutral-white);
   }
 
-  .consultas-widget__list-row--active {
+  .accordion--active.consultas-widget__list-row {
     border-bottom: 0px;
     box-shadow: 0 2px 4px var(--neutral-lgray);
     position:relative;
     width: 110%;
     margin: 0 -5%;
+    
   }
 
   
@@ -206,69 +207,56 @@
 
 
 /* Marcar Consulta */
-
-.ui-datepicker {
-  width: 200px;
-  height: auto;
-  padding: 30px;
-  box-shadow: 0 2px 4px var(--shadow-color);
-  background: var(--accent-color);
-  color: var(--text-color-2);
-  text-align: center;
+.medico-select-widget__medicos {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.ui-datepicker a {
-  text-decoration: none;
-  color: var(--text-color-2);
-  font-weight: bold;
-}
+  .medico-select-widget__medico-card {
+    cursor: pointer;
+    margin: 10px;
+  }
 
-.ui-datepicker td {
+  input:checked ~ .medico-select-widget__medico-card {
+    background: var(--primary);
+    color: var(--neutral-white);
+  }
+
+  .medico-select-widget__medico-radio {
+    display: none;
+  }
+
+
+.horario-select-widget__agenda {
+  font-size: var(--smaller-size);
+}
+.horario-select-widget__agenda td {
   padding: 0;
 }
 
-.ui-datepicker td span, .ui-datepicker td a {
-  display: inline-block;
-  font-weight: bold;
-  text-align: center;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  color: #666666;
-  text-shadow: 1px 1px 0px #fff;
-  filter: dropshadow(color=#fff, offx=1, offy=1);
-}
-.ui-datepicker-calendar .ui-state-default {
-  background: #ededed;
-  background: -moz-linear-gradient(top,  #ededed 0%, #dedede 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#dedede));
-  background: -webkit-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: -o-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: -ms-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: linear-gradient(top,  #ededed 0%,#dedede 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#dedede',GradientType=0 );
-  -webkit-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
-  -moz-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
-  box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
-}
-.ui-datepicker-unselectable .ui-state-default {
-  background: #f4f4f4;
-  color: #b4b3b3;
+
+.horario-select-widget__horario-radio {
+  display: none;
 }
 
-.ui-datepicker-calendar .ui-state-hover {
-  background: #f7f7f7;
+.horario-select-widget__horario-card {
+  white-space: pre;
+  background-color: var(--success);
+  border: 1px solid var(--neutral-dgray);
+  cursor: pointer;
 }
 
-ui-datepicker-calendar .ui-state-active {
-  background: #6eafbf;
-  -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  -moz-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  color: #e0e0e0;
-  text-shadow: 0px 1px 0px #4d7a85;
-  filter: dropshadow(color=#4d7a85, offx=0, offy=1);
-  border: 1px solid #55838f;
-  position: relative;
-  margin: -1px;
+input:disabled ~ .horario-select-widget__horario-card {
+  background-color: var(--failure);
+  cursor: default;
+}
+
+input:checked ~ .horario-select-widget__horario-card, 
+.horario-select-widget__horario-card:hover {
+  background-color:  var(--primary);
+}
+
+.horario-select-widget__calendar {
+  display: flex;
+  justify-content: center;
 }

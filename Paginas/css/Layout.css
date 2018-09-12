@@ -11,10 +11,13 @@
   /* COLORS */
   --primary: hsl(208, 100%, 46%);
 
+  --success: hsl(100, 100%, 75%);
+  --failure: rgb(255, 134, 134);
+
   --neutral-black: hsl(0, 0%, 10%);
   --neutral-dgray: hsl(0, 0%, 30%);
   --neutral-lgray: hsl(0, 0%, 80%);
-  --neutral-offwhite: hsl(0, 0%, 98%);
+  --neutral-offwhite: hsl(0, 0%, 97%);
   --neutral-white: hsl(0, 0%, 100%);
 
   /* TYPOGRAFY */
@@ -26,6 +29,7 @@
   --large-size: 2.25em;
   --medium-size: 1.75em;
   --small-size: 16px;
+  --smaller-size: 0.7em;
 }
 
 
@@ -222,5 +226,60 @@ h2 {
     color: var(--neutral-white);
   }
 
+.ui-datepicker {
+  text-align: center;
+  
+}
+
+.ui-datepicker a {
+  text-decoration: none;
+}
+
+.ui-datepicker table {
+  width: 300px;
+}
+
+
+.ui-datepicker-header {
+  font-weight: var(--thick-weight);
+}
+
+.ui-datepicker-title {
+  text-align: center;
+  background-color: var(--primary);
+  color: var(--neutral-white);
+  padding: 10px;
+}
+
+.ui-datepicker-prev, .ui-datepicker-next {
+  padding: 10px 10px;
+  color: var(--neutral-white);
+  cursor: pointer;
+}
+
+.ui-datepicker-prev {
+  float: left;
+}
+
+.ui-datepicker-next {
+  float: right;
+}
+
+
+.ui-datepicker td span, .ui-datepicker td a {
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  color: var(--neutral-dgray);
+
+}
+
+.ui-datepicker-calendar .ui-state-hover, .ui-datepicker-calendar .ui-state-active {
+  background: var(--primary);
+  color: var(--neutral-white);
+}
 
 
