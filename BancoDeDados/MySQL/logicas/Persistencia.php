@@ -73,20 +73,19 @@ class Persistencia implements iPersistencia
         return $result;
     }
 
-    public function InnerJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita){
-        $this->setJOIN("INNER JOIN ".$tabelaDireita." ON ".$this->getTABELA().".".$meuCampo."=".$tabelaDireita.".".$campoTabelaDireita);
+    public function InnerJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita)
+    {
+        $this->setJOIN("INNER JOIN " . $tabelaDireita . " ON " . $this->getTABELA() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
     }
 
-    public function RightJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita){
-        $this->setJOIN("RIGHT JOIN ".$tabelaDireita." ON ".$this->getTABELA().".".$meuCampo."=".$tabelaDireita.".".$campoTabelaDireita);
+    public function RightJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita)
+    {
+        $this->setJOIN("RIGHT JOIN " . $tabelaDireita . " ON " . $this->getTABELA() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
     }
 
-    public function LeftJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita){
-        $this->setJOIN("LEFT JOIN ".$tabelaDireita." ON ".$this->getTABELA().".".$meuCampo."=".$tabelaDireita.".".$campoTabelaDireita);
-    }
-
-    public function FullJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita){
-        $this->setJOIN("FULL JOIN ".$tabelaDireita." ON ".$this->getTABELA().".".$meuCampo."=".$tabelaDireita.".".$campoTabelaDireita);
+    public function LeftJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita)
+    {
+        $this->setJOIN("LEFT JOIN " . $tabelaDireita . " ON " . $this->getTABELA() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
     }
 
     // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
@@ -385,10 +384,10 @@ class Persistencia implements iPersistencia
      */
     public function setFiltroCampos($FiltroCampos)
     {
-        if($this->FiltroCampos == "*"){
+        if ($this->FiltroCampos == "*") {
             $this->FiltroCampos = "";
         }
-        $this->FiltroCampos .= $FiltroCampos;
+        $this->FiltroCampos = $FiltroCampos;
         return $this;
     }
 
@@ -407,10 +406,17 @@ class Persistencia implements iPersistencia
      */
     public function setFiltroValores($FiltroValores)
     {
-        if($this->FiltroValores == "1"){
+        if ($this->FiltroValores == "1") {
             $this->FiltroValores = "";
         }
-        $this->FiltroValores .= $FiltroValores;
+        $this->FiltroValores = $FiltroValores;
+        return $this;
+    }
+
+    public function limpaFiltros()
+    {
+        $this->setFiltroCampos("*");
+        $this->setFiltroValores("1");
         return $this;
     }
 

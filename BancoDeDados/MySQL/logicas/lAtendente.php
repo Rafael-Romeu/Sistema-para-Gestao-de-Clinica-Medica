@@ -50,15 +50,84 @@ class lAtendente extends Persistencia
         // $this->setDistinct();
         // print_r(parent::DISTINCT());
         // $this->setJOIN("INNER JOIN "."tClinicaAtendente"." ON "."tAtendente"."."."codigo"."="."tClinicaAtendente"."."."codAtendente");
-        $this->FullJOIN("tClinicaAtendente","codigo","codAtendente");
-        $this->setFiltroCampos("nome");
-        print_r($this->executeSELECT());
+        print_r($this->listaAtendenteByCodigo("1"));
 
     }
 
     public function identifica()
     {
 
+    }
+
+    public function listaAtendenteByCodigo(string $codigo) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("codigo = '".$codigo."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByNome(string $nome) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("nome = '".$nome."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteBySenha(string $senha) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("senha = '".$senha."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByCpf(string $cpf) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("cpf = '".$cpf."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByDataNascimento(string $dataNascimento) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("dataNascimento = '".$dataNascimento."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByEndereco(string $endereco) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("endereco = '".$endereco."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByCEP(string $CEP) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("CEP = '".$CEP."'");
+        return $this->executeSELECT();
+    }
+
+
+    public function listaAtendenteByTelefone1(string $telefone1) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("telefone1 = '".$telefone1."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByTelefone2(string $telefone2) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("telefone2 = '".$telefone2."'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByEmail(string $email) 
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("email = '".$email."'");
+        return $this->executeSELECT();
     }
 
     /**
