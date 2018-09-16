@@ -15,80 +15,102 @@ class lAtendente extends Persistencia
         $this->setModel("tAtendente");
     }
 
-    public function listaAtendenteByCodigo(string $codigo)
+    public function listaAtendenteByCodigo(string $codigo = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("codigo = '$codigo'");
+        if ($codigo != null) {
+            $this->setFiltroValores("codigo = '$codigo'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByNome(string $nome)
+    public function listaAtendenteByNome(string $nome = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("nome = '$nome'");
+        if ($nome != null) {
+            $this->setFiltroValores("nome = '$nome'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteBySenha(string $senha)
+    public function listaAtendenteBySenha(string $senha = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("senha = '$senha'");
+        if ($senha != null) {
+            $this->setFiltroValores("senha = '$senha'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCpf(string $cpf)
+    public function listaAtendenteByCpf(string $cpf = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("cpf = '$cpf'");
+        if ($cpf != null) {
+            $this->setFiltroValores("cpf = '$cpf'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByDataNascimento(string $dataNascimento)
+    public function listaAtendenteByDataNascimento(string $dataNascimento = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("dataNascimento = '$dataNascimento'");
+        if ($dataNascimento != null) {
+            $this->setFiltroValores("dataNascimento = '$dataNascimento'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEndereco(string $endereco)
+    public function listaAtendenteByEndereco(string $endereco = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("endereco = '$endereco'");
+        if ($endereco != null) {
+            $this->setFiltroValores("endereco = '$endereco'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCEP(string $CEP)
+    public function listaAtendenteByCEP(string $CEP = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("CEP = '$CEP'");
+        if ($CEP != null) {
+            $this->setFiltroValores("CEP = '$CEP'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByTelefone1(string $telefone1)
+    public function listaAtendenteByTelefone1(string $telefone1 = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("telefone1 = '$telefone1'");
+        if ($telefone1 != null) {
+            $this->setFiltroValores("telefone1 = '$telefone1'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByTelefone2(string $telefone2)
+    public function listaAtendenteByTelefone2(string $telefone2 = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("telefone2 = '$telefone2'");
+        if ($telefone2 != null) {
+            $this->setFiltroValores("telefone2 = '$telefone2'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEmail(string $email)
+    public function listaAtendenteByEmail(string $email = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("email = '$email'");
+        if ($email != null) {
+            $this->setFiltroValores("email = '$email'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByRegDate(string $regDate)
+    public function listaAtendenteByRegDate(string $regDate = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("regDate = '$regDate'");
+        if ($regDate != null) {
+            $this->setFiltroValores("regDate = '$regDate'");
+        }
         return $this->executeSELECT();
     }
 

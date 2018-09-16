@@ -15,89 +15,114 @@ class lMedico extends Persistencia
         $this->setModel("tMedico");
     }
 
-    public function listaMedicoByCodigo(string $codigo)
+    public function listaMedicoByCodigo(string $codigo = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("codigo = '$codigo'");
+        if ($codigo != null) {
+            $this->setFiltroValores("codigo = '$codigo'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByNome(string $nome)
+    public function listaMedicoByNome(string $nome = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("nome = '$nome'");
+        if ($nome != null) {
+            $this->setFiltroValores("nome = '$nome'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoBySenha(string $senha)
+    public function listaMedicoBySenha(string $senha = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("senha = '$senha'");
+        if ($senha != null) {
+            $this->setFiltroValores("senha = '$senha'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByCpf(string $cpf)
+    public function listaMedicoByCpf(string $cpf = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("cpf = '$cpf'");
+        if ($cpf != null) {
+            $this->setFiltroValores("cpf = '$cpf'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByPlanoDeSaude(string $planoDeSaude)
+    public function listaMedicoByPlanoDeSaude(string $planoDeSaude = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("planoDeSaude = '$planoDeSaude'");
+        if($planoDeSaude!=null){
+            $this->setFiltroValores("planoDeSaude = '$planoDeSaude'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByDataNascimento(string $dataNascimento)
+    public function listaMedicoByDataNascimento(string $dataNascimento = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("dataNascimento = '$dataNascimento'");
+        if ($dataNascimento != null) {
+            $this->setFiltroValores("dataNascimento = '$dataNascimento'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByEndereco(string $endereco)
+    public function listaMedicoByEndereco(string $endereco = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("endereco = '$endereco'");
+        if ($endereco != null) {
+            $this->setFiltroValores("endereco = '$endereco'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByCEP(string $CEP)
+    public function listaMedicoByCEP(string $CEP = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("CEP = '$CEP'");
+        if ($CEP != null) {
+            $this->setFiltroValores("CEP = '$CEP'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByTelefone1(string $telefone1)
+    public function listaMedicoByTelefone1(string $telefone1 = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("telefone1 = '$telefone1'");
+        if ($telefone1 != null) {
+            $this->setFiltroValores("telefone1 = '$telefone1'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByTelefone2(string $telefone2)
+    public function listaMedicoByTelefone2(string $telefone2 = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("telefone2 = '$telefone2'");
+        if ($telefone2 != null) {
+            $this->setFiltroValores("telefone2 = '$telefone2'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByEmail(string $email)
+    public function listaMedicoByEmail(string $email = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("email = '$email'");
+        if ($email != null) {
+            $this->setFiltroValores("email = '$email'");
+        }
         return $this->executeSELECT();
     }
 
-    public function listaMedicoByRegDate(string $regDate)
+    public function listaMedicoByRegDate(string $regDate = null)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("regDate = '$regDate'");
+        if ($regDate != null) {
+            $this->setFiltroValores("regDate = '$regDate'");
+        }
         return $this->executeSELECT();
     }
+
 
     /**
      * Get the value of codigo

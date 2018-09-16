@@ -7,15 +7,15 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lPaciente extends Persistencia
+class lClinica extends Persistencia
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setModel("tPaciente");
+        $this->setModel("tClinica");
     }
 
-    public function listaPacienteByCodigo(string $codigo = null)
+    public function listaClinicaByCodigo(string $codigo = null)
     {
         $this->limpaFiltros();
         if ($codigo != null) {
@@ -24,7 +24,7 @@ class lPaciente extends Persistencia
         return $this->executeSELECT();
     }
 
-    public function listaPacienteByNome(string $nome = null)
+    public function listaClinicaByNome(string $nome = null)
     {
         $this->limpaFiltros();
         if ($nome != null) {
@@ -33,61 +33,16 @@ class lPaciente extends Persistencia
         return $this->executeSELECT();
     }
 
-    public function listaPacienteBySenha(string $senha = null)
+    public function listaClinicaByCnpj(string $cnpj = null)
     {
         $this->limpaFiltros();
-        if ($senha != null) {
-            $this->setFiltroValores("senha = '$senha'");
+        if ($cnpj != null) {
+            $this->setFiltroValores("cnpj = '$cnpj'");
         }
         return $this->executeSELECT();
     }
 
-    public function listaPacienteByCpf(string $cpf = null)
-    {
-        $this->limpaFiltros();
-        if ($cpf != null) {
-            $this->setFiltroValores("cpf = '$cpf'");
-        }
-        return $this->executeSELECT();
-    }
-
-    public function listaPacienteByPlanoDeSaude(string $planoDeSaude = null)
-    {
-        $this->limpaFiltros();
-        if ($planoDeSaude != null) {
-            $this->setFiltroValores("planoDeSaude = '$planoDeSaude'");
-        }
-        return $this->executeSELECT();
-    }
-
-    public function listaPacienteByGenero(string $genero = null)
-    {
-        $this->limpaFiltros();
-        if ($genero != null) {
-            $this->setFiltroValores("genero = '$genero'");
-        }
-        return $this->executeSELECT();
-    }
-
-    public function listaPacienteByTipoSanguineo(string $tipoSanguineo = null)
-    {
-        $this->limpaFiltros();
-        if ($tipoSanguineo != null) {
-            $this->setFiltroValores("tipoSanguineo = '$tipoSanguineo'");
-        }
-        return $this->executeSELECT();
-    }
-
-    public function listaPacienteByDataNascimento(string $dataNascimento = null)
-    {
-        $this->limpaFiltros();
-        if ($dataNascimento != null) {
-            $this->setFiltroValores("dataNascimento = '$dataNascimento'");
-        }
-        return $this->executeSELECT();
-    }
-
-    public function listaPacienteByEndereco(string $endereco = null)
+    public function listaClinicaByEndereco(string $endereco = null)
     {
         $this->limpaFiltros();
         if ($endereco != null) {
@@ -96,7 +51,7 @@ class lPaciente extends Persistencia
         return $this->executeSELECT();
     }
 
-    public function listaPacienteByCEP(string $CEP = null)
+    public function listaClinicaByCEP(string $CEP = null)
     {
         $this->limpaFiltros();
         if ($CEP != null) {
@@ -105,7 +60,7 @@ class lPaciente extends Persistencia
         return $this->executeSELECT();
     }
 
-    public function listaPacienteByTelefone1(string $telefone1 = null)
+    public function listaClinicaByTelefone1(string $telefone1 = null)
     {
         $this->limpaFiltros();
         if ($telefone1 != null) {
@@ -114,7 +69,7 @@ class lPaciente extends Persistencia
         return $this->executeSELECT();
     }
 
-    public function listaPacienteByTelefone2(string $telefone2 = null)
+    public function listaClinicaByTelefone2(string $telefone2 = null)
     {
         $this->limpaFiltros();
         if ($telefone2 != null) {
@@ -123,7 +78,7 @@ class lPaciente extends Persistencia
         return $this->executeSELECT();
     }
 
-    public function listaPacienteByEmail(string $email = null)
+    public function listaClinicaByEmail(string $email = null)
     {
         $this->limpaFiltros();
         if ($email != null) {
@@ -132,11 +87,20 @@ class lPaciente extends Persistencia
         return $this->executeSELECT();
     }
 
-    public function listaPacienteByRegDate(string $regDate = null)
+    public function listaClinicaByRegDate(string $regDate = null)
     {
         $this->limpaFiltros();
         if ($regDate != null) {
             $this->setFiltroValores("regDate = '$regDate'");
+        }
+        return $this->executeSELECT();
+    }
+
+    public function listaClinicaByTemaCSS(string $temaCSS = null)
+    {
+        $this->limpaFiltros();
+        if ($temaCSS != null) {
+            $this->setFiltroValores("temaCSS = '$temaCSS'");
         }
         return $this->executeSELECT();
     }
@@ -180,117 +144,21 @@ class lPaciente extends Persistencia
     }
 
     /**
-     * Get the value of senha
+     * Get the value of cnpj
      */
-    public function getSenha()
+    public function getCnpj()
     {
-        return $this->getModel()->getValor("senha");
+        return $this->getModel()->getValor("cnpj");
     }
 
     /**
-     * Set the value of senha
+     * Set the value of cnpj
      *
      * @return  self
      */
-    public function setSenha($senha)
+    public function setCnpj($cnpj)
     {
-        $this->getModel()->setValor("senha", $senha);
-
-        return $this;
-    }
-
-    /**
-     * Get the value of cpf
-     */
-    public function getCpf()
-    {
-        return $this->getModel()->getValor("cpf");
-    }
-
-    /**
-     * Set the value of cpf
-     *
-     * @return  self
-     */
-    public function setCpf($cpf)
-    {
-        $this->getModel()->setValor("cpf", $cpf);
-        return $this;
-    }
-
-    /**
-     * Get the value of planoDeSaude
-     */
-    public function getPlanoDeSaude()
-    {
-        return $this->getModel()->getValor("planoDeSaude");
-    }
-
-    /**
-     * Set the value of planoDeSaude
-     *
-     * @return  self
-     */
-    public function setPlanoDeSaude($planoDeSaude)
-    {
-        $this->getModel()->setValor("planoDeSaude", $planoDeSaude);
-        return $this;
-    }
-
-    /**
-     * Get the value of genero
-     */
-    public function getGenero()
-    {
-        return $this->getModel()->getValor("genero");
-    }
-
-    /**
-     * Set the value of genero
-     *
-     * @return  self
-     */
-    public function setGenero($genero)
-    {
-        $this->getModel()->setValor("genero", $genero);
-        return $this;
-    }
-
-    /**
-     * Get the value of tipoSanguineo
-     */
-    public function getTipoSanguineo()
-    {
-        return $this->getModel()->getValor("tipoSanguineo");
-    }
-
-    /**
-     * Set the value of tipoSanguineo
-     *
-     * @return  self
-     */
-    public function setTipoSanguineo($tipoSanguineo)
-    {
-        $this->getModel()->setValor("tipoSanguineo", $tipoSanguineo);
-        return $this;
-    }
-
-    /**
-     * Get the value of dataNascimento
-     */
-    public function getDataNascimento()
-    {
-        return $this->getModel()->getValor("dataNascimento");
-    }
-
-    /**
-     * Set the value of dataNascimento
-     *
-     * @return  self
-     */
-    public function setDataNascimento($dataNascimento)
-    {
-        $this->getModel()->setValor("dataNascimento", $dataNascimento);
+        $this->getModel()->setValor("cnpj", $cnpj);
         return $this;
     }
 
@@ -408,7 +276,26 @@ class lPaciente extends Persistencia
         return $this;
     }
 
+    /**
+     * Get the value of temaCSS
+     */
+    public function getTemaCSS()
+    {
+        return $this->getModel()->getValor("temaCSS");
+    }
+
+    /**
+     * Set the value of temaCSS
+     *
+     * @return  self
+     */
+    public function setTemaCSS($temaCSS)
+    {
+        $this->getModel()->setValor("temaCSS", $temaCSS);
+        return $this;
+    }
+
 }
 
-$obj = new lPaciente();
+$obj = new lClinica();
 print_r($obj);
