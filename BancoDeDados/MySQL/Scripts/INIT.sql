@@ -6,14 +6,14 @@ CREATE DATABASE trabalho CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `trabalho`.`tConsulta` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codAtendente` INT NOT NULL , 
-	`codMedico` INT NOT NULL , 
-	`codPaciente` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codAtendente` INT NOT NULL DEFAULT 0,
+	`codMedico` INT NOT NULL DEFAULT 0, 
+	`codPaciente` INT NOT NULL DEFAULT 0, 
 	`flagConfirmada` TINYINT(1) NOT NULL DEFAULT 0, 
-	`data` DATE NOT NULL , `hora` TIME NOT NULL , 
-	`observacao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`receita` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`data` DATE, `hora` TIME, 
+	`observacao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`receita` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
 	PRIMARY KEY (`codigo`))
 	ENGINE = InnoDB;
@@ -23,15 +23,15 @@ CREATE TABLE `trabalho`.`tConsulta` (
 
 CREATE TABLE `trabalho`.`tClinica` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`cnpj` VARCHAR(17) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`cnpj` VARCHAR(17) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-	`temaCSS` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`temaCSS` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`),
 	UNIQUE (`cnpj`))
 	ENGINE = InnoDB;
@@ -41,15 +41,15 @@ CREATE TABLE `trabalho`.`tClinica` (
 
 CREATE TABLE `trabalho`.`tAtendente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
-	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
-	`dataNascimento` DATE NOT NULL ,
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+	`dataNascimento` DATE,
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
 	PRIMARY KEY (`codigo`),
 	UNIQUE (`cpf`,`email`)) 
@@ -60,16 +60,16 @@ CREATE TABLE `trabalho`.`tAtendente` (
 
 CREATE TABLE `trabalho`.`tMedico` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`dataNascimento` DATE NOT NULL , 
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`dataNascimento` DATE, 
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	PRIMARY KEY (`codigo`),
 	UNIQUE (`cpf`,`email`)) 
@@ -80,18 +80,18 @@ CREATE TABLE `trabalho`.`tMedico` (
 
 CREATE TABLE `trabalho`.`tPaciente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`genero` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`tipoSanguineo` VARCHAR(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`dataNascimento` DATE NOT NULL , 
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`genero` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`tipoSanguineo` VARCHAR(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`dataNascimento` DATE, 
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	PRIMARY KEY (`codigo`),
 	UNIQUE (`cpf`,`email`)) 
@@ -102,8 +102,8 @@ CREATE TABLE `trabalho`.`tPaciente` (
 
 CREATE TABLE `trabalho`.`tClinicaAtendente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codAtendente` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codAtendente` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
 
@@ -112,8 +112,8 @@ CREATE TABLE `trabalho`.`tClinicaAtendente` (
 
 CREATE TABLE `trabalho`.`tClinicaMedico` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codMedico` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codMedico` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
 
@@ -122,8 +122,8 @@ CREATE TABLE `trabalho`.`tClinicaMedico` (
 
 CREATE TABLE `trabalho`.`tClinicaPaciente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codPaciente` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codPaciente` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
 
@@ -132,13 +132,13 @@ CREATE TABLE `trabalho`.`tClinicaPaciente` (
 
 CREATE TABLE `trabalho`.`tHorarioAtendimento` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codMedico` INT NOT NULL , 
-	`codClinica` INT NOT NULL , 
-	`seg` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`ter` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`qua` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`qui` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`sex` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`codMedico` INT NOT NULL DEFAULT 0, 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`seg` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`ter` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`qua` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`qui` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`sex` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
 	
@@ -147,8 +147,8 @@ CREATE TABLE `trabalho`.`tHorarioAtendimento` (
 
 CREATE TABLE `trabalho`.`tEspecialidade` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`descricao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`descricao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`),
 	UNIQUE (`nome`))
 	ENGINE = InnoDB;
@@ -158,8 +158,8 @@ CREATE TABLE `trabalho`.`tEspecialidade` (
 
 CREATE TABLE `trabalho`.`tMedicoEspecialidade` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codMedico` INT NOT NULL , 
-	`codEspecialidade` INT NOT NULL , 
+	`codMedico` INT NOT NULL DEFAULT 0, 
+	`codEspecialidade` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
 	

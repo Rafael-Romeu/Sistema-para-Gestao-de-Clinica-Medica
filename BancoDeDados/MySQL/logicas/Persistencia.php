@@ -5,17 +5,16 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 include_once "iPersistencia.php";
+include_once "Model.php";
+include_once "Filtro.php";
 
 class Persistencia implements iPersistencia
 {
-
+    private $Model;
     private $SERVERNAME;
     private $DATABASE;
     private $USERNAME;
     private $PASSWORD;
-    private $TABELA;
-    private $TABELACAMPOS;
-    private $TABELACAMPOSTIPO;
     private $SQL;
 
     private $conn;
@@ -47,6 +46,8 @@ class Persistencia implements iPersistencia
         try {
             $this->setConn(new PDO("mysql:host=" . $this->getSERVERNAME() . ";dbname=" . $this->getDATABASE(), $this->getUSERNAME(), $this->getPASSWORD()));
             $this->getConn()->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            print_r("\nPERSISTENCIA > Connect\n");
+            return $this->getConn();
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -54,6 +55,7 @@ class Persistencia implements iPersistencia
 
     public function DBDisconnect()
     {
+        print_r("\nPERSISTENCIA > Disconnect\n");
         $this->setConn(null);
     }
 
@@ -61,8 +63,8 @@ class Persistencia implements iPersistencia
     {
         try {
             $this->DBConnect();
-            $SQL = "SELECT " . $this->DISTINCT() . $this->getFiltroCampos() . " FROM " . $this->getTABELA() . " " . $this->getJOIN() . " WHERE " . $this->getFiltroValores() . $this->getGroupBy() . $this->getOrderBy() . ";";
-            print_r($SQL);
+            $SQL = "SELECT " . $this->DISTINCT() . $this->getFiltroCampos() . " FROM " . $this->getModel()->getTABELANOME() . " " . $this->getJOIN() . " WHERE " . $this->getFiltroValores() . $this->getGroupBy() . $this->getOrderBy() . ";";
+            print_r("\nPERSISTENCIA > " . $SQL . "\n\n");
             $this->setStmt(($this->getConn())->query($SQL));
             $this->getStmt()->execute();
             $result = $this->getStmt()->fetchAll(PDO::FETCH_ASSOC);
@@ -75,61 +77,102 @@ class Persistencia implements iPersistencia
 
     public function InnerJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita)
     {
-        $this->setJOIN("INNER JOIN " . $tabelaDireita . " ON " . $this->getTABELA() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
+        $this->setJOIN("INNER JOIN " . $tabelaDireita . " ON " . $this->getTABELANOME() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
     }
 
     public function RightJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita)
     {
-        $this->setJOIN("RIGHT JOIN " . $tabelaDireita . " ON " . $this->getTABELA() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
+        $this->setJOIN("RIGHT JOIN " . $tabelaDireita . " ON " . $this->getTABELANOME() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
     }
 
     public function LeftJOIN($tabelaDireita, $meuCampo, $campoTabelaDireita)
     {
-        $this->setJOIN("LEFT JOIN " . $tabelaDireita . " ON " . $this->getTABELA() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
+        $this->setJOIN("LEFT JOIN " . $tabelaDireita . " ON " . $this->getTABELANOME() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
     }
 
-    // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
-    // FROM Orders
-    // INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+    public function schema($table)
+    {
+        $q = $this->DBConnect()->prepare("SHOW COLUMNS FROM `$table`");
+        $q->execute();
+        $q = $q->fetchAll();
+        $this->DBDisconnect();
+        return $q;
+    }
 
-    // public function incluir()
-    // {
-    //     try {
-    //         $this->setCONNECTION(new PDO("mysql:host="+$this->getSERVERNAME()+";dbname="+$this->getDATABASE(), $this->getUSERNAME(), $this->getPASSWORD()));
-    //         $this->getCONNECTION()->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //         $this->getCONNECTION()->beginTransaction();
+    public function executeINSERT()
+    {
+        try {
+            $this->DBConnect();
+            $this->getConn()->beginTransaction();
+            $campos = "";
+            $valores = "";
+            $v = false;
+            // print_r($this->getModel());
+            $tabela = $this->getModel()->getTABELANOME();
+            foreach ($this->getModel()->getTABELACAMPOS() as $campo) {
+                if ($campo[0] != "codigo" && $campo[0] != "regDate") {
+                    if ($v) {
+                        $campos .= ",";
+                        $valores .= ",";
+                    }
+                    $campos .= $campo[0];
+                    $valores .= ":$campo[0]";
+                    $v = true;
+                }
+            }
 
-    //         // prepare sql and bind parameters
-    //         // "INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)"
-    //         // $stmt->bind_param("sss", $firstname, $lastname, $email);
-    //         $stmt = $conn->prepare("INSERT INTO "+$this->getTABELA()+" ("+$this->getTABELACAMPOS()+") VALUES ("+$this->_getTABELACAMPOS()+")");
-    //         // $stmt->bindParam(':firstname', $firstname);
-    //         // $stmt->bindParam(':lastname', $lastname);
-    //         // $stmt->bindParam(':email', $email);
+            // for ($i = 1; $i < count($this->getModel()->getTABELACAMPOS()) - 1; $i++) {
+            //     $campo = $this->getModel()->getTABELACAMPOS()[$i];
+            //     $campos .= ($i == 1) ? "" : ",";
+            //     $campos .= $campo;
+            //     $valores .= ($i == 1) ? ":$campo" : ",:$campo";
+            //     // $valores .= ($this->getModel()->getMAPPING()[$campo] == "")? "''": $this->getModel()->getMAPPING()[$campo];
+            // }
+            // print("\ncampos: $campos\nvalores: $valores\n");
+            $SQL = "INSERT INTO $tabela ($campos) VALUES ($valores)";
+            print_r("\n" . $SQL . "\n");
+            $this->setStmt($this->getConn()->prepare($SQL));
+            print("\n\n\n> Antes: \n");
+            print_r($this->getStmt());
+            foreach ($this->getModel()->getTABELACAMPOS() as $campo) {
+                if ($campo[0] != "codigo" && $campo[0] != "regDate") {
+                    $this->getStmt()->bindParam(":$campo[0]", $this->getModel()->getMAPPING()[$campo[0]]["valor"]);
+                }
+            }
+            print("\n\n\n> Depois: \n");
+            $this->getStmt()->execute();
+            // print_r($this->getStmt());
+            // $stmt->bindParam(':firstname', $firstname);
+            // $stmt->bindParam(':lastname', $lastname);
+            // $stmt->bindParam(':email', $email);
+            $this->getConn()->commit();
+            // $conn->commit();
+            return "Inserção realizada com sucesso!";
+        } catch (PDOException $e) {
+            $this->getConn()->rollback();
+            echo "Error: " . $e->getMessage();
+        }
+    }
 
-    //         $conn->commit();
-    //     } catch (PDOException $e) {
-    //         $conn->rollback();
-    //         echo "Error: " . $e->getMessage();
-    //     }
+    public function bindParams()
+    {
+        # Necessario ser reimplementada em cada sub-classe
+    }
 
-    //     $conn = null;
-    // }
+    public function alterar()
+    {
 
-    // public function alterar()
-    // {
+    }
 
-    // }
+    public function excluir()
+    {
 
-    // public function excluir()
-    // {
+    }
 
-    // }
+    public function getValor(string $campo)
+    {
 
-    // public function identifica()
-    // {
-    //     return false;
-    // }
+    }
 
     public function DISTINCT()
     {
@@ -138,6 +181,27 @@ class Persistencia implements iPersistencia
         } else {
             return "";
         }
+    }
+
+    /**
+     * Get the value of Model
+     */
+    public function getModel()
+    {
+        return $this->Model;
+    }
+
+    /**
+     * Set the value of Model
+     *
+     * @return  self
+     */
+    public function setModel($Tabela)
+    {
+        $this->Model = new Model();
+        $this->Model->setTABELANOME($Tabela);
+        $this->Model->setSCHEMA($this->schema($Tabela));
+        return $this;
     }
 
     /**
@@ -217,63 +281,6 @@ class Persistencia implements iPersistencia
     }
 
     /**
-     * Get the value of TABELA
-     */
-    public function getTABELA()
-    {
-        return $this->TABELA;
-    }
-
-    /**
-     * Set the value of TABELA
-     *
-     * @return  self
-     */
-    public function setTABELA($TABELA)
-    {
-        $this->TABELA = $TABELA;
-        return $this;
-    }
-
-    /**
-     * Get the value of TABELACAMPOS
-     */
-    public function getTABELACAMPOS()
-    {
-        return $this->TABELACAMPOS;
-    }
-
-    /**
-     * Set the value of TABELACAMPOS
-     *
-     * @return  self
-     */
-    public function setTABELACAMPOS($TABELACAMPOS)
-    {
-        $this->TABELACAMPOS = $TABELACAMPOS;
-        return $this;
-    }
-
-    /**
-     * [PRIVATE] _getTABELACAMPOS
-     *
-     * Retorna a quantidade exata de "?" para compor o statement do INSERT
-     *
-     * @return $camposInterrogacao
-     */
-    protected function _getTABELACAMPOS()
-    {
-        $result = "?";
-        $campos = $this->getTABELACAMPOS();
-        $campos = explode(",", $campos);
-        for ($i = 0; $i < count($campos) - 1; $i++) {
-            $result .= ",";
-            $result .= "?";
-        }
-        return $result;
-    }
-
-    /**
      * Get the value of SQL
      */
     public function getSQL()
@@ -289,25 +296,6 @@ class Persistencia implements iPersistencia
     public function setSQL($SQL)
     {
         $this->SQL = $SQL;
-        return $this;
-    }
-
-    /**
-     * Get the value of TABELACAMPOSTIPO
-     */
-    public function getTABELACAMPOSTIPO()
-    {
-        return $this->TABELACAMPOSTIPO;
-    }
-
-    /**
-     * Set the value of TABELACAMPOSTIPO
-     *
-     * @return  self
-     */
-    public function setTABELACAMPOSTIPO($TABELACAMPOSTIPO)
-    {
-        $this->TABELACAMPOSTIPO = $TABELACAMPOSTIPO;
         return $this;
     }
 
@@ -490,4 +478,5 @@ class Persistencia implements iPersistencia
         $this->Join = $Join;
         return $this;
     }
+
 }

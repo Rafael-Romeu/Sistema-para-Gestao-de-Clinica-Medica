@@ -5,6 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 include_once "Persistencia.php";
+include_once "Filtro.php";
 
 class lAtendente extends Persistencia
 {
@@ -12,121 +13,160 @@ class lAtendente extends Persistencia
     private $SQLSelect;
     private $SQLDelete;
     private $SQLUpdate;
-    public $codigo;
-    public $nome;
-    public $senha;
-    public $cpf;
-    public $dataNascimento;
-    public $endereco;
-    public $CEP;
-    public $telefone1;
-    public $telefone2;
-    public $email;
-    public $regDate;
+    private $codigo;
+    private $nome;
+    private $senha;
+    private $cpf;
+    private $dataNascimento;
+    private $endereco;
+    private $CEP;
+    private $telefone1;
+    private $telefone2;
+    private $email;
+    private $regDate;
 
     public function __construct()
     {
         parent::__construct();
-        parent::setTABELA("tAtendente");
-        parent::setTABELACAMPOS("codigo,nome,senha,cpf,dataNascimento,endereco,CEP,telefone1,telefone2,email,regDate");
-
-        $this->setCodigo("");
-        $this->setNome("");
-        $this->setSenha("");
-        $this->setCpf("");
-        $this->setDataNascimento(date("YYYY-MM-DD", time()));
-        $this->setEndereco("");
-        $this->setCEP("");
-        $this->setTelefone1("");
-        $this->setTelefone2("");
-        $this->setEmail("");
-        $this->setRegDate(time());
+        $this->setModel("tAtendente");
+        // $this->setCodigo("");
+        // $this->setNome("");
+        // $this->setSenha("");
+        // $this->setCpf("");
+        // $this->setDataNascimento("");
+        // $this->setEndereco("");
+        // $this->setCEP("");
+        // $this->setTelefone1("");
+        // $this->setTelefone2("");
+        // $this->setEmail("");
+        // $this->setRegDate("");
     }
 
     public function teste()
     {
-        // $this->setTABELA("tAtendente");
-        // print_r(parent::getTABELA());
-        // $this->setDistinct();
-        // print_r(parent::DISTINCT());
-        // $this->setJOIN("INNER JOIN "."tClinicaAtendente"." ON "."tAtendente"."."."codigo"."="."tClinicaAtendente"."."."codAtendente");
-        print_r($this->listaAtendenteByCodigo("1"));
+        // $this->setNome("Marlon");
+        // $this->executeINSERT();
+        // $this->setCodigo("7");
+        $this->executeINSERT();
+        // print_r($this->getModel()->getValor("codigo"));
+        // print_r($this->getModel()->getMAPPING());
 
+        // if($this->identifica()){
+        //     print_r($this);
+        // }
+        // print_r($this->getModel()->getTABELACAMPOS());
     }
 
     public function identifica()
     {
-
+        $sFiltro = "1";
+        $sFiltro .= ($this->getCodigo() == "") ? "" : " AND codigo='" . $this->getCodigo() . "'";
+        $sFiltro .= ($this->getNome() == "") ? "" : " AND nome='" . $this->getNome() . "'";
+        $sFiltro .= ($this->getSenha() == "") ? "" : " AND senha='" . $this->getSenha() . "'";
+        $sFiltro .= ($this->getCpf() == "") ? "" : " AND cpf='" . $this->getCpf() . "'";
+        $sFiltro .= ($this->getDataNascimento() == "") ? "" : " AND datanascimento='" . $this->getDataNascimento() . "'";
+        $sFiltro .= ($this->getEndereco() == "") ? "" : " AND endereco='" . $this->getEndereco() . "'";
+        $sFiltro .= ($this->getCEP() == "") ? "" : " AND CEP='" . $this->getCEP() . "'";
+        $sFiltro .= ($this->getTelefone1() == "") ? "" : " AND telefone1='" . $this->getTelefone1() . "'";
+        $sFiltro .= ($this->getTelefone2() == "") ? "" : " AND telefone2='" . $this->getTelefone2() . "'";
+        $sFiltro .= ($this->getEmail() == "") ? "" : " AND email='" . $this->getEmail() . "'";
+        $sFiltro .= ($this->getRegDate() == "") ? "" : " AND regDate='" . $this->getRegDate() . "'";
+        $this->setFiltroValores($sFiltro);
+        $tabela = $this->executeSELECT();
+        print_r($tabela);
+        if (count($tabela) <= 0 || count($tabela) > 1) {
+            print("\n> identifica: false\n");
+            return false;
+        }
+        $this->setCodigo($tabela[0][codigo]);
+        $this->setNome($tabela[0][nome]);
+        $this->setSenha($tabela[0][senha]);
+        $this->setCpf($tabela[0][cpf]);
+        $this->setDataNascimento(date($tabela[0][datanascimento]));
+        $this->setEndereco($tabela[0][endereco]);
+        $this->setCEP($tabela[0][CEP]);
+        $this->setTelefone1($tabela[0][telefone2]);
+        $this->setTelefone2($tabela[0][telefone1]);
+        $this->setEmail($tabela[0][email]);
+        $this->setRegDate(time($tabela[0][regDate]));
+        print("\n> identifica: true\n");
+        return true;
     }
 
-    public function listaAtendenteByCodigo(string $codigo) 
+    public function listaAtendenteByCodigo(string $codigo)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("codigo = '".$codigo."'");
+        $this->setFiltroValores("codigo = '$codigo'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByNome(string $nome) 
+    public function listaAtendenteByNome(string $nome)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("nome = '".$nome."'");
+        $this->setFiltroValores("nome = '$nome'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteBySenha(string $senha) 
+    public function listaAtendenteBySenha(string $senha)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("senha = '".$senha."'");
+        $this->setFiltroValores("senha = '$senha'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCpf(string $cpf) 
+    public function listaAtendenteByCpf(string $cpf)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("cpf = '".$cpf."'");
+        $this->setFiltroValores("cpf = '$cpf'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByDataNascimento(string $dataNascimento) 
+    public function listaAtendenteByDataNascimento(string $dataNascimento)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("dataNascimento = '".$dataNascimento."'");
+        $this->setFiltroValores("dataNascimento = '$dataNascimento'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEndereco(string $endereco) 
+    public function listaAtendenteByEndereco(string $endereco)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("endereco = '".$endereco."'");
+        $this->setFiltroValores("endereco = '$endereco'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCEP(string $CEP) 
+    public function listaAtendenteByCEP(string $CEP)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("CEP = '".$CEP."'");
+        $this->setFiltroValores("CEP = '$CEP'");
         return $this->executeSELECT();
     }
 
-
-    public function listaAtendenteByTelefone1(string $telefone1) 
+    public function listaAtendenteByTelefone1(string $telefone1)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("telefone1 = '".$telefone1."'");
+        $this->setFiltroValores("telefone1 = '$telefone1'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByTelefone2(string $telefone2) 
+    public function listaAtendenteByTelefone2(string $telefone2)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("telefone2 = '".$telefone2."'");
+        $this->setFiltroValores("telefone2 = '$telefone2'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEmail(string $email) 
+    public function listaAtendenteByEmail(string $email)
     {
         $this->limpaFiltros();
-        $this->setFiltroValores("email = '".$email."'");
+        $this->setFiltroValores("email = '$email'");
+        return $this->executeSELECT();
+    }
+
+    public function listaAtendenteByRegDate(string $regDate)
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("regDate = '$regDate'");
         return $this->executeSELECT();
     }
 
@@ -135,7 +175,7 @@ class lAtendente extends Persistencia
      */
     public function getCodigo()
     {
-        return $this->codigo;
+        return $this->getModel()->getValor("codigo");
     }
 
     /**
@@ -145,8 +185,7 @@ class lAtendente extends Persistencia
      */
     public function setCodigo($codigo)
     {
-        $this->codigo = $codigo;
-
+        $this->getModel()->setValor("codigo", $codigo);
         return $this;
     }
 
@@ -155,7 +194,7 @@ class lAtendente extends Persistencia
      */
     public function getNome()
     {
-        return $this->nome;
+        return $this->getModel()->getValor("nome");
     }
 
     /**
@@ -165,8 +204,7 @@ class lAtendente extends Persistencia
      */
     public function setNome($nome)
     {
-        $this->nome = $nome;
-
+        $this->getModel()->setValor("nome", $nome);
         return $this;
     }
 
@@ -175,7 +213,7 @@ class lAtendente extends Persistencia
      */
     public function getSenha()
     {
-        return $this->senha;
+        return $this->getModel()->getValor("senha");
     }
 
     /**
@@ -185,7 +223,7 @@ class lAtendente extends Persistencia
      */
     public function setSenha($senha)
     {
-        $this->senha = $senha;
+        $this->getModel()->setValor("senha", $senha);
 
         return $this;
     }
@@ -195,7 +233,7 @@ class lAtendente extends Persistencia
      */
     public function getCpf()
     {
-        return $this->cpf;
+        return $this->getModel()->getValor("cpf");
     }
 
     /**
@@ -205,8 +243,7 @@ class lAtendente extends Persistencia
      */
     public function setCpf($cpf)
     {
-        $this->cpf = $cpf;
-
+        $this->getModel()->setValor("cpf", $cpf);
         return $this;
     }
 
@@ -215,7 +252,7 @@ class lAtendente extends Persistencia
      */
     public function getDataNascimento()
     {
-        return $this->dataNascimento;
+        return $this->getModel()->getValor("dataNascimento");
     }
 
     /**
@@ -225,8 +262,7 @@ class lAtendente extends Persistencia
      */
     public function setDataNascimento($dataNascimento)
     {
-        $this->dataNascimento = $dataNascimento;
-
+        $this->getModel()->setValor("dataNascimento", $dataNascimento);
         return $this;
     }
 
@@ -235,7 +271,7 @@ class lAtendente extends Persistencia
      */
     public function getEndereco()
     {
-        return $this->endereco;
+        return $this->getModel()->getValor("endereco");
     }
 
     /**
@@ -245,8 +281,7 @@ class lAtendente extends Persistencia
      */
     public function setEndereco($endereco)
     {
-        $this->endereco = $endereco;
-
+        $this->getModel()->setValor("endereco", $endereco);
         return $this;
     }
 
@@ -255,7 +290,7 @@ class lAtendente extends Persistencia
      */
     public function getCEP()
     {
-        return $this->CEP;
+        return $this->getModel()->getValor("CEP");
     }
 
     /**
@@ -265,8 +300,7 @@ class lAtendente extends Persistencia
      */
     public function setCEP($CEP)
     {
-        $this->CEP = $CEP;
-
+        $this->getModel()->setValor("CEP",$CEP);
         return $this;
     }
 
@@ -275,7 +309,7 @@ class lAtendente extends Persistencia
      */
     public function getTelefone1()
     {
-        return $this->telefone1;
+        return $this->getModel()->getValor("telefone1");
     }
 
     /**
@@ -285,8 +319,7 @@ class lAtendente extends Persistencia
      */
     public function setTelefone1($telefone1)
     {
-        $this->telefone1 = $telefone1;
-
+        $this->getModel()->setValor("telefone1",$telefone1);
         return $this;
     }
 
@@ -295,7 +328,7 @@ class lAtendente extends Persistencia
      */
     public function getTelefone2()
     {
-        return $this->telefone2;
+        return $this->getModel()->getValor("telefone2");
     }
 
     /**
@@ -305,8 +338,7 @@ class lAtendente extends Persistencia
      */
     public function setTelefone2($telefone2)
     {
-        $this->telefone2 = $telefone2;
-
+        $this->getModel()->setValor("telefone2",$telefone2);
         return $this;
     }
 
@@ -315,7 +347,7 @@ class lAtendente extends Persistencia
      */
     public function getEmail()
     {
-        return $this->email;
+        return $this->getModel()->getValor("email");
     }
 
     /**
@@ -325,8 +357,7 @@ class lAtendente extends Persistencia
      */
     public function setEmail($email)
     {
-        $this->email = $email;
-
+        $this->getModel()->setValor("email", $email);
         return $this;
     }
 
@@ -335,7 +366,7 @@ class lAtendente extends Persistencia
      */
     public function getRegDate()
     {
-        return $this->regDate;
+        return $this->getModel()->getValor("regDate");
     }
 
     /**
@@ -345,30 +376,10 @@ class lAtendente extends Persistencia
      */
     public function setRegDate($regDate)
     {
-        $this->regDate = $regDate;
-
+        $this->getModel()->setValor("regDate",$regDate);
         return $this;
     }
 
-    /**
-     * Get the value of SQLInsert
-     */
-    public function getSQLInsert()
-    {
-        return $this->SQLInsert;
-    }
-
-    /**
-     * Set the value of SQLInsert
-     *
-     * @return  self
-     */
-    public function setSQLInsert($SQLInsert)
-    {
-        $this->SQLInsert = $SQLInsert;
-
-        return $this;
-    }
 }
 
 $obj = new lAtendente();
