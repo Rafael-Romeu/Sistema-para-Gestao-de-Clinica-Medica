@@ -59,15 +59,66 @@ class Persistencia implements iPersistencia
         $this->setConn(null);
     }
 
+    public function schema($table)
+    {
+        $q = $this->DBConnect()->prepare("SHOW COLUMNS FROM `$table`");
+        $q->execute();
+        $q = $q->fetchAll();
+        $this->DBDisconnect();
+        return $q;
+    }
+
+    public function identifica()
+    {
+        $oFiltro = new Filtro();
+        foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
+            if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
+                $oFiltro->equals($campo, $valor["valor"]);
+            }
+        }
+        $this->setFiltroValores($oFiltro->toString());
+        $result = $this->executeSELECT();
+        if (count($result) == 1) {
+            foreach ($result[0] as $campo => $valor) {
+                $this->getModel()->setValor($campo, $valor);
+            }
+            // print_r($result);
+            print_r("\nPERSISTENCIA > Identifica True\n");
+            return true;
+        } else {
+            print_r("\nPERSISTENCIA > Identifica False\n");
+            return false;
+        }
+    }
+
+    /***
+     * Identifica apenas verificando o codigo e NÃO preenche os campos do Model
+     */
+    public function identificaSimples()
+    {
+        $oFiltro = new Filtro();
+        $oFiltro->equals("codigo", $this->getModel()->getMAPPING()["codigo"]["valor"]);
+        $this->setFiltroValores($oFiltro->toString());
+        $result = $this->executeSELECT();
+        if (count($result) == 1) {
+            print_r("\nPERSISTENCIA > Identifica Simples True\n");
+            return true;
+        } else {
+            print_r("\nPERSISTENCIA > Identifica Simples False\n");
+            return false;
+        }
+    }
+
     public function executeSELECT()
     {
         try {
             $this->DBConnect();
-            $SQL = "SELECT " . $this->DISTINCT() . $this->getFiltroCampos() . " FROM " . $this->getModel()->getTABELANOME() . " " . $this->getJOIN() . " WHERE " . $this->getFiltroValores() . $this->getGroupBy() . $this->getOrderBy() . ";";
-            print_r("\nPERSISTENCIA > " . $SQL . "\n\n");
-            $this->setStmt(($this->getConn())->query($SQL));
+            $this->setSQL("SELECT " . $this->DISTINCT() . $this->getFiltroCampos() . " FROM " . $this->getModel()->getTABELANOME() . " " . $this->getJOIN() . " WHERE " . $this->getFiltroValores() . $this->getGroupBy() . $this->getOrderBy() . ";");
+            print_r("\nPERSISTENCIA > " . $this->getSQL());
+            $this->setStmt(($this->getConn())->query($this->getSQL()));
             $this->getStmt()->execute();
             $result = $this->getStmt()->fetchAll(PDO::FETCH_ASSOC);
+            print_r("\nPERSISTENCIA > Resultados: " . count($result) . "\n");
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -90,13 +141,90 @@ class Persistencia implements iPersistencia
         $this->setJOIN("LEFT JOIN " . $tabelaDireita . " ON " . $this->getTABELANOME() . "." . $meuCampo . "=" . $tabelaDireita . "." . $campoTabelaDireita);
     }
 
-    public function schema($table)
+    public function executeDELETE()
     {
-        $q = $this->DBConnect()->prepare("SHOW COLUMNS FROM `$table`");
-        $q->execute();
-        $q = $q->fetchAll();
-        $this->DBDisconnect();
-        return $q;
+        if (!$this->identificaSimples()) {
+            print_r("\nPERSISTENCIA > Não foi possível identificar o registro. Informe mais parâmetros.\n");
+            return "Não foi possível identificar o registro. Informe mais parâmetros.\n";
+        }
+        $this->setFiltroValores("codigo=" . $this->getModel()->getMAPPING()["codigo"]["valor"]);
+        return ($this->executeDELETEcompleto());
+    }
+
+    public function executeDELETEcompleto()
+    {
+        try {
+            $this->DBConnect();
+            $this->setSQL("DELETE FROM " . $this->getModel()->getTABELANOME() . " WHERE " . $this->getFiltroValores() . ";");
+            print_r("\nPERSISTENCIA > " . $this->getSQL());
+            $this->setStmt(($this->getConn())->prepare($this->getSQL()));
+            $this->getStmt()->execute();
+            print_r("\nPERSISTENCIA > Exclusão efetuada com sucesso!\n");
+            $this->DBDisconnect();
+            return "Exclusão efetuada com sucesso!\n";
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            $this->DBDisconnect();
+        }
+    }
+
+    public function executeUPDATE()
+    {
+        if (!$this->identificaSimples()) {
+            print_r("\nPERSISTENCIA > Não foi possível identificar o registro. Informe mais parâmetros.\n");
+            return "Não foi possível identificar o registro. Informe mais parâmetros.\n";
+        }
+        $this->setFiltroValores("codigo=" . $this->getModel()->getMAPPING()["codigo"]["valor"]);
+        return ($this->executeUPDATEcompleto());
+    }
+
+    /***
+     * @param string $campos Campos a serem alterados, separados por virgula (ex: "codigo,nome");
+     */
+    public function executeUPDATEcompleto($camposSelecionados = null)
+    {
+        // print_r($this->getModel()->getMAPPING());
+        try {
+            $this->DBConnect();
+            $this->getConn()->beginTransaction();
+            $campos = "";
+
+            // print_r($this->getModel()->getMAPPING());
+            $tabela = $this->getModel()->getTABELANOME();
+            if ($camposSelecionados != null) {
+                $camposSelecionados = explode(",", $camposSelecionados);
+                $v = false;
+                foreach ($camposSelecionados as $campo) {
+                    if ($v) {
+                        $campos .= ",";
+                    }
+                    $campos .= "$campo='" . $this->getModel()->getMAPPING()[$campo]["valor"] . "'";
+                    $v = true;
+                }
+            } else {
+                $v = false;
+                foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
+                    if ($campo != "codigo" && $campo != "regDate") {
+                        if ($v) {
+                            $campos .= ",";
+                        }
+                        $campos .= "$campo='" . $valor["valor"] . "'";
+                        $v = true;
+                    }
+                }
+            }
+            print("\ncampos: $campos\n");
+            $this->setSQL("UPDATE $tabela SET $campos WHERE " . $this->getFiltroValores() . ";");
+            print_r("\nPERSISTENCIA > " . $this->getSQL() . "\n");
+            $this->setStmt($this->getConn()->prepare($this->getSQL()));
+            $this->bindParams();
+            $this->getStmt()->execute();
+            $this->getConn()->commit();
+            return "Alteração realizada com sucesso!";
+        } catch (PDOException $e) {
+            $this->getConn()->rollback();
+            echo "Error: " . $e->getMessage();
+        }
     }
 
     public function executeINSERT()
@@ -109,18 +237,17 @@ class Persistencia implements iPersistencia
             $v = false;
             // print_r($this->getModel());
             $tabela = $this->getModel()->getTABELANOME();
-            foreach ($this->getModel()->getTABELACAMPOS() as $campo) {
-                if ($campo[0] != "codigo" && $campo[0] != "regDate") {
+            foreach ($this->getModel()->getMAPPING() as $campo) {
+                if ($campo != "codigo" && $campo != "regDate") {
                     if ($v) {
                         $campos .= ",";
                         $valores .= ",";
                     }
-                    $campos .= $campo[0];
-                    $valores .= ":$campo[0]";
+                    $campos .= $campo;
+                    $valores .= ":$campo";
                     $v = true;
                 }
             }
-
             // for ($i = 1; $i < count($this->getModel()->getTABELACAMPOS()) - 1; $i++) {
             //     $campo = $this->getModel()->getTABELACAMPOS()[$i];
             //     $campos .= ($i == 1) ? "" : ",";
@@ -129,24 +256,16 @@ class Persistencia implements iPersistencia
             //     // $valores .= ($this->getModel()->getMAPPING()[$campo] == "")? "''": $this->getModel()->getMAPPING()[$campo];
             // }
             // print("\ncampos: $campos\nvalores: $valores\n");
-            $SQL = "INSERT INTO $tabela ($campos) VALUES ($valores)";
-            print_r("\n" . $SQL . "\n");
-            $this->setStmt($this->getConn()->prepare($SQL));
-            print("\n\n\n> Antes: \n");
-            print_r($this->getStmt());
-            foreach ($this->getModel()->getTABELACAMPOS() as $campo) {
-                if ($campo[0] != "codigo" && $campo[0] != "regDate") {
-                    $this->getStmt()->bindParam(":$campo[0]", $this->getModel()->getMAPPING()[$campo[0]]["valor"]);
-                }
-            }
-            print("\n\n\n> Depois: \n");
-            $this->getStmt()->execute();
+            $this->setSQL("INSERT INTO $tabela ($campos) VALUES ($valores)");
+            print_r("\nPERSISTENCIA > " . $this->getSQL() . "\n");
+            $this->setStmt($this->getConn()->prepare($this->getSQL()));
+            // print("\n\n\n> Antes: \n");
             // print_r($this->getStmt());
-            // $stmt->bindParam(':firstname', $firstname);
-            // $stmt->bindParam(':lastname', $lastname);
-            // $stmt->bindParam(':email', $email);
+            $this->bindParams();
+            // print("\n\n\n> Depois: \n");
+            // print_r($this->getStmt());
+            $this->getStmt()->execute();
             $this->getConn()->commit();
-            // $conn->commit();
             return "Inserção realizada com sucesso!";
         } catch (PDOException $e) {
             $this->getConn()->rollback();
@@ -156,22 +275,32 @@ class Persistencia implements iPersistencia
 
     public function bindParams()
     {
-        # Necessario ser reimplementada em cada sub-classe
+        // print_r($this->getModel()->getMAPPING());
+        foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
+            print_r("\n\tcampo: $campo\n\tvalor: " . $valor["valor"] . "\n\ttipo: " . $valor["tipo"] . "\n");
+            if ($campo != "codigo" && $campo != "regDate") {
+                $this->getStmt()->bindParam(":$campo", $valor["valor"]);
+            }
+        }
     }
 
-    public function alterar()
+    public function executeSQL(string $SQL = null)
     {
-
-    }
-
-    public function excluir()
-    {
-
-    }
-
-    public function getValor(string $campo)
-    {
-
+        if ($SQL == null) {
+            $SQL = $this->getSQL();
+        }
+        try {
+            $this->DBConnect();
+            $this->getConn()->beginTransaction();
+            $this->setStmt($this->getConn()->prepare($SQL));
+            // $this->bindParams();
+            $this->getStmt()->execute();
+            $this->getConn()->commit();
+            return "Inserção realizada com sucesso!";
+        } catch (PDOException $e) {
+            $this->getConn()->rollback();
+            echo "Error: " . $e->getMessage();
+        }
     }
 
     public function DISTINCT()

@@ -7,85 +7,92 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lAtendente extends Persistencia
+class lMedico extends Persistencia
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setModel("tAtendente");
+        $this->setModel("tMedico");
     }
 
-    public function listaAtendenteByCodigo(string $codigo)
+    public function listaMedicoByCodigo(string $codigo)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("codigo = '$codigo'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByNome(string $nome)
+    public function listaMedicoByNome(string $nome)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("nome = '$nome'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteBySenha(string $senha)
+    public function listaMedicoBySenha(string $senha)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("senha = '$senha'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCpf(string $cpf)
+    public function listaMedicoByCpf(string $cpf)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("cpf = '$cpf'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByDataNascimento(string $dataNascimento)
+    public function listaMedicoByPlanoDeSaude(string $planoDeSaude)
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("planoDeSaude = '$planoDeSaude'");
+        return $this->executeSELECT();
+    }
+
+    public function listaMedicoByDataNascimento(string $dataNascimento)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("dataNascimento = '$dataNascimento'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEndereco(string $endereco)
+    public function listaMedicoByEndereco(string $endereco)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("endereco = '$endereco'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCEP(string $CEP)
+    public function listaMedicoByCEP(string $CEP)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("CEP = '$CEP'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByTelefone1(string $telefone1)
+    public function listaMedicoByTelefone1(string $telefone1)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("telefone1 = '$telefone1'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByTelefone2(string $telefone2)
+    public function listaMedicoByTelefone2(string $telefone2)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("telefone2 = '$telefone2'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEmail(string $email)
+    public function listaMedicoByEmail(string $email)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("email = '$email'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByRegDate(string $regDate)
+    public function listaMedicoByRegDate(string $regDate)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("regDate = '$regDate'");
@@ -166,6 +173,25 @@ class lAtendente extends Persistencia
     public function setCpf($cpf)
     {
         $this->getModel()->setValor("cpf", $cpf);
+        return $this;
+    }
+
+    /**
+     * Get the value of planoDeSaude
+     */
+    public function getPlanoDeSaude()
+    {
+        return $this->getModel()->getValor("planoDeSaude");
+    }
+
+    /**
+     * Set the value of planoDeSaude
+     *
+     * @return  self
+     */
+    public function setPlanoDeSaude($planoDeSaude)
+    {
+        $this->getModel()->setValor("planoDeSaude", $planoDeSaude);
         return $this;
     }
 
@@ -304,5 +330,5 @@ class lAtendente extends Persistencia
 
 }
 
-$obj = new lAtendente();
+$obj = new lMedico();
 print_r($obj);

@@ -7,85 +7,106 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lAtendente extends Persistencia
+class lPaciente extends Persistencia
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setModel("tAtendente");
+        $this->setModel("tPaciente");
     }
 
-    public function listaAtendenteByCodigo(string $codigo)
+    public function listaPacienteByCodigo(string $codigo)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("codigo = '$codigo'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByNome(string $nome)
+    public function listaPacienteByNome(string $nome)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("nome = '$nome'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteBySenha(string $senha)
+    public function listaPacienteBySenha(string $senha)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("senha = '$senha'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCpf(string $cpf)
+    public function listaPacienteByCpf(string $cpf)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("cpf = '$cpf'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByDataNascimento(string $dataNascimento)
+    public function listaPacienteByPlanoDeSaude(string $planoDeSaude)
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("planoDeSaude = '$planoDeSaude'");
+        return $this->executeSELECT();
+    }
+
+    public function listaPacienteByGenero(string $genero)
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("genero = '$genero'");
+        return $this->executeSELECT();
+    }
+
+    public function listaPacienteByTipoSanguineo(string $tipoSanguineo)
+    {
+        $this->limpaFiltros();
+        $this->setFiltroValores("tipoSanguineo = '$tipoSanguineo'");
+        return $this->executeSELECT();
+    }
+
+    public function listaPacienteByDataNascimento(string $dataNascimento)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("dataNascimento = '$dataNascimento'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEndereco(string $endereco)
+    public function listaPacienteByEndereco(string $endereco)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("endereco = '$endereco'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByCEP(string $CEP)
+    public function listaPacienteByCEP(string $CEP)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("CEP = '$CEP'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByTelefone1(string $telefone1)
+    public function listaPacienteByTelefone1(string $telefone1)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("telefone1 = '$telefone1'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByTelefone2(string $telefone2)
+    public function listaPacienteByTelefone2(string $telefone2)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("telefone2 = '$telefone2'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByEmail(string $email)
+    public function listaPacienteByEmail(string $email)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("email = '$email'");
         return $this->executeSELECT();
     }
 
-    public function listaAtendenteByRegDate(string $regDate)
+    public function listaPacienteByRegDate(string $regDate)
     {
         $this->limpaFiltros();
         $this->setFiltroValores("regDate = '$regDate'");
@@ -166,6 +187,63 @@ class lAtendente extends Persistencia
     public function setCpf($cpf)
     {
         $this->getModel()->setValor("cpf", $cpf);
+        return $this;
+    }
+
+    /**
+     * Get the value of planoDeSaude
+     */
+    public function getPlanoDeSaude()
+    {
+        return $this->getModel()->getValor("planoDeSaude");
+    }
+
+    /**
+     * Set the value of planoDeSaude
+     *
+     * @return  self
+     */
+    public function setPlanoDeSaude($planoDeSaude)
+    {
+        $this->getModel()->setValor("planoDeSaude", $planoDeSaude);
+        return $this;
+    }
+
+    /**
+     * Get the value of genero
+     */
+    public function getGenero()
+    {
+        return $this->getModel()->getValor("genero");
+    }
+
+    /**
+     * Set the value of genero
+     *
+     * @return  self
+     */
+    public function setGenero($genero)
+    {
+        $this->getModel()->setValor("genero", $genero);
+        return $this;
+    }
+
+    /**
+     * Get the value of tipoSanguineo
+     */
+    public function getTipoSanguineo()
+    {
+        return $this->getModel()->getValor("tipoSanguineo");
+    }
+
+    /**
+     * Set the value of tipoSanguineo
+     *
+     * @return  self
+     */
+    public function setTipoSanguineo($tipoSanguineo)
+    {
+        $this->getModel()->setValor("tipoSanguineo", $tipoSanguineo);
         return $this;
     }
 
@@ -304,5 +382,5 @@ class lAtendente extends Persistencia
 
 }
 
-$obj = new lAtendente();
+$obj = new lPaciente();
 print_r($obj);

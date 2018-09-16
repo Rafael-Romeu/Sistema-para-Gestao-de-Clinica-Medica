@@ -10,7 +10,7 @@ class Model
     private $SCHEMA;
     private $MAPPING;
     private $TABELANOME;
-    private $TABELACAMPOS;
+    private $TABELACAMPOSNOME;
 
     public function __construct()
     {
@@ -37,37 +37,6 @@ class Model
     }
 
     /**
-     * Get the value of TABELACAMPOS
-     */
-    public function getTABELACAMPOS()
-    {
-        return $this->TABELACAMPOS;
-    }
-
-    /**
-     * Set the value of TABELACAMPOS
-     *
-     * @return  self
-     */
-    public function setTABELACAMPOS($SCHEMA)
-    {
-        $this->TABELACAMPOS = array();
-        print_r($this->getSCHEMA());
-        foreach ($SCHEMA as $campo) {
-            // $a = array($campo["Field"] => $campo["Type"]);
-            // $this->TABELACAMPOS += $a;
-            //  if (strpos($campo[1], 'varchar') !== false) {
-            //     $nullValue = "";
-            // }
-            // if (strpos($campo[1], 'date') !== false) {
-            //     $nullValue = date;
-            // }
-            array_push($this->TABELACAMPOS, [$campo["Field"], $campo["Type"]]);
-        }
-        return $this;
-    }
-
-    /**
      * Get the value of SCHEMA
      */
     public function getSCHEMA()
@@ -82,10 +51,8 @@ class Model
      */
     public function setSCHEMA($SCHEMA)
     {
-        $this->setTABELACAMPOS($SCHEMA);
-        $this->setMAPPING($this->getTABELACAMPOS());
+        $this->setMAPPING($SCHEMA);
         $this->SCHEMA = $SCHEMA;
-
         return $this;
     }
 
@@ -102,49 +69,82 @@ class Model
      *
      * @return  self
      */
-    public function setMAPPING($TABELACAMPOS)
+    public function setMAPPING($SCHEMA)
     {
         $this->MAPPING = array();
-        print_r($this->getSCHEMA());
-        foreach ($TABELACAMPOS as $campo) {
-            $a = array($campo[0] => ["valor"=>$this->parseData($campo[1], ""),"tipo"=>$campo[1]]);
+        // print_r($this->getSCHEMA());
+        $v = false;
+        foreach ($SCHEMA as $campo) {
+            $a = array($campo["Field"] => ["valor" => $this->parseData($campo["Field"], ""), "tipo" => $campo["Type"]]);
             $this->MAPPING += $a;
+            if ($v) {
+                $this->setTABELACAMPOSNOME($this->getTABELACAMPOSNOME() . "," . $campo["Field"]);
+            } else {
+                $this->setTABELACAMPOSNOME($campo["Field"]);
+                $v = true;
+            }
         }
         return $this;
     }
 
     public function getValor($campo)
     {
-        return $this->getMAPPING()[$campo];
+        return $this->getMAPPING()[$campo]["valor"];
     }
 
     public function setValor($campo, $valor)
     {
-        $this->parseValor($campo, $valor);
-        $this->MAPPING[$campo] = $valor;
+        $valor = $this->parseValor($campo, $valor);
+        $this->MAPPING[$campo]["valor"] = $valor;
         return $this;
     }
 
     public function parseValor($campo, $valor)
     {
-        return $this->parseData($this->getMAPPING()[$campo]['tipo'],$valor);
+        return $this->parseData($this->getMAPPING()[$campo]['tipo'], $valor);
     }
 
     private function parseData($type, $data)
     {
         if (strpos($type, 'varchar') !== false) {
-            $data = (string)$data;
+            $data = (string) $data;
         }
         if (strpos($type, 'date') !== false) {
-            $data = date("DD-MM-YYYY",strtotime($data));
+            if ($data == "") {
+                $data = "1900/01/01";
+            }
+            $data = date("Y-m-d", strtotime($data));
         }
         if (strpos($type, 'int') !== false) {
-            $data = intval($data);
+            if ($data == "") {
+                $data = null;
+            } else {
+                $data = intval($data);
+            }
         }
         if (strpos($type, 'time') !== false) {
             $data = strtotime($data);
         }
-        print_r($data);
+        // print_r($data);
         return $data;
+    }
+
+    /**
+     * Get the value of TABELACAMPOSNOME
+     */
+    public function getTABELACAMPOSNOME()
+    {
+        return $this->TABELACAMPOSNOME;
+    }
+
+    /**
+     * Set the value of TABELACAMPOSNOME
+     *
+     * @return  self
+     */
+    public function setTABELACAMPOSNOME($TABELACAMPOSNOME)
+    {
+        $this->TABELACAMPOSNOME = $TABELACAMPOSNOME;
+        return $this;
     }
 }
