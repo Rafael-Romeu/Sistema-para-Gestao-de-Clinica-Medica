@@ -327,4 +327,7 @@ class lAtendente extends Persistencia
 }
 
 $obj = new lAtendente();
+// $obj->setSenha("1234567");
+// $obj->setCpf("77777777777");
+// print_r($obj->identifica());
 print_r($obj);
