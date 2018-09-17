@@ -4,20 +4,68 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
+include_once "lClinicaAtendente.php";
 
-class lAtendente extends Persistencia
+class lAtendente extends Persistencia implements iPersistencia
 {
+    private $codClinica;
+    private $codClinicaOld;
+    private $identificou;
+
     public function __construct()
     {
         parent::__construct();
         $this->setModel("tAtendente");
     }
 
+    public function identifica()
+    {
+        $identificou = parent::identifica();
+        if ($identificou) {
+            $oClinicaAtendente = new lClinicaAtendente();
+            $oClinicaAtendente->setFiltroCampos("codClinica");
+            $result = $oClinicaAtendente->listaClinicaAtendenteByCodAtendente($this->getCodigo());
+            if (count($result) == 1) {
+                $resultado = $result[0]["codClinica"];
+            }
+            if (count($result) < 1) {
+                $resultado = "Nenhuma Clinica Associada";
+            }
+            if (count($result) > 1) {
+                $resultado = array();
+                foreach ($result as $codClinica => $valor) {
+                    array_push($resultado, $valor);
+                }
+            }
+            $this->codClinicaOld = $resultado;
+            $this->setCodClinica($resultado);
+        }
+        $this->identificou=$identificou;
+        return $identificou;
+    }
+
+    public function alterar()
+    {
+        if(!$this->identificou){
+            return("\nNecessário identificar a classe antes de realizar alterações.");
+        }
+        if($this->codClinicaOld != $this->getCodClinica()){
+            // Alterou o codigo da clinica
+            $oClinicaAtendente = new lClinicaAtendente();
+            $oClinicaAtendente->setCodAtendente($this->getCodigo());
+            $oClinicaAtendente->setCodClinica($this->codClinicaOld);
+            $oClinicaAtendente->identifica();
+            $oClinicaAtendente->setCodClinica($this->getCodClinica());
+            print_r($oClinicaAtendente->executeUPDATE());
+        }
+        return($this->executeUPDATE());
+    }
+
     public function listaAtendenteByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +74,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByNome(string $nome = null)
     {
-        $this->limpaFiltros();
         if ($nome != null) {
             $this->setFiltroValores("nome = '$nome'");
         }
@@ -35,7 +82,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteBySenha(string $senha = null)
     {
-        $this->limpaFiltros();
         if ($senha != null) {
             $this->setFiltroValores("senha = '$senha'");
         }
@@ -44,7 +90,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByCpf(string $cpf = null)
     {
-        $this->limpaFiltros();
         if ($cpf != null) {
             $this->setFiltroValores("cpf = '$cpf'");
         }
@@ -53,7 +98,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByDataNascimento(string $dataNascimento = null)
     {
-        $this->limpaFiltros();
         if ($dataNascimento != null) {
             $this->setFiltroValores("dataNascimento = '$dataNascimento'");
         }
@@ -62,7 +106,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByEndereco(string $endereco = null)
     {
-        $this->limpaFiltros();
         if ($endereco != null) {
             $this->setFiltroValores("endereco = '$endereco'");
         }
@@ -71,7 +114,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByCEP(string $CEP = null)
     {
-        $this->limpaFiltros();
         if ($CEP != null) {
             $this->setFiltroValores("CEP = '$CEP'");
         }
@@ -80,7 +122,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByTelefone1(string $telefone1 = null)
     {
-        $this->limpaFiltros();
         if ($telefone1 != null) {
             $this->setFiltroValores("telefone1 = '$telefone1'");
         }
@@ -89,7 +130,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByTelefone2(string $telefone2 = null)
     {
-        $this->limpaFiltros();
         if ($telefone2 != null) {
             $this->setFiltroValores("telefone2 = '$telefone2'");
         }
@@ -98,7 +138,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByEmail(string $email = null)
     {
-        $this->limpaFiltros();
         if ($email != null) {
             $this->setFiltroValores("email = '$email'");
         }
@@ -107,7 +146,6 @@ class lAtendente extends Persistencia
 
     public function listaAtendenteByRegDate(string $regDate = null)
     {
-        $this->limpaFiltros();
         if ($regDate != null) {
             $this->setFiltroValores("regDate = '$regDate'");
         }
@@ -324,10 +362,32 @@ class lAtendente extends Persistencia
         return $this;
     }
 
+    /**
+     * Get the value of codClinica
+     */
+    public function getCodClinica()
+    {
+        return $this->codClinica;
+    }
+
+    /**
+     * Set the value of codClinica
+     *
+     * @return  self
+     */
+    public function setCodClinica($codClinica)
+    {
+        $this->codClinica = $codClinica;
+        return $this;
+    }
 }
 
 $obj = new lAtendente();
 // $obj->setSenha("1234567");
 // $obj->setCpf("77777777777");
 // print_r($obj->identifica());
-print_r($obj);
+$obj->setCodigo("1");
+$obj->identifica();
+$obj->setCodClinica("7");
+print_r($obj->alterar());
+print_r($obj->getCodClinica());

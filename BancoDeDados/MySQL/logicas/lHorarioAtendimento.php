@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lHorarioAtendimento extends Persistencia
+class lHorarioAtendimento extends Persistencia implements iPersistencia
 {
     public function __construct()
     {
@@ -17,7 +18,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
+        
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +27,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoByCodMedico(string $codMedico = null)
     {
-        $this->limpaFiltros();
+        
         if ($codMedico != null) {
             $this->setFiltroValores("codMedico = '$codMedico'");
         }
@@ -35,7 +36,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoByCodClinica(string $codClinica = null)
     {
-        $this->limpaFiltros();
+        
         if ($codClinica != null) {
             $this->setFiltroValores("codClinica = '$codClinica'");
         }
@@ -44,7 +45,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoBySeg(string $seg = null)
     {
-        $this->limpaFiltros();
+        
         if ($seg != null) {
             $this->setFiltroValores("seg = '$seg'");
         }
@@ -53,7 +54,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoByTer(string $ter = null)
     {
-        $this->limpaFiltros();
+        
         if ($ter != null) {
             $this->setFiltroValores("ter = '$ter'");
         }
@@ -62,7 +63,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoByQua(string $qua = null)
     {
-        $this->limpaFiltros();
+        
         if ($qua != null) {
             $this->setFiltroValores("qua = '$qua'");
         }
@@ -71,7 +72,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoByQui(string $qui = null)
     {
-        $this->limpaFiltros();
+        
         if ($qui != null) {
             $this->setFiltroValores("qui = '$qui'");
         }
@@ -80,7 +81,7 @@ class lHorarioAtendimento extends Persistencia
 
     public function listaHorarioAtendimentoBySex(string $sex = null)
     {
-        $this->limpaFiltros();
+        
         if ($sex != null) {
             $this->setFiltroValores("sex = '$sex'");
         }

@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lClinica extends Persistencia
+class lClinica extends Persistencia implements iPersistencia
 {
     public function __construct()
     {
@@ -17,7 +18,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
+        
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +27,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByNome(string $nome = null)
     {
-        $this->limpaFiltros();
+        
         if ($nome != null) {
             $this->setFiltroValores("nome = '$nome'");
         }
@@ -35,7 +36,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByCnpj(string $cnpj = null)
     {
-        $this->limpaFiltros();
+        
         if ($cnpj != null) {
             $this->setFiltroValores("cnpj = '$cnpj'");
         }
@@ -44,7 +45,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByEndereco(string $endereco = null)
     {
-        $this->limpaFiltros();
+        
         if ($endereco != null) {
             $this->setFiltroValores("endereco = '$endereco'");
         }
@@ -53,7 +54,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByCEP(string $CEP = null)
     {
-        $this->limpaFiltros();
+        
         if ($CEP != null) {
             $this->setFiltroValores("CEP = '$CEP'");
         }
@@ -62,7 +63,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByTelefone1(string $telefone1 = null)
     {
-        $this->limpaFiltros();
+        
         if ($telefone1 != null) {
             $this->setFiltroValores("telefone1 = '$telefone1'");
         }
@@ -71,7 +72,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByTelefone2(string $telefone2 = null)
     {
-        $this->limpaFiltros();
+        
         if ($telefone2 != null) {
             $this->setFiltroValores("telefone2 = '$telefone2'");
         }
@@ -80,7 +81,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByEmail(string $email = null)
     {
-        $this->limpaFiltros();
+        
         if ($email != null) {
             $this->setFiltroValores("email = '$email'");
         }
@@ -89,7 +90,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByRegDate(string $regDate = null)
     {
-        $this->limpaFiltros();
+        
         if ($regDate != null) {
             $this->setFiltroValores("regDate = '$regDate'");
         }
@@ -98,7 +99,7 @@ class lClinica extends Persistencia
 
     public function listaClinicaByTemaCSS(string $temaCSS = null)
     {
-        $this->limpaFiltros();
+        
         if ($temaCSS != null) {
             $this->setFiltroValores("temaCSS = '$temaCSS'");
         }

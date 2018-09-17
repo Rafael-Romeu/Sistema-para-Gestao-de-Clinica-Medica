@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lClinicaAtendente extends Persistencia
+class lClinicaAtendente extends Persistencia implements iPersistencia
 {
     public function __construct()
     {
@@ -15,9 +16,26 @@ class lClinicaAtendente extends Persistencia
         $this->setModel("tClinicaAtendente");
     }
 
+    public function alterar()
+    {
+        if(!$this->identificou){
+            return("\nNecessário identificar a classe antes de realizar alterações.");
+        }
+        if($this->codClinicaOld != $this->getCodClinica()){
+            // Alterou o codigo da clinica
+            $oClinicaAtendente = new lClinicaAtendente();
+            $oClinicaAtendente->setCodAtendente($this->getCodigo());
+            $oClinicaAtendente->setCodClinica($this->codClinicaOld);
+            $oClinicaAtendente->identifica();
+            $oClinicaAtendente->setCodClinica($this->getCodClinica());
+            print_r($oClinicaAtendente->executeUPDATE());
+        }
+        return($this->executeUPDATE());
+    }
+
     public function listaClinicaAtendenteByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
+        
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +44,7 @@ class lClinicaAtendente extends Persistencia
 
     public function listaClinicaAtendenteByCodClinica(string $codClinica = null)
     {
-        $this->limpaFiltros();
+        
         if ($codClinica != null) {
             $this->setFiltroValores("codClinica = '$codClinica'");
         }
@@ -35,7 +53,6 @@ class lClinicaAtendente extends Persistencia
 
     public function listaClinicaAtendenteByCodAtendente(string $codAtendente = null)
     {
-        $this->limpaFiltros();
         if ($codAtendente != null) {
             $this->setFiltroValores("codAtendente = '$codAtendente'");
         }
@@ -100,5 +117,5 @@ class lClinicaAtendente extends Persistencia
     }
 }
 
-$obj = new lClinicaAtendente();
-print_r($obj);
+// $obj = new lClinicaAtendente();
+// print_r($obj);

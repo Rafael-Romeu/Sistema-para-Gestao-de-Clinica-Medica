@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lMedico extends Persistencia
+class lMedico extends Persistencia implements iPersistencia
 {
     public function __construct()
     {
@@ -17,7 +18,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
+        
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +27,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByNome(string $nome = null)
     {
-        $this->limpaFiltros();
+        
         if ($nome != null) {
             $this->setFiltroValores("nome = '$nome'");
         }
@@ -35,7 +36,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoBySenha(string $senha = null)
     {
-        $this->limpaFiltros();
+        
         if ($senha != null) {
             $this->setFiltroValores("senha = '$senha'");
         }
@@ -44,7 +45,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByCpf(string $cpf = null)
     {
-        $this->limpaFiltros();
+        
         if ($cpf != null) {
             $this->setFiltroValores("cpf = '$cpf'");
         }
@@ -53,7 +54,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByPlanoDeSaude(string $planoDeSaude = null)
     {
-        $this->limpaFiltros();
+        
         if($planoDeSaude!=null){
             $this->setFiltroValores("planoDeSaude = '$planoDeSaude'");
         }
@@ -62,7 +63,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByDataNascimento(string $dataNascimento = null)
     {
-        $this->limpaFiltros();
+        
         if ($dataNascimento != null) {
             $this->setFiltroValores("dataNascimento = '$dataNascimento'");
         }
@@ -71,7 +72,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByEndereco(string $endereco = null)
     {
-        $this->limpaFiltros();
+        
         if ($endereco != null) {
             $this->setFiltroValores("endereco = '$endereco'");
         }
@@ -80,7 +81,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByCEP(string $CEP = null)
     {
-        $this->limpaFiltros();
+        
         if ($CEP != null) {
             $this->setFiltroValores("CEP = '$CEP'");
         }
@@ -89,7 +90,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByTelefone1(string $telefone1 = null)
     {
-        $this->limpaFiltros();
+        
         if ($telefone1 != null) {
             $this->setFiltroValores("telefone1 = '$telefone1'");
         }
@@ -98,7 +99,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByTelefone2(string $telefone2 = null)
     {
-        $this->limpaFiltros();
+        
         if ($telefone2 != null) {
             $this->setFiltroValores("telefone2 = '$telefone2'");
         }
@@ -107,7 +108,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByEmail(string $email = null)
     {
-        $this->limpaFiltros();
+        
         if ($email != null) {
             $this->setFiltroValores("email = '$email'");
         }
@@ -116,7 +117,7 @@ class lMedico extends Persistencia
 
     public function listaMedicoByRegDate(string $regDate = null)
     {
-        $this->limpaFiltros();
+        
         if ($regDate != null) {
             $this->setFiltroValores("regDate = '$regDate'");
         }

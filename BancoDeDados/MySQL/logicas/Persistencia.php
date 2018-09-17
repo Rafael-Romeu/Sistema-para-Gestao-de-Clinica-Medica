@@ -4,11 +4,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
-include_once "iPersistencia.php";
 include_once "Model.php";
 include_once "Filtro.php";
 
-class Persistencia implements iPersistencia
+class Persistencia
 {
     private $Model;
     private $SERVERNAME;
@@ -46,7 +45,7 @@ class Persistencia implements iPersistencia
         try {
             $this->setConn(new PDO("mysql:host=" . $this->getSERVERNAME() . ";dbname=" . $this->getDATABASE(), $this->getUSERNAME(), $this->getPASSWORD()));
             $this->getConn()->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            print_r("\nPERSISTENCIA > Connect\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Connect");
             return $this->getConn();
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -55,7 +54,7 @@ class Persistencia implements iPersistencia
 
     public function DBDisconnect()
     {
-        print_r("\nPERSISTENCIA > Disconnect\n");
+        print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Disconnect\n");
         $this->setConn(null);
     }
 
@@ -63,6 +62,7 @@ class Persistencia implements iPersistencia
     {
         $q = $this->DBConnect()->prepare("SHOW COLUMNS FROM `$table`");
         $q->execute();
+        print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Preenchendo Model...");
         $q = $q->fetchAll();
         $this->DBDisconnect();
         return $q;
@@ -83,10 +83,10 @@ class Persistencia implements iPersistencia
                 $this->getModel()->setValor($campo, $valor);
             }
             // print_r($result);
-            print_r("\nPERSISTENCIA > Identifica True\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Identifica True\n");
             return true;
         } else {
-            print_r("\nPERSISTENCIA > Identifica False\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Identifica False\n");
             return false;
         }
     }
@@ -101,10 +101,10 @@ class Persistencia implements iPersistencia
         $this->setFiltroValores($oFiltro->toString());
         $result = $this->executeSELECT();
         if (count($result) == 1) {
-            print_r("\nPERSISTENCIA > Identifica Simples True\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Identifica Simples True\n");
             return true;
         } else {
-            print_r("\nPERSISTENCIA > Identifica Simples False\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Identifica Simples False\n");
             return false;
         }
     }
@@ -113,12 +113,13 @@ class Persistencia implements iPersistencia
     {
         try {
             $this->DBConnect();
+            // print_r(">>> FILTRO CAMPOS (".$this->getModel()->getTABELANOME()."): ".$this->getFiltroCampos());
             $this->setSQL("SELECT " . $this->DISTINCT() . $this->getFiltroCampos() . " FROM " . $this->getModel()->getTABELANOME() . " " . $this->getJOIN() . " WHERE " . $this->getFiltroValores() . $this->getGroupBy() . $this->getOrderBy() . ";");
-            print_r("\nPERSISTENCIA > " . $this->getSQL());
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> " . $this->getSQL());
             $this->setStmt(($this->getConn())->query($this->getSQL()));
             $this->getStmt()->execute();
             $result = $this->getStmt()->fetchAll(PDO::FETCH_ASSOC);
-            print_r("\nPERSISTENCIA > Resultados: " . count($result) . "\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Registros retornados: " . count($result));
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -144,7 +145,7 @@ class Persistencia implements iPersistencia
     public function executeDELETE()
     {
         if (!$this->identificaSimples()) {
-            print_r("\nPERSISTENCIA > Não foi possível identificar o registro. Informe mais parâmetros.\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Não foi possível identificar o registro. Informe mais parâmetros.\n");
             return "Não foi possível identificar o registro. Informe mais parâmetros.\n";
         }
         $this->setFiltroValores("codigo=" . $this->getModel()->getMAPPING()["codigo"]["valor"]);
@@ -156,10 +157,10 @@ class Persistencia implements iPersistencia
         try {
             $this->DBConnect();
             $this->setSQL("DELETE FROM " . $this->getModel()->getTABELANOME() . " WHERE " . $this->getFiltroValores() . ";");
-            print_r("\nPERSISTENCIA > " . $this->getSQL());
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> " . $this->getSQL());
             $this->setStmt(($this->getConn())->prepare($this->getSQL()));
             $this->getStmt()->execute();
-            print_r("\nPERSISTENCIA > Exclusão efetuada com sucesso!\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Exclusão efetuada com sucesso!\n");
             $this->DBDisconnect();
             return "Exclusão efetuada com sucesso!\n";
         } catch (PDOException $e) {
@@ -171,7 +172,7 @@ class Persistencia implements iPersistencia
     public function executeUPDATE()
     {
         if (!$this->identificaSimples()) {
-            print_r("\nPERSISTENCIA > Não foi possível identificar o registro. Informe mais parâmetros.\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Não foi possível identificar o registro. Informe mais parâmetros.\n");
             return "Não foi possível identificar o registro. Informe mais parâmetros.\n";
         }
         $this->setFiltroValores("codigo=" . $this->getModel()->getMAPPING()["codigo"]["valor"]);
@@ -215,7 +216,7 @@ class Persistencia implements iPersistencia
             }
             print("\ncampos: $campos\n");
             $this->setSQL("UPDATE $tabela SET $campos WHERE " . $this->getFiltroValores() . ";");
-            print_r("\nPERSISTENCIA > " . $this->getSQL() . "\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> " . $this->getSQL() . "\n");
             $this->setStmt($this->getConn()->prepare($this->getSQL()));
             $this->bindParams();
             $this->getStmt()->execute();
@@ -257,7 +258,7 @@ class Persistencia implements iPersistencia
             // }
             // print("\ncampos: $campos\nvalores: $valores\n");
             $this->setSQL("INSERT INTO $tabela ($campos) VALUES ($valores)");
-            print_r("\nPERSISTENCIA > " . $this->getSQL() . "\n");
+            print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> " . $this->getSQL() . "\n");
             $this->setStmt($this->getConn()->prepare($this->getSQL()));
             // print("\n\n\n> Antes: \n");
             // print_r($this->getStmt());
@@ -504,6 +505,7 @@ class Persistencia implements iPersistencia
         if ($this->FiltroCampos == "*") {
             $this->FiltroCampos = "";
         }
+        // print_r(">> Filtro Campos : ". $this->FiltroCampos);
         $this->FiltroCampos = $FiltroCampos;
         return $this;
     }

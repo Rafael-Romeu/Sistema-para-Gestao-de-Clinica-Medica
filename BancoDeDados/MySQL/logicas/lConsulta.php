@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lConsulta extends Persistencia
+class lConsulta extends Persistencia implements iPersistencia
 {
     public function __construct()
     {
@@ -17,7 +18,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
+        
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +27,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByCodClinica(string $codClinica = null)
     {
-        $this->limpaFiltros();
+        
         if ($codClinica != null) {
             $this->setFiltroValores("codClinica = '$codClinica'");
         }
@@ -35,7 +36,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByCodAtendente(string $codAtendente = null)
     {
-        $this->limpaFiltros();
+        
         if ($codAtendente != null) {
             $this->setFiltroValores("codAtendente = '$codAtendente'");
         }
@@ -44,7 +45,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByCodMedico(string $codMedico = null)
     {
-        $this->limpaFiltros();
+        
         if ($codMedico != null) {
             $this->setFiltroValores("codMedico = '$codMedico'");
         }
@@ -53,7 +54,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByCodPaciente(string $codPaciente = null)
     {
-        $this->limpaFiltros();
+        
         if ($codPaciente != null) {
             $this->setFiltroValores("codPaciente = '$codPaciente'");
         }
@@ -62,7 +63,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByFlagConfirmada(string $flagConfirmada = null)
     {
-        $this->limpaFiltros();
+        
         if ($flagConfirmada != null) {
             $this->setFiltroValores("flagConfirmada = '$flagConfirmada'");
         }
@@ -71,7 +72,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByData(string $data = null)
     {
-        $this->limpaFiltros();
+        
         if ($data != null) {
             $this->setFiltroValores("CEP = '$data'");
         }
@@ -80,7 +81,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByHora(string $hora = null)
     {
-        $this->limpaFiltros();
+        
         if ($hora != null) {
             $this->setFiltroValores("telefone1 = '$hora'");
         }
@@ -89,7 +90,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByObservacao(string $observacao = null)
     {
-        $this->limpaFiltros();
+        
         if ($observacao != null) {
             $this->setFiltroValores("observacao = '$observacao'");
         }
@@ -98,7 +99,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByReceita(string $receita = null)
     {
-        $this->limpaFiltros();
+        
         if ($receita != null) {
             $this->setFiltroValores("receita = '$receita'");
         }
@@ -107,7 +108,7 @@ class lConsulta extends Persistencia
 
     public function listaConsultaByRegDate(string $regDate = null)
     {
-        $this->limpaFiltros();
+        
         if ($regDate != null) {
             $this->setFiltroValores("regDate = '$regDate'");
         }

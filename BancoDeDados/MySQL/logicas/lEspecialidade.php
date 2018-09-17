@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lEspecialidade extends Persistencia
+class lEspecialidade extends Persistencia implements iPersistencia
 {
     public function __construct()
     {
@@ -17,7 +18,7 @@ class lEspecialidade extends Persistencia
 
     public function listaEspecialidadeByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
+        
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +27,7 @@ class lEspecialidade extends Persistencia
 
     public function listaEspecialidadeByNome(string $nome = null)
     {
-        $this->limpaFiltros();
+        
         if ($nome != null) {
             $this->setFiltroValores("codnomeMedico = '$nome'");
         }
@@ -35,7 +36,7 @@ class lEspecialidade extends Persistencia
 
     public function listaEspecialidadeByDescricao(string $descricao = null)
     {
-        $this->limpaFiltros();
+        
         if ($descricao != null) {
             $this->setFiltroValores("descricao = '$descricao'");
         }

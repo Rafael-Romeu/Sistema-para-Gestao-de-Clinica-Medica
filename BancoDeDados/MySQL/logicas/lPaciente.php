@@ -4,10 +4,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
+include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lPaciente extends Persistencia
+class lPaciente extends Persistencia implements iPersistencia
 {
     public function __construct()
     {
@@ -17,7 +18,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByCodigo(string $codigo = null)
     {
-        $this->limpaFiltros();
+        
         if ($codigo != null) {
             $this->setFiltroValores("codigo = '$codigo'");
         }
@@ -26,7 +27,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByNome(string $nome = null)
     {
-        $this->limpaFiltros();
+        
         if ($nome != null) {
             $this->setFiltroValores("nome = '$nome'");
         }
@@ -35,7 +36,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteBySenha(string $senha = null)
     {
-        $this->limpaFiltros();
+        
         if ($senha != null) {
             $this->setFiltroValores("senha = '$senha'");
         }
@@ -44,7 +45,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByCpf(string $cpf = null)
     {
-        $this->limpaFiltros();
+        
         if ($cpf != null) {
             $this->setFiltroValores("cpf = '$cpf'");
         }
@@ -53,7 +54,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByPlanoDeSaude(string $planoDeSaude = null)
     {
-        $this->limpaFiltros();
+        
         if ($planoDeSaude != null) {
             $this->setFiltroValores("planoDeSaude = '$planoDeSaude'");
         }
@@ -62,7 +63,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByGenero(string $genero = null)
     {
-        $this->limpaFiltros();
+        
         if ($genero != null) {
             $this->setFiltroValores("genero = '$genero'");
         }
@@ -71,7 +72,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByTipoSanguineo(string $tipoSanguineo = null)
     {
-        $this->limpaFiltros();
+        
         if ($tipoSanguineo != null) {
             $this->setFiltroValores("tipoSanguineo = '$tipoSanguineo'");
         }
@@ -80,7 +81,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByDataNascimento(string $dataNascimento = null)
     {
-        $this->limpaFiltros();
+        
         if ($dataNascimento != null) {
             $this->setFiltroValores("dataNascimento = '$dataNascimento'");
         }
@@ -89,7 +90,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByEndereco(string $endereco = null)
     {
-        $this->limpaFiltros();
+        
         if ($endereco != null) {
             $this->setFiltroValores("endereco = '$endereco'");
         }
@@ -98,7 +99,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByCEP(string $CEP = null)
     {
-        $this->limpaFiltros();
+        
         if ($CEP != null) {
             $this->setFiltroValores("CEP = '$CEP'");
         }
@@ -107,7 +108,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByTelefone1(string $telefone1 = null)
     {
-        $this->limpaFiltros();
+        
         if ($telefone1 != null) {
             $this->setFiltroValores("telefone1 = '$telefone1'");
         }
@@ -116,7 +117,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByTelefone2(string $telefone2 = null)
     {
-        $this->limpaFiltros();
+        
         if ($telefone2 != null) {
             $this->setFiltroValores("telefone2 = '$telefone2'");
         }
@@ -125,7 +126,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByEmail(string $email = null)
     {
-        $this->limpaFiltros();
+        
         if ($email != null) {
             $this->setFiltroValores("email = '$email'");
         }
@@ -134,7 +135,7 @@ class lPaciente extends Persistencia
 
     public function listaPacienteByRegDate(string $regDate = null)
     {
-        $this->limpaFiltros();
+        
         if ($regDate != null) {
             $this->setFiltroValores("regDate = '$regDate'");
         }
