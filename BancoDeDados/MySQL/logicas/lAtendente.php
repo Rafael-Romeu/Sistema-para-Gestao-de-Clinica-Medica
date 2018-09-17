@@ -13,7 +13,6 @@ class lAtendente extends Persistencia implements iPersistencia
 {
     private $codClinica;
     private $codClinicaOld;
-    private $identificou;
 
     public function __construct()
     {
@@ -21,39 +20,42 @@ class lAtendente extends Persistencia implements iPersistencia
         $this->setModel("tAtendente");
     }
 
+    public function verificaClinicas()
+    {
+        $resultado = array();
+        $oClinicaAtendente = new lClinicaAtendente();
+        $oClinicaAtendente->setFiltroCampos("codClinica");
+        $result = $oClinicaAtendente->listaClinicaAtendenteByCodAtendente($this->getCodigo());
+        if (count($result) == 1) {
+            array_push($resultado, $result[0]["codClinica"]);
+        }
+        if (count($result) > 1) {
+            foreach ($result as $codClinica => $valor) {
+                array_push($resultado, $valor);
+            }
+        }
+        $this->codClinicaOld = $resultado;
+        $this->setCodClinica($resultado);
+        return $resultado;
+    }
+
     public function identifica()
     {
-        $identificou = parent::identifica();
-        if ($identificou) {
-            $oClinicaAtendente = new lClinicaAtendente();
-            $oClinicaAtendente->setFiltroCampos("codClinica");
-            $result = $oClinicaAtendente->listaClinicaAtendenteByCodAtendente($this->getCodigo());
-            if (count($result) == 1) {
-                $resultado = $result[0]["codClinica"];
-            }
-            if (count($result) < 1) {
-                $resultado = "Nenhuma Clinica Associada";
-            }
-            if (count($result) > 1) {
-                $resultado = array();
-                foreach ($result as $codClinica => $valor) {
-                    array_push($resultado, $valor);
-                }
-            }
-            $this->codClinicaOld = $resultado;
-            $this->setCodClinica($resultado);
+        parent::identifica();
+        if ($this->getIdentificou()) {
+            $this->verificaClinicas();
         }
-        $this->identificou=$identificou;
-        return $identificou;
+        return $this->getIdentificou();
     }
 
     public function alterar()
     {
-        if(!$this->identificou){
-            return("\nNecessário identificar a classe antes de realizar alterações.");
+        if (!$this->getIdentificou()) {
+            return ("\nNecessário identificar a classe antes de realizar alterações.");
         }
-        if($this->codClinicaOld != $this->getCodClinica()){
+        if ($this->codClinicaOld != $this->getCodClinica()) {
             // Alterou o codigo da clinica
+            print_r("\nSem Alterações no Código da Clinica.");
             $oClinicaAtendente = new lClinicaAtendente();
             $oClinicaAtendente->setCodAtendente($this->getCodigo());
             $oClinicaAtendente->setCodClinica($this->codClinicaOld);
@@ -61,7 +63,30 @@ class lAtendente extends Persistencia implements iPersistencia
             $oClinicaAtendente->setCodClinica($this->getCodClinica());
             print_r($oClinicaAtendente->executeUPDATE());
         }
-        return($this->executeUPDATE());
+        return ($this->executeUPDATE());
+    }
+
+    public function incluir()
+    {
+        return $this->executeINSERT();
+    }
+
+    public function excluir()
+    {
+        $oClinicaAtendente = new lClinicaAtendente();
+        $oClinicaAtendente->setCodAtendente($this->getCodigo());
+        if (count($this->getCodClinica()) > 0) {
+            foreach ($this->getCodClinica() as $codClinica) {
+                $oClinicaAtendente->setCodClinica($codClinica);
+                $oClinicaAtendente->identifica();
+                $oClinicaAtendente->excluir();
+            }
+        }
+        if(count($oClinicaAtendente->listaClinicaAtendenteByCodAtendente($this->getCodigo()))==0){
+            return $this->executeDELETE();
+        }else{
+            return "ERRO na exclusão do Atendente";
+        }
     }
 
     public function listaAtendenteByCodigo(string $codigo = null)
@@ -384,10 +409,12 @@ class lAtendente extends Persistencia implements iPersistencia
 
 $obj = new lAtendente();
 // $obj->setSenha("1234567");
-// $obj->setCpf("77777777777");
+$obj->setCpf("55555555555");
+// $obj->setNome("TESTE");
 // print_r($obj->identifica());
-$obj->setCodigo("1");
+// $obj->setCodigo("1");
 $obj->identifica();
-$obj->setCodClinica("7");
-print_r($obj->alterar());
+print_r($obj->excluir());
+// $obj->setCodClinica("7");
+// print_r($obj->incluir());
 print_r($obj->getCodClinica());

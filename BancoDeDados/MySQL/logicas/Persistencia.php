@@ -26,6 +26,8 @@ class Persistencia
     private $AscDesc;
     private $GroupBy;
 
+    private $identificou;
+
     public function __construct()
     {
         $this->setSERVERNAME("localhost");
@@ -38,6 +40,27 @@ class Persistencia
         $this->setFiltroValores("1");
         $this->setOrderBy("");
         $this->setGroupBy("");
+    }
+
+     /**
+     * Get the value of Model
+     */
+    public function getModel()
+    {
+        return $this->Model;
+    }
+
+    /**
+     * Set the value of Model
+     *
+     * @return  self
+     */
+    public function setModel($Tabela)
+    {
+        $this->Model = new Model();
+        $this->Model->setTABELANOME($Tabela);
+        $this->Model->setSCHEMA($this->schema($Tabela));
+        return $this;
     }
 
     public function DBConnect()
@@ -62,8 +85,9 @@ class Persistencia
     {
         $q = $this->DBConnect()->prepare("SHOW COLUMNS FROM `$table`");
         $q->execute();
-        print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Preenchendo Model...");
         $q = $q->fetchAll();
+        print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Preenchendo Model...");
+        // print_r($q);
         $this->DBDisconnect();
         return $q;
     }
@@ -73,7 +97,9 @@ class Persistencia
         $oFiltro = new Filtro();
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
-                $oFiltro->equals($campo, $valor["valor"]);
+                if($campo != "regDate"){
+                    $oFiltro->equals($campo, $valor["valor"]);
+                }
             }
         }
         $this->setFiltroValores($oFiltro->toString());
@@ -84,20 +110,26 @@ class Persistencia
             }
             // print_r($result);
             print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Identifica True\n");
+            $this->setIdentificou(true);
             return true;
         } else {
             print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Identifica False\n");
+            $this->setIdentificou(false);
             return false;
         }
     }
 
     /***
-     * Identifica apenas verificando o codigo e NÃO preenche os campos do Model
+     * Identifica e NÃO preenche os campos do Model
      */
     public function identificaSimples()
     {
         $oFiltro = new Filtro();
-        $oFiltro->equals("codigo", $this->getModel()->getMAPPING()["codigo"]["valor"]);
+        foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
+            if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
+                $oFiltro->equals($campo, $valor["valor"]);
+            }
+        }
         $this->setFiltroValores($oFiltro->toString());
         $result = $this->executeSELECT();
         if (count($result) == 1) {
@@ -144,11 +176,11 @@ class Persistencia
 
     public function executeDELETE()
     {
-        if (!$this->identificaSimples()) {
+        if (!$this->identifica()) {
             print_r("\nPERSISTENCIA (".$this->getModel()->getTABELANOME().")> Não foi possível identificar o registro. Informe mais parâmetros.\n");
             return "Não foi possível identificar o registro. Informe mais parâmetros.\n";
         }
-        $this->setFiltroValores("codigo=" . $this->getModel()->getMAPPING()["codigo"]["valor"]);
+        $this->setFiltroValores("codigo='" . $this->getModel()->getMAPPING()["codigo"]["valor"]."'");
         return ($this->executeDELETEcompleto());
     }
 
@@ -238,8 +270,8 @@ class Persistencia
             $v = false;
             // print_r($this->getModel());
             $tabela = $this->getModel()->getTABELANOME();
-            foreach ($this->getModel()->getMAPPING() as $campo) {
-                if ($campo != "codigo" && $campo != "regDate") {
+            foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
+                if ($campo != "regDate") {
                     if ($v) {
                         $campos .= ",";
                         $valores .= ",";
@@ -279,7 +311,7 @@ class Persistencia
         // print_r($this->getModel()->getMAPPING());
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             print_r("\n\tcampo: $campo\n\tvalor: " . $valor["valor"] . "\n\ttipo: " . $valor["tipo"] . "\n");
-            if ($campo != "codigo" && $campo != "regDate") {
+            if ($campo != "regDate") {
                 $this->getStmt()->bindParam(":$campo", $valor["valor"]);
             }
         }
@@ -304,6 +336,21 @@ class Persistencia
         }
     }
 
+    public function incluir()
+    {
+        return $this->executeINSERT();
+    }
+
+    public function excluir()
+    {
+        return $this->executeDELETE();
+    }
+
+    public function alterar()
+    {
+        return $this->executeUPDATE();
+    }
+
     public function DISTINCT()
     {
         if ($this->getDistinct()) {
@@ -311,27 +358,6 @@ class Persistencia
         } else {
             return "";
         }
-    }
-
-    /**
-     * Get the value of Model
-     */
-    public function getModel()
-    {
-        return $this->Model;
-    }
-
-    /**
-     * Set the value of Model
-     *
-     * @return  self
-     */
-    public function setModel($Tabela)
-    {
-        $this->Model = new Model();
-        $this->Model->setTABELANOME($Tabela);
-        $this->Model->setSCHEMA($this->schema($Tabela));
-        return $this;
     }
 
     /**
@@ -610,4 +636,24 @@ class Persistencia
         return $this;
     }
 
+
+    /**
+     * Get the value of identificou
+     */ 
+    public function getIdentificou()
+    {
+        return $this->identificou;
+    }
+
+    /**
+     * Set the value of identificou
+     *
+     * @return  self
+     */ 
+    public function setIdentificou($identificou)
+    {
+        $this->identificou = $identificou;
+
+        return $this;
+    }
 }

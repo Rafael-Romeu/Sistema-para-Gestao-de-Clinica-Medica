@@ -51,6 +51,7 @@ class Model
      */
     public function setSCHEMA($SCHEMA)
     {
+        // print_r($SCHEMA);
         $this->setMAPPING($SCHEMA);
         $this->SCHEMA = $SCHEMA;
         return $this;
@@ -72,10 +73,11 @@ class Model
     public function setMAPPING($SCHEMA)
     {
         $this->MAPPING = array();
-        // print_r($this->getSCHEMA());
+        // print_r($SCHEMA);
+        // print("\nPassou aqui!! Marlon");
         $v = false;
         foreach ($SCHEMA as $campo) {
-            $a = array($campo["Field"] => ["valor" => $this->parseData($campo["Field"], ""), "tipo" => $campo["Type"]]);
+            $a = array($campo["Field"] => ["valor" => $this->parseData($campo["Type"], ""), "tipo" => $campo["Type"]]);
             $this->MAPPING += $a;
             if ($v) {
                 $this->setTABELACAMPOSNOME($this->getTABELACAMPOSNOME() . "," . $campo["Field"]);
@@ -106,6 +108,7 @@ class Model
 
     private function parseData($type, $data)
     {
+        // print("\nParseDATA> $type - $data");
         if (strpos($type, 'varchar') !== false) {
             $data = (string) $data;
         }

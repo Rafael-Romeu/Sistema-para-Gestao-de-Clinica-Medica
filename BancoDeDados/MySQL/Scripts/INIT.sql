@@ -33,7 +33,7 @@ CREATE TABLE `trabalho`.`tClinica` (
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
 	`temaCSS` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cnpj`))
+	UNIQUE `cnpj` (`cnpj`))
 	ENGINE = InnoDB;
 
 
@@ -52,7 +52,7 @@ CREATE TABLE `trabalho`.`tAtendente` (
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cpf`,`email`)) 
+	UNIQUE `cpf` (`cpf`)) 
 	ENGINE = InnoDB;
 
 
@@ -72,7 +72,7 @@ CREATE TABLE `trabalho`.`tMedico` (
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cpf`,`email`)) 
+	UNIQUE `cpf` (`cpf`)) 
 	ENGINE = InnoDB;
 							
 
@@ -94,7 +94,7 @@ CREATE TABLE `trabalho`.`tPaciente` (
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cpf`,`email`)) 
+	UNIQUE `cpf` (`cpf`)) 
 	ENGINE = InnoDB;
 							
 							
