@@ -19,4 +19,42 @@ class Relacionamento extends Persistencia
     
 
     
+
+    /**
+     * Get the value of codTabela1
+     */ 
+    public function getCodTabela1()
+    {
+        return $this->codTabela1;
+    }
+
+    /**
+     * Set the value of codTabela1
+     *
+     * @return  self
+     */ 
+    public function setCodTabela1($codTabela1)
+    {
+        $this->codTabela1 = $codTabela1;
+        return $this;
+    }
+
+    /**
+     * Get the value of codTabela2
+     */ 
+    public function getCodTabela2()
+    {
+        return $this->codTabela2;
+    }
+
+    /**
+     * Set the value of codTabela2
+     *
+     * @return  self
+     */ 
+    public function setCodTabela2($codTabela2)
+    {
+        $this->codTabela2 = $codTabela2;
+        return $this;
+    }
 }
