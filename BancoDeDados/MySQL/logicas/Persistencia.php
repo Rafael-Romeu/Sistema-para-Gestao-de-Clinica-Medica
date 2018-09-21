@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 include_once "Model.php";
-include_once "Relacionamento.php";
+include_once "iPersistencia.php";
 include_once "Filtro.php";
 
 class Persistencia
@@ -59,11 +59,11 @@ class Persistencia
      */
     public function setModel($Tabela)
     {
-        print_r("\n>. PERSISTENCIA (" . $Tabela . ")> INICIALIZANDO ESTRUTURA...");
+        print_r("\n> PERSISTENCIA (" . $Tabela . ")> INICIALIZANDO ESTRUTURA...");
         $this->Model = new Model();
         $this->Model->setTABELANOME($Tabela);
         $this->Model->setSCHEMA($this->schema($Tabela));
-        print_r("\n>. PERSISTENCIA (" . $Tabela . ")> INICIALIZAÇÃO FINALIZADA\n");
+        print_r("\n> PERSISTENCIA (" . $Tabela . ")> INICIALIZAÇÃO FINALIZADA\n");
         return $this;
     }
 
@@ -183,7 +183,7 @@ class Persistencia
     public function executeDELETE()
     {
         if (!$this->identifica()) {
-            print_r("\n*! > PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Não foi possível identificar o registro. Informe mais parâmetros.\n");
+            print_r("\n!! > PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Não foi possível identificar o registro. Informe mais parâmetros.\n");
             return "Não foi possível identificar o registro. Informe mais parâmetros.\n";
         }
         $this->setFiltroValores("codigo='" . $this->getModel()->getMAPPING()["codigo"]["valor"] . "'");
@@ -343,13 +343,13 @@ class Persistencia
 
     public function incluir()
     {
-        print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Efetuando Inserção...\n");
+        print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO INSERÇÃO...\n");
         return $this->executeINSERT();
     }
 
     public function excluir()
     {
-        print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Efetuando Exclusão...\n");
+        print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO EXCLUSÃO...");
         if ($this->identifica()) {
             return "Não foi possível identificar o registro a ser excluido.";
         }
@@ -358,7 +358,7 @@ class Persistencia
 
     public function alterar()
     {
-        print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Efetuando Alteração...\n");
+        print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO ALTERAÇÃO...\n");
         return $this->executeUPDATE();
     }
 
@@ -733,16 +733,14 @@ class Persistencia
      *
      * @return  self
      */
-    public function addRelacionamento(string $NomeTabelaRelacionamento)
+    public function addRelacionamento(iPersistencia $oRelacionamento)
     {
-        print_r("\n>.. PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZANDO RELACIONAMENTO com $NomeTabelaRelacionamento...\n>..");
+        // print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZANDO RELACIONAMENTO...");
         if ($this->Relacionamento == null) {
             $this->Relacionamento = array();
         }
-        $oRelacionamento = new Relacionamento();
-        $oRelacionamento->setModel($NomeTabelaRelacionamento);
         array_push($this->Relacionamento, $oRelacionamento);
-        print_r(">..\n>.. PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZAÇÃO DE RELACIONAMENTO com $NomeTabelaRelacionamento FINALIZADA.\n");
+        // print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZAÇÃO DE RELACIONAMENTO FINALIZADA.\n");
         return $this;
     }
 }

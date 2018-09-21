@@ -18,7 +18,7 @@ class lAtendente extends PessoaFisica implements iPersistencia
     {
         parent::__construct();
         $this->setModel("tAtendente");
-        $this->addRelacionamento("tClinicaAtendente");
+        $this->addRelacionamento(new lClinicaAtendente());
     }
 
     public function verificaClinicas()
@@ -37,7 +37,7 @@ class lAtendente extends PessoaFisica implements iPersistencia
             }
         }
         $this->codClinicaOld = $resultado;
-        print_r(">>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getRelacionamento()[0]->getModel()->getTABELANOME() . "]!\n");
+        print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getRelacionamento()[0]->getModel()->getTABELANOME() . "]\n");
         return $resultado;
     }
 
@@ -84,19 +84,18 @@ class lAtendente extends PessoaFisica implements iPersistencia
 
     public function excluir()
     {
-        if (!$this->identifica()) {
-            return "ERRO Atendente não encontrado.";
+        $msg = parent::excluir();
+        if ("Exclusão efetuada com sucesso!\n" != $msg) {
+            return $msg;
         }
         $clinicas = $this->getRelacionamento()[0]->listaClinicaAtendenteByCodAtendente($this->getCodigo());
-        if (count($clinicas) == 0) {
-            return parent::excluir();
-        } else {
+        if (count($clinicas) > 0) {
             foreach ($clinicas as $clinica => $valor) {
                 $this->getRelacionamento()[0]->setCodClinica($valor['codClinica']);
                 $this->getRelacionamento()[0]->excluir();
             }
-            return "\nERRO na exclusão do Atendente";
         }
+        return $msg;
     }
 
     /**
