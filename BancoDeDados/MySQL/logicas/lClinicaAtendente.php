@@ -33,18 +33,8 @@ class lClinicaAtendente extends Persistencia implements iPersistencia
         return($this->executeUPDATE());
     }
 
-    public function listaClinicaAtendenteByCodigo(string $codigo = null)
-    {
-        
-        if ($codigo != null) {
-            $this->setFiltroValores("codigo = '$codigo'");
-        }
-        return $this->executeSELECT();
-    }
-
     public function listaClinicaAtendenteByCodClinica(string $codClinica = null)
     {
-        
         if ($codClinica != null) {
             $this->setFiltroValores("codClinica = '$codClinica'");
         }
@@ -57,25 +47,6 @@ class lClinicaAtendente extends Persistencia implements iPersistencia
             $this->setFiltroValores("codAtendente = '$codAtendente'");
         }
         return $this->executeSELECT();
-    }
-
-    /**
-     * Get the value of codigo
-     */
-    public function getCodigo()
-    {
-        return $this->getModel()->getValor("codigo");
-    }
-
-    /**
-     * Set the value of codigo
-     *
-     * @return  self
-     */
-    public function setCodigo($codigo)
-    {
-        $this->getModel()->setValor("codigo", $codigo);
-        return $this;
     }
 
     /**
