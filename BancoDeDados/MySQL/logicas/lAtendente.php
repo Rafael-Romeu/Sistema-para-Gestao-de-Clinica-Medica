@@ -122,14 +122,16 @@ class lAtendente extends PessoaFisica
 
 $obj = new lAtendente();
 // $obj->setSenha("1234567");
-$obj->setCpf("77777777778");
-$obj->setNome("TESTE");
+// $obj->setCpf("77777777778");
+// $obj->setNome("TESTE");
 // print_r($obj);
 // print_r($obj->identifica());
 // $obj->setCodigo("1");
 // $obj->identifica();
-print_r($obj->excluir());
+// print_r($obj->excluir());
 // $obj->setCodClinica("2");
 // print_r($obj->incluir());
 // print_r($obj);
 // print_r("\nCodClinica: " . $obj->getCodClinica());
+
+print_r($obj->executeSQL("SELECT * FROM tClinicaAtendente AS tr INNER JOIN tClinica AS t2 ON (tr.codClinica=t2.codigo) WHERE tr.codAtendente=11;"));

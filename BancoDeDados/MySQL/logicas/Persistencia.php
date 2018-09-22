@@ -327,14 +327,26 @@ class Persistencia implements iPersistencia
         if ($SQL == null) {
             $SQL = $this->getSQL();
         }
+        if(strpos($SQL, "SELECT") !== false){
+            $this->DBConnect();
+            // print_r(">>> FILTRO CAMPOS (".$this->getModel()->getTABELANOME()."): ".$this->getFiltroCampos());
+            $this->setSQL($SQL);
+            print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
+            $this->setStmt(($this->getConn())->query($this->getSQL()));
+            $this->getStmt()->execute();
+            $result = $this->getStmt()->fetchAll(PDO::FETCH_ASSOC);
+            print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Registros retornados: " . count($result));
+            return $result;
+        }
         try {
             $this->DBConnect();
             $this->getConn()->beginTransaction();
             $this->setStmt($this->getConn()->prepare($SQL));
             // $this->bindParams();
             $this->getStmt()->execute();
-            $this->getConn()->commit();
-            return "Execução de SQL realizada com sucesso!";
+            $tmp = $this->getConn()->commit();
+            print("\nExecução de SQL realizada com sucesso!");
+            return $tmp;
         } catch (PDOException $e) {
             $this->getConn()->rollback();
             echo "Error: " . $e->getMessage();
@@ -733,7 +745,7 @@ class Persistencia implements iPersistencia
      *
      * @return  self
      */
-    public function addRelacionamento(iPersistencia $oRelacionamento)
+    public function addRelacionamento(Relacionamento $oRelacionamento)
     {
         // print_r("\n> PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZANDO RELACIONAMENTO...");
         if ($this->Relacionamento == null) {

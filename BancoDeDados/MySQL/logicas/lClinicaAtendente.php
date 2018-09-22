@@ -4,48 +4,27 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
-include_once "Persistencia.php";
+include_once "Relacionamento.php";
 include_once "Filtro.php";
 
-class lClinicaAtendente extends Persistencia
+class lClinicaAtendente extends Relacionamento
 {
     public function __construct()
     {
         parent::__construct();
         $this->setModel("tClinicaAtendente");
-    }
-
-    public function alterar()
-    {
-        if(!$this->identificou){
-            return("\nNecessário identificar a classe antes de realizar alterações.");
-        }
-        if($this->codClinicaOld != $this->getCodClinica()){
-            // Alterou o codigo da clinica
-            $oClinicaAtendente = new lClinicaAtendente();
-            $oClinicaAtendente->setCodAtendente($this->getCodigo());
-            $oClinicaAtendente->setCodClinica($this->codClinicaOld);
-            $oClinicaAtendente->identifica();
-            $oClinicaAtendente->setCodClinica($this->getCodClinica());
-            print_r($oClinicaAtendente->executeUPDATE());
-        }
-        return($this->executeUPDATE());
+        $this->setCampoTabela1("codClinica");
+        $this->setCampoTabela2("codAtendente");
     }
 
     public function listaClinicaAtendenteByCodClinica(string $codClinica = null)
     {
-        if ($codClinica != null) {
-            $this->setFiltroValores("codClinica = '$codClinica'");
-        }
-        return $this->executeSELECT();
+        return $this->listaByCodTabela1($codClinica);
     }
 
     public function listaClinicaAtendenteByCodAtendente(string $codAtendente = null)
     {
-        if ($codAtendente != null) {
-            $this->setFiltroValores("codAtendente = '$codAtendente'");
-        }
-        return $this->executeSELECT();
+        return $this->listaByCodTabela2($codAtendente);
     }
 
     /**
@@ -53,7 +32,7 @@ class lClinicaAtendente extends Persistencia
      */
     public function getCodClinica()
     {
-        return $this->getModel()->getValor("codClinica");
+        return $this->getCodTabela1();
     }
 
     /**
@@ -63,8 +42,7 @@ class lClinicaAtendente extends Persistencia
      */
     public function setCodClinica($codClinica)
     {
-        $this->getModel()->setValor("codClinica", $codClinica);
-        return $this;
+        return $this->setCodTabela1($codClinica);
     }
 
     /**
@@ -72,7 +50,7 @@ class lClinicaAtendente extends Persistencia
      */
     public function getCodAtendente()
     {
-        return $this->getModel()->getValor("codAtendente");
+        return $this->getCodTabela2();
     }
 
     /**
@@ -82,10 +60,13 @@ class lClinicaAtendente extends Persistencia
      */
     public function setCodAtendente($codAtendente)
     {
-        $this->getModel()->setValor("codAtendente", $codAtendente);
-        return $this;
+        return $this->setCodTabela2($codAtendente);
     }
 }
 
-// $obj = new lClinicaAtendente();
+$obj = new lClinicaAtendente();
+$obj->setCodClinica("2");
+$obj->setCodAtendente("1");
+$obj->identifica();
 // print_r($obj);
+print_r($obj->getCodigo());
