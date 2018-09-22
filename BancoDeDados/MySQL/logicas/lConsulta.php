@@ -4,25 +4,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
-include_once "iPersistencia.php";
 include_once "Persistencia.php";
 include_once "Filtro.php";
 
-class lConsulta extends Persistencia implements iPersistencia
+class lConsulta extends Persistencia
 {
     public function __construct()
     {
         parent::__construct();
         $this->setModel("tConsulta");
-    }
-
-    public function listaConsultaByCodigo(string $codigo = null)
-    {
-        
-        if ($codigo != null) {
-            $this->setFiltroValores("codigo = '$codigo'");
-        }
-        return $this->executeSELECT();
     }
 
     public function listaConsultaByCodClinica(string $codClinica = null)
@@ -104,34 +94,6 @@ class lConsulta extends Persistencia implements iPersistencia
             $this->setFiltroValores("receita = '$receita'");
         }
         return $this->executeSELECT();
-    }
-
-    public function listaConsultaByRegDate(string $regDate = null)
-    {
-        
-        if ($regDate != null) {
-            $this->setFiltroValores("regDate = '$regDate'");
-        }
-        return $this->executeSELECT();
-    }
-
-    /**
-     * Get the value of codigo
-     */
-    public function getCodigo()
-    {
-        return $this->getModel()->getValor("codigo");
-    }
-
-    /**
-     * Set the value of codigo
-     *
-     * @return  self
-     */
-    public function setCodigo($codigo)
-    {
-        $this->getModel()->setValor("codigo", $codigo);
-        return $this;
     }
 
     /**
@@ -303,25 +265,6 @@ class lConsulta extends Persistencia implements iPersistencia
     public function setReceita($receita)
     {
         $this->getModel()->setValor("receita", $receita);
-        return $this;
-    }
-
-    /**
-     * Get the value of regDate
-     */
-    public function getRegDate()
-    {
-        return $this->getModel()->getValor("regDate");
-    }
-
-    /**
-     * Set the value of regDate
-     *
-     * @return  self
-     */
-    public function setRegDate($regDate)
-    {
-        $this->getModel()->setValor("regDate", $regDate);
         return $this;
     }
 

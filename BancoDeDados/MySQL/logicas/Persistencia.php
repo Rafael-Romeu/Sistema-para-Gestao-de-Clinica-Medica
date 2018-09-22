@@ -8,7 +8,7 @@ include_once "Model.php";
 include_once "iPersistencia.php";
 include_once "Filtro.php";
 
-class Persistencia
+class Persistencia implements iPersistencia
 {
     private $Model;
     private $Relacionamento;
