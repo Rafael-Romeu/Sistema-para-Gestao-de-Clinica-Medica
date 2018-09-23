@@ -241,5 +241,5 @@ class lClinica extends Persistencia
 
 }
 
-$obj = new lClinica();
-print_r($obj);
+// $obj = new lClinica();
+// print_r($obj);

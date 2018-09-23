@@ -14,9 +14,21 @@ class Filtro
         $this->setsFiltro("1");
     }
 
-    public function equals($campo, $valor)
+    public function equals($campo, $valor, $type)
     {
-        $this->setsFiltro($this->getsFiltro() . " AND $campo = '$valor'");
+        if (strpos($type, 'varchar') !== false) {
+            $valor = "'$valor'";
+        }
+        if (strpos($type, 'date') !== false) {
+            // $data = date("Y-m-d", strtotime($data));
+        }
+        if (strpos($type, 'int') !== false) {
+            // $valor 
+        }
+        if (strpos($type, 'time') !== false) {
+            // $valor = strtotime($data);
+        }
+        $this->setsFiltro($this->getsFiltro() . " AND $campo = $valor");
         return $this;
     }
 
@@ -25,7 +37,6 @@ class Filtro
         $this->setsFiltro($this->getsFiltro() . "AND $campo $operador '$valor'");
         return $this;
     }
-
 
     /**
      * Get the value of sFiltro

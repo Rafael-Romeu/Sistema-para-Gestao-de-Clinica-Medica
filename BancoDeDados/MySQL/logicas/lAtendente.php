@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 include_once "PessoaFisica.php";
 include_once "Filtro.php";
-include_once "lClinicaAtendente.php";
+include_once "lClinica.php";
 
 class lAtendente extends PessoaFisica
 {
@@ -17,84 +17,16 @@ class lAtendente extends PessoaFisica
     {
         parent::__construct();
         $this->setModel("tAtendente");
-        $this->addRelacionamento(new lClinicaAtendente());
-    }
-
-    public function verificaClinicas()
-    {
-        print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Buscando dados do Relacionamento [" . $this->getRelacionamento()[0]->getModel()->getTABELANOME() . "]...");
-        $resultado = array();
-        $this->getRelacionamento()[0]->setFiltroCampos("codClinica");
-        $result = $this->getRelacionamento()[0]->listaClinicaAtendenteByCodAtendente($this->getCodigo());
-        if (count($result) == 1) {
-            array_push($resultado, $result[0]["codClinica"]);
-        }
-        if (count($result) > 1) {
-            foreach ($result as $codClinica => $valor) {
-                array_push($resultado, $valor);
-                $this->setCodClinica($valor);
-            }
-        }
-        $this->codClinicaOld = $resultado;
-        print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getRelacionamento()[0]->getModel()->getTABELANOME() . "]\n");
-        return $resultado;
+        $this->setRelacionamento(new lClinica());
+        $this->setTabelaIntermediaria("tClinicaAtendente");
     }
 
     public function identifica()
     {
         if (parent::identifica()) {
-            $this->verificaClinicas();
+            // print_r($this->buscaDadosRelacionamento());
         }
         return $this->getIdentificou();
-    }
-
-    public function alterar()
-    {
-        if (!$this->getIdentificou()) {
-            return ("\nNecessário identificar a classe antes de realizar alterações.");
-        }
-        if ($this->codClinicaOld != $this->getCodClinica()) {
-            // Alterou o codigo da clinica
-            print_r("\nSem Alterações no Código da Clinica.");
-            $oClinicaAtendente = new lClinicaAtendente();
-            $oClinicaAtendente->setCodAtendente($this->getCodigo());
-            $oClinicaAtendente->setCodClinica($this->codClinicaOld);
-            $oClinicaAtendente->identifica();
-            $oClinicaAtendente->setCodClinica($this->getCodClinica());
-            print_r($oClinicaAtendente->executeUPDATE());
-        }
-        return ($this->executeUPDATE());
-    }
-
-    public function incluir()
-    {
-        $msg = parent::incluir();
-        if ("Inserção realizada com sucesso!" == $msg) {
-            $this->identifica();
-            if ($this->getCodClinica() != null and $this->getCodClinica() != "") {
-                print_r("\n[" . $this->getModel()->getTABELANOME() . ": Realizando alterações na tabela " . $this->getRelacionamento()[0]->getModel()->getTABELANOME() . "...]");
-                $this->getRelacionamento()[0]->setCodAtendente($this->getCodigo());
-                $this->getRelacionamento()[0]->setCodClinica($this->getCodClinica());
-                print_r($this->getRelacionamento()[0]->incluir());
-            }
-        }
-        return $msg;
-    }
-
-    public function excluir()
-    {
-        $msg = parent::excluir();
-        if ("Exclusão efetuada com sucesso!\n" != $msg) {
-            return $msg;
-        }
-        $clinicas = $this->getRelacionamento()[0]->listaClinicaAtendenteByCodAtendente($this->getCodigo());
-        if (count($clinicas) > 0) {
-            foreach ($clinicas as $clinica => $valor) {
-                $this->getRelacionamento()[0]->setCodClinica($valor['codClinica']);
-                $this->getRelacionamento()[0]->excluir();
-            }
-        }
-        return $msg;
     }
 
     /**
@@ -102,7 +34,7 @@ class lAtendente extends PessoaFisica
      */
     public function getCodClinica()
     {
-        return $this->codClinica;
+        return $this->getModel()->getValor("codClinica");
     }
 
     /**
@@ -112,26 +44,30 @@ class lAtendente extends PessoaFisica
      */
     public function setCodClinica($codClinica)
     {
-        if ($this->codClinica == null) {
-            $this->codClinica = array();
-        }
-        array_push($this->codClinica, $codClinica);
+        $this->getModel()->setValorArray("codClinica", $codClinica);
         return $this;
     }
 }
 
 $obj = new lAtendente();
-// $obj->setSenha("1234567");
-// $obj->setCpf("77777777778");
-// $obj->setNome("TESTE");
+$obj->setSenha("1234567");
+$obj->setCpf("77777777777");
+$obj->setNome("Marlon Franco");
 // print_r($obj);
 // print_r($obj->identifica());
-// $obj->setCodigo("1");
+// $obj->setNome("TESTE");
+// $obj->setCodClinica("7");
+// $obj->setCodigo(16);
 // $obj->identifica();
-// print_r($obj->excluir());
+// print_r($obj->getModel()->getMAPPING());
+// print_r($obj->identifica());
+// print_r($obj->getModel()->getMAPPING());
 // $obj->setCodClinica("2");
 // print_r($obj->incluir());
+// print_r($obj->alterar());
+print_r($obj->excluir());
 // print_r($obj);
 // print_r("\nCodClinica: " . $obj->getCodClinica());
-
-print_r($obj->executeSQL("SELECT * FROM tClinicaAtendente AS tr INNER JOIN tClinica AS t2 ON (tr.codClinica=t2.codigo) WHERE tr.codAtendente=11;"));
+// print_r($obj->getRelacionamento()->listaTabela1ByTabela2($obj->getCodigo()));
+// print_r($obj->executeSQL("SELECT * FROM tClinicaAtendente AS tr INNER JOIN tClinica AS t2 ON (tr.codClinica=t2.codigo) WHERE tr.codAtendente=11;"));
+print_r($obj->getModel()->getMAPPING());

@@ -13,18 +13,28 @@ class lClinicaAtendente extends Relacionamento
     {
         parent::__construct();
         $this->setModel("tClinicaAtendente");
+        $this->setTabela1Nome("tClinica");
+        $this->setTabela2Nome("tAtendente");
         $this->setCampoTabela1("codClinica");
         $this->setCampoTabela2("codAtendente");
     }
 
-    public function listaClinicaAtendenteByCodClinica(string $codClinica = null)
-    {
-        return $this->listaByCodTabela1($codClinica);
+    public function buscaCodClinicaByCodAtendente($codAtendente){
+        return $this->buscaCodigoTabela1($codAtendente);
     }
 
-    public function listaClinicaAtendenteByCodAtendente(string $codAtendente = null)
+    public function buscaCodAtendenteByCodClinica($codClincia){
+        return $this->buscaCodigoTabela2($codClincia);
+    }
+
+    public function listaAtendenteByCodClinica(string $codClinica = null)
     {
-        return $this->listaByCodTabela2($codAtendente);
+        return $this->listaTabela2ByTabela1($codClinica);
+    }
+
+    public function listaClinicaByCodAtendente(string $codAtendente = null)
+    {
+        return $this->listaTabela1ByTabela2($codAtendente);
     }
 
     /**

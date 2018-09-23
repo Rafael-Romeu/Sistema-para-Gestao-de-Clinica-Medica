@@ -19,27 +19,54 @@ class Relacionamento extends Persistencia
         parent::__construct();
     }
 
-    public function FunctionName(Type $valor = null)
+    public function buscaCodigoTabela1(string $codTabela2)
     {
-        $obj->executeSQL("SELECT * FROM tClinicaAtendente AS tr INNER JOIN tClinica AS t2 ON (tr.codClinica=t2.codigo) WHERE tr.codAtendente=11;");
-        $obj->executeSQL("SELECT * FROM ".$this->getRelacionamentoNome()." AS tr INNER JOIN ".$this->getTabela1Nome()." AS t1 ON (tr.".$this->getCampoTabela1()."=t1.codigo) WHERE tr.".$this->getCampoTabela2()."=".$valor.";");
-
+        print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Buscando dados da Tabela [" . $this->getTabela1Nome() . "]...");
+        $this->setFiltroCampos($this->getCampoTabela1());
+        $resultado = array();
+        $result = $this->listaTabela1ByTabela2($codTabela2);
+        // print_r($result);
+        if (count($result) == 1) {
+            array_push($resultado, $result[0][$this->getCampoTabela1()]);
+        }
+        if (count($result) > 1) {
+            foreach ($result as $codClinica => $valor) {
+                array_push($resultado, $valor);
+            }
+        }
+        print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getTabela1Nome() . "]\n");
+        return $resultado;
     }
 
-    public function listaByCodTabela1(string $codTabela1 = null)
+    public function buscaCodigoTabela2(string $codTabela1)
     {
-        if ($codTabela1 != null) {
-            $this->setFiltroValores($this->getCampoTabela1() . " = '$codTabela1'");
+        print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Buscando dados da Tabela [" . $this->getTabela2Nome() . "]...");
+        $this->setFiltroCampos($this->getCampoTabela2());
+        $result = $this->listaTabela2ByTabela1($codTabela1);
+        // print_r($result);
+        if (count($result) == 1) {
+            array_push($resultado, $result[0][$this->getCampoTabela2()]);
         }
-        return $this->executeSELECT();
+        if (count($result) > 1) {
+            foreach ($result as $codClinica => $valor) {
+                array_push($resultado, $valor);
+            }
+        }
+        print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getTabela2Nome() . "]\n");
+        return $resultado;
     }
 
-    public function listaByCodTabela2(string $codTabela2 = null)
+
+    public function listaTabela2ByTabela1(string $codTabela1 = null)
     {
-        if ($codTabela2 != null) {
-            $this->setFiltroValores($this->getCampoTabela2() . " = '$codTabela2'");
-        }
-        return $this->executeSELECT();
+        // $obj->executeSQL("SELECT * FROM tClinicaAtendente AS tr INNER JOIN tClinica AS t2 ON (tr.codClinica=t2.codigo) WHERE tr.codAtendente=11;");
+        return $this->executeSQL("SELECT ".$this->getFiltroCampos()." FROM ".$this->getModel()->getTABELANOME()." AS tr INNER JOIN ".$this->getTabela2Nome()." AS t2 ON (tr.".$this->getCampoTabela2()."=t2.codigo) WHERE tr.".$this->getCampoTabela1()."=".$codTabela1.";");
+    }
+
+    public function listaTabela1ByTabela2(string $codTabela2 = null)
+    {
+        // $obj->executeSQL("SELECT * FROM tClinicaAtendente AS tr INNER JOIN tClinica AS t2 ON (tr.codClinica=t2.codigo) WHERE tr.codAtendente=11;");
+        return $this->executeSQL("SELECT ".$this->getFiltroCampos()." FROM ".$this->getModel()->getTABELANOME()." AS tr INNER JOIN ".$this->getTabela1Nome()." AS t1 ON (tr.".$this->getCampoTabela1()."=t1.codigo) WHERE tr.".$this->getCampoTabela2()."=".$codTabela2.";");
     }
 
     /**

@@ -89,6 +89,14 @@ class Model
         return $this;
     }
 
+    public function addValorMAPPING($campo, $tipo, $valor)
+    {
+        // print("\nPassou aqui!! Marlon");
+        $a = array($campo => ["valor" => $valor, "tipo" => $tipo]);
+        $this->MAPPING += $a;
+        return $this;
+    }
+
     public function getValor($campo)
     {
         return $this->getMAPPING()[$campo]["valor"];
@@ -98,6 +106,15 @@ class Model
     {
         $valor = $this->parseValor($campo, $valor);
         $this->MAPPING[$campo]["valor"] = $valor;
+        return $this;
+    }
+
+    public function setValorArray($campo, $valor, $resetar=null)
+    {
+        if($resetar || $this->MAPPING[$campo]["valor"] == null || $this->MAPPING[$campo]["valor"] == ""){
+            $this->MAPPING[$campo]["valor"] = array();
+        }
+        array_push($this->MAPPING[$campo]["valor"], $valor);
         return $this;
     }
 
