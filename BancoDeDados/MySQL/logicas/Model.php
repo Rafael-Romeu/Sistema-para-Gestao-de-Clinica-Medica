@@ -97,6 +97,11 @@ class Model
         return $this;
     }
 
+    public function temCampoMAPPING(string $campo)
+    {
+        return array_key_exists ( $campo , $this->MAPPING );
+    }
+
     public function getValor($campo)
     {
         return $this->getMAPPING()[$campo]["valor"];
@@ -109,9 +114,9 @@ class Model
         return $this;
     }
 
-    public function setValorArray($campo, $valor, $resetar=null)
+    public function setValorArray($campo, $valor)
     {
-        if($resetar || $this->MAPPING[$campo]["valor"] == null || $this->MAPPING[$campo]["valor"] == ""){
+        if($this->MAPPING[$campo]["valor"] == null || $this->MAPPING[$campo]["valor"] == ""){
             $this->MAPPING[$campo]["valor"] = array();
         }
         array_push($this->MAPPING[$campo]["valor"], $valor);

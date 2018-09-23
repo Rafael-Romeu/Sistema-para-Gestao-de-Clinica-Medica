@@ -121,13 +121,7 @@ class Persistencia implements iPersistencia
                 $this->getModel()->setValor($campo, $valor);
             }
             if ($this->temRelacionamento) {
-                $result = $this->executeSELECTRelacionamento();
-                // print_r($result);
-                foreach ($result as $campos) {
-                    $valor = $campos[$this->getCampoTabelaRelacionamento()];
-                    // print_r($valor);
-                    $this->getModel()->setValorArray($this->getCampoTabelaRelacionamento(), $valor, true);
-                }
+                $this->buscaDadosRelacionamento();
             }
             // print_r($result);
             print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA TRUE\n");
@@ -786,19 +780,37 @@ class Persistencia implements iPersistencia
         return $this->Relacionamento;
     }
 
-    /**
-     * Set the value of Relacionamento
-     *
-     * @return  self
-     */
-    public function setRelacionamento(iPersistencia $Relacionamento)
+    // /**
+    //  * Set the value of Relacionamento
+    //  *
+    //  * @return  self
+    //  */
+    // public function setRelacionamento(iPersistencia $Relacionamento)
+    // {
+    //     $this->Relacionamento = $Relacionamento;
+    //     $this->setCampoTabelaRelacionamento('cod' . substr($this->Relacionamento->getModel()->getTABELANOME(), 1));
+    //     $this->setCampoMinhaTabelaNoRelacionamento('cod' . substr($this->getModel()->getTABELANOME(), 1));
+    //     $codigoRelacionamento = $this->Relacionamento->getModel()->getMAPPING()['codigo'];
+    //     // $a = array($codigoRelacionamento);
+    //     if(!$this->getModel()->temCampoMAPPING($this->getCampoTabelaRelacionamento())){
+    //         $this->getModel()->addValorMAPPING($this->getCampoTabelaRelacionamento(), $codigoRelacionamento['tipo'], $codigoRelacionamento['valor']);
+    //     }
+    //     $this->buscaDadosRelacionamento();
+    //     $this->temRelacionamento = true;
+    //     return $this;
+    // }
+
+    public function setRelacionamento($Relacionamento)
     {
         $this->Relacionamento = $Relacionamento;
-        $this->setCampoTabelaRelacionamento('cod' . substr($this->Relacionamento->getModel()->getTABELANOME(), 1));
+        $this->setCampoTabelaRelacionamento('cod' . substr($Relacionamento, 1));
         $this->setCampoMinhaTabelaNoRelacionamento('cod' . substr($this->getModel()->getTABELANOME(), 1));
-        $codigoRelacionamento = $this->Relacionamento->getModel()->getMAPPING()['codigo'];
-        // $a = array($codigoRelacionamento);
-        $this->getModel()->addValorMAPPING($this->getCampoTabelaRelacionamento(), $codigoRelacionamento['tipo'], $codigoRelacionamento['valor']);
+        if (!$this->getModel()->temCampoMAPPING($this->getCampoTabelaRelacionamento())) {
+            $this->getModel()->addValorMAPPING($this->getCampoTabelaRelacionamento(), "int", "");
+        }
+        if ($this->getIdentificou()) {
+            $this->buscaDadosRelacionamento();
+        }
         $this->temRelacionamento = true;
         return $this;
     }
@@ -808,7 +820,7 @@ class Persistencia implements iPersistencia
      *
      * @return  self
      */
-    public function addRelacionamento(iPersistencia $oRelacionamento)
+    public function addRelacionamento($oRelacionamento)
     {
         // print_r("\n> ".__LINE__."\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZANDO RELACIONAMENTO...");
         if ($this->Relacionamento == null) {
@@ -819,11 +831,23 @@ class Persistencia implements iPersistencia
         return $this;
     }
 
+    public function buscaDadosRelacionamento()
+    {
+        $result = $this->executeSELECTRelacionamento();
+        // print_r($result);
+        foreach ($result as $campos) {
+            $valor = $campos[$this->getCampoTabelaRelacionamento()];
+            // print_r($valor);
+            $this->getModel()->setValorArray($this->getCampoTabelaRelacionamento(), $valor);
+        }
+        return $result;
+    }
+
     private function executeSELECTRelacionamento()
     {
         $this->identificaSimples();
         $this->setOrderBy($this->getCampoTabelaRelacionamento());
-        $this->executeSQL("SELECT " . $this->getFiltroCampos() . " FROM " . $this->getTabelaIntermediaria() . " AS tr INNER JOIN " . $this->getRelacionamento()->getModel()->getTABELANOME() . " AS t2 ON (tr." . $this->getCampoTabelaRelacionamento() . "=t2.codigo) WHERE tr." . $this->getCampoMinhaTabelaNoRelacionamento() . "=" . $this->getCodigo() . $this->getGroupBy() . $this->getOrderBy() . ";");
+        $this->executeSQL("SELECT " . $this->getFiltroCampos() . " FROM " . $this->getTabelaIntermediaria() . " AS tr INNER JOIN " . $this->getRelacionamento() . " AS t2 ON (tr." . $this->getCampoTabelaRelacionamento() . "=t2.codigo) WHERE tr." . $this->getCampoMinhaTabelaNoRelacionamento() . "=" . $this->getCodigo() . $this->getGroupBy() . $this->getOrderBy() . ";");
         print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
         return $this->executeSQL();
     }
@@ -832,17 +856,16 @@ class Persistencia implements iPersistencia
     {
         // $this->identificaSimples();
         $temp = $this->executeSELECTRelacionamento();
-        if(count($temp) <= 0){
+        if (count($temp) <= 0) {
             foreach ($this->getModel()->getValor($this->getCampoTabelaRelacionamento()) as $codClinica) {
                 $this->executeINSERTRelacionamento($codClinica);
             }
-        }else{
+        } else {
+            $this->executeDELETERelacionamento();
             foreach ($this->getModel()->getValor($this->getCampoTabelaRelacionamento()) as $codClinica) {
-                $this->setSQL("UPDATE " . $this->getTabelaIntermediaria() . " SET " . $this->getCampoTabelaRelacionamento() . "=" . $codClinica . " WHERE " . $this->getCampoMinhaTabelaNoRelacionamento() . "=" . $this->getCodigo() . ";");
-                print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
+                $this->executeINSERTRelacionamento($codClinica);
             }
-            $this->executeSQL();
-        }       
+        }
     }
 
     private function executeINSERTRelacionamento(string $codigo)
