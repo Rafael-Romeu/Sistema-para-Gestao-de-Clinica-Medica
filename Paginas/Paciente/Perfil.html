@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="/Paginas/css/Layout.css">
+  <link rel="stylesheet" href="/Paginas/css/Paciente.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="/Paginas/js/scripts.js"></script>
+
+  <title>Paciente</title>
+  <meta charset = "UTF-8">
+</head>
+
+
+<body>
+  <header class="main-header">
+    <div class="main-header__top-bar">
+      <h1 class="main-header__logo">Vida Saudável</h1>
+      <div class="main-header__user">
+        <span class="main-header__username" id="headerUserNome">Jacinto Leite</span>
+        <a class="main-header__logout-btn" href="#">Logout</a>
+      </div>
+    </div>
+
+    <nav class="main-header__nav-bar">
+
+      <a class="main-header__nav-btn" href="Home.html">
+        <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/home.svg">
+        Home
+      </a>
+
+      <a class="main-header__nav-btn" href="Consultas.html">
+        <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/heart.svg">
+        Consultas
+      </a>
+
+      <a class="main-header__nav-btn" href="Historico.html">
+        <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/history.svg">
+        Histórico
+      </a>
+
+      <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Perfil.html">
+        <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="/Paginas/img/common/icons/profile.svg">
+        Perfil
+      </a>
+
+    </nav>
+  </header>
+    
+    
+  <div class="main-body perfil-body">
+    <h1 class="perfil-header">Perfil</h1>
+
+    <span class="perfil-edit" id="perfil-edit">
+      <img class="svg" src="/Paginas/img/common/icons/pencil.svg">
+    </span>
+
+    <div class="perfil-info">
+      <div class="perfil-column-left">
+        <div class="perfil-widget">
+          <h2>Dados Pessoais</h2>
+          <div class="card">
+            <b>Nome:</b>
+            <br>
+            <span id="infoUserNome">Jacinto Leite</span>
+            <br><br>
+
+            <b>CPF:</b>
+            <br>
+            <span id="infoUserCpf">123.123.123-12</span>
+            <br><br>
+
+            <b>Data de Nascimento:</b>
+            <br>
+            <span id="infoUserData">01/01/1990</span>
+            <br><br>
+
+            <b>Gênero:</b>
+            <br>
+            <span id="infoUserEnd">Masculino</span>
+            <br><br>
+            
+            <b>Endereço:</b>
+            <br>
+            <span id="infoUserEnd">Rua Jussara, 159</span>
+            <br>
+          </div>
+
+            
+        </div>
+          
+      </div>
+
+      <div class="perfil-column-right">
+        <div class="perfil-widget">
+          <h2>Contato</h2>
+          <div class="card">
+            <b>Email:</b>
+            <br>
+            <span id="infoUserEmail">jacinto@leite.com</span>
+            <br><br>
+            <b>Telefone:</b>
+            <br>
+            <span id="infoUserTel">(21)2345678</span>
+            <br>
+          </div>
+        </div>
+        <div class="perfil-widget">
+          <h2>Dados Médicos</h2>
+          <div class="card">
+            <b>Plano de Saúde:</b>
+            <br>
+            <span id="infoUserPlano">Unimed</span>
+            <br><br>
+
+            <b>Tipo Sanguíneo:</b>
+            <br>
+            <span id="infoUserSangue">O+</span>
+            <br>
+          </div>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+        
+</body>
+
+<script>
+  SvgInliner();
+</script>
+
+</html>
