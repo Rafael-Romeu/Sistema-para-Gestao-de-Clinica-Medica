@@ -147,6 +147,9 @@ CREATE TABLE `trabalho`.`tHorarioAtendimento` (
 	`sex` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tHorarioAtendimento`(`codMedico`, `codClinica`);
 	
 
 ####### tEspecialidade #######

@@ -5,7 +5,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 include_once "PessoaFisica.php";
-include_once "Filtro.php";
 
 class lPaciente extends PessoaFisica
 {
@@ -13,6 +12,36 @@ class lPaciente extends PessoaFisica
     {
         parent::__construct();
         $this->setModel("tPaciente");
+    }
+
+    public function listaClinicas()
+    {
+        $this->setTabelaIntermediaria("tClinicaPaciente");
+        $this->setRelacionamento("tClinica");
+        return $this->buscaDadosRelacionamento();
+    }
+
+    /**
+     * Get the value of codClinica
+     */
+    public function getCodClinica()
+    {
+        $this->setTabelaIntermediaria("tClinicaPaciente");
+        $this->setRelacionamento("tClinica");
+        return $this->getModel()->getValor("codClinica");
+    }
+
+    /**
+     * Set the value of codClinica
+     *
+     * @return  self
+     */
+    public function setCodClinica($codClinica)
+    {
+        $this->setTabelaIntermediaria("tClinicaPaciente");
+        $this->setRelacionamento("tClinica");
+        $this->getModel()->setValorArray("codClinica", $codClinica);
+        return $this;
     }
 
     public function listaPacienteByPlanoDeSaude(string $planoDeSaude = null)
@@ -100,6 +129,3 @@ class lPaciente extends PessoaFisica
     }
 
 }
-
-$obj = new lPaciente();
-print_r($obj);

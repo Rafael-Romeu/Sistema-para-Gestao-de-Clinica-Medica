@@ -212,6 +212,3 @@ class lHorarioAtendimento extends Persistencia
     }
 
 }
-
-$obj = new lHorarioAtendimento();
-print_r($obj->listaHorarioAtendimentoByCodClinica());

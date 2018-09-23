@@ -18,7 +18,7 @@ class lEspecialidade extends Persistencia
     {
         
         if ($nome != null) {
-            $this->setFiltroValores("codnomeMedico = '$nome'");
+            $this->setFiltroValores("nome = '$nome'");
         }
         return $this->executeSELECT();
     }

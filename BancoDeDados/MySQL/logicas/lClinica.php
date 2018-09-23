@@ -42,18 +42,26 @@ class lClinica extends Persistencia
 
     public function alterar()
     {
-        $this->setTabelaIntermediaria("tClinicaAtendente");
-        $this->setRelacionamento("tAtendente");
-        parent::alterar();
-        $this->getModel()->removeCampoMAPPING($this->getCampoTabelaRelacionamento());
-        // $this->setTabelaIntermediaria("tClinicaMedico");
-        // $this->setRelacionamento("tMedico");
-        // parent::alterar();
-        // $this->getModel()->removeCampoMAPPING($this->getCampoTabelaRelacionamento());
-        // $this->setTabelaIntermediaria("tClinicaPaciente");
-        // $this->setRelacionamento("tPaciente");
-        // parent::alterar();
-        // $this->getModel()->removeCampoMAPPING($this->getCampoTabelaRelacionamento());
+        switch ($this->relacionamentoNome) {
+            case 'Atendente':
+                $this->setTabelaIntermediaria("tClinicaAtendente");
+                $this->setRelacionamento("tAtendente");
+                parent::alterar();
+                break;
+            case 'Medico':
+                $this->setTabelaIntermediaria("tClinicaMedico");
+                $this->setRelacionamento("tMedico");
+                parent::alterar();
+                break;
+            case 'Paciente':
+                $this->setTabelaIntermediaria("tClinicaPaciente");
+                $this->setRelacionamento("tPaciente");
+                parent::alterar();
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 
     public function excluir()
@@ -390,21 +398,3 @@ class lClinica extends Persistencia
     }
 
 }
-
-$obj = new lClinica();
-$obj->setCnpj("77777777777777719");
-// print_r($obj->getModel()->getMAPPING());
-$obj->identifica();
-$obj->setNome("Marlon");
-$obj->setCodAtendente("3");
-// print_r($obj->getModel()->getMAPPING());
-// print_r($obj->getCodAtendente());
-// print_r($obj->getCodMedico());
-// print_r($obj->getCodPaciente());
-// print_r($obj->listaByRegDate("2018-09-22 19:38:26"));
-// print_r($obj->listaAtendentes());
-// print_r($obj->listaMedicos());
-// print_r($obj->listaPacientes());
-// print_r($obj->incluir());
-// print_r($obj->excluir());
-print_r($obj->alterar());
