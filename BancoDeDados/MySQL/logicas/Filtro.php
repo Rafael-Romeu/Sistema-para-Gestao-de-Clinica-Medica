@@ -20,7 +20,7 @@ class Filtro
             $valor = "'$valor'";
         }
         if (strpos($type, 'date') !== false) {
-            // $data = date("Y-m-d", strtotime($data));
+            $valor = "'$valor'";
         }
         if (strpos($type, 'int') !== false) {
             // $valor 

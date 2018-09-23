@@ -148,7 +148,7 @@ class Persistencia implements iPersistencia
     {
         print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICANDO Simples...");
         $oFiltro = new Filtro();
-        print_r($this->getModel()->getMAPPING());
+        // print_r($this->getModel()->getMAPPING());
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             if ($campo != $this->getCampoTabelaRelacionamento() && $campo != "regDate") {
                 if ($this->getModel()->getMAPPING()[$campo]["modificado"]=="N") {

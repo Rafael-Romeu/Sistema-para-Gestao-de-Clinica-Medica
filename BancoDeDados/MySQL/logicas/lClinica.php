@@ -332,7 +332,7 @@ class lClinica extends Persistencia
      */
     public function setCodAtendente($codAtendente)
     {
-        $this->$relacionamentoNome = "Atendente";
+        $this->relacionamentoNome = "Atendente";
         $this->setTabelaIntermediaria("tClinicaAtendente");
         $this->setRelacionamento("tAtendente");
         $this->getModel()->setValorArray("codAtendente", $codAtendente);
@@ -344,7 +344,7 @@ class lClinica extends Persistencia
      */
     public function getCodMedico()
     {
-        $this->$relacionamentoNome = "Medico";
+        $this->relacionamentoNome = "Medico";
         $this->setTabelaIntermediaria("tClinicaMedico");
         $this->setRelacionamento("tMedico");
         return $this->getModel()->getValor("codMedico");
@@ -357,7 +357,7 @@ class lClinica extends Persistencia
      */
     public function setCodMedico($codMedico)
     {
-        $this->$relacionamentoNome = "Medico";
+        $this->relacionamentoNome = "Medico";
         $this->setTabelaIntermediaria("tClinicaMedico");
         $this->setRelacionamento("tMedico");
         $this->getModel()->setValorArray("codMedico", $codMedico);
