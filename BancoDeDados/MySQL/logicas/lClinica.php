@@ -5,14 +5,68 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 include_once "Persistencia.php";
-include_once "lAtendente.php";
 
 class lClinica extends Persistencia
 {
+    private $relacionamentoNome;
+
     public function __construct()
     {
         parent::__construct();
         $this->setModel("tClinica");
+    }
+
+    public function incluir()
+    {
+        switch ($this->relacionamentoNome) {
+            case 'Atendente':
+                $this->setTabelaIntermediaria("tClinicaAtendente");
+                $this->setRelacionamento("tAtendente");
+                parent::incluir();
+                break;
+            case 'Medico':
+                $this->setTabelaIntermediaria("tClinicaMedico");
+                $this->setRelacionamento("tMedico");
+                parent::incluir();
+                break;
+            case 'Paciente':
+                $this->setTabelaIntermediaria("tClinicaPaciente");
+                $this->setRelacionamento("tPaciente");
+                parent::incluir();
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+
+    public function alterar()
+    {
+        $this->setTabelaIntermediaria("tClinicaAtendente");
+        $this->setRelacionamento("tAtendente");
+        parent::alterar();
+        $this->getModel()->removeCampoMAPPING($this->getCampoTabelaRelacionamento());
+        // $this->setTabelaIntermediaria("tClinicaMedico");
+        // $this->setRelacionamento("tMedico");
+        // parent::alterar();
+        // $this->getModel()->removeCampoMAPPING($this->getCampoTabelaRelacionamento());
+        // $this->setTabelaIntermediaria("tClinicaPaciente");
+        // $this->setRelacionamento("tPaciente");
+        // parent::alterar();
+        // $this->getModel()->removeCampoMAPPING($this->getCampoTabelaRelacionamento());
+    }
+
+    public function excluir()
+    {
+        $this->setTabelaIntermediaria("tClinicaAtendente");
+        $this->setRelacionamento("tAtendente");
+        parent::excluir();
+        $this->setTabelaIntermediaria("tClinicaMedico");
+        $this->setRelacionamento("tMedico");
+        parent::excluir();
+        $this->setTabelaIntermediaria("tClinicaPaciente");
+        $this->setRelacionamento("tPaciente");
+        parent::excluir();
     }
 
     public function listaClinicaByNome(string $nome = null)
@@ -265,6 +319,7 @@ class lClinica extends Persistencia
      */
     public function getCodAtendente()
     {
+        $this->$relacionamentoNome = "Atendente";
         $this->setTabelaIntermediaria("tClinicaAtendente");
         $this->setRelacionamento("tAtendente");
         return $this->getModel()->getValor("codAtendente");
@@ -277,6 +332,7 @@ class lClinica extends Persistencia
      */
     public function setCodAtendente($codAtendente)
     {
+        $this->$relacionamentoNome = "Atendente";
         $this->setTabelaIntermediaria("tClinicaAtendente");
         $this->setRelacionamento("tAtendente");
         $this->getModel()->setValorArray("codAtendente", $codAtendente);
@@ -288,6 +344,7 @@ class lClinica extends Persistencia
      */
     public function getCodMedico()
     {
+        $this->$relacionamentoNome = "Medico";
         $this->setTabelaIntermediaria("tClinicaMedico");
         $this->setRelacionamento("tMedico");
         return $this->getModel()->getValor("codMedico");
@@ -300,6 +357,7 @@ class lClinica extends Persistencia
      */
     public function setCodMedico($codMedico)
     {
+        $this->$relacionamentoNome = "Medico";
         $this->setTabelaIntermediaria("tClinicaMedico");
         $this->setRelacionamento("tMedico");
         $this->getModel()->setValorArray("codMedico", $codMedico);
@@ -311,6 +369,7 @@ class lClinica extends Persistencia
      */
     public function getCodPaciente()
     {
+        $this->$relacionamentoNome = "Paciente";
         $this->setTabelaIntermediaria("tClinicaPaciente");
         $this->setRelacionamento("tPaciente");
         return $this->getModel()->getValor("codPaciente");
@@ -321,8 +380,9 @@ class lClinica extends Persistencia
      *
      * @return  self
      */
-    public function setCodpaciente($codPaciente)
+    public function setCodPaciente($codPaciente)
     {
+        $this->$relacionamentoNome = "Paciente";
         $this->setTabelaIntermediaria("tClinicaPaciente");
         $this->setRelacionamento("tPaciente");
         $this->getModel()->setValorArray("codPaciente", $codPaciente);
@@ -331,9 +391,13 @@ class lClinica extends Persistencia
 
 }
 
-// $obj = new lClinica();
-// $obj->setCnpj("77777777777777717");
-// $obj->identifica();
+$obj = new lClinica();
+$obj->setCnpj("77777777777777719");
+// print_r($obj->getModel()->getMAPPING());
+$obj->identifica();
+$obj->setNome("Marlon");
+$obj->setCodAtendente("3");
+// print_r($obj->getModel()->getMAPPING());
 // print_r($obj->getCodAtendente());
 // print_r($obj->getCodMedico());
 // print_r($obj->getCodPaciente());
@@ -341,4 +405,6 @@ class lClinica extends Persistencia
 // print_r($obj->listaAtendentes());
 // print_r($obj->listaMedicos());
 // print_r($obj->listaPacientes());
-
+// print_r($obj->incluir());
+// print_r($obj->excluir());
+print_r($obj->alterar());

@@ -103,14 +103,20 @@ class Persistencia implements iPersistencia
         return $q;
     }
 
-    public function identifica()
+    public function identifica($proUPDATE=null)
     {
+        if($proUPDATE==null){
+            $this->getModel()->zeraModificacoesTodosCamposMAPPING();
+        }
         print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICANDO...");
         $oFiltro = new Filtro();
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             if ($campo != $this->getCampoTabelaRelacionamento() && $campo != "regDate") {
-                if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
-                    $oFiltro->equals($campo, $valor["valor"], $valor["tipo"]);
+                if ($this->getModel()->getMAPPING()[$campo]["modificado"]=="N") {
+                    // print_r(">AQUIIIIIIII: ".$this->getModel()->getMAPPING()[$campo]["modificado"]);
+                    if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
+                        $oFiltro->equals($campo, $valor["valor"], $valor["tipo"]);
+                    }
                 }
             }
         }
@@ -123,6 +129,7 @@ class Persistencia implements iPersistencia
             if ($this->temRelacionamento) {
                 $this->buscaDadosRelacionamento();
             }
+            $this->getModel()->zeraModificacoesTodosCamposMAPPING();
             // print_r($result);
             print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA TRUE\n");
             $this->setIdentificou(true);
@@ -141,10 +148,13 @@ class Persistencia implements iPersistencia
     {
         print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICANDO Simples...");
         $oFiltro = new Filtro();
+        print_r($this->getModel()->getMAPPING());
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             if ($campo != $this->getCampoTabelaRelacionamento() && $campo != "regDate") {
-                if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
-                    $oFiltro->equals($campo, $valor["valor"], $valor["tipo"]);
+                if ($this->getModel()->getMAPPING()[$campo]["modificado"]=="N") {
+                    if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
+                        $oFiltro->equals($campo, $valor["valor"], $valor["tipo"]);
+                    }
                 }
             }
         }
@@ -239,7 +249,7 @@ class Persistencia implements iPersistencia
      */
     public function executeUPDATE($camposSelecionados = null)
     {
-        if (!$this->identificaSimples()) {
+        if (!$this->identificaSimples(true)) {
             print_r("\n*! > PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Não foi possível identificar o registro. Informe mais parâmetros.");
             return "\nNão foi possível identificar o registro. Informe mais parâmetros.\n";
         }
@@ -806,7 +816,7 @@ class Persistencia implements iPersistencia
         $this->setCampoTabelaRelacionamento('cod' . substr($Relacionamento, 1));
         $this->setCampoMinhaTabelaNoRelacionamento('cod' . substr($this->getModel()->getTABELANOME(), 1));
         if (!$this->getModel()->temCampoMAPPING($this->getCampoTabelaRelacionamento())) {
-            $this->getModel()->addValorMAPPING($this->getCampoTabelaRelacionamento(), "int", "");
+            $this->getModel()->addCampoMAPPING($this->getCampoTabelaRelacionamento(), "int", "");
         }
         if ($this->getIdentificou()) {
             $this->buscaDadosRelacionamento();

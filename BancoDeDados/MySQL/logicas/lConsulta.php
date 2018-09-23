@@ -5,7 +5,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 include_once "Persistencia.php";
-include_once "Filtro.php";
 
 class lConsulta extends Persistencia
 {
