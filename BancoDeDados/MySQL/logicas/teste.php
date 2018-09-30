@@ -4,6 +4,7 @@ include_once "lAtendente.php";
 include_once "lMedico.php";
 include_once "lPaciente.php";
 include_once "lClinica.php";
+include_once "lConsulta.php";
 
 function testeAtendente()
 {
@@ -69,4 +70,23 @@ function testePaciente()
 }
 
 
+function testeConsulta()
+{
+    $a = new lConsulta();
+    $a->setCodClinica("1");
+    $a->setCodMedico("1");
+    $a->setCodAtendente("1");
+    $a->setCodPaciente("1");
+    $a->setFlagConfirmada(1);
+    $a->setData("2018-05-31");
+    $a->setHora("19:05");
+    // print_r($a->getModel()->getMAPPING());
+    $a->incluir();
+
+    $a = new lConsulta();
+    print_r($a->listaConsultaByCodPaciente("1"));
+
+}
+
 // testePaciente();
+testeConsulta();

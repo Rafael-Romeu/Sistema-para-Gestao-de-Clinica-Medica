@@ -177,7 +177,7 @@ class Model
             }
         }
         if (strpos($type, 'time') !== false) {
-            $data = strtotime($data);
+            // $data = strtotime($data);
         }
         // print_r($data);
         return $data;

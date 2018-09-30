@@ -17,6 +17,8 @@ CREATE TABLE `trabalho`.`tConsulta` (
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
 	PRIMARY KEY (`codigo`))
 	ENGINE = InnoDB;
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tConsulta`(`codClinica`, `codMedico` , `codPaciente` , `data`, `hora`);
 
 
 ####### tClinica #######
