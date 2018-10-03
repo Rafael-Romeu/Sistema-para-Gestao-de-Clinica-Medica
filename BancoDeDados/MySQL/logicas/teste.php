@@ -24,17 +24,23 @@ function testeAtendente()
 
 function testeClinica()
 {
-    $a = new lClinica();
-    $a->setNome("Mayo Clinic");
-    $a->identifica();
-    $a->setCodAtendente("3");
-    $a->alterar();
+    // $a = new lClinica();
+    // $a->setNome("Mayo Clinic");
+    // $a->identifica();
+    // $a->setCodAtendente("3");
+    // $a->alterar();
 
-    $a = new lClinica();
-    $a->setNome("Mayo Clinic");
-    $a->identifica();
-    print_r($a->listaAtendentes());
+    // ******* Horarios dos medicos ***************
 
+    // $a = new lClinica();
+    // $a->setNome("Mayo Clinic");
+    // $a->identifica();
+    // print_r($a->listaHorariosMedicos());
+
+    // OU 
+    
+    $a = new lClinica();
+    print_r($a->listaHorariosMedicos("1"));
 }
 
 function testeMedico()
@@ -69,7 +75,6 @@ function testePaciente()
 
 }
 
-
 function testeConsulta()
 {
     $a = new lConsulta();
@@ -89,4 +94,5 @@ function testeConsulta()
 }
 
 // testePaciente();
-testeConsulta();
+// testeConsulta();
+testeClinica();
