@@ -163,6 +163,53 @@ class lClinica extends Persistencia
         return $this->buscaDadosRelacionamento();
     }
 
+    /***
+     * Busca os horarios de todos os medicos da clinica e que possuem horarios cadastrado pra esta clinica.
+     * 
+     * @return $horarios  Array de "seg" a "sex" com os horarios, no formato "[codMedico] => 000101010..."
+     * 
+     */
+    public function listaHorariosMedicos($codClinica=null)
+    {
+        if($codClinica==null){
+            $a = $this;
+        }else{
+            $a = new lClinica();
+            $a->setCodigo($codClinica);
+            $a->identifica();
+        }
+        $b = $a->listaMedicos();
+        $arraySeg = array();
+        $arrayTer = array();
+        $arrayQua = array();
+        $arrayQui = array();
+        $arraySex = array();
+        foreach ($b as $medicos => $medico) {
+            $oMedico = new lMedico();
+            $oMedico->setCodigo($medico["codigo"]);
+            $oMedico->identifica();
+            $horario = $oMedico->listaHorarios($a->getCodigo());
+            if (count($horario) > 0) {
+                $arrayTemp = array($medico["codigo"] => $horario[0]["seg"]);
+                $arraySeg += $arrayTemp;
+                $arrayTemp = array($medico["codigo"] => $horario[0]["ter"]);
+                $arrayTer += $arrayTemp;
+                $arrayTemp = array($medico["codigo"] => $horario[0]["qua"]);
+                $arrayQua += $arrayTemp;
+                $arrayTemp = array($medico["codigo"] => $horario[0]["qui"]);
+                $arrayQui += $arrayTemp;
+                $arrayTemp = array($medico["codigo"] => $horario[0]["sex"]);
+                $arraySex += $arrayTemp;
+            }
+        }
+        $horarios = array("seg" => $arraySeg);
+        $horarios += array("ter" => $arrayTer);
+        $horarios += array("qua" => $arrayQua);
+        $horarios += array("qui" => $arrayQui);
+        $horarios += array("sex" => $arraySex);
+        return $horarios;
+    }
+
     public function listaPacientes()
     {
         $this->setTabelaIntermediaria("tClinicaPaciente");

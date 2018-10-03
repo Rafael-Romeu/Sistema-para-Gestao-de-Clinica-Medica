@@ -128,7 +128,7 @@ class lMedico extends PessoaFisica
     public function listaHorarios($codClinica=null)
     {
         if($codClinica!=null){
-            $Filtro = "AND codClinica=$codClinica";
+            $Filtro = " AND codClinica=$codClinica";
         }else{
             $Filtro = "";
         }
