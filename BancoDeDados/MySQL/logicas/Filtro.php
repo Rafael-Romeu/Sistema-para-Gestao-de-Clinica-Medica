@@ -26,7 +26,7 @@ class Filtro
             // $valor 
         }
         if (strpos($type, 'time') !== false) {
-            // $valor = strtotime($data);
+            $valor = "'$valor'";
         }
         $this->setsFiltro($this->getsFiltro() . " AND $campo = $valor");
         return $this;
