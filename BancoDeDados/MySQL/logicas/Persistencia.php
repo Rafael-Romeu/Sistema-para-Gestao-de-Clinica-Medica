@@ -77,7 +77,7 @@ class Persistencia implements iPersistencia
     public function DBConnect()
     {
         try {
-            $this->setConn(new PDO("mysql:host=" . $this->getSERVERNAME() . ";dbname=" . $this->getDATABASE(), $this->getUSERNAME(), $this->getPASSWORD()));
+            $this->setConn(new PDO("mysql:host=" . $this->getSERVERNAME() . ";dbname=" . $this->getDATABASE().";charset=utf8", $this->getUSERNAME(), $this->getPASSWORD()));
             $this->getConn()->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Connect");
             return $this->getConn();
