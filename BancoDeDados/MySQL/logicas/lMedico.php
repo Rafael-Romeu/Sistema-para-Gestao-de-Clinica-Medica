@@ -139,4 +139,4 @@ class lMedico extends PessoaFisica
 }
 
 // $obj = new lMedico();
-// print_r($obj);
+// //print_r($obj);

@@ -73,4 +73,4 @@ class lClinicaMedico extends Persistencia
 }
 
 $obj = new lClinicaMedico();
-// print_r($obj->listaClinicaMedicoByCodMedico());
+//print_r($obj->listaClinicaMedicoByCodMedico());

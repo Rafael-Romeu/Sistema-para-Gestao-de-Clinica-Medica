@@ -21,7 +21,7 @@ class Relacionamento extends Persistencia
 
     public function buscaCodigoTabela1(string $codTabela2)
     {
-        // // print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Buscando dados da Tabela [" . $this->getTabela1Nome() . "]...");
+        //print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Buscando dados da Tabela [" . $this->getTabela1Nome() . "]...");
         $this->setFiltroCampos($this->getCampoTabela1());
         $resultado = array();
         $result = $this->listaTabela1ByTabela2($codTabela2);
@@ -34,13 +34,13 @@ class Relacionamento extends Persistencia
                 array_push($resultado, $valor);
             }
         }
-        // print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getTabela1Nome() . "]\n");
+        //print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getTabela1Nome() . "]\n");
         return $resultado;
     }
 
     public function buscaCodigoTabela2(string $codTabela1)
     {
-        // print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Buscando dados da Tabela [" . $this->getTabela2Nome() . "]...");
+        //print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Buscando dados da Tabela [" . $this->getTabela2Nome() . "]...");
         $this->setFiltroCampos($this->getCampoTabela2());
         $result = $this->listaTabela2ByTabela1($codTabela1);
         // // print_r($result);
@@ -52,7 +52,7 @@ class Relacionamento extends Persistencia
                 array_push($resultado, $valor);
             }
         }
-        // print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getTabela2Nome() . "]\n");
+        //print_r("\n>>>>>>> [" . $this->getModel()->getTABELANOME() . "]: Dados buscados do Relacionamento [" . $this->getTabela2Nome() . "]\n");
         return $resultado;
     }
 
