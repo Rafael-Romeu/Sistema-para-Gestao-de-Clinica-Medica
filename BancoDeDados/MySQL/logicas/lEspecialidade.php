@@ -73,4 +73,4 @@ class lEspecialidade extends Persistencia
 }
 
 $obj = new lEspecialidade();
-print_r($obj->listaByCodigo());
+// print_r($obj->listaByCodigo());

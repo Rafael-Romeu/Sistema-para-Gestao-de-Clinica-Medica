@@ -74,4 +74,4 @@ class lMedicoEspecialidade extends Persistencia
 }
 
 $obj = new lMedicoEspecialidade();
-print_r($obj);
+// print_r($obj);
