@@ -66,11 +66,11 @@ class Persistencia implements iPersistencia
      */
     public function setModel($Tabela)
     {
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $Tabela . ")> INICIALIZANDO ESTRUTURA...");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $Tabela . ")> INICIALIZANDO ESTRUTURA...");
         $this->Model = new Model();
         $this->Model->setTABELANOME($Tabela);
         $this->Model->setSCHEMA($this->schema($Tabela));
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $Tabela . ")> INICIALIZAÇÃO FINALIZADA\n");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $Tabela . ")> INICIALIZAÇÃO FINALIZADA\n");
         return $this;
     }
 
@@ -79,7 +79,7 @@ class Persistencia implements iPersistencia
         try {
             $this->setConn(new PDO("mysql:host=" . $this->getSERVERNAME() . ";dbname=" . $this->getDATABASE().";charset=utf8", $this->getUSERNAME(), $this->getPASSWORD()));
             $this->getConn()->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Connect");
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Connect");
             return $this->getConn();
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -88,7 +88,7 @@ class Persistencia implements iPersistencia
 
     public function DBDisconnect()
     {
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Disconnect");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Disconnect");
         $this->setConn(null);
     }
 
@@ -97,8 +97,8 @@ class Persistencia implements iPersistencia
         $q = $this->DBConnect()->prepare("SHOW COLUMNS FROM `$table`");
         $q->execute();
         $q = $q->fetchAll();
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Preenchendo Model...");
-        // print_r($q);
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Preenchendo Model...");
+        // // print_r($q);
         $this->DBDisconnect();
         return $q;
     }
@@ -108,12 +108,12 @@ class Persistencia implements iPersistencia
         if($proUPDATE==null){
             $this->getModel()->zeraModificacoesTodosCamposMAPPING();
         }
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICANDO...");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICANDO...");
         $oFiltro = new Filtro();
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             if ($campo != $this->getCampoTabelaRelacionamento() && $campo != "regDate") {
                 if ($this->getModel()->getMAPPING()[$campo]["modificado"]=="N") {
-                    // print_r(">AQUIIIIIIII: ".$this->getModel()->getMAPPING()[$campo]["modificado"]);
+                    // // print_r(">AQUIIIIIIII: ".$this->getModel()->getMAPPING()[$campo]["modificado"]);
                     if ($valor["valor"] != null && $valor["valor"] != "" && $valor["valor"] != "1900-01-01") {
                         $oFiltro->equals($campo, $valor["valor"], $valor["tipo"]);
                     }
@@ -130,12 +130,12 @@ class Persistencia implements iPersistencia
                 $this->buscaDadosRelacionamento();
             }
             $this->getModel()->zeraModificacoesTodosCamposMAPPING();
-            // print_r($result);
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA TRUE\n");
+            // // print_r($result);
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA TRUE\n");
             $this->setIdentificou(true);
             return true;
         } else {
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA FALSE\n");
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA FALSE\n");
             $this->setIdentificou(false);
             return false;
         }
@@ -146,9 +146,9 @@ class Persistencia implements iPersistencia
      */
     public function identificaSimples()
     {
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICANDO Simples...");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICANDO Simples...");
         $oFiltro = new Filtro();
-        // print_r($this->getModel()->getMAPPING());
+        // // print_r($this->getModel()->getMAPPING());
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             if ($campo != $this->getCampoTabelaRelacionamento() && $campo != "regDate") {
                 if ($this->getModel()->getMAPPING()[$campo]["modificado"]=="N") {
@@ -162,15 +162,15 @@ class Persistencia implements iPersistencia
         $this->setFiltroValores($oFiltro->toString());
         $result = $this->executeSELECT();
         if (!$result) {
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA Simples False");
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA Simples False");
             return false;
         }
         if (count($result) == 1) {
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA Simples True");
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA Simples True");
             $this->getModel()->setValor("codigo", $result[0]["codigo"]);
             return true;
         } else {
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA Simples False");
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> IDENTIFICA Simples False");
             return false;
         }
     }
@@ -179,13 +179,13 @@ class Persistencia implements iPersistencia
     {
         try {
             $this->DBConnect();
-            // print_r(">>> FILTRO CAMPOS (".$this->getModel()->getTABELANOME()."): ".$this->getFiltroCampos());
+            // // print_r(">>> FILTRO CAMPOS (".$this->getModel()->getTABELANOME()."): ".$this->getFiltroCampos());
             $this->setSQL("SELECT " . $this->DISTINCT() . $this->getFiltroCampos() . " FROM " . $this->SQLTabelas() . " " . $this->getJOIN() . " WHERE " . $this->getFiltroValores() . $this->getGroupBy() . $this->getOrderBy() . ";");
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
             $this->setStmt(($this->getConn())->query($this->getSQL()));
             $this->getStmt()->execute();
             $result = $this->getStmt()->fetchAll(PDO::FETCH_ASSOC);
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Registros retornados: " . count($result));
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Registros retornados: " . count($result));
             return $result;
         } catch (PDOException $e) {
             $this->DBDisconnect();
@@ -221,18 +221,18 @@ class Persistencia implements iPersistencia
     public function executeDELETE()
     {
         if (!$this->identifica()) {
-            print_r("\n!! > PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Não foi possível identificar o registro. Informe mais parâmetros.\n");
+            // print_r("\n!! > PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Não foi possível identificar o registro. Informe mais parâmetros.\n");
             return "\nNão foi possível identificar o registro. Informe mais parâmetros.\n";
         }
         $this->setFiltroValores("codigo='" . $this->getModel()->getMAPPING()["codigo"]["valor"] . "'");
         try {
             $this->setSQL("DELETE FROM " . $this->getModel()->getTABELANOME() . " WHERE " . $this->getFiltroValores() . ";");
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
             $this->executeSQL();
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Exclusão efetuada com sucesso!");
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Exclusão efetuada com sucesso!");
             if ($this->temRelacionamento) {
                 $codOutraTabela = $this->getModel()->getValor($this->getCampoTabelaRelacionamento());
-                // print_r($codOutraTabela);
+                // // print_r($codOutraTabela);
                 if ($codOutraTabela != null && count($codOutraTabela) > 0) {
                     $this->executeDELETERelacionamento();
                 }
@@ -250,7 +250,7 @@ class Persistencia implements iPersistencia
     public function executeUPDATE($camposSelecionados = null)
     {
         if (!$this->identificaSimples(true)) {
-            print_r("\n*! > PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Não foi possível identificar o registro. Informe mais parâmetros.");
+            // print_r("\n*! > PERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Não foi possível identificar o registro. Informe mais parâmetros.");
             return "\nNão foi possível identificar o registro. Informe mais parâmetros.\n";
         }
         $this->setFiltroValores("codigo=" . $this->getModel()->getMAPPING()["codigo"]["valor"]);
@@ -258,7 +258,7 @@ class Persistencia implements iPersistencia
             $this->DBConnect();
             $this->getConn()->beginTransaction();
             $campos = "";
-            // print_r($this->getModel()->getMAPPING());
+            // // print_r($this->getModel()->getMAPPING());
             $tabela = $this->getModel()->getTABELANOME();
             if ($camposSelecionados != null) {
                 $camposSelecionados = explode(",", $camposSelecionados);
@@ -282,9 +282,9 @@ class Persistencia implements iPersistencia
                     }
                 }
             }
-            print("\ncampos: $campos\n");
+            // print("\ncampos: $campos\n");
             $this->setSQL("UPDATE $tabela SET $campos WHERE " . $this->getFiltroValores() . ";");
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
             $this->setStmt($this->getConn()->prepare($this->getSQL()));
             $this->bindParams();
             $this->getStmt()->execute();
@@ -323,7 +323,7 @@ class Persistencia implements iPersistencia
                 }
             }
             $this->setSQL("INSERT INTO $tabela ($campos) VALUES ($valores)");
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
             $this->setStmt($this->getConn()->prepare($this->getSQL()));
             $this->bindParams();
             $this->getStmt()->execute();
@@ -331,7 +331,7 @@ class Persistencia implements iPersistencia
             if ($this->temRelacionamento) {
                 $codOutraTabela = $this->getModel()->getValor($this->getCampoTabelaRelacionamento());
                 if ($codOutraTabela != null && count($codOutraTabela) > 0) {
-                    // print_r($codOutraTabela);
+                    // // print_r($codOutraTabela);
                     foreach ($codOutraTabela as $codigo) {
                         $this->executeINSERTRelacionamento($codigo);
                     }
@@ -349,7 +349,7 @@ class Persistencia implements iPersistencia
         foreach ($this->getModel()->getMAPPING() as $campo => $valor) {
             if ($campo != "regDate" && $campo != "codigo" && $campo != $this->getCampoTabelaRelacionamento()) {
                 $this->getStmt()->bindParam(":$campo", $valor["valor"]);
-                // print_r("\n\tcampo: $campo\n\tvalor: " . $valor["valor"] . "\n\ttipo: " . $valor["tipo"] . "\n");
+                // // print_r("\n\tcampo: $campo\n\tvalor: " . $valor["valor"] . "\n\ttipo: " . $valor["tipo"] . "\n");
             }
         }
     }
@@ -362,11 +362,11 @@ class Persistencia implements iPersistencia
         if (strpos($SQL, "SELECT") !== false) {
             $this->DBConnect();
             $this->setSQL($SQL);
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> " . $this->getSQL());
             $this->setStmt(($this->getConn())->query($this->getSQL()));
             $this->getStmt()->execute();
             $result = $this->getStmt()->fetchAll(PDO::FETCH_ASSOC);
-            print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Registros retornados: " . count($result));
+            // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> Registros retornados: " . count($result));
             return $result;
         }
         try {
@@ -375,7 +375,7 @@ class Persistencia implements iPersistencia
             $this->setStmt($this->getConn()->prepare($SQL));
             $this->getStmt()->execute();
             $tmp = $this->getConn()->commit();
-            print("\nExecução de SQL realizada com sucesso!");
+            // print("\nExecução de SQL realizada com sucesso!");
             return $tmp;
         } catch (PDOException $e) {
             $this->getConn()->rollback();
@@ -385,19 +385,19 @@ class Persistencia implements iPersistencia
 
     public function incluir()
     {
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO INSERÇÃO...\n");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO INSERÇÃO...\n");
         return $this->executeINSERT();
     }
 
     public function excluir()
     {
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO EXCLUSÃO...");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO EXCLUSÃO...");
         return $this->executeDELETE();
     }
 
     public function alterar()
     {
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO ALTERAÇÃO...\n");
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> EFETUANDO ALTERAÇÃO...\n");
         return $this->executeUPDATE();
     }
 
@@ -600,7 +600,7 @@ class Persistencia implements iPersistencia
         if ($this->FiltroCampos == "*") {
             $this->FiltroCampos = "";
         }
-        // print_r(">> Filtro Campos : ". $this->FiltroCampos);
+        // // print_r(">> Filtro Campos : ". $this->FiltroCampos);
         $this->FiltroCampos = $FiltroCampos;
         return $this;
     }
@@ -832,22 +832,22 @@ class Persistencia implements iPersistencia
      */
     public function addRelacionamento($oRelacionamento)
     {
-        // print_r("\n> ".__LINE__."\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZANDO RELACIONAMENTO...");
+        // // print_r("\n> ".__LINE__."\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZANDO RELACIONAMENTO...");
         if ($this->Relacionamento == null) {
             $this->Relacionamento = array();
         }
         array_push($this->Relacionamento, $oRelacionamento);
-        // print_r("\n> ".__LINE__."\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZAÇÃO DE RELACIONAMENTO FINALIZADA.\n");
+        // // print_r("\n> ".__LINE__."\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ")> INICIALIZAÇÃO DE RELACIONAMENTO FINALIZADA.\n");
         return $this;
     }
 
     public function buscaDadosRelacionamento()
     {
         $result = $this->executeSELECTRelacionamento();
-        // print_r($result);
+        // // print_r($result);
         foreach ($result as $campos) {
             $valor = $campos[$this->getCampoTabelaRelacionamento()];
-            // print_r($valor);
+            // // print_r($valor);
             $this->getModel()->setValorArray($this->getCampoTabelaRelacionamento(), $valor);
         }
         return $result;
@@ -858,7 +858,7 @@ class Persistencia implements iPersistencia
         $this->identificaSimples();
         $this->setOrderBy($this->getCampoTabelaRelacionamento());
         $this->executeSQL("SELECT " . $this->getFiltroCampos() . " FROM " . $this->getTabelaIntermediaria() . " AS tr INNER JOIN " . $this->getRelacionamento() . " AS t2 ON (tr." . $this->getCampoTabelaRelacionamento() . "=t2.codigo) WHERE tr." . $this->getCampoMinhaTabelaNoRelacionamento() . "=" . $this->getCodigo() . $this->getGroupBy() . $this->getOrderBy() . ";");
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
         return $this->executeSQL();
     }
 
@@ -882,7 +882,7 @@ class Persistencia implements iPersistencia
     {
         $this->identificaSimples();
         $this->setSQL("INSERT INTO " . $this->getTabelaIntermediaria() . " (" . $this->getCampoMinhaTabelaNoRelacionamento() . "," . $this->getCampoTabelaRelacionamento() . ") VALUES (" . $this->getCodigo() . "," . $codigo . ")");
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
         $this->executeSQL();
     }
 
@@ -890,7 +890,7 @@ class Persistencia implements iPersistencia
     {
         // $this->identificaSimples();
         $this->setSQL("DELETE FROM " . $this->getTabelaIntermediaria() . " WHERE " . $this->getCampoMinhaTabelaNoRelacionamento() . "=" . $this->getCodigo() . ";");
-        print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
+        // print_r("\n> " . __LINE__ . "\tPERSISTENCIA (" . $this->getModel()->getTABELANOME() . ") RELACIONAMENTO > " . $this->getSQL());
         $this->executeSQL();
     }
 

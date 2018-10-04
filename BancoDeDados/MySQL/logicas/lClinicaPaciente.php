@@ -73,4 +73,4 @@ class lClinicaPaciente extends Persistencia
 }
 
 $obj = new lClinicaPaciente();
-print_r($obj);
+// print_r($obj);
