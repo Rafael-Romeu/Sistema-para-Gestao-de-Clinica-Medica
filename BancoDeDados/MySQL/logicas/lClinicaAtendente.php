@@ -79,4 +79,4 @@ $obj->setCodClinica("2");
 $obj->setCodAtendente("1");
 $obj->identifica();
 // print_r($obj);
-// print_r($obj->getCodigo());
+//print_r($obj->getCodigo());

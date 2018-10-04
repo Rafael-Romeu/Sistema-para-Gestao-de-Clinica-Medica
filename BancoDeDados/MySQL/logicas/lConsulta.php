@@ -72,7 +72,7 @@ class lConsulta extends Persistencia
     {
         
         if ($hora != null) {
-            $this->setFiltroValores("telefone1 = '$hora'");
+            $this->setFiltroValores("hora = '$hora'");
         }
         return $this->executeSELECT();
     }
@@ -270,4 +270,4 @@ class lConsulta extends Persistencia
 }
 
 $obj = new lConsulta();
-// print_r($obj);
+//print_r($obj);
