@@ -3,8 +3,8 @@
 
 <head>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
-  <link rel="stylesheet" href="/Paginas/css/Base.css">
-  <link rel="stylesheet" href="/Paginas/css/Paciente.css">
+  <link rel="stylesheet" href="../css/Base.css">
+  <link rel="stylesheet" href="../css/Paciente.css">
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -28,32 +28,27 @@
 
         <nav class="main-header__nav-bar">
 
-<<<<<<< HEAD
-            <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Home.html">
-                <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="../img/common/icons/home.svg">
-=======
-            <a class="main-header__nav-btn" href="Home.html">
+            <a class="main-header__nav-btn" href="Home.php">
                 <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/home.svg">
->>>>>>> 5d42164cd50c2530953c1eb1ec4771bbac8dea15
             Home
             </a>
 
-            <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Marcar.html">
+            <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Marcar.php">
                 <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="/Paginas/img/common/icons/calendar.svg">
             Marcar
             </a>
 
-            <a class="main-header__nav-btn" href="Consultas.html">
+            <a class="main-header__nav-btn" href="Consultas.php">
                 <img class="main-header__nav-icon svg" src="../img/common/icons/heart.svg">
                 Consultas
             </a>
 
-            <a class="main-header__nav-btn" href="Historico.html">
+            <a class="main-header__nav-btn" href="Historico.php">
                 <img class="main-header__nav-icon svg" src="../img/common/icons/history.svg">
                 Histórico
             </a>
 
-            <a class="main-header__nav-btn" href="Perfil.html">
+            <a class="main-header__nav-btn" href="Perfil.php">
                 <img class="main-header__nav-icon svg" src="../img/common/icons/profile.svg">
                 Perfil
             </a>
@@ -1001,11 +996,29 @@
 </body>
 
 <script>
+    function CarregaMedicos1()
+    {
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                obj = JSON.parse(this.responseText);
+                console.log(this.response_text);
+                CarregaMedicos2(obj);
+            }
+        };
+        
+        codigo = "1";
+        envio = "codigo=" + codigo;
+        
+        console.log(envio);
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicos.php?" + envio, true);
+        xmlhttp.send();
+    }
+    CarregaMedicos1();
     SvgInliner();
-
-    medicos();
-
-    
     horarios();
 
 

@@ -4,9 +4,9 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/logicas/lAtendente.php";
-    include_once $_SERVER['DOCUMENT_ROOT']. "/BancoDeDados/logicas/lPaciente.php";
-    include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/logicas/lMedico.php";
+    include_once "../BancoDeDados/logicas/lAtendente.php";
+    include_once "../BancoDeDados/logicas/lPaciente.php";
+    include_once "../BancoDeDados/logicas/lMedico.php";
 
     $cpf = $password = "";
     $cpf_err = $password_err = "";

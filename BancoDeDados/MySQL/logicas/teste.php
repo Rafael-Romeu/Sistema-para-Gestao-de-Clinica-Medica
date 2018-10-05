@@ -77,22 +77,34 @@ function testePaciente()
 
 function testeConsulta()
 {
-    $a = new lConsulta();
-    $a->setCodClinica("1");
-    $a->setCodMedico("1");
-    $a->setCodAtendente("1");
-    $a->setCodPaciente("1");
-    $a->setFlagConfirmada(1);
-    $a->setData("2018-05-31");
-    $a->setHora("19:05");
-    // print_r($a->getModel()->getMAPPING());
-    $a->incluir();
+    // $a = new lConsulta();
+    // // $a->setCodClinica("1");
+    // $a->setCodMedico("1");
+    // // $a->setCodAtendente("1");
+    // $a->setCodPaciente("1");
+    // // $a->setFlagConfirmada(1);
+    // // $a->setData("2018-05-31");
+    // $a->setHora("07:07");
+    // // // print_r($a->getModel()->getMAPPING());
+    // // $a->incluir();
 
-    $a = new lConsulta();
-    print_r($a->listaConsultaByCodPaciente("1"));
+    // // $a = new lConsulta();
+    // print_r($a->identifica());
+    // print_r($a);
+
+    $oConsulta = new lConsulta();
+    $oConsulta->setCodClinica("1");
+    $oConsulta->setCodMedico("1");
+    $oConsulta->setCodPaciente("7");
+    $oConsulta->setCodAtendente("0");
+    $oConsulta->setFlagConfirmada("0");
+    $oConsulta->setData("2018-05-31");
+    $oConsulta->setHora("17:07:07");
+    $oConsulta->incluir();
+
 
 }
 
 // testePaciente();
-// testeConsulta();
-testeClinica();
+testeConsulta();
+// testeClinica();
