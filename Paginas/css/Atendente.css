@@ -1,0 +1,271 @@
+/* HOME */
+.home-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'seu-perfil prox-consulta';
+  
+  grid-column-gap: 32px;
+}
+
+.seu-perfil-widget {
+  grid-area: seu-perfil;
+}
+
+.prox-consulta-widget {
+  grid-area: prox-consulta;
+} 
+
+
+/* CONSULTA E HISTORICO */
+.consultas-widget {
+  grid-area:consultas;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'header filter-toggle'
+    'filter filter'
+    'body body';
+}
+
+  .consultas-widget__header {
+    grid-area: header;
+  }
+
+  .consultas-widget__filter-toggle {
+    grid-area: filter-toggle;
+    text-align: right;
+  }
+
+  .consultas-widget__filter-icon {
+    font-size: var(--large-size);
+    height: 1em;
+    width: auto;
+  }
+
+    .consultas-widget__filter-icon path {
+      fill: var(--neutral-dgray) !important;
+    }
+
+    .consultas-widget__filter-icon:hover {
+      cursor: pointer;
+    }
+
+    .consultas-widget__filter-icon:hover path, 
+    .consultas-widget__filter-icon--active path {
+      fill: var(--primary) !important;
+    }
+
+  .consultas-widget__filter-box {
+    grid-area: filter;
+    display: none;
+  }
+
+  .consultas-widget__filter-form {
+    display: flex;
+    font-weight: var(--thick-weight);
+  }
+
+  .consultas-widget__filter-form > label {
+    margin: 0 2em;
+  }
+
+  .consultas-widget__body {
+    grid-area: body;
+  }
+
+
+.consultas-widget__list-row {
+  cursor: pointer;
+  transition: 0.2s;
+
+  grid-template-areas: 
+    ". . . ."
+    "panel panel panel panel";
+}
+
+  .consultas-widget__list-row, .consultas-widget__list-header {
+    width: 100%;
+    
+    border: none;
+    outline: none;
+    
+    display: grid;
+    grid-template-columns: 0.8fr 0.7fr 1fr 1fr;
+    
+    text-align: center;
+    padding: 1em;
+    border-bottom: 1px solid var(--neutral-lgray);
+    
+    order: 1;
+  }
+
+  .consultas-widget__list-header {
+    font-weight: var(--thick-weight);
+    border-top: 1px solid var(--neutral-lgray);
+  }
+
+
+  .accordion--active.consultas-widget__list-row, .consultas-widget__list-row:hover {
+    background-color: var(--primary); 
+    color: var(--neutral-white);
+  }
+
+  .accordion--active.consultas-widget__list-row {
+    border-bottom: 0px;
+    box-shadow: 0 2px 4px var(--neutral-lgray);
+    position:relative;
+    width: 110%;
+    margin: 0 -5%;
+    
+  }
+
+  
+  .consultas-widget__accordion-panel {
+    grid-area: panel;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.2s, max-height 0.2s ease-out;
+    
+  }
+
+    .consultas-widget__accordion-content {
+      border-top: 1px solid var(--neutral-white);
+
+      margin-top: 1em;
+      padding: 1.2em 0 0.8em 0;
+      display: flex;
+      justify-content: center;
+    }
+
+      .consultas-widget__confirmar-btn {
+        padding: 1em;
+        background-color: var(--neutral-white);
+        color: var(--primary);
+        text-decoration: none;
+        border: none;
+      }
+
+
+
+/* PERFIL */
+.perfil-body {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-areas:
+    'phea edit'
+    'pinf pinf'
+}
+
+.perfil-header {
+  grid-area: phea;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.perfil-edit {
+  grid-area: edit;
+
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+}
+
+.perfil-edit > img {
+  height: 1em;
+  width: auto;
+}
+
+.perfil-edit > .svg:hover {
+  cursor: pointer;
+}
+
+.perfil-edit > svg:hover path {
+  fill: var(--accent-color) !important;
+}
+
+.perfil-info {
+  grid-area: pinf;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.perfil-column-left {
+  flex: 50%;
+  padding: 0 1em 0 0;
+}
+
+
+.perfil-column-right {
+  flex: 50%;
+  padding: 0 0 0 1em;
+}
+
+.perfil-widget {
+  vertical-align: middle;
+  padding: 1em 0em 0em 0em;;
+}
+
+
+/* Marcar Consulta */
+.medico-select-widget__medicos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+  .medico-select-widget__medico-card {
+    cursor: pointer;
+    margin: 10px;
+    width: 300px;
+    height: 80%;
+  }
+
+  input:checked ~ .medico-select-widget__medico-card {
+    background: var(--primary);
+    color: var(--neutral-white);
+  }
+
+  .medico-select-widget__medico-radio {
+    display: none;
+  }
+
+
+.horario-select-widget__agenda {
+  font-size: var(--smaller-size);
+}
+.horario-select-widget__agenda td {
+  padding: 0;
+}
+
+
+.horario-select-widget__horario-radio {
+  display: none;
+}
+
+.horario-select-widget__horario-card {
+  white-space: pre;
+  background-color: var(--success);
+  border: 1px solid var(--neutral-dgray);
+  cursor: pointer;
+}
+
+input:disabled ~ .horario-select-widget__horario-card {
+  background-color: var(--failure);
+  cursor: default;
+}
+
+input:checked ~ .horario-select-widget__horario-card, 
+.horario-select-widget__horario-card:hover {
+  background-color:  var(--primary);
+}
+
+.horario-select-widget__calendar {
+  display: flex;
+  justify-content: center;
+}
+
+.confirmar-consulta-widget__card {
+  text-align: center;
+}

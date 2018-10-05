@@ -1,0 +1,27 @@
+Paciente 
+{
+	Consultas 
+	{
+		* Carregar todas as consultas ao iniciar a pagina
+		* Botão de pesquisa -> pesquisa por medico ou especialidade
+	}
+	Histórico
+	{
+		* Igual ao anterior
+	}
+	Home
+	{
+		* Carregar dados do perfil e a proxima consulta
+	}
+	Marcar Consulta
+	{
+		* Carregar medicos
+		* Carregar horarios de um medico
+		* Marcar consulta 
+	}
+	Perfil
+	{
+		* Carregar dados do perfil
+		* Botão de editar -> envia para o banco alterações no perfil
+	}
+}

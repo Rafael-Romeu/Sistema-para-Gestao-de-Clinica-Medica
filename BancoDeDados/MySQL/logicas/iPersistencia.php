@@ -9,9 +9,9 @@ interface iPersistencia{
     public function DBConnect();
     public function DBDisconnect();
     // public function incluir();
-    // public function alterar();
+    public function alterar();
     // public function excluir();
-    // public function identifica();
+    public function identifica();
 }
 
 ?>

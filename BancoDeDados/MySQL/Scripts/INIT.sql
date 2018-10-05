@@ -6,34 +6,37 @@ CREATE DATABASE trabalho CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `trabalho`.`tConsulta` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codAtendente` INT NOT NULL , 
-	`codMedico` INT NOT NULL , 
-	`codPaciente` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codAtendente` INT NOT NULL DEFAULT 0,
+	`codMedico` INT NOT NULL DEFAULT 0, 
+	`codPaciente` INT NOT NULL DEFAULT 0, 
 	`flagConfirmada` TINYINT(1) NOT NULL DEFAULT 0, 
-	`data` DATE NOT NULL , `hora` TIME NOT NULL , 
-	`observacao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`receita` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`data` DATE, 
+	`hora` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`observacao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`receita` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
 	PRIMARY KEY (`codigo`))
 	ENGINE = InnoDB;
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tConsulta`(`codClinica`, `codMedico` , `codPaciente` , `data`, `hora`);
 
 
 ####### tClinica #######
 
 CREATE TABLE `trabalho`.`tClinica` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`cnpj` VARCHAR(17) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`cnpj` VARCHAR(17) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-	`temaCSS` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`temaCSS` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cnpj`))
+	UNIQUE `cnpj` (`cnpj`))
 	ENGINE = InnoDB;
 
 
@@ -41,18 +44,18 @@ CREATE TABLE `trabalho`.`tClinica` (
 
 CREATE TABLE `trabalho`.`tAtendente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
-	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,
-	`dataNascimento` DATE NOT NULL ,
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+	`dataNascimento` DATE,
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cpf`,`email`)) 
+	UNIQUE `cpf` (`cpf`)) 
 	ENGINE = InnoDB;
 
 
@@ -60,19 +63,19 @@ CREATE TABLE `trabalho`.`tAtendente` (
 
 CREATE TABLE `trabalho`.`tMedico` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`dataNascimento` DATE NOT NULL , 
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`dataNascimento` DATE, 
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cpf`,`email`)) 
+	UNIQUE `cpf` (`cpf`)) 
 	ENGINE = InnoDB;
 							
 
@@ -80,21 +83,21 @@ CREATE TABLE `trabalho`.`tMedico` (
 
 CREATE TABLE `trabalho`.`tPaciente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`genero` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`tipoSanguineo` VARCHAR(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`dataNascimento` DATE NOT NULL , 
-	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`senha` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`genero` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`tipoSanguineo` VARCHAR(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`dataNascimento` DATE, 
+	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	PRIMARY KEY (`codigo`),
-	UNIQUE (`cpf`,`email`)) 
+	UNIQUE `cpf` (`cpf`)) 
 	ENGINE = InnoDB;
 							
 							
@@ -102,53 +105,62 @@ CREATE TABLE `trabalho`.`tPaciente` (
 
 CREATE TABLE `trabalho`.`tClinicaAtendente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codAtendente` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codAtendente` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tClinicaAtendente`(`codClinica`, `codAtendente`);
 
 
 ####### tClinicaMedico #######
 
 CREATE TABLE `trabalho`.`tClinicaMedico` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codMedico` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codMedico` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tClinicaMedico`(`codClinica`, `codMedico`);
 
 
 ####### tClinicaPaciente #######
 
 CREATE TABLE `trabalho`.`tClinicaPaciente` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codClinica` INT NOT NULL , 
-	`codPaciente` INT NOT NULL , 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`codPaciente` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tClinicaPaciente`(`codClinica`, `codPaciente`);
 
 
 ####### tHorarioAtendimento #######
 
 CREATE TABLE `trabalho`.`tHorarioAtendimento` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codMedico` INT NOT NULL , 
-	`codClinica` INT NOT NULL , 
-	`seg` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`ter` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`qua` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`qui` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`sex` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`codMedico` INT NOT NULL DEFAULT 0, 
+	`codClinica` INT NOT NULL DEFAULT 0, 
+	`seg` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`ter` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`qua` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`qui` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`sex` VARCHAR(22) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tHorarioAtendimento`(`codMedico`, `codClinica`);
 	
 
 ####### tEspecialidade #######
 
 CREATE TABLE `trabalho`.`tEspecialidade` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-	`descricao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
+	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`descricao` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`),
 	UNIQUE (`nome`))
 	ENGINE = InnoDB;
@@ -158,10 +170,13 @@ CREATE TABLE `trabalho`.`tEspecialidade` (
 
 CREATE TABLE `trabalho`.`tMedicoEspecialidade` ( 
 	`codigo` INT NOT NULL AUTO_INCREMENT , 
-	`codMedico` INT NOT NULL , 
-	`codEspecialidade` INT NOT NULL , 
+	`codMedico` INT NOT NULL DEFAULT 0, 
+	`codEspecialidade` INT NOT NULL DEFAULT 0, 
 	PRIMARY KEY (`codigo`)) 
 	ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `chave`
+ON `trabalho`.`tMedicoEspecialidade`(`codMedico`, `codEspecialidade`);
 	
 	
 
@@ -594,7 +609,6 @@ INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) V
 INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) VALUES (NULL, '21', '40');
 INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) VALUES (NULL, '21', '38');
 INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) VALUES (NULL, '22', '4');
-INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) VALUES (NULL, '22', '4');
 INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) VALUES (NULL, '23', '36');
 INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) VALUES (NULL, '23', '44');
 INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) VALUES (NULL, '24', '20');
@@ -671,9 +685,7 @@ INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL,
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '3');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '3');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '4');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '4');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '5');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '6');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '6');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '7');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '7');
@@ -683,7 +695,6 @@ INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL,
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '11');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '11');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '12');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '13');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '13');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '14');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '14');
@@ -701,11 +712,9 @@ INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL,
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '22');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '22');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '23');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '23');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '24');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '25');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '26');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '27');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '27');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '28');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '28');
@@ -717,7 +726,6 @@ INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL,
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '32');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '33');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '33');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '34');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '34');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '35');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '35');
@@ -732,12 +740,10 @@ INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL,
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '42');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '43');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '44');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '44');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '45');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '46');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '47');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '47');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '48');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '48');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '49');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '50');
@@ -754,7 +760,6 @@ INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL,
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '57');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '58');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '59');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '59');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '60');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '61');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '62');
@@ -767,16 +772,13 @@ INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL,
 USE trabalho;
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '1');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '2');
-INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '2');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '3');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '3');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '4');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '5');
-INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '5');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '6');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '7');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '8');
-INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '9');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '9');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '10');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '10');
@@ -796,7 +798,6 @@ INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (N
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '19');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '20');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '21');
-INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '21');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '22');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '23');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '24');
@@ -806,7 +807,6 @@ INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (N
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '26');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '27');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '28');
-INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '29');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '29');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '30');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '31');
@@ -823,7 +823,6 @@ INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (N
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '39');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '40');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '40');
-INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '41');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '41');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '42');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '42');
@@ -847,7 +846,6 @@ INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (N
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '54');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '55');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '1', '55');
-INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '56');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '56');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '3', '57');
 INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (NULL, '2', '57');
