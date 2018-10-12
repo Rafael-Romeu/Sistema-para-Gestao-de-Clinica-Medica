@@ -102,12 +102,12 @@
         </div>
         <br>
 
-        <div class="confirmar-cadastro-medico-widget">
+        <div class="confirmar-cadastro-widget">
             <h2>
                 Confirme as informações:
             </h2>
 
-            <div class="card confirmar-cadastro-medico__card">
+            <div class="card confirmar-cadastro__card">
                 <b>Médico(a):</b>
                 <br>
                 <span id="med-selecionado">Nenhum selecionado.</span>
