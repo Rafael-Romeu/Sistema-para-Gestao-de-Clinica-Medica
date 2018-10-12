@@ -29,13 +29,18 @@
         <nav class="main-header__nav-bar">
 
             <a class="main-header__nav-btn" href="Home.php">
-                <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/home.svg">
-            Home
+                <img class="main-header__nav-icon svg" src="../img/common/icons/home.svg">
+                Home
             </a>
 
-            <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Marcar.php">
+            <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Cadastrar.php">
                 <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="/Paginas/img/common/icons/calendar.svg">
-            Marcar
+                Cadastrar
+            </a>
+
+            <a class="main-header__nav-btn" href="Confirmar.php">
+                <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/calendar.svg">
+                Confirmar <br> Consultas
             </a>
 
             <a class="main-header__nav-btn" href="Consultas.php">
