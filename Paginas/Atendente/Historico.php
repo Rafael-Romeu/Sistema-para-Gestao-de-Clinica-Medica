@@ -39,14 +39,19 @@
 
     <nav class="main-header__nav-bar">
 
-      <a class="main-header__nav-btn" href="Home.php">
-        <img class="main-header__nav-icon svg" src="../img/common/icons/home.svg">
+      <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Home.php">
+        <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="../img/common/icons/home.svg">
         Home
       </a>
 
       <a class="main-header__nav-btn" href="Marcar.php">
         <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/calendar.svg">
-        Marcar
+        Cadastrar
+      </a>
+
+      <a class="main-header__nav-btn" href="Confirmar.php">
+        <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/calendar.svg">
+        Confirmar <br> Consultas
       </a>
 
       <a class="main-header__nav-btn" href="Consultas.php">
@@ -99,36 +104,11 @@
           <span>Dia</span>
           <span>Hora</span>
           <span>Médico(a)</span>
-          <span>Especialidade</span>
+          <span>Paciente</span>
         </span>
           
         <div id="consultas-widget__list">
 
-          <!--  
-          <div class="consultas-widget__list-row accordion">
-            <span>01/01/2019</span>
-            <span>18:00h</span>
-            <span>Paula Dentro</span>
-            <span>Ginecologista</span>
-            <div class="consultas-widget__accordion-panel">
-              <div class="consultas-widget__accordion-content">
-                <div class="consultas-widget__receita">
-                    <h3>Receita</h3>
-                    Um<br>
-                    Dois<br>
-                    Feijão com arroz.
-                </div>
-                <div class="consultas-widget__observacoes">
-                    <h3>Observações</h3>
-                    Três<br>
-                    Quatro<br>
-                    Feijão no prato.
-              
-                </div>
-              </div>
-            </div>
-          </div>
-            -->
         </div>
       </div>
     </div>
@@ -145,7 +125,7 @@
 <script>
   function CarregaConsultas() 
   {
-    var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 
@@ -156,11 +136,11 @@
       Accordion();
     };
     
-    codigo = "1";
-    envio = "codigo=" + codigo;
+    codClinica = "1";
+    envio = "codClinica=" + codClinica;
     
     console.log(envio);
-    xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaHistoricoPaciente.php?" + envio, true);
+    xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaHistoricoAtendente.php?" + envio, true);
     xmlhttp.send();
   }
   CarregaConsultas();

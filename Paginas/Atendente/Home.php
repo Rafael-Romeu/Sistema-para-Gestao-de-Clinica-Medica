@@ -60,6 +60,11 @@
         Consultas
       </a>
 
+      <a class="main-header__nav-btn" href="Historico.php">
+        <img class="main-header__nav-icon svg" src="../img/common/icons/history.svg">
+        Histórico
+      </a>
+
       <a class="main-header__nav-btn" href="Perfil.php">
         <img class="main-header__nav-icon svg" src="../img/common/icons/profile.svg">
         Perfil
