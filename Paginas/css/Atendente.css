@@ -208,64 +208,47 @@
 }
 
 
-/* Marcar Consulta */
+/*Cadastrar*/
+
+.cadastro-tipo-widget {
+  display: flex;
+  justify-content: center;
+}
+
+.cadastro-tipo-widget__option {
+  margin: 1em;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.cadastro-tipo-widget__option--selected {
+  color: var(--neutral-white);
+  background-color: var(--primary);
+}
+
 .medico-select-widget__medicos {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
 }
 
-  .medico-select-widget__medico-card {
-    cursor: pointer;
-    margin: 10px;
-    width: 300px;
-    height: 80%;
-  }
-
-  input:checked ~ .medico-select-widget__medico-card {
-    background: var(--primary);
-    color: var(--neutral-white);
-  }
-
-  .medico-select-widget__medico-radio {
-    display: none;
-  }
-
-
-.horario-select-widget__agenda {
-  font-size: var(--smaller-size);
-}
-.horario-select-widget__agenda td {
-  padding: 0;
+.medico-select-widget__medico-card {
+  cursor: pointer;
+  margin: 10px;
+  width: 300px;
+  height: 80%;
 }
 
+input:checked ~ .medico-select-widget__medico-card {
+  background: var(--primary);
+  color: var(--neutral-white);
+}
 
-.horario-select-widget__horario-radio {
+.medico-select-widget__medico-radio {
   display: none;
 }
 
-.horario-select-widget__horario-card {
-  white-space: pre;
-  background-color: var(--success);
-  border: 1px solid var(--neutral-dgray);
-  cursor: pointer;
-}
 
-input:disabled ~ .horario-select-widget__horario-card {
-  background-color: var(--failure);
-  cursor: default;
-}
-
-input:checked ~ .horario-select-widget__horario-card, 
-.horario-select-widget__horario-card:hover {
-  background-color:  var(--primary);
-}
-
-.horario-select-widget__calendar {
-  display: flex;
-  justify-content: center;
-}
-
-.confirmar-consulta-widget__card {
+.confirmar-cadastro-medico__card {
   text-align: center;
 }
