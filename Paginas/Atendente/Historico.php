@@ -39,8 +39,8 @@
 
     <nav class="main-header__nav-bar">
 
-      <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Home.php">
-        <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="../img/common/icons/home.svg">
+      <a class="main-header__nav-btn" href="Home.php">
+        <img class="main-header__nav-icon svg" src="../img/common/icons/home.svg">
         Home
       </a>
 
