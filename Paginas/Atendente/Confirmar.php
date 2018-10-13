@@ -1,16 +1,17 @@
 <?php
     session_start();
 
-    /*if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
-    if($_SESSION['tipo'] != "lPaciente"){
+    if($_SESSION['tipo'] != "lAtendente"){
         shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
-    }*/
+    }
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -32,8 +33,8 @@
     <div class="main-header__top-bar">
       <h1 class="main-header__logo">Vida Saudável</h1>
       <div class="main-header__user">
-        <span class="main-header__username" id="headerUserNome">Jacinto Leite</span>
-        <a class="main-header__logout-btn" href="#">Logout</a>
+        <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
+        <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
       </div>
     </div>
 
@@ -138,7 +139,7 @@
 <script>
   function CarregaConsultasNaoConfirmadas() 
   {
-    var codClinica = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codCLinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 
@@ -149,7 +150,6 @@
       Accordion();
     };
     
-    codClinica = "1";
     envio = "codClinica=" + codClinica;
     
     console.log(envio);
@@ -168,7 +168,7 @@
       Accordion();
     };
     
-    var codAtendente = 1;
+    var codAtendente = <?php echo htmlspecialchars($_SESSION['codigo']); ?>;
     envio = args + "&codAtendente=" + codAtendente;
     console.log(envio);
     xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/ConfirmaConsulta.php?" + envio, true);
