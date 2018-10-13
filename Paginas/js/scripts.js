@@ -122,3 +122,44 @@ function textToHtml(text){
 function Logout() {
     window.location.replace("/ServerScripts/refactored/Logout.php");
   }
+
+function carregaClinicas(){
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var clinicas = JSON.parse(this.responseText);
+            
+            
+            var html = "";
+            for (var i=0; i<clinicas.length; ++i) {
+                html = html + "<option value='" + clinicas[i].cod + "'>" + clinicas[i].nome + "</option>";
+            }
+            document.getElementById("selectClinica").innerHTML = html;
+            
+        }
+    };
+    
+    
+    xmlhttp.open("GET", "/ServerScripts/refactored/CarregaClinicasLogin.php?", true);
+    xmlhttp.send();
+}
+
+function mudaDeClinica(){
+    var dd = document.getElementById("selectClinica");
+
+    var codClinica = dd.options[dd.selectedIndex].value;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            location.reload(); 
+        }
+    };
+    
+    var envio = "codClinica=" + codClinica;
+    
+    xmlhttp.open("GET", "/ServerScripts/refactored/MudaDeClinica.php?"+envio, true);
+    xmlhttp.send();
+}
