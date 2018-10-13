@@ -139,7 +139,7 @@
 <script>
   function CarregaConsultasNaoConfirmadas() 
   {
-    var codClinica = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codCLinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 
@@ -150,7 +150,6 @@
       Accordion();
     };
     
-    codClinica = "1";
     envio = "codClinica=" + codClinica;
     
     console.log(envio);
@@ -169,7 +168,7 @@
       Accordion();
     };
     
-    var codAtendente = 1;
+    var codAtendente = <?php echo htmlspecialchars($_SESSION['codigo']); ?>;
     envio = args + "&codAtendente=" + codAtendente;
     console.log(envio);
     xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/ConfirmaConsulta.php?" + envio, true);
