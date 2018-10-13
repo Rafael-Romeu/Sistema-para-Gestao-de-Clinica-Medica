@@ -238,7 +238,7 @@
                 if (this.readyState == 4 && this.status == 200) {
 
                     alert("Atendente cadastrado!");
-                    location.reload(); 
+                    window.location.replace("/Paginas/Login.php"); 
                 }
             }
         };

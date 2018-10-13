@@ -195,7 +195,7 @@
                 if (this.responseText == "1")
                 {
                     alert("Cadastrado com sucesso!");
-                    location.reload(); 
+                    window.location.replace("/Paginas/Login.php"); 
                 }
             }
         };
