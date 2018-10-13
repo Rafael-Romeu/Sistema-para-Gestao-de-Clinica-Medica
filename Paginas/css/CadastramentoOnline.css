@@ -14,11 +14,11 @@
   --success: hsl(100, 100%, 75%);
   --failure: rgb(255, 134, 134);
 
-  --neutral-black: hsl(0, 0%, 10%);
-  --neutral-dgray: hsl(0, 0%, 30%);
-  --neutral-lgray: hsl(0, 0%, 80%);
-  --neutral-offwhite: hsl(0, 0%, 97%);
-  --neutral-white: hsl(0, 0%, 100%);
+  --color-1: hsl(0, 0%, 10%);
+  --color-2: hsl(0, 0%, 30%);
+  --color-3: hsl(0, 0%, 80%);
+  --color-4: hsl(0, 0%, 97%);
+  --color-5: hsl(0, 0%, 100%);
 
   /* TYPOGRAFY */
   --primary-font: 'Fira Sans', sans-serif;
@@ -40,8 +40,8 @@ body {
   font-weight: var(--medium-weight);
   font-size: var(--small-size);
 
-  color: var(--neutral-dgray);
-  background-color: var(--neutral-offwhite);
+  color: var(--color-2);
+  background-color: var(--color-4);
 }
 
 h1 {
@@ -75,7 +75,7 @@ h2 {
 .main-header {
   grid-area: main-header;
 
-  background-color: var(--neutral-white);
+  background-color: var(--color-5);
   
   display: grid;
   grid-auto-rows: 1fr;
@@ -83,7 +83,7 @@ h2 {
     'top-bar'
     'nav-bar';
   
-  box-shadow: 0 0.1em 1em var(--neutral-lgray);
+  box-shadow: 0 0.1em 1em var(--color-3);
 }
 
   .main-header__top-bar {
@@ -93,7 +93,7 @@ h2 {
     
     background-color: var(--card-bg-color);
     
-    border-bottom: 1px solid var(--neutral-lgray);
+    border-bottom: 1px solid var(--color-3);
     
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -124,7 +124,7 @@ h2 {
 
       .main-header__username {
         padding: 0 0.5em;
-        border-right: 1px solid var(--neutral-lgray);
+        border-right: 1px solid var(--color-3);
       }
 
       .main-header__logout-btn {
@@ -141,8 +141,8 @@ h2 {
 
 
 .card {
-  background-color: var(--neutral-white);
-  box-shadow: 0 2px 4px var(--neutral-lgray);
+  background-color: var(--color-5);
+  box-shadow: 0 2px 4px var(--color-3);
   margin: 20px 0;
   padding: 25px 30px;
 }
@@ -158,15 +158,15 @@ h2 {
 
   .table th, .table td {
     padding: 1em;
-    border-bottom: 1px solid var(--neutral-lgray);
-    border-top: 1px solid var(--neutral-lgray);
+    border-bottom: 1px solid var(--color-3);
+    border-top: 1px solid var(--color-3);
     border-left: 0;
     border-right: 0;
   }
 
   .table tr:nth-child(1n+2):hover {
     background-color: var(--primary);
-    color: var(--neutral-white);
+    color: var(--color-5);
   }
 
 .ui-datepicker {
@@ -190,13 +190,13 @@ h2 {
 .ui-datepicker-title {
   text-align: center;
   background-color: var(--primary);
-  color: var(--neutral-white);
+  color: var(--color-5);
   padding: 10px;
 }
 
 .ui-datepicker-prev, .ui-datepicker-next {
   padding: 10px 10px;
-  color: var(--neutral-white);
+  color: var(--color-5);
   cursor: pointer;
 }
 
@@ -216,13 +216,13 @@ h2 {
   width: 30px;
   height: 30px;
   line-height: 30px;
-  color: var(--neutral-dgray);
+  color: var(--color-2);
 
 }
 
 .ui-datepicker-calendar .ui-state-hover, .ui-datepicker-calendar .ui-state-active {
   background: var(--primary);
-  color: var(--neutral-white);
+  color: var(--color-5);
 }
 
 /* PERFIL */
