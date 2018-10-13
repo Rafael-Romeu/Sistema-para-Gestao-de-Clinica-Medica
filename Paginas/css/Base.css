@@ -54,12 +54,18 @@ h2 {
 
 
 @media only screen {
+  html {
+    height: 100%;
+  }
   /* Desktop */
   body {
+    height: 100%;
+    grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
     grid-template-areas: 
       'main-header'
-      'main-body';
+      'main-body'
+      'main-footer';
   }
 }
 
@@ -195,6 +201,15 @@ h2 {
 
 /*--------END OF HEADER--------*/
 
+
+/* Footer */
+
+.main-footer {
+  grid-area: main-footer;
+  background-color: var(--color-5);
+  padding: 1em;
+  box-shadow: 0 -0.1em 1em var(--color-3);
+}
 
 
 .card {

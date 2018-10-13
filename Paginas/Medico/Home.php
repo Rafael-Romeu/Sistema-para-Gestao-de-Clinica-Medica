@@ -102,6 +102,14 @@
       </div>
     </div>
   </div>
+  <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
+  </div>
 
 </body>
 
@@ -139,6 +147,7 @@
   
   SvgInliner();
   CarregaDadosHome();
+  carregaClinicas();
 </script>
 
 </html>

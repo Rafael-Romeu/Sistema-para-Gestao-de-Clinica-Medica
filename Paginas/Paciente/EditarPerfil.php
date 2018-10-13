@@ -218,13 +218,21 @@
         <input type="button" value="Submit" onclick="salvaBanco()"><br>
     </div>
   </div>
-        
+  <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
+  </div>
 </body>
 
 <script>
   function inicializa()
   {
     SvgInliner();
+    carregaClinicas();
   }
 
   function salvaBanco() 
