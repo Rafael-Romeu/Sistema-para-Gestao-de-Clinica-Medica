@@ -60,6 +60,7 @@
                     if ($tipo == "lPaciente")
                     {
                         $_SESSION['tipoSanguineo'] = $usuario->getTipoSanguineo();
+                        $_SESSION['genero'] = $usuario->getGenero();
                     }
                     
                     if ($tipo == "lPaciente" or $tipo == "lMedico")

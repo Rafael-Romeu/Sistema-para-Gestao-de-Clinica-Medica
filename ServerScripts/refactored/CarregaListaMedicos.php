@@ -5,7 +5,7 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lAtendente.php";include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lClinica.php";
     
     $clinica = new lClinica();
-    $codClinica = $_REQUEST["codigo"];
+    $codClinica = $_REQUEST["codClinica"];
     
     $clinica -> setCodigo($codClinica);
 
