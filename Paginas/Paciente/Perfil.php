@@ -34,7 +34,7 @@
       <h1 class="main-header__logo">Vida Saudável</h1>
       <div class="main-header__user">
         <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
-        <a class="main-header__logout-btn" href="#">Logout</a>
+        <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
       </div>
     </div>
 
@@ -157,6 +157,7 @@
   {
     SvgInliner();
   }
+  
 </script>
 
 </html>

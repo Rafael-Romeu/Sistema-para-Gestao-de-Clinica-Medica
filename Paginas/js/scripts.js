@@ -163,3 +163,7 @@ function textToHtml(text){
 
     return text;
 }
+
+function Logout() {
+    window.location.replace("/ServerScripts/refactored/Logout.php");
+  }
