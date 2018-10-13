@@ -4,15 +4,11 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lPaciente.php";
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lAtendente.php";include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lClinica.php";
     
-    $clinica = new lClinica();
     $codClinica = $_REQUEST["codClinica"];
     
-    $clinica -> setCodigo($codClinica);
-
-    $clinica -> identifica();
-
-    $atendentes = $clinica->listaAtendentes();
-
+    $atendente = new lAtendente();
+    $atendente->limpaFiltros();
+    $atendentes = $atendente->executeSelect();
 
     $result = [];
     foreach ($atendentes as $a)
@@ -20,8 +16,17 @@
         $nome = utf8_encode($a["nome"]);
         $cod =  utf8_encode($a["codigo"]);
 
-        $new = new temp($nome, $cod);
-        array_push($result, $new);
+        $atendente = new lAtendente();
+        $atendente->setCodigo($cod);
+        $atendente->identifica();
+
+        $clinicas = $atendente->getCodClinica();
+
+        if(!in_array($codClinica, $clinicas))
+        {
+            $new = new temp($nome, $cod);
+            array_push($result, $new);
+        }
     }
 
     echo json_encode($result);
