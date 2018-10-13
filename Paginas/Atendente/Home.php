@@ -112,7 +112,6 @@
       }
     };
     
-    codigo = "1";
     envio = "codigo=" + codigo;
     
     console.log(envio);
@@ -122,7 +121,7 @@
 
   function CarregaProximaConsulta() 
   {
-    var codClinica = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 
