@@ -76,22 +76,22 @@
         Seu Perfil
       </h1>
       <div class="card" id="paciente">
-        <!--<b>Nome:</b>
+        <b>Nome:</b>
         <br>
-        <span id="infoUserNome">Jacinto Leite</span>
+        <span id="infoUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
         <br><br>
         <b>Plano de Saúde:</b>
         <br>
-        <span id="infoUserPlano">Unimed</span>
+        <span id="infoUserPlano"><?php echo htmlspecialchars($_SESSION['planoDeSaude']); ?></span>
         <br><br>
         <b>Email:</b>
         <br>
-        <span id="infoUserEmail">jacinto@leite.com</span>
+        <span id="infoUserEmail"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
         <br><br>
         <b>Endereço:</b>
         <br>
-        <span id="infoUserEnd">Rua Jussara, 159</span>
-        <br> -->
+        <span id="infoUserEnd"><?php echo htmlspecialchars($_SESSION['endereco']); ?></span>
+        <br>
       </div>
     </div>
     <div class="prox-consulta-widget">
@@ -119,29 +119,9 @@
   function inicializa()
   {
     SvgInliner();
-    CarregaPaciente();
     CarregaProximaConsulta();
   }
-  function CarregaPaciente() 
-  {
-    console.log("envio");
-    var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
 
-    var xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("paciente").innerHTML = this.responseText;
-      }
-    };
-    
-    codigo = "1";
-    envio = "codigo=" + codigo;
-    
-    console.log(envio);
-    xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaPaciente.php?" + envio, true);
-    xmlhttp.send();
-  }
 
   function CarregaProximaConsulta() 
   {
@@ -155,7 +135,6 @@
       }
     };
     
-    codigo = "1";
     envio = "codigo=" + codigo;
     
     console.log(envio);
