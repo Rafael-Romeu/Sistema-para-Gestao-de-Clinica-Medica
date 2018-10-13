@@ -181,9 +181,8 @@
                     </select>
 
                     <button type="submit">Login</button>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember">Lembrar usuário
-                    </label>
+                    
+                    <a href="/Paginas/Cadastros/CadastroPaciente.php">Criar nova conta</a>
                 </div>
             
             </form>

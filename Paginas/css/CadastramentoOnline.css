@@ -226,62 +226,69 @@ h2 {
 }
 
 /* PERFIL */
-.perfil-body {
+
+.cadastro-header {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.cadastro-body {
   display: grid;
   grid-auto-columns: 1fr;
   grid-template-areas:
-    'phea edit'
-    'pinf pinf'
+    'ctipo'
+    'cinf'
 }
 
-.perfil-header {
-  grid-area: phea;
+.cadastro-tipo {
+  grid-area: ctipo;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
-.perfil-edit {
-  grid-area: edit;
 
-  display: flex;
-  justify-content: flex-end;
-  align-content: center;
-}
 
-.perfil-edit > img {
-  height: 1em;
-  width: auto;
-}
-
-.perfil-edit > .svg:hover {
-  cursor: pointer;
-}
-
-.perfil-edit > svg:hover path {
-  fill: var(--accent-color) !important;
-}
-
-.perfil-info {
-  grid-area: pinf;
+.cadastro-info {
+  grid-area: cinf;
   display: flex;
   flex-wrap: wrap;
 }
 
-.perfil-column-left {
+.cadastro-column-left {
   flex: 50%;
   padding: 0 1em 0 0;
 }
 
 
-.perfil-column-right {
+.cadastro-column-right {
   flex: 50%;
   padding: 0 0 0 1em;
 }
 
-.perfil-widget {
+.cadastro-widget {
   vertical-align: middle;
   padding: 1em 0em 0em 0em;
+
+  
 }
+
+
+.cadastro-tipo-widget__option {
+  margin: 1em;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.cadastro-tipo-widget__option--selected {
+  color: var(--color-5);
+  background-color: var(--primary);
+}
+
+
+
+
+
+
 
 input[type=text] {
   width: 60%;
