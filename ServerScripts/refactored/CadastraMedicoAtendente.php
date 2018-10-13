@@ -13,14 +13,15 @@
     $medico = new lMedico();
     $medico -> setCodigo($codMedico);
     $medico -> identifica();
-
     $clinicas = $medico->getCodClinica();
     print_r($clinicas);
 
-    $medico->getModel()->limpaValor("codClinica");
     $medico->setCodClinica($codClinica);
     $medico->alterar();
-    
+
+    $medico = new lMedico();
+    $medico -> setCodigo($codMedico);
+    $medico -> identifica();
     $clinicas = $medico->getCodClinica();
     print_r($clinicas);
 ?> 
