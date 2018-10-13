@@ -54,8 +54,13 @@ h2 {
 
 
 @media only screen {
+  html {
+    height: 100%;
+  }
   /* Desktop */
   body {
+    height: 100%;
+    grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
     grid-template-areas: 
       'main-header'
