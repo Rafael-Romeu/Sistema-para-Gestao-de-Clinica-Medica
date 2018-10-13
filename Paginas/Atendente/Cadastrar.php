@@ -4,7 +4,7 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="../css/Base.css">
-  <link rel="stylesheet" href="../css/Paciente.css">
+  <link rel="stylesheet" href="../css/Atendente.css">
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -29,13 +29,18 @@
         <nav class="main-header__nav-bar">
 
             <a class="main-header__nav-btn" href="Home.php">
-                <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/home.svg">
-            Home
+                <img class="main-header__nav-icon svg" src="../img/common/icons/home.svg">
+                Home
             </a>
 
-            <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Marcar.php">
+            <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Cadastrar.php">
                 <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="/Paginas/img/common/icons/calendar.svg">
-            Marcar
+                Cadastrar
+            </a>
+
+            <a class="main-header__nav-btn" href="Confirmar.php">
+                <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/calendar.svg">
+                Confirmar <br> Consultas
             </a>
 
             <a class="main-header__nav-btn" href="Consultas.php">
@@ -57,12 +62,19 @@
     </header>
   
   
-    <div class="main-body marcar-body">
+    <div class="main-body cadastrar-body">
         
         <h1>
-            Marcar Consulta
+            Cadastrar
         </h1>
         <br>
+
+        <div class="cadastro-tipo-widget" >
+            <a class="cadastro-tipo-widget__option cadastro-tipo-widget__option--selected card" href="Cadastrar.php"> Cadastrar Médico </a>
+            <a class="cadastro-tipo-widget__option card" href="CadastrarAtendente.php"> Cadastrar Atendente </a>
+
+        </div>
+
         <div class="medico-select-widget">
             <h2>
                 Selecione um médico:
@@ -83,24 +95,20 @@
 
                 <form class="medico-select-widget__medicos" id="medico-select-widget__medicos">
                     <label>
-                        <input type="radio" name="medico" class="medico-select-widget__medico-radio">
+                        <input type="checkbox" name="medico" class="medico-select-widget__medico-radio">
                     </label>
                 </div>
 
         </div>
         <br>
-        <div class="horario-select-widget">
+
+        <div>
             <h2>
-                Selecione um dia e horário:
+                Selecione os horários:
             </h2>
 
             <div class="card">
-                <div class="horario-select-widget__calendar" onclick="MostraSelecionados()">
-                    <div id="datepicker" class="card"></div>
-                </div>
-
-
-                <table class="table horario-select-widget__agenda" id="horario-select-widget__agenda">
+            <table class="table horario-select-widget__agenda" id="horario-select-widget__agenda">
                     <tr>
                         <th></th>
                         <th>
@@ -128,35 +136,35 @@
                         <td>08:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -166,35 +174,35 @@
                         <td>08:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -204,35 +212,35 @@
                         <td>09:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -242,35 +250,35 @@
                         <td>09:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -280,35 +288,35 @@
                         <td>10:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -318,35 +326,35 @@
                         <td>10:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -356,35 +364,35 @@
                         <td>11:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -394,35 +402,35 @@
                         <td>11:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -432,35 +440,35 @@
                         <td>12:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -470,35 +478,35 @@
                         <td>12:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -508,35 +516,35 @@
                         <td>13:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -546,35 +554,35 @@
                         <td>13:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -584,35 +592,35 @@
                         <td>14:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -622,35 +630,35 @@
                         <td>14:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -660,35 +668,35 @@
                         <td>15:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -698,35 +706,35 @@
                         <td>15:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -736,35 +744,35 @@
                         <td>16:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -774,35 +782,35 @@
                         <td>16:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -812,35 +820,35 @@
                         <td>17:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -850,35 +858,35 @@
                         <td>17:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -888,35 +896,35 @@
                         <td>18:00</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -926,35 +934,35 @@
                         <td>18:30</td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
+                                <input type="checkbox" name="horario" class="horario-select-widget__horario-radio" value="0-00" onclick="MostraSelecionados()" disabled>
                                 <div  class="horario-select-widget__horario-card" onclick="MostraSelecionados()">
                                 </div>
                             </label>
@@ -966,13 +974,13 @@
 
             </div>
         </div>
-        <br>
-        <div class="confirmar-consulta-widget">
+            
+        <div class="confirmar-cadastro-widget">
             <h2>
                 Confirme as informações:
             </h2>
 
-            <div class="card confirmar-consulta-widget__card">
+            <div class="card confirmar-cadastro__card">
                 <b>Médico(a):</b>
                 <br>
                 <span id="med-selecionado">Nenhum selecionado.</span>
@@ -981,11 +989,7 @@
                 <br>
                 <span id="esp-selecionado">Nenhum selecionado.</span>
                 <br><br>
-                <b>Dia e Hora:</b>
-                <br>
-                <span id="hora-selecionado">Nenhum selecionado.</span>
-                <br><br>
-                <button id="marcar-btn" type="button" onclick="return MarcaConsulta()" disabled>Marcar Consulta</button>
+                <button id="cadastra-medico-btn" type="button" onclick="return CadastraMedico()" disabled>Cadastrar na Clínica</button>
             </div>
         </div>
     </div>
@@ -993,7 +997,7 @@
 
 <script>
     function CarregaMedicos(){
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
         var xmlhttp = new XMLHttpRequest();
 
@@ -1005,9 +1009,9 @@
         };
         
         codigo = "1";
-        envio = "codigo=" + codigo;
+        envio = "codClinica=" + codigo;
         
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicos.php?" + envio, true);
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicosNaoCadastrados.php?" + envio, true);
         xmlhttp.send();
 
         function Carrega(medicos) {
@@ -1059,129 +1063,11 @@
             }
     }
 
-    function Horarios() {
-
-        function getPreviousMonday(dateOrigin)
-        {
-            var date = new Date(dateOrigin);
-            var day = date.getDay();
-            var prevMonday;
-            if(date.getDay() == 0){
-                prevMonday = new Date().setDate(date.getDate() - 7);
-            }
-            else{
-                prevMonday = new Date().setDate(date.getDate() - day);
-            }
-
-            return addDays(prevMonday,1);
-        }
-
-        function addDays(date, days) {
-            var result = new Date(date);
-            result.setDate(result.getDate() + days);
-            return result;
-        } 
-
-        function getPreviousWorkWeek(dateOrigin) {
-            var dates = [];
-            var monday = getPreviousMonday(dateOrigin);
-            
-            for (var i=0; i<5; ++i){
-                dates.push(addDays(monday, i));
-            }
-            return dates;
-        }
-
-        function showDays(days) {
-            document.getElementById("cal-seg").innerHTML = days[0].getDate();
-            document.getElementById("cal-ter").innerHTML = days[1].getDate();
-            document.getElementById("cal-qua").innerHTML = days[2].getDate();
-            document.getElementById("cal-qui").innerHTML = days[3].getDate();
-            document.getElementById("cal-sex").innerHTML = days[4].getDate();
-        }
-
-
-
-        function formatTime(time) {
-            var horarioTable = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"];
-            return horarioTable[time];
-        }
-
-        function getHorarios(codMedico, date)
-        {
-            var clinica = "<?php echo htmlspecialchars($_SESSION['clinica']); ?>";
-
-            var xmlhttp = new XMLHttpRequest();
-
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.responseText);
-                    obj = JSON.parse(this.responseText);
-                    ShowHorarios(obj);
-                }
-            };
-            
-            clinica = 1;
-            envio = "codMedico=" + codMedico + "&codClinica=" + clinica + "&date=" + FormatDate(date);
-
-            console.log(envio);
-            
-            xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaHorarios.php?" + envio, true);
-            xmlhttp.send();
-        }
-
-        var codMedico = $("input[type='radio'][name='medico']:checked").val();
-        var date = new Date($( "#datepicker" ).datepicker( "getDate" ));
-
-        var dates = getPreviousWorkWeek(date);
-
-        showDays(dates);
-
-
-        getHorarios(codMedico, dates[0]);
-        
-        function ShowHorarios(horarios)
-        {
-            var rows = document.getElementById("horario-select-widget__agenda").children[0].children;
-    
-            for (var i=0; i<horarios[0].length; ++i) {
-    
-                for (var j=0; j<5; ++j) {
-                    var d = rows[i+1].children[j+1].children[0].children[0];
-                    d.checked=false;
-                    
-                    if (horarios[j][i] === "0") {
-                        d.disabled=true;
-                    }
-                    else {
-                        d.disabled=false;
-                    }
-                    d.value=FormatDate(dates[j]) + " " + formatTime(i);
-                }
-    
-            }
-        }
-    }
-
-    $( function DatePicker() {
-        var dp = $( "#datepicker" ).datepicker({
-            inline: true,
-            dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            nextText: '>',
-            prevText: '<',
-            onSelect: function(date) {
-                Horarios();
-                MostraSelecionados();
-            }
-        });
-    } );
 
     function MostraSelecionados(){
         var medInput = $("input[type='radio'][name='medico']:checked");
-        var horaInput = $("input[type='radio'][name='horario']:checked");
 
-        var medVal, espVal, horaVal;
+        var medVal, espVal;
 
         var incompleto = false;
 
@@ -1197,28 +1083,182 @@
             espVal = medInput.parent().children()[1].children[1].innerHTML.substr(17);
         }
 
-        if (horaInput.length === 0)
-        {
-            horaVal =  "Nenhum selecionado.";
-            incompleto = true;
-        }
-        else 
-        {
-            horaVal = horaInput.val().substr(0,10) + ", às " + horaInput.val().substr(11);
-        }
 
-
-        document.getElementById("marcar-btn").disabled = incompleto;
+        document.getElementById("cadastra-medico-btn").disabled = incompleto;
 
 
         var medDiv  = document.getElementById("med-selecionado");
         var espDiv  = document.getElementById("esp-selecionado");
-        var horaDiv  = document.getElementById("hora-selecionado");
         
         medDiv.innerHTML = medVal;
         espDiv.innerHTML = espVal;
-        horaDiv.innerHTML = horaVal;
 
+    }
+
+    function CadastraMedico() {
+        function replaceAt(str, replacement, index){
+
+            return str.substr(0, index) + replacement + str.substr(index + replacement.length);
+        }
+
+
+        var codMedico = $("input[type='radio'][name='medico']:checked").val();
+
+        var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
+        codClinica = 1;
+        
+        var horarios = ["0000000000000000000000","0000000000000000000000","0000000000000000000000","0000000000000000000000","0000000000000000000000"];
+
+        var checked = $("input:checkbox[name='horario']:checked");
+        
+        for (var i=0; i<checked.length; ++i)
+        {
+            function diaToIndex(dia) {
+                if (dia == "seg")
+                    return 0;
+                if (dia == "ter")
+                    return 1;
+                if (dia == "qua")
+                    return 2;
+                if (dia == "qui")
+                    return 3;
+                if (dia == "sex")
+                    return 4;
+            }
+
+            function horaToIndex(hora) {
+                if (hora == "08:00")
+                    return 0;
+                if (hora == "08:30")
+                    return 1;
+                if (hora == "09:00")
+                    return 2;
+                if (hora == "09:30")
+                    return 3;
+                if (hora == "10:00")
+                    return 4;
+                if (hora == "10:30")
+                    return 5;
+                if (hora == "11:00")
+                    return 6;
+                if (hora == "11:30")
+                    return 7;
+                if (hora == "12:00")
+                    return 8;
+                if (hora == "12:30")
+                    return 9;
+                if (hora == "13:00")
+                    return 10;
+                if (hora == "13:30")
+                    return 11;
+                if (hora == "14:00")
+                    return 12;
+                if (hora == "14:30")
+                    return 13;
+                if (hora == "15:00")
+                    return 14;
+                if (hora == "15:30")
+                    return 15;
+                if (hora == "16:00")
+                    return 16;
+                if (hora == "16:30")
+                    return 17;
+                if (hora == "17:00")
+                    return 18;
+                if (hora == "17:30")
+                    return 19;
+                if (hora == "18:00")
+                    return 20;
+                if (hora == "18:30")
+                    return 21;
+            
+            }
+
+            var dia = diaToIndex($(checked[i]).val().substring(0,3));
+            var hora = horaToIndex($(checked[i]).val().substring(4));
+
+            console.log($(checked[i]).val().substring(4));
+
+
+            
+            horarios[dia] = replaceAt(horarios[dia], "1", hora);
+            
+        }
+
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                alert("Médico cadastrado!");
+                location.reload(); 
+            }
+        };
+
+        envio = "codMedico=" + codMedico + "&codClinica=" + codClinica + "&seg=" + horarios[0] + "&ter=" + horarios[1] + "&qua=" + horarios[2] + "&qui=" + horarios[3] + "&sex=" + horarios[4];
+
+        console.log(envio);
+
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CadastraMedicoAtendente.php?" + envio, true);
+        xmlhttp.send();
+
+    }
+
+    function Horarios() {
+
+
+        function formatTime(time) {
+            var horarioTable = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"];
+            return horarioTable[time];
+        }
+
+        function getHorarios(codMedico)
+        {
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    obj = JSON.parse(this.responseText);
+                    ShowHorarios(obj);
+                }
+            };
+            
+            clinica = 1;
+            envio = "codMedico=" + codMedico;
+
+            console.log(envio);
+            
+            xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaHorariosAtendente.php?" + envio, true);
+            xmlhttp.send();
+        }
+
+        var codMedico = $("input[type='radio'][name='medico']:checked").val();
+
+        getHorarios(codMedico);
+        var dates=['seg','ter','qua','qui','sex'];
+
+        function ShowHorarios(horarios)
+        {
+            var rows = document.getElementById("horario-select-widget__agenda").children[0].children;
+
+            for (var i=0; i<horarios[0].length; ++i) {
+
+                for (var j=0; j<5; ++j) {
+                    var d = rows[i+1].children[j+1].children[0].children[0];
+                    d.checked=false;
+                    
+                    if (horarios[j][i] === "0") {
+                        d.disabled=true;
+                    }
+                    else {
+                        d.disabled=false;
+                    }
+                    d.value=dates[j] + " " + formatTime(i);
+                }
+
+            }
+        }
     }
 
 

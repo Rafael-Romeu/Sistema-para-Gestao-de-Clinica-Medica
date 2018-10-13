@@ -44,9 +44,9 @@
         Home
       </a>
 
-      <a class="main-header__nav-btn" href="Marcar.php">
+      <a class="main-header__nav-btn" href="Cadastrar.php">
         <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/calendar.svg">
-        Marcar
+        Cadastrar
       </a>
 
       <a class="main-header__nav-btn" href="Confirmar.php">
