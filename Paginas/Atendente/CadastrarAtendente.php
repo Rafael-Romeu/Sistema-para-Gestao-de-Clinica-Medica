@@ -106,7 +106,7 @@
                 <br>
                 <span id="ate-selecionado">Nenhum selecionado.</span>
                 <br><br>
-                <button id="cadastra-atendente-btn" type="button" onclick="return CadastraAtendente()" disabled>Cadastrar na Clínica</button>
+                <button id="cadastra-atendente-btn" type="button" onclick="CadastraAtendente();" disabled>Cadastrar na Clínica</button>
             </div>
         </div>
     </div>
@@ -199,6 +199,31 @@
         var atDiv  = document.getElementById("ate-selecionado");
         
         atDiv.innerHTML = atVal;
+
+    }
+
+    function CadastraAtendente() {
+        var codAtendente = $("input[type='radio'][name='atendente']:checked").val();
+
+        var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
+        codClinica = 1;
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                alert("Atendente cadastrado!");
+                location.reload(); 
+            }
+        };
+
+        envio = "codAtendente=" + codAtendente + "&codClinica=" + codClinica;
+
+        console.log(envio);
+
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CadastraAtendenteAtendente.php?" + envio, true);
+        xmlhttp.send();
 
     }
 
