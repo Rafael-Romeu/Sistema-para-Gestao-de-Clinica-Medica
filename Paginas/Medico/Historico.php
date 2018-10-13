@@ -95,46 +95,6 @@
         </span>
           
         <div id="consultas-widget__list">
-<!--
-          <div class="consultas-widget__list-row accordion">
-            <span>01/01/2019</span>
-            <span>18:00h</span>
-            <span>Paula Dentro</span>
-            <div class="consultas-widget__accordion-panel">
-              <div class="consultas-widget__accordion-content">
-                
-                <div class="consultas-widget__receita">
-                  <div>
-                    <h3>Receita</h3>
-                  </div>
-                  <div>
-                    Um<br>
-                    Dois<br>
-                    Feijão com arroz.
-                  </div>
-                </div>
-                
-                <div class="consultas-widget__observacoes">
-                  <div>
-                    <h3>Observações</h3>
-                  </div>
-                  <div>
-                    Três<br>
-                    Quatro<br>
-                    Feijão no prato.
-                  </div>
-                </div>
-
-                <div class="consultas-widget__edit-btn">
-                  <a href="#">
-                    Editar
-                  </a>
-                </div>
-
-              </div>
-            </div>
-          </div>
-  -->       
         </div>
       </div>
     </div>
@@ -152,6 +112,7 @@
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           document.getElementById("consultas-widget__list").innerHTML = this.responseText;
+          EditarConsulta();
       }
       Accordion();
     };
@@ -163,11 +124,76 @@
     xmlhttp.send();
   }
 
+  function EditarConsulta() {
+    var btn = document.getElementsByClassName("consultas-widget__edit-btn");
+    var i;
+
+    for (i = 0; i < btn.length; i++) {
+
+      btn[i].addEventListener("click", function() {
+
+        if (this.classList.contains("active")) {
+          this.parentElement.parentElement.parentElement.classList.toggle("editing");
+          this.parentElement.parentElement.parentElement.addEventListener("click", ToggleAccordion);
+          this.parentElement.click();
+          this.lastElementChild.innerHTML = "Editar";
+
+          var campos = this.parentElement.children;
+
+          var dia = this.parentElement.parentElement.parentElement.children[0].innerHTML;
+          var hora = this.parentElement.parentElement.parentElement.children[1].innerHTML;
+          var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+          
+          var receita = textToHtml(campos[0].lastElementChild.lastElementChild.value);
+          var observa = textToHtml(campos[1].lastElementChild.lastElementChild.value);
+
+          campos[0].lastElementChild.innerHTML = receita;
+
+          campos[1].lastElementChild.innerHTML = observa;
+
+
+          var xmlhttp = new XMLHttpRequest();
+
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              this.classList.toggle("active");
+            }
+            Accordion();
+          };
+
+          envio = "codMedico=" + codigo + "&data=" + dia + "&hora=" + hora + "&rec=" + receita + "&obs=" + observa;
+
+          console.log(envio);
+          xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/EditaConsulta.php?" + envio, true);
+          xmlhttp.send();
+        }
+        else {
+          this.parentElement.parentElement.parentElement.classList.toggle("editing");
+          this.parentElement.parentElement.parentElement.removeEventListener("click", ToggleAccordion);
+          this.parentElement.parentElement.style.maxHeight = "500px";
+
+          this.lastElementChild.innerHTML = "Salvar";
+          var campos = this.parentElement.children;
+
+          var receita = htmlToText(campos[0].lastElementChild.innerHTML.trim());
+          var recomen = htmlToText(campos[1].lastElementChild.innerHTML.trim());
+
+          campos[0].lastElementChild.innerHTML = "<textarea rows='10' cols='40'>" + receita + "</textarea>";
+
+          campos[1].lastElementChild.innerHTML = "<textarea rows='10' cols='40'>" + recomen + "</textarea>";
+          this.classList.toggle("active");
+        }
+
+          
+      });
+    }
+  }
+
   CarregaConsultas();
   SvgInliner();
   ConsultasFilter();
   Accordion();
-  EditarConsulta();
+  
 </script>
 
 
