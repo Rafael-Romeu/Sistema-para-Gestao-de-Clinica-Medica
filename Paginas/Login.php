@@ -68,7 +68,7 @@
                         $_SESSION['planoDeSaude'] = $usuario->getPlanoDeSaude();
                     }
 
-                    $_SESSION['codClinica'] = "1";
+                    $_SESSION['codClinica'] = $_POST['clinica'];
 
                     redireciona($tipo);
                 }
@@ -144,6 +144,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 <link rel="stylesheet" href="css/Login.css">
 <title> Login </title> <!-- Titulo da pagina --> 
@@ -167,6 +168,11 @@
                     <label for="password"><b></b></label>
                     <input type="password" placeholder="Insira a senha" name="password" required>
 
+                    <br>
+                    Selecione uma clínica:
+                    <select name="clinica" id="selectClinica">
+                    </select>
+
                     <button type="submit">Login</button>
                     <label>
                         <input type="checkbox" checked="checked" name="remember">Lembrar usuário
@@ -181,3 +187,30 @@
 
 </body>
 </html>
+
+<script>
+    function carregaClinicas(){
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var clinicas = JSON.parse(this.responseText);
+                
+                
+                var html = "";
+                for (var i=0; i<clinicas.length; ++i) {
+                    html = html + "<option value='" + clinicas[i].cod + "'>" + clinicas[i].nome + "</option>";
+                }
+                document.getElementById("selectClinica").innerHTML = html;
+                
+            }
+        };
+        
+        
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaClinicasLogin.php?", true);
+        xmlhttp.send();
+    }
+
+    carregaClinicas();
+
+</script>
