@@ -82,31 +82,26 @@
 
           <h2>Dados Pessoais</h2>
           <div class="card" id="dadosPessoais">
-          <!--  <b>Nome:</b>
+            <b>Nome:</b>
             <br>
-            <span id="infoUserNome">Jacinto Leite</span>
+            <span id="infoUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
             <br><br>
 
             <b>CPF:</b>
             <br>
-            <span id="infoUserCpf">123.123.123-12</span>
+            <span id="infoUserCpf"><?php echo htmlspecialchars($_SESSION['cpf']); ?></span>
             <br><br>
 
             <b>Data de Nascimento:</b>
             <br>
-            <span id="infoUserData">01/01/1990</span>
-            <br><br>
-
-            <b>Gênero:</b>
-            <br>
-            <span id="infoUserEnd">Masculino</span>
+            <span id="infoUserData"><?php echo htmlspecialchars($_SESSION['dtNascimento']); ?></span>
             <br><br>
             
             <b>Endereço:</b>
             <br>
-            <span id="infoUserEnd">Rua Jussara, 159</span>
+            <span id="infoUserEnd"><?php echo htmlspecialchars($_SESSION['endereco']); ?></span>
             <br>
-          -->
+          
           </div>
 
             
@@ -118,32 +113,36 @@
         <div class="perfil-widget">
           <h2>Contato</h2>
           <div class="card" id="contato">
-            <!--
+            
             <b>Email:</b>
             <br>
-            <span id="infoUserEmail">jacinto@leite.com</span>
+            <span id="infoUserEmail"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
             <br><br>
-            <b>Telefone:</b>
+            <b>Telefone 1:</b>
             <br>
-            <span id="infoUserTel">(21)2345678</span>
+            <span id="infoUserTel"><?php echo htmlspecialchars($_SESSION['telefone1']); ?></span>
+            <br><br>
+            <b>Telefone 2:</b>
             <br>
-            -->
+            <span id="infoUserTel"><?php echo htmlspecialchars($_SESSION['telefone2']); ?></span>
+            <br>
+            
           </div>
         </div>
         <div class="perfil-widget">
           <h2>Dados Médicos</h2>
           <div class="card" id="dadosMedicos">
-            <!--
+            
             <b>Plano de Saúde:</b>
             <br>
-            <span id="infoUserPlano">Unimed</span>
+            <span id="infoUserPlano"><?php echo htmlspecialchars($_SESSION['planoDeSaude']); ?></span>
             <br><br>
 
             <b>Tipo Sanguíneo:</b>
             <br>
-            <span id="infoUserSangue">O+</span>
+            <span id="infoUserSangue"><?php echo htmlspecialchars($_SESSION['tipoSanguineo']); ?></span>
             <br>
-            -->
+
           </div>
         </div>
           
@@ -157,72 +156,7 @@
   function inicializa()
   {
     SvgInliner();
-    CarregaDadosPessoais();
-    CarregaDadosMedicos();
-    CarregaContato();
   }
-  function CarregaDadosPessoais() 
-    {
-        console.log("envio");
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
-
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("dadosPessoais").innerHTML = this.responseText;
-            }
-        };
-        
-        codigo = "1";
-        envio = "codigo=" + codigo + "&tipoDeDadosASerCarregados=" + "dadosPessoais";
-        
-        console.log(envio);
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaPacientePerfil.php?" + envio, true);
-        xmlhttp.send();
-    }
-
-    function CarregaContato() 
-    {
-        console.log("envio");
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
-
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("contato").innerHTML = this.responseText;
-            }
-        };
-        
-        codigo = "1";
-        envio = "codigo=" + codigo + "&tipoDeDadosASerCarregados=" + "contato";
-        
-        console.log(envio);
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaPacientePerfil.php?" + envio, true);
-        xmlhttp.send();
-    }
-
-    function CarregaDadosMedicos() 
-    {
-        console.log("envio");
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
-
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("dadosMedicos").innerHTML = this.responseText;
-            }
-        };
-        
-        codigo = "1";
-        envio = "codigo=" + codigo + "&tipoDeDadosASerCarregados=" + "dadosMedicos";
-        
-        console.log(envio);
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaPacientePerfil.php?" + envio, true);
-        xmlhttp.send();
-    }
 </script>
 
 </html>
