@@ -15,11 +15,12 @@
     $medico -> identifica();
 
     $clinicas = $medico->getCodClinica();
+    print_r($clinicas);
 
-    array_push($clinicas, $codClinica);
-
-    $medico->setCodClinica($clinicas);
-
+    $medico->getModel()->limpaValor("codClinica");
+    $medico->setCodClinica($codClinica);
     $medico->alterar();
     
+    $clinicas = $medico->getCodClinica();
+    print_r($clinicas);
 ?> 

@@ -242,7 +242,7 @@
 
         console.log(envio);
 
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CadastraMedicoNaClinica.php?" + envio, true);
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CadastraMedicoAtendente.php?" + envio, true);
         xmlhttp.send();
 
     }
