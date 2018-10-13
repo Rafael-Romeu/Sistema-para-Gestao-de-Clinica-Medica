@@ -141,7 +141,6 @@
       Accordion();
     };
     
-    codigo = "1";
     envio = "codigo=" + codigo;
     
     console.log(envio);
