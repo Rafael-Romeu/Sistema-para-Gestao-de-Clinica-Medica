@@ -23,8 +23,8 @@
     <div class="main-body cadastro-body">
     
         <div class="cadastro-tipo">
-            <a class="cadastro-tipo-widget__option cadastro-tipo-widget__option--selected card" href="CadastroPaciente.php"> Cadastrar Paciente </a>
-            <a class="cadastro-tipo-widget__option card" href="CadastroMedico.php"> Cadastrar Médico </a>
+            <a class="cadastro-tipo-widget__option card" href="CadastroPaciente.php"> Cadastrar Paciente </a>
+            <a class="cadastro-tipo-widget__option cadastro-tipo-widget__option--selected card" href="CadastroMedico.php"> Cadastrar Médico </a>
             <a class="cadastro-tipo-widget__option card" href="CadastroAtendente.php"> Cadastrar Atendente </a>
         </div>
         
@@ -50,10 +50,6 @@
                     <input type="date" id="bday" max="3000-12-31"><br>
                     <br>
 
-                    <b>Gênero:</b>
-                    <br>
-                    <input type="text" id="genero"><br>
-                    <br>
                     
                     <b>CEP:</b>
                     <br>
@@ -118,44 +114,6 @@
                         </select> 
                     
                     <br><br>
-
-                    <b>Tipo Sanguíneo:</b>
-                    <br>
-                        <form id="tipoSanguineoRadio">
-                            <label class="container"> O+
-                                <input type="radio" name="sangue" value="O+" >
-                                <span class="checkmark"> </span> 
-                            </label>
-                            <label class="container"> A+
-                                <input type="radio" name="sangue" value="A+" >
-                                <span class="checkmark"></span> 
-                            </label>
-                            <label class="container"> B+ 
-                                <input type="radio" name="sangue" value="B+" >
-                                <span class="checkmark"></span> 
-                            </label>
-                            <label class="container"> AB+
-                                <input type="radio" name="sangue" value="AB+" >
-                                <span class="checkmark"></span> 
-                            </label>
-                            <label class="container"> O-
-                                <input type="radio" name="sangue" value="O-" >
-                                <span class="checkmark"> </span> 
-                            </label>
-                            <label class="container"> A-
-                                <input type="radio" name="sangue" value="A-" >
-                                <span class="checkmark"> </span> 
-                            </label>
-                            <label class="container"> B-
-                                <input type="radio" name="sangue" value="B-" >
-                                <span class="checkmark"> </span>
-                            </label>
-                            <label class="container"> AB-
-                                <input type="radio" name="sangue" value="AB-" checked>
-                                <span class="checkmark"></span>
-                            </label>
-                        </form>
-                    <br>
                     
                 </form>  
                 
@@ -203,7 +161,6 @@
         var nome     = document.getElementById("nome").value;
         var cpf      = document.getElementById("cpf").value;
         var bday     = document.getElementById("bday").value;
-        var genero   = document.getElementById("genero").value;
         var CEP      = document.getElementById("CEP").value;
         var endereco = document.getElementById("endereco").value;
         var senha    = document.getElementById("senha").value;
@@ -214,7 +171,7 @@
         
         var selector = document.getElementById('PlanoDeSaude');
         var planoDeSaude = selector[selector.selectedIndex].value;
-
+/*
         var rates = document.getElementsByName("sangue");
         var tipoSanguineo;
         for(var i = 0; i < rates.length; i++){
@@ -222,7 +179,7 @@
                 tipoSanguineo = rates[i].value;
             }
         }
-        /*
+        
         var clinicasAux = document.getElementsByName("clinicas");
         var clinicas = "";
         for(var i = 0; i < clinicasAux.length; i++){
@@ -235,22 +192,22 @@
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    alert("Atendente cadastrado!");
+                if (this.responseText == "1")
+                {
+                    alert("Cadastrado com sucesso!");
                     location.reload(); 
                 }
             }
         };
         
 
-        envio = "nome=" + nome + "&cpf=" + cpf + "&bday=" + bday + "&genero=" + genero + "&CEP=" + CEP
+        envio = "nome=" + nome + "&cpf=" + cpf + "&bday=" + bday + "&CEP=" + CEP
         + "&endereco=" + endereco + "&senha=" + senha + "&email=" + email + "&telefone1=" + telefone1
-        + "&telefone2=" + telefone2 + "&planoDeSaude=" + planoDeSaude + "&tipoSanguineo=" + tipoSanguineo;
+        + "&telefone2=" + telefone2 + "&planoDeSaude=" + planoDeSaude;
 
         console.log(envio);
 
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/salvaNovoPaciente.php?" + envio, true);
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/salvaNovoMedico.php?" + envio, true);
         xmlhttp.send();
     }
 </script>
