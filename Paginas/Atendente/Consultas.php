@@ -1,16 +1,17 @@
 <?php
     session_start();
 
-    /*if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
-    if($_SESSION['tipo'] != "lPaciente"){
+    if($_SESSION['tipo'] != "lAtendente"){
         shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
-    }*/
+    }
 ?>
+
 <!DOCTYPE html>
 <html>
 
