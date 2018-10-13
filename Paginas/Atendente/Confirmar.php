@@ -49,7 +49,7 @@
         Cadastrar
       </a>
 
-      <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Consultas.php">
+      <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Confirmar.php">
         <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="../img/common/icons/heart.svg">
         Confirmar <br> Consultas
       </a>
