@@ -68,7 +68,14 @@
                         $_SESSION['planoDeSaude'] = $usuario->getPlanoDeSaude();
                     }
 
-                    $_SESSION['codClinica'] = $_POST['clinica'];
+                    $codClinica = $_POST['clinica'];
+                    $_SESSION['codClinica'] = $codClinica;
+                    
+                    $clinica = new lClinica();
+                    $clinica->setCodigo($codClinica);
+                    $clinica->identifica();
+
+                    $_SESSION['nomeClinica'] = $clinica->getNome();
 
                     redireciona($tipo);
                 }
