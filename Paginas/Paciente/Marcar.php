@@ -1007,7 +1007,7 @@
 
 <script>
     function CarregaMedicos(){
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
         var xmlhttp = new XMLHttpRequest();
 
@@ -1019,7 +1019,7 @@
         };
         
         codigo = "1";
-        envio = "codigo=" + codigo;
+        envio = "codClinica=" + codigo;
         
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicos.php?" + envio, true);
         xmlhttp.send();
@@ -1123,7 +1123,7 @@
 
         function getHorarios(codMedico, date)
         {
-            var clinica = "<?php echo htmlspecialchars($_SESSION['clinica']); ?>";
+            var clinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
             var xmlhttp = new XMLHttpRequest();
 
@@ -1237,12 +1237,12 @@
 
     
     function MarcaConsulta() {
-        var codPaciente = "<?php echo htmlspecialchars($_SESSION['paciente']); ?>";
-        codPaciente = 1;
+        var codPaciente = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+
         var codMedico = $("input[type='radio'][name='medico']:checked").val();
         var horaInput = $("input[type='radio'][name='horario']:checked").val();
-        var codClinica = "<?php echo htmlspecialchars($_SESSION['clinica']); ?>";
-        codClinica = 1;
+        var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
+
         
         var data  = horaInput.substr(0,10);
         var hora = horaInput.substr(11) + ":00";
