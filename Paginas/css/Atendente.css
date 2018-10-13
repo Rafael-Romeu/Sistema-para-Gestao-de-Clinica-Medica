@@ -275,3 +275,38 @@ input:checked ~ .atendente-select-widget__atendente-card {
 .confirmar-cadastro__card {
   text-align: center;
 }
+
+
+.horario-select-widget__agenda {
+  font-size: var(--smaller-size);
+}
+.horario-select-widget__agenda td {
+  padding: 0;
+}
+
+
+.horario-select-widget__horario-radio {
+  display: none;
+}
+
+.horario-select-widget__horario-card {
+  white-space: pre;
+  background-color: var(--success);
+  border: 1px solid var(--neutral-dgray);
+  cursor: pointer;
+}
+
+input:disabled ~ .horario-select-widget__horario-card {
+  background-color: var(--failure);
+  cursor: default;
+}
+
+input:checked ~ .horario-select-widget__horario-card, 
+.horario-select-widget__horario-card:hover {
+  background-color:  var(--primary);
+}
+
+.horario-select-widget__calendar {
+  display: flex;
+  justify-content: center;
+}

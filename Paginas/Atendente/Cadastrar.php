@@ -1096,10 +1096,95 @@
     }
 
     function CadastraMedico() {
+        function replaceAt(str, replacement, index){
+
+            return str.substr(0, index) + replacement + str.substr(index + replacement.length);
+        }
+
+
         var codMedico = $("input[type='radio'][name='medico']:checked").val();
 
         var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
         codClinica = 1;
+        
+        var horarios = ["0000000000000000000000","0000000000000000000000","0000000000000000000000","0000000000000000000000","0000000000000000000000"];
+
+        var checked = $("input:checkbox[name='horario']:checked");
+        
+        for (var i=0; i<checked.length; ++i)
+        {
+            function diaToIndex(dia) {
+                if (dia == "seg")
+                    return 0;
+                if (dia == "ter")
+                    return 1;
+                if (dia == "qua")
+                    return 2;
+                if (dia == "qui")
+                    return 3;
+                if (dia == "sex")
+                    return 4;
+            }
+
+            function horaToIndex(hora) {
+                if (hora == "08:00")
+                    return 0;
+                if (hora == "08:30")
+                    return 1;
+                if (hora == "09:00")
+                    return 2;
+                if (hora == "09:30")
+                    return 3;
+                if (hora == "10:00")
+                    return 4;
+                if (hora == "10:30")
+                    return 5;
+                if (hora == "11:00")
+                    return 6;
+                if (hora == "11:30")
+                    return 7;
+                if (hora == "12:00")
+                    return 8;
+                if (hora == "12:30")
+                    return 9;
+                if (hora == "13:00")
+                    return 10;
+                if (hora == "13:30")
+                    return 11;
+                if (hora == "14:00")
+                    return 12;
+                if (hora == "14:30")
+                    return 13;
+                if (hora == "15:00")
+                    return 14;
+                if (hora == "15:30")
+                    return 15;
+                if (hora == "16:00")
+                    return 16;
+                if (hora == "16:30")
+                    return 17;
+                if (hora == "17:00")
+                    return 18;
+                if (hora == "17:30")
+                    return 19;
+                if (hora == "18:00")
+                    return 20;
+                if (hora == "18:30")
+                    return 21;
+            
+            }
+
+            var dia = diaToIndex($(checked[i]).val().substring(0,3));
+            var hora = horaToIndex($(checked[i]).val().substring(4));
+
+            console.log($(checked[i]).val().substring(4));
+
+
+            
+            horarios[dia] = replaceAt(horarios[dia], "1", hora);
+            
+        }
+
 
         var xmlhttp = new XMLHttpRequest();
 
@@ -1111,13 +1196,69 @@
             }
         };
 
-        envio = "codMedico=" + codMedico + "&codClinica=" + codClinica;
+        envio = "codMedico=" + codMedico + "&codClinica=" + codClinica + "&seg=" + horarios[0] + "&ter=" + horarios[1] + "&qua=" + horarios[2] + "&qui=" + horarios[3] + "&sex=" + horarios[4];
 
         console.log(envio);
 
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CadastraMedicoAtendente.php?" + envio, true);
         xmlhttp.send();
 
+    }
+
+    function Horarios() {
+
+
+        function formatTime(time) {
+            var horarioTable = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30"];
+            return horarioTable[time];
+        }
+
+        function getHorarios(codMedico)
+        {
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    obj = JSON.parse(this.responseText);
+                    ShowHorarios(obj);
+                }
+            };
+            
+            clinica = 1;
+            envio = "codMedico=" + codMedico;
+
+            console.log(envio);
+            
+            xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaHorariosAtendente.php?" + envio, true);
+            xmlhttp.send();
+        }
+
+        var codMedico = $("input[type='radio'][name='medico']:checked").val();
+
+        getHorarios(codMedico);
+        var dates=['seg','ter','qua','qui','sex'];
+
+        function ShowHorarios(horarios)
+        {
+            var rows = document.getElementById("horario-select-widget__agenda").children[0].children;
+
+            for (var i=0; i<horarios[0].length; ++i) {
+
+                for (var j=0; j<5; ++j) {
+                    var d = rows[i+1].children[j+1].children[0].children[0];
+                    d.checked=false;
+                    
+                    if (horarios[j][i] === "0") {
+                        d.disabled=true;
+                    }
+                    else {
+                        d.disabled=false;
+                    }
+                    d.value=dates[j] + " " + formatTime(i);
+                }
+
+            }
+        }
     }
 
 
