@@ -69,7 +69,9 @@
     <h1 class="perfil-header">Perfil</h1>
 
     <span class="perfil-edit" id="perfil-edit">
-      <img class="svg" src="/Paginas/img/common/icons/pencil.svg">
+      <a href="EditarPerfil.php">
+        <img class=" svg " src="../img/common/icons/pencil.svg">
+      </a>
     </span>
 
     <div class="perfil-info" id="medico">

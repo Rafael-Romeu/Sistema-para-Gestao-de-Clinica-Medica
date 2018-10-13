@@ -173,6 +173,7 @@
   grid-template-areas:
     'phea edit'
     'pinf pinf'
+    'pedit pedit'
 }
 
 .perfil-header {
@@ -222,6 +223,12 @@
 .perfil-widget {
   vertical-align: middle;
   padding: 1em 0em 0em 0em;;
+}
+.perfil-column-center {
+  grid-area: pedit;
+
+  display: flex;
+  justify-content: center;
 }
 
 
