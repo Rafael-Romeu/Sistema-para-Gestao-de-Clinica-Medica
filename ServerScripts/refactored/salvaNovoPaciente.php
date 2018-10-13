@@ -16,7 +16,6 @@
 	$telefone2     = $_REQUEST["telefone2"];
 	$planoDeSaude  = $_REQUEST["planoDeSaude"];
 	$tipoSanguineo = $_REQUEST["tipoSanguineo"];
-	$clinicas      = $_REQUEST["clinicas"];
 
 	$oPaciente -> setNome($nome);
 	$oPaciente -> setCpf($cpf);
@@ -32,19 +31,4 @@
 	
 	$oPaciente -> incluir();
 
-	$oPaciente = new lPaciente();
-	
-	$oPaciente -> setCpf($cpf);
-	if($oPaciente -> identifica())
-	{
-		for ($i=0; $i < strlen($clinicas); $i++) 
-		{ 
-			$codClinica = (int)substr($clinicas, $i, 1);
-	
-			$oClinicaPaciente = new lClinicaPaciente();
-			$oClinicaPaciente -> SetCodClinica($codClinica);
-			$oClinicaPaciente -> setCodPaciente($oPaciente->getCodigo());
-			$oClinicaPaciente -> incluir();
-		}
-	}
 ?>
