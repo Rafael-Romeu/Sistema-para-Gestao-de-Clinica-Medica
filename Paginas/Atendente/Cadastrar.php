@@ -124,7 +124,7 @@
 
 <script>
     function CarregaMedicos(){
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        var codigo = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
         var xmlhttp = new XMLHttpRequest();
 
@@ -136,9 +136,9 @@
         };
         
         codigo = "1";
-        envio = "codigo=" + codigo;
+        envio = "codClinica=" + codigo;
         
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicos.php?" + envio, true);
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicosNaoCadastrados.php?" + envio, true);
         xmlhttp.send();
 
         function Carrega(medicos) {
