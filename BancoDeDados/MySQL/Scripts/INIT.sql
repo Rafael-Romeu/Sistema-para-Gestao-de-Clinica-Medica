@@ -34,7 +34,14 @@ CREATE TABLE `trabalho`.`tClinica` (
 	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-	`temaCSS` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`corPrimaria` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`corSucesso` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`corFalha` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',  
+	`cor1` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',  
+	`cor2` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',  
+	`cor3` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',  
+	`cor4` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',  
+	`cor5` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	PRIMARY KEY (`codigo`),
 	UNIQUE `cnpj` (`cnpj`))
 	ENGINE = InnoDB;
@@ -679,92 +686,97 @@ INSERT INTO `tMedicoEspecialidade` (`codigo`, `codMedico`, `codEspecialidade`) V
 ####### tClinicaMedico #######
 
 USE trabalho;
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '1');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '1');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '1');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '2');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '2');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '3');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '3');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '4');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '4');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '5');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '5');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '5');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '6');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '6');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '7');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '7');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '8');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '9');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '8');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '9');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '9');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '10');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '10');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '11');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '11');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '12');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '13');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '14');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '14');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '15');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '15');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '15');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '16');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '16');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '17');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '18');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '17');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '18');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '19');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '20');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '19');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '20');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '20');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '21');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '21');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '22');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '22');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '22');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '23');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '23');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '24');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '24');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '25');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '26');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '27');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '28');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '26');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '27');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '28');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '29');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '30');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '31');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '31');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '30');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '31');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '32');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '32');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '33');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '33');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '34');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '34');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '35');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '35');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '36');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '37');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '35');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '36');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '37');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '38');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '38');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '39');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '39');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '40');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '39');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '40');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '41');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '42');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '41');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '42');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '43');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '44');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '44');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '45');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '46');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '45');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '46');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '46');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '47');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '47');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '48');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '49');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '50');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '50');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '51');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '48');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '49');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '50');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '51');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '52');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '51');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '52');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '52');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '53');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '54');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '54');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '55');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '55');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '55');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '56');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '56');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '57');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '57');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '58');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '59');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '60');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '58');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '59');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '60');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '60');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '61');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '61');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '62');
 INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '62');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '1', '62');
-INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '2', '63');
+INSERT INTO `tClinicaMedico` (`codigo`, `codClinica`, `codMedico`) VALUES (NULL, '3', '63');
 
 
 ####### tClinicaPaciente #######
@@ -858,8 +870,3 @@ INSERT INTO `tClinicaPaciente` (`codigo`, `codClinica`, `codPaciente`) VALUES (N
 INSERT INTO `tClinicaAtendente` (`codigo`, `codClinica`, `codAtendente`) VALUES (NULL, '2', '1');
 INSERT INTO `tClinicaAtendente` (`codigo`, `codClinica`, `codAtendente`) VALUES (NULL, '1', '2');
 INSERT INTO `tClinicaAtendente` (`codigo`, `codClinica`, `codAtendente`) VALUES (NULL, '3', '3');
-
-
-
-
-
