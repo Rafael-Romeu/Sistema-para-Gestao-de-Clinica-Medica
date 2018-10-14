@@ -1032,7 +1032,6 @@
             }
         };
         
-        codigo = "1";
         envio = "codClinica=" + codigo;
         
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicosNaoCadastrados.php?" + envio, true);
@@ -1129,7 +1128,6 @@
         var codMedico = $("input[type='radio'][name='medico']:checked").val();
 
         var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
-        codClinica = 1;
         
         var horarios = ["0000000000000000000000","0000000000000000000000","0000000000000000000000","0000000000000000000000","0000000000000000000000"];
 
