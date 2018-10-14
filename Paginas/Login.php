@@ -189,7 +189,8 @@
 
                     <br>
                     Selecione uma clínica:
-                    <select name="clinica" id="selectClinica">
+                    <br>
+                    <select class="selectClinica" name="clinica" id="selectClinica">
                     </select>
 
                     <button type="submit">Login</button>
