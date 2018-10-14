@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head>   <style>   :root {      /* COLORS */     --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;      --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;     --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;      --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;     --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;     --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;     --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;     --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;   }        </style>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="../css/Base.css">
   <link rel="stylesheet" href="../css/Paciente.css">
