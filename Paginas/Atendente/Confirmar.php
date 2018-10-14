@@ -146,7 +146,7 @@
 <script>
   function CarregaConsultasNaoConfirmadas() 
   {
-    var codClinica = "<?php echo htmlspecialchars($_SESSION['codCLinica']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 

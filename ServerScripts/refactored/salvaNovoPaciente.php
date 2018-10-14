@@ -21,6 +21,7 @@
 	$oPaciente -> setCpf($cpf);
 	$oPaciente -> setDataNascimento($nascimento);
 	$oPaciente -> setCEP($cep);
+	$oPaciente -> setEndereco($endereco);
 	$oPaciente -> setGenero($genero);
 	$oPaciente -> setSenha($senha);
 	$oPaciente -> setEmail($email);

@@ -19,6 +19,7 @@
 	$medico -> setCpf($cpf);
 	$medico -> setDataNascimento($nascimento);
 	$medico -> setCEP($cep);
+	$medico -> setEndereco($endereco);
 	$medico -> setSenha($senha);
 	$medico -> setEmail($email);
 	$medico -> setTelefone1($telefone1);

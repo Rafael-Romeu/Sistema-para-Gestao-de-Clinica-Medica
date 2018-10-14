@@ -147,7 +147,6 @@
       Accordion();
     };
     
-    codClinica = "1";
     envio = "codClinica=" + codClinica;
     
     console.log(envio);

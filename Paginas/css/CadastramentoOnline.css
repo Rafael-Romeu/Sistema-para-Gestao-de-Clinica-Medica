@@ -274,7 +274,9 @@ h2 {
 
 
 .cadastro-tipo-widget__option {
-  margin: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 0;
   text-decoration: none;
   color: var(--text-color);
 }

@@ -149,7 +149,6 @@
             }
         };
         
-        codClinica = "1";
         envio = "codClinica=" + codClinica;
         
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaAtendentesNaoCadastrados.php?" + envio, true);
@@ -230,7 +229,6 @@
         var codAtendente = $("input[type='radio'][name='atendente']:checked").val();
 
         var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
-        codClinica = 1;
 
         var xmlhttp = new XMLHttpRequest();
 
