@@ -99,36 +99,10 @@
           <span>Dia</span>
           <span>Hora</span>
           <span>Médico(a)</span>
-          <span>Especialidade</span>
         </span>
           
         <div id="consultas-widget__list">
 
-          <!--  
-          <div class="consultas-widget__list-row accordion">
-            <span>01/01/2019</span>
-            <span>18:00h</span>
-            <span>Paula Dentro</span>
-            <span>Ginecologista</span>
-            <div class="consultas-widget__accordion-panel">
-              <div class="consultas-widget__accordion-content">
-                <div class="consultas-widget__receita">
-                    <h3>Receita</h3>
-                    Um<br>
-                    Dois<br>
-                    Feijão com arroz.
-                </div>
-                <div class="consultas-widget__observacoes">
-                    <h3>Observações</h3>
-                    Três<br>
-                    Quatro<br>
-                    Feijão no prato.
-              
-                </div>
-              </div>
-            </div>
-          </div>
-            -->
         </div>
       </div>
     </div>

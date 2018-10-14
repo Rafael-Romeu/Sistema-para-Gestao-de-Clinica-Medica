@@ -45,7 +45,6 @@
                 echo "<span>".$oConsulta["data"]."</span>";
                 echo "<span>".$oConsulta["hora"]."</span>";
                 echo "<span>".$oMedico->getNome()."</span>";
-                echo "<span>"."CONSERTAR"."</span>";
 
                 echo "<div class='consultas-widget__accordion-panel'>";
                 echo    "<div class='consultas-widget__accordion-content'>";

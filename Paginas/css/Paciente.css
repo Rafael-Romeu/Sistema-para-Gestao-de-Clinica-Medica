@@ -81,8 +81,8 @@
   transition: 0.2s;
 
   grid-template-areas: 
-    ". . . ."
-    "panel panel panel panel";
+    ". . ."
+    "panel panel panel";
 }
 
   .consultas-widget__list-row, .consultas-widget__list-header {
@@ -92,7 +92,7 @@
     outline: none;
     
     display: grid;
-    grid-template-columns: 0.8fr 0.7fr 1fr 1fr;
+    grid-template-columns: 0.8fr 0.7fr 1fr;
     
     text-align: center;
     padding: 1em;
