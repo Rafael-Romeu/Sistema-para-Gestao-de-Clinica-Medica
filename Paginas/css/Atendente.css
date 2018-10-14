@@ -114,7 +114,7 @@
 
   .accordion--active.consultas-widget__list-row {
     border-bottom: 0px;
-    box-shadow: 0 2px 4px var(--color-3);
+    box-shadow: 0 2px 4px var(--shadow);
     position:relative;
     width: 110%;
     margin: 0 -5%;
