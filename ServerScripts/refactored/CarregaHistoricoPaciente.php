@@ -27,7 +27,7 @@
         usort($listaConsultas, "anterioresDepois");
 
         foreach ($listaConsultas as $oConsulta) {
-        
+            $oMedico = new lMedico();
             $codigoMedico = $oConsulta["codMedico"];
             $oMedico -> setCodigo($codigoMedico);
             $oMedico->identifica();
@@ -45,7 +45,6 @@
                 echo "<span>".$oConsulta["data"]."</span>";
                 echo "<span>".$oConsulta["hora"]."</span>";
                 echo "<span>".$oMedico->getNome()."</span>";
-                echo "<span>"."CONSERTAR"."</span>";
 
                 echo "<div class='consultas-widget__accordion-panel'>";
                 echo    "<div class='consultas-widget__accordion-content'>";

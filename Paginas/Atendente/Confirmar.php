@@ -31,7 +31,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="../js/scripts.js"></script>
 
-  <title>Paciente</title>
+  <title>Atendente</title>
   <meta charset = "UTF-8">
 </head>
 
@@ -120,15 +120,7 @@
 
           
           <div class="consultas-widget__list-row accordion">
-            <span>01/01/2019</span>
-            <span>18:00h</span>
-            <span>Paula Dentro</span>
-            <span>Ginecologista</span>
-            <div class="consultas-widget__accordion-panel">
-              <div class="consultas-widget__accordion-content">
-                <button class="consultas-widget__confirmar-btn" id="">Confirmar Consulta</button>
-              </div>
-            </div>
+            
           </div>
           
         </div>

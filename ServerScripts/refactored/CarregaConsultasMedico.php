@@ -27,7 +27,7 @@
         usort($listaConsultas, "anterioresAntes");
 
         foreach ($listaConsultas as $oConsulta) {
-        
+            $oPaciente = new lPaciente();
             $codigoPaciente = $oConsulta["codPaciente"];
             $oPaciente -> setCodigo($codigoPaciente);
             $oPaciente->identifica();

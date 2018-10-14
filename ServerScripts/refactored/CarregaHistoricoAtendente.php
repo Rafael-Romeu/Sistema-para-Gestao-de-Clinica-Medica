@@ -27,7 +27,8 @@
         usort($listaConsultas, "anterioresDepois");
 
         foreach ($listaConsultas as $consulta) {
-        
+            
+            $medico = new lMedico();
             $codigmedico = $consulta["codMedico"];
             $medico -> setCodigo($codigmedico);
             $medico->identifica();

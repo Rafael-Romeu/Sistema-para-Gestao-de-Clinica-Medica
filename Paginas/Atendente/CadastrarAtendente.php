@@ -34,7 +34,7 @@
 
   <script src="../js/scripts.js"></script>
 
-  <title>Paciente</title>
+  <title>Atendente</title>
   <meta charset = "UTF-8">
 </head>
 
