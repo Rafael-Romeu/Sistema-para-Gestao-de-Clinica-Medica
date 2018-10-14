@@ -9,6 +9,11 @@
 :root {
 
   /* COLORS */
+  --shadow: hsla(0, 0%, 0%, 0.25);
+  /*--primary: hsl(46, 100%, 43%);
+
+
+  
   --primary: hsl(208, 100%, 46%);
 
   --success: hsl(100, 100%, 75%);
@@ -89,7 +94,7 @@ h2 {
     'top-bar'
     'nav-bar';
   
-  box-shadow: 0 0.1em 1em var(--color-3);
+  box-shadow: 0 0.1em 1em var(--shadow);
 }
 
   .main-header__top-bar {
@@ -208,13 +213,13 @@ h2 {
   grid-area: main-footer;
   background-color: var(--color-5);
   padding: 1em;
-  box-shadow: 0 -0.1em 1em var(--color-3);
+  box-shadow: 0 -0.1em 1em var(--shadow);
 }
 
 
 .card {
   background-color: var(--color-5);
-  box-shadow: 0 2px 4px var(--color-3);
+  box-shadow: 0 2px 4px var(--shadow);
   margin: 20px 0;
   padding: 25px 30px;
 }

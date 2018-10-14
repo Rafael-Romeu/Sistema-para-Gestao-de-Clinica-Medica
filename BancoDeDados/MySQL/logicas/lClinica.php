@@ -351,21 +351,154 @@ class lClinica extends Persistencia
     }
 
     /**
-     * Get the value of temaCSS
+     * Get the value of corPrimaria
      */
-    public function getTemaCSS()
+    public function getCorPrimaria()
     {
-        return $this->getModel()->getValor("temaCSS");
+        return $this->getModel()->getValor("corPrimaria");
     }
 
     /**
-     * Set the value of temaCSS
+     * Set the value of corPrimaria
      *
      * @return  self
      */
-    public function setTemaCSS($temaCSS)
+    public function setCorPrimaria($corPrimaria)
     {
-        $this->getModel()->setValor("temaCSS", $temaCSS);
+        $this->getModel()->setValor("corPrimaria", $corPrimaria);
+        return $this;
+    }
+
+    /**
+     * Get the value of corSucesso
+     */
+    public function getCorSucesso()
+    {
+        return $this->getModel()->getValor("corSucesso");
+    }
+
+    /**
+     * Set the value of corSucesso
+     *
+     * @return  self
+     */
+    public function setCorSucesso($corSucesso)
+    {
+        $this->getModel()->setValor("corSucesso", $corSucesso);
+        return $this;
+    }
+
+    /**
+     * Get the value of corFalha
+     */
+    public function getCorFalha()
+    {
+        return $this->getModel()->getValor("corFalha");
+    }
+
+    /**
+     * Set the value of corFalha
+     *
+     * @return  self
+     */
+    public function setCorFalha($corFalha)
+    {
+        $this->getModel()->setValor("corFalha", $corFalha);
+        return $this;
+    }
+
+    /**
+     * Get the value of cor1
+     */
+    public function getCor1()
+    {
+        return $this->getModel()->getValor("cor1");
+    }
+
+    /**
+     * Set the value of cor1
+     *
+     * @return  self
+     */
+    public function setCor1($cor1)
+    {
+        $this->getModel()->setValor("cor1", $cor1);
+        return $this;
+    }
+
+    /**
+     * Get the value of cor2
+     */
+    public function getCor2()
+    {
+        return $this->getModel()->getValor("cor2");
+    }
+
+    /**
+     * Set the value of cor2
+     *
+     * @return  self
+     */
+    public function setCor2($cor2)
+    {
+        $this->getModel()->setValor("cor2", $cor2);
+        return $this;
+    }
+
+    /**
+     * Get the value of cor3
+     */
+    public function getCor3()
+    {
+        return $this->getModel()->getValor("cor3");
+    }
+
+    /**
+     * Set the value of cor3
+     *
+     * @return  self
+     */
+    public function setCor3($cor3)
+    {
+        $this->getModel()->setValor("cor3", $cor3);
+        return $this;
+    }
+
+    /**
+     * Get the value of cor4
+     */
+    public function getCor4()
+    {
+        return $this->getModel()->getValor("cor4");
+    }
+
+    /**
+     * Set the value of cor4
+     *
+     * @return  self
+     */
+    public function setCor4($cor4)
+    {
+        $this->getModel()->setValor("cor4", $cor4);
+        return $this;
+    }
+
+    /**
+     * Get the value of cor5
+     */
+    public function getCor5()
+    {
+        return $this->getModel()->getValor("cor5");
+    }
+
+    /**
+     * Set the value of cor5
+     *
+     * @return  self
+     */
+    public function setCor5($cor5)
+    {
+        $this->getModel()->setValor("cor5", $cor5);
         return $this;
     }
 

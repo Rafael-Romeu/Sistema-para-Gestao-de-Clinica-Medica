@@ -29,7 +29,7 @@ CREATE TABLE `trabalho`.`tClinica` (
 	`nome` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`cnpj` VARCHAR(17) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
@@ -56,7 +56,7 @@ CREATE TABLE `trabalho`.`tAtendente` (
 	`cpf` VARCHAR(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
 	`dataNascimento` DATE,
 	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
@@ -76,7 +76,7 @@ CREATE TABLE `trabalho`.`tMedico` (
 	`planoDeSaude` VARCHAR(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`dataNascimento` DATE, 
 	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
@@ -98,7 +98,7 @@ CREATE TABLE `trabalho`.`tPaciente` (
 	`tipoSanguineo` VARCHAR(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`dataNascimento` DATE, 
 	`endereco` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
-	`CEP` VARCHAR(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
+	`CEP` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone1` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`telefone2` VARCHAR(27) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
 	`email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '', 
@@ -192,9 +192,9 @@ ON `trabalho`.`tMedicoEspecialidade`(`codMedico`, `codEspecialidade`);
 ####### tClinica #######
 
 USE trabalho;
-INSERT INTO `tClinica` (`codigo`, `nome`, `cnpj`, `endereco`, `CEP`, `telefone1`, `telefone2`, `email`, `regDate`, `temaCSS`) VALUES (NULL, 'Mayo CLinic', '77777777777777717', '1216 Second Street SW Rochester, MN, US', '55902-190', '+1 (507) 405-0312', '', 'www.mayoclinic.org', CURRENT_TIMESTAMP, '');
-INSERT INTO `tClinica` (`codigo`, `nome`, `cnpj`, `endereco`, `CEP`, `telefone1`, `telefone2`, `email`, `regDate`, `temaCSS`) VALUES (NULL, 'Grey Sloan Memorial Hospital', '77777777777777718', '15000 Centennial Drive Seattle, Washington, US', '98109', '+1 (206) 555-6000', '', 'http://greysanatomy.wikia.com/wiki/Grey_Sloan_Memorial_Hospital', CURRENT_TIMESTAMP, '');
-INSERT INTO `tClinica` (`codigo`, `nome`, `cnpj`, `endereco`, `CEP`, `telefone1`, `telefone2`, `email`, `regDate`, `temaCSS`) VALUES (NULL, 'Princeton-Plainsboro Teaching Hospital', '77777777777777719', 'Princeton, NJ, US', '08544', '+1 (609) 258-3000', '', 'http://house.wikia.com/wiki/Princeton-Plainsboro_Teaching_Hospital', CURRENT_TIMESTAMP, '');
+INSERT INTO `tClinica` (`codigo`, `nome`, `cnpj`, `endereco`, `CEP`, `telefone1`, `telefone2`, `email`, `regDate`, `corPrimaria`,`corSucesso`,`corFalha`,`cor1`,`cor2`,`cor3`,`cor4`,`cor5`) VALUES (NULL, 'Mayo CLinic', '77777777777777717', '1216 Second Street SW Rochester, MN, US', '55902', '+1 (507) 405-0312', '', 'www.mayoclinic.org', CURRENT_TIMESTAMP, 'hsl(208, 100%, 46%)','hsl(100, 100%, 75%)','rgb(255, 134, 134)','hsl(0, 0%, 10%)','hsl(0, 0%, 30%)','hsl(0, 0%, 80%)','hsl(0, 0%, 97%)','hsl(0, 0%, 100%)');
+INSERT INTO `tClinica` (`codigo`, `nome`, `cnpj`, `endereco`, `CEP`, `telefone1`, `telefone2`, `email`, `regDate`, `corPrimaria`,`corSucesso`,`corFalha`,`cor1`,`cor2`,`cor3`,`cor4`,`cor5`) VALUES (NULL, 'Grey Sloan Memorial Hospital', '77777777777777718', '15000 Centennial Drive Seattle, Washington, US', '98109', '+1 (206) 555-6000', '', 'http://greysanatomy.wikia.com/wiki/Grey_Sloan_Memorial_Hospital', CURRENT_TIMESTAMP, 'hsl(208, 100%, 46%)','hsl(100, 100%, 75%)','rgb(255, 134, 134)','hsl(0, 0%, 10%)','hsl(0, 0%, 30%)','hsl(0, 0%, 80%)','hsl(0, 0%, 97%)','hsl(0, 0%, 100%)');
+INSERT INTO `tClinica` (`codigo`, `nome`, `cnpj`, `endereco`, `CEP`, `telefone1`, `telefone2`, `email`, `regDate`, `corPrimaria`,`corSucesso`,`corFalha`,`cor1`,`cor2`,`cor3`,`cor4`,`cor5`) VALUES (NULL, 'Princeton-Plainsboro Teaching Hospital', '77777777777777719', 'Princeton, NJ, US', '08544', '+1 (609) 258-3000', '', 'http://house.wikia.com/wiki/Princeton-Plainsboro_Teaching_Hospital', CURRENT_TIMESTAMP, 'hsl(208, 100%, 46%)','hsl(100, 100%, 75%)','rgb(255, 134, 134)','hsl(0, 0%, 10%)','hsl(0, 0%, 30%)','hsl(0, 0%, 80%)','hsl(0, 0%, 97%)','hsl(0, 0%, 100%)');
 
 ####### tAtendente #######
 
