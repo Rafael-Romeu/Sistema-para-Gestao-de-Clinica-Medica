@@ -18,6 +18,7 @@
 	$atendente -> setCpf($cpf);
 	$atendente -> setDataNascimento($nascimento);
 	$atendente -> setCEP($cep);
+	$atendente -> setEndereco($endereco);
 	$atendente -> setSenha($senha);
 	$atendente -> setEmail($email);
 	$atendente -> setTelefone1($telefone1);
