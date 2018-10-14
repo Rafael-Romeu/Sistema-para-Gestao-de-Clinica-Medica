@@ -38,7 +38,7 @@
             $agora = new DateTime();
             $horaConsulta = new DateTime($oConsulta["data"] . " " . $oConsulta["hora"]);
 
-            if($agora < $horaConsulta)
+            if($agora < $horaConsulta && $oConsulta["flagConfirmada"] == "1")
             {
                 echo "<div class='consultas-widget__list-row accordion'>";
 
