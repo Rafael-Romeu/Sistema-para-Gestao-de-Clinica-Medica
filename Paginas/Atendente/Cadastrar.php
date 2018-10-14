@@ -1,14 +1,23 @@
 <?php
     session_start();
 
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/ServerScripts/refactored/TemPermissao.php";
+
     if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
     if($_SESSION['tipo'] != "lAtendente"){
-        shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
+        shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/refactored/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
+    }
+
+    if(!TemPermissao($_SESSION['tipo'], $_SESSION['codigo'], $_SESSION['codClinica']))
+    {
+      shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/refactored/Logout.php');
+      header('location: /Paginas/Login.php');
+      exit;
     }
 ?>
 
