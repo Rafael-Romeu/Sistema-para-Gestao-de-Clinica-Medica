@@ -78,7 +78,7 @@
     <div class="consultas-widget">
     
       <h1 class="consultas-widget__header">
-        Histórico
+        Consultas
       </h1>
 
       <span class="consultas-widget__filter-toggle" id="filter-toggle">

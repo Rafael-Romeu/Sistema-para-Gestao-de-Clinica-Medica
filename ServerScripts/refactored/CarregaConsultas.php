@@ -11,7 +11,7 @@
     $oClinica = new lClinica();
 
     $codPaciente = $_REQUEST["codigo"];
-    //$codPaciente = 1;
+    $codClinica = $_REQUEST["codClinica"];
     $oPaciente -> setCodigo($codPaciente);
 
     if($oPaciente->identifica())
@@ -38,7 +38,7 @@
             $agora = new DateTime();
             $horaConsulta = new DateTime($oConsulta["data"] . " " . $oConsulta["hora"]);
 
-            if($agora < $horaConsulta && $oConsulta["flagConfirmada"] == "1")
+            if($agora < $horaConsulta && $oConsulta["flagConfirmada"] == "1" && $codigoClinica == $codClinica)
             {
                 echo "<div class='consultas-widget__list-row accordion'>";
 
