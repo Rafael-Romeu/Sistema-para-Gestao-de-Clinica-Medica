@@ -1,7 +1,21 @@
+<?php
+    session_start();
+
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+        header("location: /Paginas/Login.php");
+        exit;
+    }
+    if($_SESSION['tipo'] != "lPaciente"){
+        shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
+        header('location: /Paginas/Login.php');
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 
-<head>
+<head>   <style>   :root {      /* COLORS */     --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;      --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;     --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;      --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;     --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;     --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;     --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;     --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;   }        </style>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="../css/Base.css">
   <link rel="stylesheet" href="../css/Paciente.css">
@@ -19,10 +33,10 @@
 <body>
     <header class="main-header">
         <div class="main-header__top-bar">
-            <h1 class="main-header__logo">Vida Saudável</h1>
+            <h1 class="main-header__logo"><?php echo htmlspecialchars($_SESSION['nomeClinica']); ?></h1>
             <div class="main-header__user">
-                <span class="main-header__username" id="headerUserNome">Jacinto Leite</span>
-                <a class="main-header__logout-btn" href="#">Logout</a>
+                <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
+                <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
             </div>
         </div>
 
@@ -989,11 +1003,20 @@
             </div>
         </div>
     </div>
+
+    <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
+  </div>
 </body>
 
 <script>
     function CarregaMedicos(){
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
         var xmlhttp = new XMLHttpRequest();
 
@@ -1005,7 +1028,7 @@
         };
         
         codigo = "1";
-        envio = "codigo=" + codigo;
+        envio = "codClinica=" + codigo;
         
         xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaListaMedicos.php?" + envio, true);
         xmlhttp.send();
@@ -1109,7 +1132,7 @@
 
         function getHorarios(codMedico, date)
         {
-            var clinica = "<?php echo htmlspecialchars($_SESSION['clinica']); ?>";
+            var clinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
             var xmlhttp = new XMLHttpRequest();
 
@@ -1223,12 +1246,12 @@
 
     
     function MarcaConsulta() {
-        var codPaciente = "<?php echo htmlspecialchars($_SESSION['paciente']); ?>";
-        codPaciente = 1;
+        var codPaciente = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+
         var codMedico = $("input[type='radio'][name='medico']:checked").val();
         var horaInput = $("input[type='radio'][name='horario']:checked").val();
-        var codClinica = "<?php echo htmlspecialchars($_SESSION['clinica']); ?>";
-        codClinica = 1;
+        var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
+
         
         var data  = horaInput.substr(0,10);
         var hora = horaInput.substr(11) + ":00";
@@ -1254,6 +1277,7 @@
     CarregaMedicos();
     SvgInliner();
     Horarios();
+    carregaClinicas();
 
 
 

@@ -21,7 +21,6 @@
     }
 ?>
 
-
 <!DOCTYPE html>
 <html>
 
@@ -100,25 +99,38 @@
           <h2>Dados Pessoais</h2>
           <div class="card" id="dadosPessoais">
 
-            <b>Nome:</b>
-            <br>
-            <span id="infoUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
-            <br><br>
+            <form action="">
+              <b>Nome:</b>
+              <br>
+              <input type="text" id="nome" value="<?php echo htmlspecialchars($_SESSION['nome']); ?>"><br>
+              <br>
 
-            <b>CPF:</b>
-            <br>
-            <span id="infoUserCpf"><?php echo htmlspecialchars($_SESSION['cpf']); ?></span>
-            <br><br>
+              <b>CPF:</b>
+              <br>
+              <input type="text" id="cpf" value="<?php echo htmlspecialchars($_SESSION['cpf']); ?>"><br>
+              <br>
 
-            <b>Data de Nascimento:</b>
-            <br>
-            <span id="infoUserData"><?php echo htmlspecialchars($_SESSION['dtNascimento']); ?></span>
-            <br><br>
-            
-            <b>Endereço:</b>
-            <br>
-            <span id="infoUserEnd"><?php echo htmlspecialchars($_SESSION['endereco']); ?></span>
-            <br>
+              <b>Data de Nascimento:</b>
+              <br>
+              <input type="date" id="bday" max="3000-12-31" value="<?php echo htmlspecialchars($_SESSION['dtNascimento']); ?>"><br>
+              <br>
+              
+              <b>CEP:</b>
+              <br>
+              <input type="text" id="CEP" value="<?php echo htmlspecialchars($_SESSION['cep']); ?>"><br>
+              <br>
+
+              <b>Endereço:</b>
+              <br>
+              <input type="text" id="endereco" value="<?php echo htmlspecialchars($_SESSION['endereco']); ?>"><br>
+              <br>
+
+              <b>Defina a Senha:</b>
+              <br>
+              <input type="password" id="senha"><br>
+              <br>
+
+            </form>
 
           </div>
 
@@ -132,18 +144,22 @@
           <h2>Contato</h2>
           <div class="card" id="contato">
             
-            <b>Email:</b>
-            <br>
-            <span id="infoUserEmail"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
-            <br><br>
-            <b>Telefone 1:</b>
-            <br>
-            <span id="infoUserTel"><?php echo htmlspecialchars($_SESSION['telefone1']); ?></span>
-            <br><br>
-            <b>Telefone 2:</b>
-            <br>
-            <span id="infoUserTel"><?php echo htmlspecialchars($_SESSION['telefone2']); ?></span>
-            <br>
+          <form action="">  
+                    
+                    <b>Email:</b>
+                    <br>
+                    <input type="text" id="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>"><br>
+                    <br>
+                    <b>Telefone 1:</b>
+                    <br>
+                    <input type="text" id="telefone1" value="<?php echo htmlspecialchars($_SESSION['telefone1']); ?>"><br>
+                    <br>
+                    <b>Telefone 2:</b>
+                    <br>
+                    <input type="text" id="telefone2" value="<?php echo htmlspecialchars($_SESSION['telefone2']); ?>"><br>
+                    <br>
+                  
+                  </form>
             
           </div>
         </div>
@@ -153,8 +169,10 @@
           
       </div>
     </div>
+    <div class="perfil-column-center">
+        <input type="button" value="Submit" onclick="salvaBanco()"><br>
+    </div>
   </div>
-        
 
   <div class="main-footer">
     Selecione uma clínica:
@@ -164,6 +182,7 @@
     <button type="button" onclick="mudaDeClinica();">Ir</button>
 
   </div>
+        
 </body>
 
 <script>
@@ -172,6 +191,60 @@
     SvgInliner();
     carregaClinicas();
   }
+  function salvaBanco() 
+  {
+        var codigo   = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+        var nome     = document.getElementById("nome").value;
+        var cpf      = document.getElementById("cpf").value;
+        var bday     = document.getElementById("bday").value;
+        var CEP      = document.getElementById("CEP").value;
+        var endereco = document.getElementById("endereco").value;
+        var senha    = document.getElementById("senha").value;
+
+        var email     = document.getElementById("email").value;
+        var telefone1  = document.getElementById("telefone1").value;
+        var telefone2 = document.getElementById("telefone2").value;
+        /*        
+        var selector = document.getElementById('PlanoDeSaude');
+        var planoDeSaude = selector[selector.selectedIndex].value;
+
+        var rates = document.getElementsByName("sangue");
+        var tipoSanguineo;
+        for(var i = 0; i < rates.length; i++){
+            if(rates[i].checked){
+                tipoSanguineo = rates[i].value;
+            }
+        }
+        
+        var clinicasAux = document.getElementsByName("clinicas");
+        var clinicas = "";
+        for(var i = 0; i < clinicasAux.length; i++){
+            if(clinicasAux[i].checked){
+                clinicas = clinicas + clinicasAux[i].value;
+            }
+        }
+        */
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+              alert("Perfil editado com sucesso!");
+              window.location.replace("Perfil.php"); 
+                
+            }
+        };
+        
+
+        envio = "codigo=" + codigo + "&nome=" + nome + "&cpf=" + cpf + "&bday=" + bday + "&CEP=" + CEP
+        + "&endereco=" + endereco + "&senha=" + senha + "&email=" + email + "&telefone1=" + telefone1
+        + "&telefone2=" + telefone2;
+
+        console.log(envio);
+
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/editaAtendente.php?" + envio, true);
+        xmlhttp.send();
+    }
 </script>
 
 </html>

@@ -1,21 +1,30 @@
 <?php
     session_start();
 
-    /*if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/ServerScripts/refactored/TemPermissao.php";
+
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
-    if($_SESSION['tipo'] != "lPaciente"){
-        shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
+    if($_SESSION['tipo'] != "lMedico"){
+        shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/refactored/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
-    }*/
+    }
+
+    if(!TemPermissao($_SESSION['tipo'], $_SESSION['codigo'], $_SESSION['codClinica']))
+    {
+      shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/refactored/Logout.php');
+      header('location: /Paginas/Login.php');
+      exit;
+    }
 ?>
 
 <!DOCTYPE html>
 <html>
 
-<head>
+<head>   <style>   :root {      /* COLORS */     --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;      --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;     --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;      --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;     --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;     --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;     --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;     --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;   }        </style>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="/Paginas/css/Base.css">
   <link rel="stylesheet" href="/Paginas/css/Medico.css">
@@ -29,13 +38,13 @@
 </head>
 
 
-<body onload="CarregaDadosMedico()">
+<body>
   <header class="main-header">
     <div class="main-header__top-bar">
-      <h1 class="main-header__logo">Vida Saudável</h1>
+      <h1 class="main-header__logo"><?php echo htmlspecialchars($_SESSION['nomeClinica']); ?></h1>
       <div class="main-header__user">
-        <span class="main-header__username" id="headerUserNome">Jacinto Leite</span>
-        <a class="main-header__logout-btn" href="#">Logout</a>
+        <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
+        <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
       </div>
     </div>
 
@@ -69,38 +78,37 @@
     <h1 class="perfil-header">Perfil</h1>
 
     <span class="perfil-edit" id="perfil-edit">
-      <img class="svg" src="/Paginas/img/common/icons/pencil.svg">
+      <a href="EditarPerfil.php">
+        <img class=" svg " src="../img/common/icons/pencil.svg">
+      </a>
     </span>
 
     <div class="perfil-info" id="medico">
-    <!--  <div class="perfil-column-left">
+    <div class="perfil-column-left">
         <div class="perfil-widget">
+
           <h2>Dados Pessoais</h2>
-          <div class="card">
+          <div class="card" id="dadosPessoais">
             <b>Nome:</b>
             <br>
-            <span id="infoUserNome">Jacinto Leite</span>
+            <span id="infoUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
             <br><br>
 
             <b>CPF:</b>
             <br>
-            <span id="infoUserCpf">123.123.123-12</span>
+            <span id="infoUserCpf"><?php echo htmlspecialchars($_SESSION['cpf']); ?></span>
             <br><br>
 
             <b>Data de Nascimento:</b>
             <br>
-            <span id="infoUserData">01/01/1990</span>
-            <br><br>
-
-            <b>Gênero:</b>
-            <br>
-            <span id="infoUserEnd">Masculino</span>
+            <span id="infoUserData"><?php echo htmlspecialchars($_SESSION['dtNascimento']); ?></span>
             <br><br>
             
             <b>Endereço:</b>
             <br>
-            <span id="infoUserEnd">Rua Jussara, 159</span>
+            <span id="infoUserEnd"><?php echo htmlspecialchars($_SESSION['endereco']); ?></span>
             <br>
+          
           </div>
 
             
@@ -111,61 +119,54 @@
       <div class="perfil-column-right">
         <div class="perfil-widget">
           <h2>Contato</h2>
-          <div class="card">
+          <div class="card" id="contato">
+            
             <b>Email:</b>
             <br>
-            <span id="infoUserEmail">jacinto@leite.com</span>
+            <span id="infoUserEmail"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
             <br><br>
-            <b>Telefone:</b>
+            <b>Telefone 1:</b>
             <br>
-            <span id="infoUserTel">(21)2345678</span>
+            <span id="infoUserTel"><?php echo htmlspecialchars($_SESSION['telefone1']); ?></span>
+            <br><br>
+            <b>Telefone 2:</b>
             <br>
+            <span id="infoUserTel"><?php echo htmlspecialchars($_SESSION['telefone2']); ?></span>
+            <br>
+            
           </div>
         </div>
         <div class="perfil-widget">
           <h2>Dados Médicos</h2>
-          <div class="card">
+          <div class="card" id="dadosMedicos">
+            
             <b>Plano de Saúde:</b>
             <br>
-            <span id="infoUserPlano">Unimed</span>
-            <br><br>
+            <span id="infoUserPlano"><?php echo htmlspecialchars($_SESSION['planoDeSaude']); ?></span>
+            <br>
 
-            <b>Tipo Sanguíneo:</b>
-            <br>
-            <span id="infoUserSangue">O+</span>
-            <br>
           </div>
         </div>
           
-      </div>-->
+      </div>
     </div>
+  </div>
+  <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
   </div>
         
 </body>
 
 <script>
   SvgInliner();
+  carregaClinicas();
 
-  function CarregaDadosMedico() 
-    {
-        console.log("envio");
-        var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
-
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("medico").innerHTML = this.responseText;
-            }
-        };
-        
-        codigo = "1";
-        envio = "codigo=" + codigo;
-        
-        console.log(envio);
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaMedicoPerfil.php?" + envio, true);
-        xmlhttp.send();
-    }
+ 
 </script>
 
 </html>

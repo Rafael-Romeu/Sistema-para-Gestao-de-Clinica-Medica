@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    /*if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
@@ -9,13 +9,13 @@
         shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
-    }*/
+    }
 ?>
 <!DOCTYPE html>
 
 <html>
 
-<head>
+<head>   <style>   :root {      /* COLORS */     --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;      --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;     --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;      --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;     --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;     --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;     --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;     --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;   }        </style>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="../css/Base.css">
   <link rel="stylesheet" href="../css/Paciente.css">
@@ -31,10 +31,10 @@
 <body onload="inicializa()">
   <header class="main-header">
     <div class="main-header__top-bar">
-      <h1 class="main-header__logo">Vida Saudável</h1>
+      <h1 class="main-header__logo"><?php echo htmlspecialchars($_SESSION['nomeClinica']); ?></h1>
       <div class="main-header__user">
-        <span class="main-header__username" id="headerUserNome">Jacinto Leite</span>
-        <a class="main-header__logout-btn" href="#">Logout</a>
+        <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
+        <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
       </div>
     </div>
 
@@ -76,22 +76,22 @@
         Seu Perfil
       </h1>
       <div class="card" id="paciente">
-        <!--<b>Nome:</b>
+        <b>Nome:</b>
         <br>
-        <span id="infoUserNome">Jacinto Leite</span>
+        <span id="infoUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
         <br><br>
         <b>Plano de Saúde:</b>
         <br>
-        <span id="infoUserPlano">Unimed</span>
+        <span id="infoUserPlano"><?php echo htmlspecialchars($_SESSION['planoDeSaude']); ?></span>
         <br><br>
         <b>Email:</b>
         <br>
-        <span id="infoUserEmail">jacinto@leite.com</span>
+        <span id="infoUserEmail"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
         <br><br>
         <b>Endereço:</b>
         <br>
-        <span id="infoUserEnd">Rua Jussara, 159</span>
-        <br> -->
+        <span id="infoUserEnd"><?php echo htmlspecialchars($_SESSION['endereco']); ?></span>
+        <br>
       </div>
     </div>
     <div class="prox-consulta-widget">
@@ -112,6 +112,14 @@
     </div>
   </div>
 
+  <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
+  </div>
 </body>
 
 <script>
@@ -119,29 +127,10 @@
   function inicializa()
   {
     SvgInliner();
-    CarregaPaciente();
     CarregaProximaConsulta();
+    carregaClinicas();
   }
-  function CarregaPaciente() 
-  {
-    console.log("envio");
-    var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
 
-    var xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("paciente").innerHTML = this.responseText;
-      }
-    };
-    
-    codigo = "1";
-    envio = "codigo=" + codigo;
-    
-    console.log(envio);
-    xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaPaciente.php?" + envio, true);
-    xmlhttp.send();
-  }
 
   function CarregaProximaConsulta() 
   {
@@ -155,7 +144,6 @@
       }
     };
     
-    codigo = "1";
     envio = "codigo=" + codigo;
     
     console.log(envio);

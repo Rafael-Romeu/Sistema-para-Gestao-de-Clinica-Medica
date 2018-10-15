@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    /*if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
@@ -9,16 +9,16 @@
         shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
-    }*/
+    }
 ?>
 
 <!DOCTYPE html>
 <html>
 
-<head>
+<head>   <style>   :root {      /* COLORS */     --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;      --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;     --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;      --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;     --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;     --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;     --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;     --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;   }        </style>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
-  <link rel="stylesheet" href="../css/CadastramentoOnline.css">
-  <!--<link rel="stylesheet" href="../css/Paciente.css">-->
+  <link rel="stylesheet" href="../css/Base.css">
+  <link rel="stylesheet" href="../css/Paciente.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="../js/scripts.js"></script>
@@ -29,13 +29,50 @@
 
 
 <body onload="inicializa()">
+  <header class="main-header">
+    <div class="main-header__top-bar">
+      <h1 class="main-header__logo"><?php echo htmlspecialchars($_SESSION['nomeClinica']); ?></h1>
+      <div class="main-header__user">
+        <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
+        <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
+      </div>
+    </div>
 
-<p id="paa">asdasd</p>
+    <nav class="main-header__nav-bar">
+
+      <a class="main-header__nav-btn" href="Home.php">
+        <img class="main-header__nav-icon svg" src="../img/common/icons/home.svg">
+        Home
+      </a>
+
+      <a class="main-header__nav-btn" href="Marcar.php">
+        <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/calendar.svg">
+        Marcar
+      </a>
+
+      <a class="main-header__nav-btn" href="Consultas.php">
+        <img class="main-header__nav-icon svg" src="../img/common/icons/heart.svg">
+        Consultas
+      </a>
+
+      <a class="main-header__nav-btn" href="Historico.php">
+        <img class="main-header__nav-icon svg" src="../img/common/icons/history.svg">
+        Histórico
+      </a>
+
+      <a class="main-header__nav-btn main-header__nav-btn--currentPage" href="Perfil.php">
+        <img class="main-header__nav-icon main-header__nav-icon--currentPage svg" src="../img/common/icons/profile.svg">
+        Perfil
+      </a>
+
+    </nav>
+  </header>
+    
     
   <div class="main-body perfil-body">
-    <h1 class="perfil-header">Cadastro</h1>
+    <h1 class="perfil-header">Perfil</h1>
 
-    <span class="perfil-edit">
+    <span class="perfil-edit" id="perfil-edit">
       <img class="svg" src="../img/common/icons/pencil.svg">
     </span>
     
@@ -45,48 +82,42 @@
 
           <h2>Dados Pessoais</h2>
           <div class="card" id="dadosPessoais">
-              <form action="">
-                <b>Nome:</b>
-                <br>
-                <input type="text" id="nome"><br>
-                <br>
+                     
+            <form action="">
+              <b>Nome:</b>
+              <br>
+              <input type="text" id="nome" value="<?php echo htmlspecialchars($_SESSION['nome']); ?>"><br>
+              <br>
 
-                <b>CPF:</b>
-                <br>
-                <input type="text" id="cpf"><br>
-                <br>
+              <b>CPF:</b>
+              <br>
+              <input type="text" id="cpf" value="<?php echo htmlspecialchars($_SESSION['cpf']); ?>"><br>
+              <br>
 
-                <b>Data de Nascimento:</b>
-                <br>
-                <input type="date" id="bday" max="3000-12-31"><br>
-                <br>
+              <b>Data de Nascimento:</b>
+              <br>
+              <input type="date" id="bday" max="3000-12-31" value="<?php echo htmlspecialchars($_SESSION['dtNascimento']); ?>"><br>
+              <br>
 
-                <b>G?nero:</b>
-                <br>
-                <input type="text" id="genero"><br>
-                <br>
-                
-                <b>CEP:</b>
-                <br>
-                <input type="text" id="CEP"><br>
-                <br>
+              <b>Gênero:</b>
+              <br>
+              <input type="text" id="genero" value="<?php echo htmlspecialchars($_SESSION['genero']); ?>"><br>
+              <br>
+              
+              <b>CEP:</b>
+              <br>
+              <input type="text" id="CEP" value="<?php echo htmlspecialchars($_SESSION['cep']); ?>"><br>
+              <br>
 
-                <b>Endere?o:</b>
-                <br>
-                <input type="text" id="endereco"><br>
-                <br>
+              <b>Endereço:</b>
+              <br>
+              <input type="text" id="endereco" value="<?php echo htmlspecialchars($_SESSION['endereco']); ?>"><br>
+              <br>
 
-                <b>Cl?nicas:</b>
-                <br>
-                <div id="clinicas">
-
-                </div>
-                <br>
-
-                <b>Defina a Senha:</b>
-                <br>
-                <input type="password" id="senha"><br>
-                <br>
+              <b>Defina a Senha:</b>
+              <br>
+              <input type="password" id="senha"><br>
+              <br>
 
             </form>
           </div>
@@ -101,30 +132,31 @@
           <h2>Contato</h2>
           <div class="card" id="contato">
             <form action="">  
-            
-                <b>Email:</b>
-                <br>
-                <input type="text" id="email"><br>
-                <br>
-                <b>Telefone:</b>
-                <br>
-                <input type="text" id="telefone1"><br>
-                <br>
-                <b>Telefone:</b>
-                <br>
-                <input type="text" id="telefone2"><br>
-                <br>
+                    
+              <b>Email:</b>
+              <br>
+              <input type="text" id="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>"><br>
+              <br>
+              <b>Telefone 1:</b>
+              <br>
+              <input type="text" id="telefone1" value="<?php echo htmlspecialchars($_SESSION['telefone1']); ?>"><br>
+              <br>
+              <b>Telefone 2:</b>
+              <br>
+              <input type="text" id="telefone2" value="<?php echo htmlspecialchars($_SESSION['telefone2']); ?>"><br>
+              <br>
             
             </form>
+            
           </div>
         </div>
         <div class="perfil-widget">
-          <h2>Dados M?dicos</h2>
-          <div class="card" name="dadosMedicos">
+          <h2>Dados Médicos</h2>
+          <div class="card" id="dadosMedicos">
             
             <form action="" id="dadosMedicos">
-            
-                <b>Plano de Sa?de:</b>
+                
+                <b>Plano de Saúde:</b>
                 <br>
                 
                     <select id="PlanoDeSaude" class="select">
@@ -136,7 +168,7 @@
                 
                 <br><br>
 
-                <b>Tipo Sangu?neo:</b>
+                <b>Tipo Sanguíneo:</b>
                 <br>
                     <form id="tipoSanguineoRadio">
                         <label class="container"> O+
@@ -168,53 +200,44 @@
                             <span class="checkmark"> </span>
                         </label>
                         <label class="container"> AB-
-                            <input type="radio" name="sangue" value="AB-" checked>
+                            <input type="radio" name="sangue" value="AB-">
                             <span class="checkmark"></span>
                         </label>
                     </form>
                 <br>
                 
             </form>  
-          
-        </div>
+
+          </div>
         </div>
           
       </div>
-    </div>
-    <div class="centro">
+      
+      </div>
+    <div class="perfil-column-center">
         <input type="button" value="Submit" onclick="salvaBanco()"><br>
     </div>
   </div>
-        
+  <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
+  </div>
 </body>
 
 <script>
-    function inicializa()
-    {
-        SvgInliner();
-        CarregaClinicas();
-    }
-    function CarregaClinicas() 
-    {
-        console.log("envio");
-        //var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+  function inicializa()
+  {
+    SvgInliner();
+    carregaClinicas();
+  }
 
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("clinicas").innerHTML = this.responseText;
-            }
-        };
-        
-        //codigo = "1";
-        //envio = "codigo=" + codigo + "&tipoDeDadosASerCarregados=" + "dadosPessoais";
-
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaClinicasCadastramento.php?", true);
-        xmlhttp.send();
-    }
-    function salvaBanco() 
+  function salvaBanco() 
     {
+        var codigo   = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
         var nome     = document.getElementById("nome").value;
         var cpf      = document.getElementById("cpf").value;
         var bday     = document.getElementById("bday").value;
@@ -237,7 +260,7 @@
                 tipoSanguineo = rates[i].value;
             }
         }
-
+        /*
         var clinicasAux = document.getElementsByName("clinicas");
         var clinicas = "";
         for(var i = 0; i < clinicasAux.length; i++){
@@ -245,27 +268,30 @@
                 clinicas = clinicas + clinicasAux[i].value;
             }
         }
-
+        */
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("paa").innerHTML = this.responseText;
+                if (this.readyState == 4 && this.status == 200) {
+
+                    alert("Perfil atualizado!");
+                    window.location.replace("/Paginas/Paciente/Perfil.php"); 
+                }
             }
         };
         
-        console.log(clinicas);
 
-        envio = "nome=" + nome + "&cpf=" + cpf + "&bday=" + bday + "&genero=" + genero + "&CEP=" + CEP
+        envio = "codigo=" + codigo + "&nome=" + nome + "&cpf=" + cpf + "&bday=" + bday + "&genero=" + genero + "&CEP=" + CEP
         + "&endereco=" + endereco + "&senha=" + senha + "&email=" + email + "&telefone1=" + telefone1
-        + "&telefone2=" + telefone2 + "&planoDeSaude=" + planoDeSaude + "&tipoSanguineo=" + tipoSanguineo
-        + "&clinicas=" + clinicas ;
+        + "&telefone2=" + telefone2 + "&planoDeSaude=" + planoDeSaude + "&tipoSanguineo=" + tipoSanguineo;
 
         console.log(envio);
 
-        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/salvaNovoPaciente.php?" + envio, true);
+        xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/editaPaciente.php?" + envio, true);
         xmlhttp.send();
     }
+  
 </script>
 
 </html>

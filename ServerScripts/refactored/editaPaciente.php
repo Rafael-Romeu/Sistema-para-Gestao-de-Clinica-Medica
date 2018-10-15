@@ -2,7 +2,11 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lPaciente.php";
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lClinicaPaciente.php";
 
-    $oPaciente = new lPaciente();
+	$codigo = $_REQUEST["codigo"];
+
+	$oPaciente = new lPaciente();
+	$oPaciente->setCodigo($codigo);
+	$oPaciente->identifica();
 
 	$nome          = $_REQUEST["nome"];
 	$cpf           = $_REQUEST["cpf"];
@@ -21,7 +25,6 @@
 	$oPaciente -> setCpf($cpf);
 	$oPaciente -> setDataNascimento($nascimento);
 	$oPaciente -> setCEP($cep);
-	$oPaciente -> setEndereco($endereco);
 	$oPaciente -> setGenero($genero);
 	$oPaciente -> setSenha($senha);
 	$oPaciente -> setEmail($email);
@@ -30,6 +33,26 @@
 	$oPaciente -> setPlanoDeSaude($planoDeSaude);
 	$oPaciente -> setTipoSanguineo($tipoSanguineo);
 	
-	$oPaciente -> incluir();
+	$oPaciente -> alterar();
+
+	session_start();
+	$codClinica = $_SESSION['codClinica'];
+	$nomeClinica = $_SESSION['nomeClinica'];
+
+	$_SESSION = array();
+	$_SESSION['tipo'] = "lPaciente";
+	$_SESSION['cpf'] = $cpf;
+	$_SESSION['nome'] = $nome;
+	$_SESSION['dtNascimento'] = $nascimento;
+	$_SESSION['endereco'] = $endereco;
+	$_SESSION['telefone1'] = $telefone1;
+	$_SESSION['telefone2'] = $telefone2;
+	$_SESSION['email'] = $email;
+	$_SESSION['tipoSanguineo'] = $tipoSanguineo;
+	$_SESSION['genero'] = $genero;
+	$_SESSION['planoDeSaude'] = $planoDeSaude;
+	
+	$_SESSION['codClinica'] = $codClinica;
+	$_SESSION['nomeClinica'] = $nomeClinica;
 
 ?>

@@ -4,50 +4,41 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lPaciente.php";
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lAtendente.php";include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lClinica.php";
     
-    $clinica = new lClinica();
     $codClinica = $_REQUEST["codClinica"];
     
-    $clinica -> setCodigo($codClinica);
-
-    $clinica -> identifica();
-
-    $medicos = $clinica->listaMedicos();
+    $atendente = new lAtendente();
+    $atendente->limpaFiltros();
+    $atendentes = $atendente->executeSelect();
 
     $result = [];
-    foreach ($medicos as $m)
+    foreach ($atendentes as $a)
     {
-        $nome = utf8_encode($m["nome"]);
-        $cod =  utf8_encode($m["codigo"]);
-        $medico = new lMedico();
-        $medico->setCodigo($cod);
-        $medico->identifica();
-        $listaEsp = $medico->listaEspecialidades();
+        $nome = utf8_encode($a["nome"]);
+        $cod =  utf8_encode($a["codigo"]);
 
-        $esp = "";
-        foreach($listaEsp as $e)
+        $atendente = new lAtendente();
+        $atendente->setCodigo($cod);
+        $atendente->identifica();
+
+        $clinicas = $atendente->getCodClinica();
+
+        if(!in_array($codClinica, $clinicas))
         {
-            $esp .= utf8_encode($e["nome"]) . ", ";
+            $new = new temp($nome, $cod);
+            array_push($result, $new);
         }
-        $esp=rtrim($esp,", ");
-
-        $new = new temp($nome, $cod, $esp);
-        array_push($result, $new);
     }
-
-
 
     echo json_encode($result);
 
     class temp
     {
-        public function __construct($n, $c, $e)
+        public function __construct($n, $c)
         {
             $this->nome = $n;
             $this->cod = $c;
-            $this->esp = $e;
         }
         public $nome;
         public $cod;
-        public $esp;
     }
 ?> 

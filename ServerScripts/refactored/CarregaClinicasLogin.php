@@ -3,51 +3,31 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lMedico.php";
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lPaciente.php";
     include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lAtendente.php";include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lClinica.php";
-    
+        
     $clinica = new lClinica();
-    $codClinica = $_REQUEST["codClinica"];
-    
-    $clinica -> setCodigo($codClinica);
-
-    $clinica -> identifica();
-
-    $medicos = $clinica->listaMedicos();
+    $clinica->limpaFiltros();
+    $clinicas = $clinica->executeSelect();
 
     $result = [];
-    foreach ($medicos as $m)
+    foreach ($clinicas as $c)
     {
-        $nome = utf8_encode($m["nome"]);
-        $cod =  utf8_encode($m["codigo"]);
-        $medico = new lMedico();
-        $medico->setCodigo($cod);
-        $medico->identifica();
-        $listaEsp = $medico->listaEspecialidades();
+        $nome = utf8_encode($c["nome"]);
+        $cod =  utf8_encode($c["codigo"]);
 
-        $esp = "";
-        foreach($listaEsp as $e)
-        {
-            $esp .= utf8_encode($e["nome"]) . ", ";
-        }
-        $esp=rtrim($esp,", ");
-
-        $new = new temp($nome, $cod, $esp);
+        $new = new temp($nome, $cod);
         array_push($result, $new);
     }
-
-
 
     echo json_encode($result);
 
     class temp
     {
-        public function __construct($n, $c, $e)
+        public function __construct($n, $c)
         {
             $this->nome = $n;
             $this->cod = $c;
-            $this->esp = $e;
         }
         public $nome;
         public $cod;
-        public $esp;
     }
 ?> 

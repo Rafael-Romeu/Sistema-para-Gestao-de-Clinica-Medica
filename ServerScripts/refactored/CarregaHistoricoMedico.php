@@ -11,6 +11,7 @@
     $oClinica = new lClinica();
 
     $codMedico = $_REQUEST["codigo"];
+    $codClinica = $_REQUEST["codClinica"];
     
     $oMedico -> setCodigo($codMedico);
 
@@ -27,7 +28,7 @@
         usort($listaConsultas, "anterioresAntes");
 
         foreach ($listaConsultas as $oConsulta) {
-        
+            $oPaciente = new lPaciente();
             $codigoPaciente = $oConsulta["codPaciente"];
             $oPaciente -> setCodigo($codigoPaciente);
             $oPaciente->identifica();
@@ -39,7 +40,7 @@
             $agora = new DateTime();
             $horaConsulta = new DateTime($oConsulta["data"] . " " . $oConsulta["hora"]);
 
-            if($agora > $horaConsulta)
+            if($agora > $horaConsulta  && $oConsulta["flagConfirmada"] == "1" && $codClinica == $codigoClinica)
             {
                 echo "<div class='consultas-widget__list-row accordion'>";
 

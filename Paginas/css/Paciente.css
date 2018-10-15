@@ -45,7 +45,7 @@
   }
 
     .consultas-widget__filter-icon path {
-      fill: var(--neutral-dgray) !important;
+      fill: var(--color-2) !important;
     }
 
     .consultas-widget__filter-icon:hover {
@@ -81,8 +81,8 @@
   transition: 0.2s;
 
   grid-template-areas: 
-    ". . . ."
-    "panel panel panel panel";
+    ". . ."
+    "panel panel panel";
 }
 
   .consultas-widget__list-row, .consultas-widget__list-header {
@@ -92,29 +92,29 @@
     outline: none;
     
     display: grid;
-    grid-template-columns: 0.8fr 0.7fr 1fr 1fr;
+    grid-template-columns: 0.8fr 0.7fr 1fr;
     
     text-align: center;
     padding: 1em;
-    border-bottom: 1px solid var(--neutral-lgray);
+    border-bottom: 1px solid var(--color-3);
     
     order: 1;
   }
 
   .consultas-widget__list-header {
     font-weight: var(--thick-weight);
-    border-top: 1px solid var(--neutral-lgray);
+    border-top: 1px solid var(--color-3);
   }
 
 
   .accordion--active.consultas-widget__list-row, .consultas-widget__list-row:hover {
     background-color: var(--primary); 
-    color: var(--neutral-white);
+    color: var(--color-5);
   }
 
   .accordion--active.consultas-widget__list-row {
     border-bottom: 0px;
-    box-shadow: 0 2px 4px var(--neutral-lgray);
+    box-shadow: 0 2px 4px var(--shadow);
     position:relative;
     width: 110%;
     margin: 0 -5%;
@@ -131,7 +131,7 @@
   }
 
     .consultas-widget__accordion-content {
-      border-top: 1px solid var(--neutral-white);
+      border-top: 1px solid var(--color-5);
 
       margin-top: 1em;
       padding: 1.2em 0 0.8em 0;
@@ -158,6 +158,7 @@
   grid-template-areas:
     'phea edit'
     'pinf pinf'
+    'pedit pedit'
 }
 
 .perfil-header {
@@ -209,6 +210,13 @@
   padding: 1em 0em 0em 0em;;
 }
 
+.perfil-column-center {
+  grid-area: pedit;
+
+  display: flex;
+  justify-content: center;
+}
+
 
 /* Marcar Consulta */
 .medico-select-widget__medicos {
@@ -226,7 +234,7 @@
 
   input:checked ~ .medico-select-widget__medico-card {
     background: var(--primary);
-    color: var(--neutral-white);
+    color: var(--color-5);
   }
 
   .medico-select-widget__medico-radio {
@@ -249,7 +257,7 @@
 .horario-select-widget__horario-card {
   white-space: pre;
   background-color: var(--success);
-  border: 1px solid var(--neutral-dgray);
+  border: 1px solid var(--color-2);
   cursor: pointer;
 }
 

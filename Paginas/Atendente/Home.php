@@ -1,21 +1,50 @@
 <?php
     session_start();
 
-    /*if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/ServerScripts/refactored/TemPermissao.php";
+
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
-    if($_SESSION['tipo'] != "lPaciente"){
-        shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
+    if($_SESSION['tipo'] != "lAtendente"){
+        shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/refactored/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
-    }*/
+    }
+
+    if(!TemPermissao($_SESSION['tipo'], $_SESSION['codigo'], $_SESSION['codClinica']))
+    {
+      shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/refactored/Logout.php');
+      header('location: /Paginas/Login.php');
+      exit;
+    }
 ?>
 <!DOCTYPE html>
 
 <html>
 
-<head>
+<head>   <style>   :root {      /* COLORS */     --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;      --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;     --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;      --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;     --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;     --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;     --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;     --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;   }        </style>
+  <style>
+  :root {
+
+    /* COLORS */
+    --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;
+
+    --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;
+    --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;
+
+    --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;
+    --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;
+    --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;
+    --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;
+    --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;
+  }
+    
+  </style>
+
+
+
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="../css/Base.css">
   <link rel="stylesheet" href="../css/Atendente.css">
@@ -31,10 +60,10 @@
 <body onload="inicializa()">
   <header class="main-header">
     <div class="main-header__top-bar">
-      <h1 class="main-header__logo">Vida Saudável</h1>
+      <h1 class="main-header__logo"><?php echo htmlspecialchars($_SESSION['nomeClinica']); ?></h1>
       <div class="main-header__user">
-        <span class="main-header__username" id="headerUserNome">Jacinto Leite</span>
-        <a class="main-header__logout-btn" href="#">Logout</a>
+        <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
+        <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
       </div>
     </div>
 
@@ -45,7 +74,7 @@
         Home
       </a>
 
-      <a class="main-header__nav-btn" href="Marcar.php">
+      <a class="main-header__nav-btn" href="Cadastrar.php">
         <img class="main-header__nav-icon svg" src="/Paginas/img/common/icons/calendar.svg">
         Cadastrar
       </a>
@@ -58,6 +87,11 @@
       <a class="main-header__nav-btn" href="Consultas.php">
         <img class="main-header__nav-icon svg" src="../img/common/icons/heart.svg">
         Consultas
+      </a>
+
+      <a class="main-header__nav-btn" href="Historico.php">
+        <img class="main-header__nav-icon svg" src="../img/common/icons/history.svg">
+        Histórico
       </a>
 
       <a class="main-header__nav-btn" href="Perfil.php">
@@ -85,6 +119,17 @@
     </div>
   </div>
 
+
+
+  <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
+  </div>
+
 </body>
 
 <script>
@@ -92,6 +137,7 @@
   function inicializa()
   {
     SvgInliner();
+    carregaClinicas();
     CarregaAtendente();
     CarregaProximaConsulta();
   }
@@ -107,7 +153,6 @@
       }
     };
     
-    codigo = "1";
     envio = "codigo=" + codigo;
     
     console.log(envio);
@@ -117,7 +162,7 @@
 
   function CarregaProximaConsulta() 
   {
-    var codClinica = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 

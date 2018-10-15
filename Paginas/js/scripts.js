@@ -97,52 +97,7 @@ function FormatDate(date) {
 
 
 
-function EditarConsulta() {
-    var btn = document.getElementsByClassName("consultas-widget__edit-btn");
-    var i;
 
-    for (i = 0; i < btn.length; i++) {
-        btn[i].addEventListener("click", function() {
-            
-
-            if (this.classList.contains("active")) {
-                this.parentElement.parentElement.parentElement.classList.toggle("editing");
-                this.parentElement.parentElement.parentElement.addEventListener("click", ToggleAccordion);
-                this.parentElement.click();
-                this.lastElementChild.innerHTML = "Editar";
-
-                
-
-                var campos = this.parentElement.children;
-                
-                var receita = textToHtml(campos[0].lastElementChild.lastElementChild.value);
-                var recomen = textToHtml(campos[1].lastElementChild.lastElementChild.value);
-    
-                campos[0].lastElementChild.innerHTML = receita;
-
-                campos[1].lastElementChild.innerHTML = recomen;
-            }
-            else {
-                this.parentElement.parentElement.parentElement.classList.toggle("editing");
-                this.parentElement.parentElement.parentElement.removeEventListener("click", ToggleAccordion);
-                this.parentElement.parentElement.style.maxHeight = "500px";
-
-                this.lastElementChild.innerHTML = "Salvar";
-                var campos = this.parentElement.children;
-    
-                var receita = htmlToText(campos[0].lastElementChild.innerHTML.trim());
-                var recomen = htmlToText(campos[1].lastElementChild.innerHTML.trim());
-    
-                campos[0].lastElementChild.innerHTML = "<textarea rows='10' cols='40'>" + receita + "</textarea>";
-
-                campos[1].lastElementChild.innerHTML = "<textarea rows='10' cols='40'>" + recomen + "</textarea>";
-            }
-
-            this.classList.toggle("active");
-            
-        });
-    }
-}
 
 function htmlToText(html){
     //remove code brakes and tabs
@@ -162,4 +117,49 @@ function textToHtml(text){
     text = text.replace(/\n/g, "<br>");
 
     return text;
+}
+
+function Logout() {
+    window.location.replace("/ServerScripts/refactored/Logout.php");
+  }
+
+function carregaClinicas(){
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var clinicas = JSON.parse(this.responseText);
+            
+            
+            var html = "";
+            for (var i=0; i<clinicas.length; ++i) {
+                html = html + "<option value='" + clinicas[i].cod + "'>" + clinicas[i].nome + "</option>";
+            }
+            document.getElementById("selectClinica").innerHTML = html;
+            
+        }
+    };
+    
+    
+    xmlhttp.open("GET", "/ServerScripts/refactored/CarregaClinicasLogin.php?", true);
+    xmlhttp.send();
+}
+
+function mudaDeClinica(){
+    var dd = document.getElementById("selectClinica");
+
+    var codClinica = dd.options[dd.selectedIndex].value;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            location.reload(); 
+        }
+    };
+    
+    var envio = "codClinica=" + codClinica;
+    
+    xmlhttp.open("GET", "/ServerScripts/refactored/MudaDeClinica.php?"+envio, true);
+    xmlhttp.send();
 }

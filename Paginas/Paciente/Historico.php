@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    /*if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
+    if(!isset($_SESSION['cpf']) || empty($_SESSION['cpf'])){
         header("location: /Paginas/Login.php");
         exit;
     }
@@ -9,12 +9,12 @@
         shell_exec('php ' . $_SERVER['DOCUMENT_ROOT'] . '/ServerScripts/Logout.php');
         header('location: /Paginas/Login.php');
         exit;
-    }*/
+    }
 ?>
 <!DOCTYPE html>
 <html>
 
-<head>
+<head>   <style>   :root {      /* COLORS */     --primary: <?php echo htmlspecialchars($_SESSION['corPrimaria']); ?>;      --success: <?php echo htmlspecialchars($_SESSION['corSucesso']); ?>;     --failure: <?php echo htmlspecialchars($_SESSION['corFalha']); ?>;      --color-1: <?php echo htmlspecialchars($_SESSION['cor1']); ?>;     --color-2: <?php echo htmlspecialchars($_SESSION['cor2']); ?>;     --color-3: <?php echo htmlspecialchars($_SESSION['cor3']); ?>;     --color-4: <?php echo htmlspecialchars($_SESSION['cor4']); ?>;     --color-5: <?php echo htmlspecialchars($_SESSION['cor5']); ?>;   }        </style>
   <link href="https://fonts.googleapis.com/css?family=Fira Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="../css/Base.css">
   <link rel="stylesheet" href="../css/Paciente.css">
@@ -30,10 +30,10 @@
 <body>
   <header class="main-header">
     <div class="main-header__top-bar">
-      <h1 class="main-header__logo">Vida Saudável</h1>
+      <h1 class="main-header__logo"><?php echo htmlspecialchars($_SESSION['nomeClinica']); ?></h1>
       <div class="main-header__user">
-        <span class="main-header__username" id="headerUserNome">Jacinto Leite</span>
-        <a class="main-header__logout-btn" href="#">Logout</a>
+        <span class="main-header__username" id="headerUserNome"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
+        <a class="main-header__logout-btn" href="#" onclick="Logout();">Logout</a>
       </div>
     </div>
 
@@ -75,8 +75,7 @@
         Histórico
       </h1>
 
-      <span class="consultas-widget__filter-toggle" id="filter-toggle">
-        <img class="consultas-widget__filter-icon svg" src="../img/common/icons/search.svg">
+      <span>
       </span>
 
       <div class="consultas-widget__filter-box card" id="filter-box">
@@ -99,41 +98,23 @@
           <span>Dia</span>
           <span>Hora</span>
           <span>Médico(a)</span>
-          <span>Especialidade</span>
         </span>
           
         <div id="consultas-widget__list">
 
-          <!--  
-          <div class="consultas-widget__list-row accordion">
-            <span>01/01/2019</span>
-            <span>18:00h</span>
-            <span>Paula Dentro</span>
-            <span>Ginecologista</span>
-            <div class="consultas-widget__accordion-panel">
-              <div class="consultas-widget__accordion-content">
-                <div class="consultas-widget__receita">
-                    <h3>Receita</h3>
-                    Um<br>
-                    Dois<br>
-                    Feijão com arroz.
-                </div>
-                <div class="consultas-widget__observacoes">
-                    <h3>Observações</h3>
-                    Três<br>
-                    Quatro<br>
-                    Feijão no prato.
-              
-                </div>
-              </div>
-            </div>
-          </div>
-            -->
         </div>
       </div>
     </div>
   </div>
-        
+  
+  <div class="main-footer">
+    Selecione uma clínica:
+    <select name="clinica" id="selectClinica">
+    </select>
+    
+    <button type="button" onclick="mudaDeClinica();">Ir</button>
+
+  </div>
 </body>
 
 
@@ -146,6 +127,7 @@
   function CarregaConsultas() 
   {
     var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 
@@ -156,8 +138,7 @@
       Accordion();
     };
     
-    codigo = "1";
-    envio = "codigo=" + codigo;
+    envio = "codigo=" + codigo + "&codClinica=" + codClinica;
     
     console.log(envio);
     xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaHistoricoPaciente.php?" + envio, true);
@@ -166,6 +147,7 @@
   CarregaConsultas();
   SvgInliner();
   ConsultasFilter();
+  carregaClinicas();
 </script>
 
 </html>

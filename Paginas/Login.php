@@ -4,9 +4,9 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    include_once "../BancoDeDados/logicas/lAtendente.php";
-    include_once "../BancoDeDados/logicas/lPaciente.php";
-    include_once "../BancoDeDados/logicas/lMedico.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lMedico.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lPaciente.php";
+    include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lAtendente.php";include_once $_SERVER['DOCUMENT_ROOT'] . "/BancoDeDados/MySQL/logicas/lClinica.php";
 
     $cpf = $password = "";
     $cpf_err = $password_err = "";
@@ -49,18 +49,45 @@
                     $tipo = get_class($usuario);
                     $_SESSION['tipo'] = $tipo;
 
-                    $_SESSION['nome'] = $usuario->nome;
-
-                    $_SESSION['codigo'] = $usuario->codigo;
-                    $_SESSION['planoDeSaude'] = $usuario->planoDeSaude;
-                    $_SESSION['genero'] = $usuario->genero;
-                    $_SESSION['tipoSanguineo'] = $usuario->tipoSanguineo;
-                    $_SESSION['dtNascimento'] = $usuario->dtNascimento;
-                    $_SESSION['endereco'] = $usuario->endereco;
-                    $_SESSION['telefone'] = $usuario->telefone;
-                    $_SESSION['email'] = $usuario->email;
-                    $_SESSION['especialidade'] = $usuario->especialidade;
+                    $_SESSION['nome'] = $usuario->getNome();
+                    $_SESSION['codigo'] = $usuario->getCodigo();
+                    $_SESSION['dtNascimento'] = $usuario->getDataNascimento();
+                    $_SESSION['endereco'] = $usuario->getEndereco();
+                    $_SESSION['telefone1'] = $usuario->getTelefone1();
+                    $_SESSION['telefone2'] = $usuario->getTelefone2();
+                    $_SESSION['email'] = $usuario->getEmail();
                     
+                    if ($tipo == "lPaciente")
+                    {
+                        $_SESSION['tipoSanguineo'] = $usuario->getTipoSanguineo();
+                        $_SESSION['genero'] = $usuario->getGenero();
+                    }
+                    
+                    if ($tipo == "lPaciente" or $tipo == "lMedico")
+                    {
+                        $_SESSION['planoDeSaude'] = $usuario->getPlanoDeSaude();
+                    }
+
+                    $codClinica = $_POST['clinica'];
+                    $_SESSION['codClinica'] = $codClinica;
+                    
+                    $clinica = new lClinica();
+                    $clinica->setCodigo($codClinica);
+                    $clinica->identifica();
+
+                    $_SESSION['nomeClinica'] = $clinica->getNome();
+
+                    $_SESSION['corPrimaria'] = $clinica->getCorPrimaria();
+                    $_SESSION['corSucesso'] = $clinica->getCorSucesso();
+                    $_SESSION['corFalha'] = $clinica->getCorFalha();
+                    $_SESSION['cor1'] = $clinica->getCor1();
+                    $_SESSION['cor2'] = $clinica->getCor2();
+                    $_SESSION['cor3'] = $clinica->getCor3();
+                    $_SESSION['cor4'] = $clinica->getCor4();
+                    $_SESSION['cor5'] = $clinica->getCor5();
+
+
+
                     redireciona($tipo);
                 }
                 else
@@ -82,27 +109,27 @@
     function procuraUsuario($cpf)
     {
         $oAtendente = new lAtendente();
-        $atendente = $oAtendente->getAtendenteByCPF($cpf);
+        $oAtendente->setCpf($cpf);
     
-        if(sizeof($atendente) > 0)
+        if($oAtendente->identifica())
         {
-            return $atendente[0];
+            return $oAtendente;
         }
     
         $oMedico = new lMedico();
-        $medico = $oMedico->getMedicoByCpf($cpf);
+        $oMedico->setCpf($cpf);
     
-        if(sizeof($medico) > 0)
+        if($oMedico -> identifica())
         {
-            return $medico[0];
+            return $oMedico;
         }
     
         $oPaciente = new lPaciente();
-        $paciente = $oPaciente->getPacienteByCpf($cpf);
+        $oPaciente->setCpf($cpf);
     
-        if(sizeof($paciente) > 0)
+        if($oPaciente -> identifica())
         {
-            return $paciente[0];
+            return $oPaciente;
         }
     
         return false;
@@ -110,7 +137,7 @@
 
     function checaSenha($senha, $usuario)
     {
-        if ($senha == $usuario->senha)
+        if ($senha == $usuario->getSenha())
         {
             return true;
         }
@@ -120,11 +147,11 @@
     function redireciona($tipo)
     {
         if ($tipo == "lAtendente")
-            header("location: /Paginas/Atendente.php");
+            header("location: /Paginas/Atendente/Home.php");
         if ($tipo == "lMedico")
-            header("location: /Paginas/Medico.php");
+            header("location: /Paginas/Medico/Home.php");
         if ($tipo == "lPaciente")
-            header("location: /Paginas/Paciente.php");
+            header("location: /Paginas/Paciente/Home.php");
         
     }
     
@@ -135,6 +162,8 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 <link rel="stylesheet" href="css/Login.css">
 <title> Login </title> <!-- Titulo da pagina --> 
@@ -158,10 +187,15 @@
                     <label for="password"><b></b></label>
                     <input type="password" placeholder="Insira a senha" name="password" required>
 
+                    <br>
+                    Selecione uma clínica:
+                    <br>
+                    <select class="selectClinica" name="clinica" id="selectClinica">
+                    </select>
+
                     <button type="submit">Login</button>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember">Lembrar usuário
-                    </label>
+                    
+                    <a href="/Paginas/Cadastros/CadastroPaciente.php">Criar nova conta</a>
                 </div>
             
             </form>
@@ -172,3 +206,9 @@
 
 </body>
 </html>
+
+<script>
+
+    carregaClinicas();
+
+</script>
