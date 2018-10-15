@@ -104,30 +104,7 @@
         </span>
           
         <div id="consultas-widget__list">
-<!--
-          <div class="consultas-widget__list-row accordion">
-            <span>01/01/2019</span>
-            <span>18:00h</span>
-            <span>Paula Dentro</span>
-            <div class="consultas-widget__accordion-panel">
-              <div class="consultas-widget__accordion-content">
-                <div class="consultas-widget__receita">
-                  
-                    <h3>Receita</h3>
-                    Um<br>
-                    Dois<br>
-                    Feijão com arroz.
-                </div>
-                <div class="consultas-widget__observacoes">
-                    <h3>Observações</h3>
-                    Três<br>
-                    Quatro<br>
-                    Feijão no prato.
-                </div>
-              </div>
-            </div>
-          </div>
-  -->
+
             
         </div>
       </div>
@@ -148,6 +125,7 @@
   function CarregaConsultas() 
   {
     var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 
@@ -158,7 +136,7 @@
       Accordion();
     };
     
-    envio = "codigo=" + codigo;
+    envio = "codigo=" + codigo + "&codClinica=" + codClinica;
     
     console.log(envio);
     xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaConsultasMedico.php?" + envio, true);

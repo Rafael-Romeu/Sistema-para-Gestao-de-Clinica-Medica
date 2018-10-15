@@ -123,6 +123,7 @@
   function CarregaConsultas() 
   {
     var codigo = "<?php echo htmlspecialchars($_SESSION['codigo']); ?>";
+    var codClinica = "<?php echo htmlspecialchars($_SESSION['codClinica']); ?>";
 
     var xmlhttp = new XMLHttpRequest();
 
@@ -134,7 +135,7 @@
       Accordion();
     };
     
-    envio = "codigo=" + codigo;
+    envio = "codigo=" + codigo + "&codClinica=" + codClinica;
     
     console.log(envio);
     xmlhttp.open("GET", "<?php $_SERVER['DOCUMENT_ROOT']?>/ServerScripts/refactored/CarregaHistoricoMedico.php?" + envio, true);
