@@ -81,8 +81,7 @@
         Histórico
       </h1>
 
-      <span class="consultas-widget__filter-toggle" id="filter-toggle">
-        <img class="consultas-widget__filter-icon svg" src="/Paginas/img/common/icons/search.svg">
+      <span>
       </span>
 
       <div class="consultas-widget__filter-box card" id="filter-box">
