@@ -224,7 +224,9 @@ h2 {
   padding: 25px 30px;
 }
 
-
+svg path {
+  fill: var(--color-2) !important;
+}
 
 .table {
   width: 100%;
